@@ -1,0 +1,6 @@
+[submodule "static/static_rtl/hwpe-ctrl"]
+	path = static/static_rtl/hwpe-ctrl
+	url = https://github.com/pulp-platform/hwpe-ctrl.git
+[submodule "static/static_rtl/hwpe-stream"]
+	path = static/static_rtl/hwpe-stream
+	url = https://github.com/pulp-platform/hwpe-stream.git
