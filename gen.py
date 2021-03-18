@@ -84,7 +84,7 @@ source = static_comps + '/static_rtl/hwpe-stream/rtl'
 destination = hwpe_streamer_rtl
 shutil.copytree(source, destination)
 
-source = static_comps + '/static_rtl/hwpe-ctrl/rtl'
+source = static_comps + '/static_rtl/hwpe-ctrl-fpga/rtl'
 destination = hwpe_ctrl_rtl
 shutil.copytree(source, destination)
 
