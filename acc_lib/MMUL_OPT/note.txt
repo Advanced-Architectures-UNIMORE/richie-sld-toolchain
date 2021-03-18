@@ -1,0 +1,5 @@
+MMUL_OPT is based on an IP generated with Vivado HLS with the inner kernel loop completely 
+unrolled; thus, this is capable of performing a dot product between arrays of 512 elements
+in two cycles (one for multiplication and one for accumulation). The IP is supposed to 
+be deployed in a setup with no "local" memories (e.g. TCDM), thus Vivado HLS automatically
+instantiates local BRAMs in order to permit pre-fetching on data blocks.
