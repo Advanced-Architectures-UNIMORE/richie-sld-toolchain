@@ -32,32 +32,32 @@ module ${target}_top_wrap
   // Global signals
   ${port('clk', 'logic', 1, False)},\
   ${port('rst', 'logic', 1, False, True)},
-  ${port('test_mode', 'logic', 1, False)},
+  (* dont_touch = "yes" *) input  logic          test_mode_i,
 
   // Events
-  output logic [N_CORES-1:0][REGFILE_N_EVT-1:0] evt_o,
+  (* dont_touch = "yes" *) output logic [N_CORES-1:0][REGFILE_N_EVT-1:0] evt_o,
 
   // TCDM master ports
-  output logic [MP-1:0]                         tcdm_req,
-  input  logic [MP-1:0]                         tcdm_gnt,
-  output logic [MP-1:0][31:0]                   tcdm_add,
-  output logic [MP-1:0]                         tcdm_wen,
-  output logic [MP-1:0][3:0]                    tcdm_be,
-  output logic [MP-1:0][31:0]                   tcdm_data,
-  input  logic [MP-1:0][31:0]                   tcdm_r_data,
-  input  logic [MP-1:0]                         tcdm_r_valid,
+  (* dont_touch = "yes" *) output logic [MP-1:0]                         tcdm_req,
+  (* dont_touch = "yes" *) input  logic [MP-1:0]                         tcdm_gnt,
+  (* dont_touch = "yes" *) output logic [MP-1:0][31:0]                   tcdm_add,
+  (* dont_touch = "yes" *) output logic [MP-1:0]                         tcdm_wen,
+  (* dont_touch = "yes" *) output logic [MP-1:0][3:0]                    tcdm_be,
+  (* dont_touch = "yes" *) output logic [MP-1:0][31:0]                   tcdm_data,
+  (* dont_touch = "yes" *) input  logic [MP-1:0][31:0]                   tcdm_r_data,
+  (* dont_touch = "yes" *) input  logic [MP-1:0]                         tcdm_r_valid,
 
   // Peripheral slave port
-  input  logic                                  periph_req,
-  output logic                                  periph_gnt,
-  input  logic         [31:0]                   periph_add,
-  input  logic                                  periph_wen,
-  input  logic         [3:0]                    periph_be,
-  input  logic         [31:0]                   periph_data,
-  input  logic       [ID-1:0]                   periph_id,
-  output logic         [31:0]                   periph_r_data,
-  output logic                                  periph_r_valid,
-  output logic       [ID-1:0]                   periph_r_id
+  (* dont_touch = "yes" *) input  logic                                  periph_req,
+  (* dont_touch = "yes" *) output logic                                  periph_gnt,
+  (* dont_touch = "yes" *) input  logic         [31:0]                   periph_add,
+  (* dont_touch = "yes" *) input  logic                                  periph_wen,
+  (* dont_touch = "yes" *) input  logic         [3:0]                    periph_be,
+  (* dont_touch = "yes" *) input  logic         [31:0]                   periph_data,
+  (* dont_touch = "yes" *) input  logic       [ID-1:0]                   periph_id,
+  (* dont_touch = "yes" *) output logic         [31:0]                   periph_r_data,
+  (* dont_touch = "yes" *) output logic                                  periph_r_valid,
+  (* dont_touch = "yes" *) output logic       [ID-1:0]                   periph_r_id
 );
 
   hwpe_stream_intf_tcdm tcdm[MP-1:0] (
