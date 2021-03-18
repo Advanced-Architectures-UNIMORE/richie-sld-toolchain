@@ -3,11 +3,11 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // ==============================================================
 `timescale 1 ns / 1 ps
-module mmult_hw_05_localqHc_x_ram (addr0, ce0, d0, we0, q0,  clk);
+module mmult_hw_local_out_ram (addr0, ce0, d0, we0, q0,  clk);
 
 parameter DWIDTH = 32;
-parameter AWIDTH = 18;
-parameter MEM_SIZE = 262144;
+parameter AWIDTH = 6;
+parameter MEM_SIZE = 64;
 
 input[AWIDTH-1:0] addr0;
 input ce0;
@@ -34,7 +34,7 @@ end
 endmodule
 
 `timescale 1 ns / 1 ps
-module mmult_hw_05_localqHc_x(
+module mmult_hw_local_out(
     reset,
     clk,
     address0,
@@ -44,8 +44,8 @@ module mmult_hw_05_localqHc_x(
     q0);
 
 parameter DataWidth = 32'd32;
-parameter AddressRange = 32'd262144;
-parameter AddressWidth = 32'd18;
+parameter AddressRange = 32'd64;
+parameter AddressWidth = 32'd6;
 input reset;
 input clk;
 input[AddressWidth - 1:0] address0;
@@ -56,7 +56,7 @@ output[DataWidth - 1:0] q0;
 
 
 
-mmult_hw_05_localqHc_x_ram mmult_hw_05_localqHc_x_ram_U(
+mmult_hw_local_out_ram mmult_hw_local_out_ram_U(
     .clk( clk ),
     .addr0( address0 ),
     .ce0( ce0 ),
