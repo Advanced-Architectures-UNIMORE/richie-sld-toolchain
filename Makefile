@@ -4,7 +4,7 @@
 ROOT 					:= $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # Accelerator library
-HWPE_TARGET				:= FIR
+HWPE_TARGET				:= MMUL_OPT
 
 # Templates
 TEMPLATES 				:= ./templates
@@ -21,7 +21,7 @@ STATIC 					:= ./static
 
 STATIC_RTL_DIR 			:= ${STATIC}/static_rtl
 STATIC_STREAM			:= ${STATIC_RTL_DIR}/hwpe-stream/rtl
-STATIC_CTRL 			:= ${STATIC_RTL_DIR}/hwpe-ctrl/rtl
+STATIC_CTRL 			:= ${STATIC_RTL_DIR}/hwpe-ctrl-fpga/rtl
 
 # Output content
 OUT_DIR 				:= ./output
