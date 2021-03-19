@@ -35,23 +35,23 @@ module pulp_hwpe_wrap
 (
   input  logic                        clk,
   input  logic                        rst_n,
-  input  logic                        test_mode,
+  (* dont_touch = "yes" *) input  logic                        test_mode,
   
-  XBAR_TCDM_BUS.Master                hwacc_xbar_master[N_MASTER_PORT-1:0],
-  XBAR_PERIPH_BUS.Slave               hwacc_cfg_slave,
+  (* dont_touch = "yes" *) XBAR_TCDM_BUS.Master                hwacc_xbar_master[N_MASTER_PORT-1:0],
+  (* dont_touch = "yes" *) XBAR_PERIPH_BUS.Slave               hwacc_cfg_slave,
 
-  output logic [N_CORES-1:0][1:0]     evt_o,
-  output logic                        busy_o
+  (* dont_touch = "yes" *) output logic [N_CORES-1:0][1:0]     evt_o,
+  (* dont_touch = "yes" *) output logic                        busy_o
 );
 
-  logic [N_MASTER_PORT-1:0]           tcdm_req;
-  logic [N_MASTER_PORT-1:0]           tcdm_gnt;
-  logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_add;
-  logic [N_MASTER_PORT-1:0]           tcdm_type;
-  logic [N_MASTER_PORT-1:0] [4 -1:0]  tcdm_be;
-  logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_wdata;
-  logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_r_rdata;
-  logic [N_MASTER_PORT-1:0]           tcdm_r_valid;
+  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0]           tcdm_req;
+  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0]           tcdm_gnt;
+  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_add;
+  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0]           tcdm_type;
+  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0] [4 -1:0]  tcdm_be;
+  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_wdata;
+  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_r_rdata;
+  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0]           tcdm_r_valid;
 
 
   ${target}_top_wrap #( 
