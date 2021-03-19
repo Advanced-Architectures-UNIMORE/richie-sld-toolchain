@@ -17,6 +17,7 @@
  * 
  */
 
+(* DONT_TOUCH = "true" *)
 module pulp_hwpe_wrap
 #(
   parameter N_CORES = 2,
@@ -35,26 +36,26 @@ module pulp_hwpe_wrap
 (
   input  logic                        clk,
   input  logic                        rst_n,
-  (* dont_touch = "yes" *) input  logic                        test_mode,
+  input  logic                        test_mode,
   
-  (* dont_touch = "yes" *) XBAR_TCDM_BUS.Master                hwacc_xbar_master[N_MASTER_PORT-1:0],
-  (* dont_touch = "yes" *) XBAR_PERIPH_BUS.Slave               hwacc_cfg_slave,
+  XBAR_TCDM_BUS.Master                hwacc_xbar_master[N_MASTER_PORT-1:0],
+  XBAR_PERIPH_BUS.Slave               hwacc_cfg_slave,
 
-  (* dont_touch = "yes" *) output logic [N_CORES-1:0][1:0]     evt_o,
-  (* dont_touch = "yes" *) output logic                        busy_o
+  output logic [N_CORES-1:0][1:0]     evt_o,
+  output logic                        busy_o
 );
 
-  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0]           tcdm_req;
-  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0]           tcdm_gnt;
-  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_add;
-  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0]           tcdm_type;
-  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0] [4 -1:0]  tcdm_be;
-  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_wdata;
-  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_r_rdata;
-  (* dont_touch = "yes" *) logic [N_MASTER_PORT-1:0]           tcdm_r_valid;
+  (* dont_touch = "true" *) logic [N_MASTER_PORT-1:0]           tcdm_req;
+  (* dont_touch = "true" *) logic [N_MASTER_PORT-1:0]           tcdm_gnt;
+  (* dont_touch = "true" *) logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_add;
+  (* dont_touch = "true" *) logic [N_MASTER_PORT-1:0]           tcdm_type;
+  (* dont_touch = "true" *) logic [N_MASTER_PORT-1:0] [4 -1:0]  tcdm_be;
+  (* dont_touch = "true" *) logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_wdata;
+  (* dont_touch = "true" *) logic [N_MASTER_PORT-1:0] [32-1:0]  tcdm_r_rdata;
+  (* dont_touch = "true" *) logic [N_MASTER_PORT-1:0]           tcdm_r_valid;
 
 
-  ${target}_top_wrap #( 
+  (* DONT_TOUCH = "true" *) ${target}_top_wrap #( 
     .N_CORES          ( N_CORES ),
     .MP               ( N_MASTER_PORT ),
     .ID               ( ID_WIDTH )

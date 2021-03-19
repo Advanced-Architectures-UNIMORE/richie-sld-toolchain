@@ -21,6 +21,7 @@
 import ${target}_package::*;
 import hwpe_ctrl_package::*;
 
+(* DONT_TOUCH = "true" *)
 module ${target}_top
 #(
   parameter int unsigned N_CORES = 2,
@@ -31,25 +32,25 @@ module ${target}_top
   // Global signals
   ${port('clk', 'logic', 1, False)},\
   ${port('rst', 'logic', 1, False, True)},
-  (* dont_touch = "yes" *) input  logic          test_mode_i,
+  input  logic          test_mode_i,
 
   // Events
-  (* dont_touch = "yes" *) output logic [N_CORES-1:0][REGFILE_N_EVT-1:0] evt_o,
+  output logic [N_CORES-1:0][REGFILE_N_EVT-1:0] evt_o,
 
   // TCDM master ports
-  (* dont_touch = "yes" *) hwpe_stream_intf_tcdm.master                  tcdm[MP-1:0],
+  hwpe_stream_intf_tcdm.master                  tcdm[MP-1:0],
 
   // Peripheral slave port
-  (* dont_touch = "yes" *) hwpe_ctrl_intf_periph.slave                   periph
+  hwpe_ctrl_intf_periph.slave                   periph
 );
 
   // Signals
-  (* dont_touch = "yes" *) logic enable, clear;
-  (* dont_touch = "yes" *) logic [N_CORES-1:0][REGFILE_N_EVT-1:0] evt;
-  (* dont_touch = "yes" *) ctrl_streamer_t  streamer_ctrl;
-  (* dont_touch = "yes" *) flags_streamer_t streamer_flags;
-  (* dont_touch = "yes" *) ctrl_engine_t    engine_ctrl;
-  (* dont_touch = "yes" *) flags_engine_t   engine_flags;
+  (* dont_touch = "true" *) logic enable, clear;
+  (* dont_touch = "true" *) logic [N_CORES-1:0][REGFILE_N_EVT-1:0] evt;
+  (* dont_touch = "true" *) ctrl_streamer_t  streamer_ctrl;
+  (* dont_touch = "true" *) flags_streamer_t streamer_flags;
+  (* dont_touch = "true" *) ctrl_engine_t    engine_ctrl;
+  (* dont_touch = "true" *) flags_engine_t   engine_flags;
 
   // Streamer interfaces
   % for i in range (n_tcdm_ports):
@@ -57,7 +58,7 @@ module ${target}_top
   % endfor 
 
   // HWPE engine wrapper
-  ${target}_engine i_engine (
+  (* DONT_TOUCH = "true" *) ${target}_engine i_engine (
     .clk_i            ( clk_i          ),
     .rst_ni           ( rst_ni         ),
     .test_mode_i      ( test_mode_i    ),
@@ -72,7 +73,7 @@ module ${target}_top
   );
 
   // HWPE streamer wrapper
-  ${target}_streamer #(
+  (* DONT_TOUCH = "true" *) ${target}_streamer #(
     .MP ( MP )
   ) i_streamer (
     .clk_i            ( clk_i          ),
@@ -92,7 +93,7 @@ module ${target}_top
   );
 
   // HWPE ctrl wrapper
-  ${target}_ctrl #(
+  (* DONT_TOUCH = "true" *) ${target}_ctrl #(
     .N_CORES   ( 2  ),
     .N_CONTEXT ( 2  ),
     .N_IO_REGS ( 16 ),
