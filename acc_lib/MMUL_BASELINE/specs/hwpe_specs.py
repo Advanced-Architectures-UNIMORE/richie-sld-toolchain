@@ -29,7 +29,7 @@ class hwpe_specs:
         self.std_reg_num        = 5       
 
         # HWPE custom regfiles [ name , data-type , reg-dim , isport ]
-        self.custom_reg         = [ [ 'dumb'  , 'int32_t' , 32 , 0 ] ]
+        self.custom_reg         = [ ]
         self.custom_reg_num     = len(self.custom_reg)
 
         # FSM

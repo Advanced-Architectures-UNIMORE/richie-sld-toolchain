@@ -48,7 +48,7 @@ sources:
       - rtl/hwpe-ctrl/hwpe_ctrl_interfaces.sv
       - rtl/hwpe-ctrl/hwpe_ctrl_regfile.sv
       - rtl/hwpe-ctrl/hwpe_ctrl_regfile_fpga.sv
-      - rtl/hwpe-ctrl/hwpe_ctrl_regfile_fpga_test_wrap.sv
+      - rtl/hwpe-ctrl/hwpe_ctrl_regfile_fpga_wrap.sv
       - rtl/hwpe-ctrl/hwpe_ctrl_slave.sv
       - rtl/hwpe-ctrl/hwpe_ctrl_uloop.sv
 
