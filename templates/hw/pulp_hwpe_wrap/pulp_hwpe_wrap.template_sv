@@ -54,11 +54,7 @@
   (* dont_touch = "true" *) logic [N_MASTER_PORT-1:0]           tcdm_r_valid;
 
 
-<<<<<<< HEAD
-  (* DONT_TOUCH = "true" *) ${target}_top_wrap #( 
-=======
   (* DONT_TOUCH = "TRUE" *) ${target}_top_wrap #( 
->>>>>>> cb79bb0ba7c533677847e482129de419ad24af9b
     .N_CORES          ( N_CORES ),
     .MP               ( N_MASTER_PORT ),
     .ID               ( ID_WIDTH )

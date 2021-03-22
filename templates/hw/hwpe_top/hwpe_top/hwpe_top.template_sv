@@ -57,11 +57,7 @@ import hwpe_ctrl_package::*;
   % endfor 
 
   // HWPE engine wrapper
-<<<<<<< HEAD
-  (* DONT_TOUCH = "true" *) ${target}_engine i_engine (
-=======
   (* DONT_TOUCH = "TRUE" *) ${target}_engine i_engine (
->>>>>>> cb79bb0ba7c533677847e482129de419ad24af9b
     .clk_i            ( clk_i          ),
     .rst_ni           ( rst_ni         ),
     .test_mode_i      ( test_mode_i    ),
@@ -76,11 +72,7 @@ import hwpe_ctrl_package::*;
   );
 
   // HWPE streamer wrapper
-<<<<<<< HEAD
-  (* DONT_TOUCH = "true" *) ${target}_streamer #(
-=======
   (* DONT_TOUCH = "TRUE" *) ${target}_streamer #(
->>>>>>> cb79bb0ba7c533677847e482129de419ad24af9b
     .MP ( MP )
   ) i_streamer (
     .clk_i            ( clk_i          ),
@@ -100,11 +92,7 @@ import hwpe_ctrl_package::*;
   );
 
   // HWPE ctrl wrapper
-<<<<<<< HEAD
-  (* DONT_TOUCH = "true" *) ${target}_ctrl #(
-=======
   (* DONT_TOUCH = "TRUE" *) ${target}_ctrl #(
->>>>>>> cb79bb0ba7c533677847e482129de419ad24af9b
     .N_CORES   ( 2  ),
     .N_CONTEXT ( 2  ),
     .N_IO_REGS ( 16 ),

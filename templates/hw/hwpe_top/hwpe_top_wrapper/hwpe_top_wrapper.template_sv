@@ -98,11 +98,7 @@ import hwpe_ctrl_package::*;
     periph_r_id    = periph.r_id;
   end
 
-<<<<<<< HEAD
-  (* DONT_TOUCH = "true" *) ${target}_top #(
-=======
   (* DONT_TOUCH = "TRUE" *) ${target}_top #(
->>>>>>> cb79bb0ba7c533677847e482129de419ad24af9b
     .N_CORES ( N_CORES ),
     .MP      ( MP      ),
     .ID      ( ID      )
