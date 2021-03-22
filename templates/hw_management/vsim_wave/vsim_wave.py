@@ -11,6 +11,7 @@ import re
 import sys
 
 from templates.sw.common.common_c.template_c import template_c
+from templates.hw_management.vsim_wave.vsim_overlay_versions.overlay_waves import overlay_waves
 
 # Main function
 class vsim_wave:
@@ -22,6 +23,8 @@ class vsim_wave:
 
         # Environment
         self.destdir                = specs.dest_dir
+        self.is_hero_offloading     = specs.overlay_version[0]
+        self.is_release_0_2         = specs.overlay_version[1]
         self.module                 = "vsim_wave/vsim_wave"
 
         # Generic
@@ -50,17 +53,20 @@ class vsim_wave:
 
         # Common template elements
         self.common_c               = template_c(specs).gen()
+        self.overlay_waves          = overlay_waves(specs).gen()
 
         # Template
         self.template               = self.get_template()
 
     def gen(self):
-        s = self.common_c + self.template
+        s = self.common_c + self.overlay_waves + self.template
         pulp_template = Template(s)
         string = pulp_template.render(
             author              = self.author,
             email               = self.email,
             target              = self.hwpe_target, 
+            is_hero_offloading  = self.is_hero_offloading,
+            is_release_0_2      = self.is_release_0_2,
             n_sink              = self.n_sink, 
             n_source            = self.n_source,
             stream_in           = self.list_sink_stream,

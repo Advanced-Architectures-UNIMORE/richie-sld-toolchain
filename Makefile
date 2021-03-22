@@ -33,14 +33,22 @@ OUT_SW_DIR 				:= ${OUT_DIR}/sw
 PULP_SRC				:= ${ROOT}/../src
 HW_TEST					:= ${ROOT}/../test
 HW_DEPS					:= ${ROOT}/../deps
+HWPE_REPO				:= hwpe-repo
 PULP_CLUSTER			:= ${HW_DEPS}/pulp_cluster/rtl
-OVERLAY_TYPE			:= "release/0.2"
 
 RM_F 					:= @rm -f
 RM_DF 					:= @rm -rf
 
 .PHONY: all export gen engine_dev static_rtl acc_lib clean
-all: overlay_deps
+all: pulp-integr
+
+repo-hw:
+	@echo "Exporting hardware wrapper and Bender to HWPE repo."
+	@cp -rf ${OUT_HW_DIR}/hwpe-${HWPE_TARGET}-wrapper ${HW_DEPS}/${HWPE_REPO}/
+
+repo-sw:
+	@echo "Exporting software runtime calls to HWPE repo."
+	@cp -rf ${OUT_SW_DIR} ${HW_DEPS}/hwpe-${HWPE_TARGET}-wrapper/
 
 overlay_deps: pulp-integr
 	@echo "Exporting 'hwpe-${HWPE_TARGET}-wrapper' to the Overlay ecosystem."
@@ -57,7 +65,7 @@ pulp-integr: gen
 
 gen: engine_dev static_rtl 
 	@echo "HWPE wrapper generation."
-	@python3 gen.py ${OVERLAY_TYPE}
+	@python3 gen.py
 
 engine_dev: acc_lib
 	@ls ${ENG_DEV_RTL} >> ${HW_MNGT_DIR}/rtl_list/engine_list.log
