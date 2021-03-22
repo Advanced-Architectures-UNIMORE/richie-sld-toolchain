@@ -39,10 +39,10 @@ RM_F 					:= @rm -f
 RM_DF 					:= @rm -rf
 
 .PHONY: all export gen engine_dev static_rtl acc_lib clean
-all: hero_deps
+all: overlay_deps
 
-hero_deps: pulp-integr
-	@echo "Exporting 'hwpe-${HWPE_TARGET}-wrapper' to HERO ecosystem."
+overlay_deps: pulp-integr
+	@echo "Exporting 'hwpe-${HWPE_TARGET}-wrapper' to the Overlay ecosystem."
 	@cp -rf ${OUT_HW_DIR}/hwpe-${HWPE_TARGET}-wrapper ${HW_DEPS}/hwpe-${HWPE_TARGET}-wrapper
 	@cp -rf ${OUT_SW_DIR} ${HW_DEPS}/hwpe-${HWPE_TARGET}-wrapper/
 

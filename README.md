@@ -15,7 +15,57 @@ with the PULP system for validation.
 
 If you need further details, please contact me at <gianluca.bellocchi@unimore.it>
 
-References:
+## Getting Started
+
+### External sources
+The tool uses Git submodules that have to be initialized. In order to fetch the submodules in the repository, run:
+
+```
+git submodule update --init --recursive
+```
+
+### Setup
+
+#### Accelerator library
+Move to the accelerator library:
+
+```
+cd acc_lib
+```
+ 
+Here are inserted examples of hardware accelerator that are wrappable and exportable to the Overlay environment. If you want to extend the content of this library, the best practice is to
+create a new library folder containing RTL, SPECS and SW subfolders.
+
+##### RTL subfolder
+This folder comprises the RTL files of the hardware accelerator to be wrapped. 
+
+##### SPECS subfolder
+This folder comprises the Python specification file with the information concerning the interface between the HWPE wrapper and the hardware accelerator.
+
+#### HWPE_TARGET
+Open the Makefile in the top folder of the project. Edit the following macros according to your environment and application needs. 
+Specify the name of the accelerator you want to wrap. This has to match the name of the accelerator library you have previously created in "acc_lib".
+
+### Wrapper specialization
+Run:
+
+```
+make clean gen
+```
+
+This way, the Python template libraries will process the System Verilog wrapper templates on the basis of the information you have provided in the Python specification file, permitting 
+the wrapping of the specified hardware accelerator design. The generated files are exported to the output folder.
+
+### Exporting to the Overlay
+Run:
+
+```
+make overlay_deps
+```
+
+This way, the generated HW/SW will be exported to the Overlay ecosystem.
+
+## References:
 
     1) Hardware Processing Engines Documentation: https://hwpe-doc.readthedocs.io/en/latest/index.html
 
