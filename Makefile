@@ -4,7 +4,7 @@
 ROOT 					:= $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # Accelerator library
-HWPE_TARGET				:= MMUL_BASELINE
+HWPE_TARGET				:= MMUL_OPT
 
 # Templates
 TEMPLATES 				:= ./templates
@@ -34,6 +34,7 @@ PULP_SRC				:= ${ROOT}/../src
 HW_TEST					:= ${ROOT}/../test
 HW_DEPS					:= ${ROOT}/../deps
 PULP_CLUSTER			:= ${HW_DEPS}/pulp_cluster/rtl
+OVERLAY_TYPE			:= "release/0.2"
 
 RM_F 					:= @rm -f
 RM_DF 					:= @rm -rf
@@ -56,7 +57,7 @@ pulp-integr: gen
 
 gen: engine_dev static_rtl 
 	@echo "HWPE wrapper generation."
-	@python3 gen.py
+	@python3 gen.py ${OVERLAY_TYPE}
 
 engine_dev: acc_lib
 	@ls ${ENG_DEV_RTL} >> ${HW_MNGT_DIR}/rtl_list/engine_list.log
