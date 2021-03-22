@@ -17,8 +17,7 @@
  * 
  */
 
-(* DONT_TOUCH = "true" *)
-module pulp_hwpe_wrap
+(* DONT_TOUCH = "TRUE" *) module pulp_hwpe_wrap
 #(
   parameter N_CORES = 2,
   parameter N_HWPE = 2,
@@ -55,7 +54,11 @@ module pulp_hwpe_wrap
   (* dont_touch = "true" *) logic [N_MASTER_PORT-1:0]           tcdm_r_valid;
 
 
+<<<<<<< HEAD
   (* DONT_TOUCH = "true" *) ${target}_top_wrap #( 
+=======
+  (* DONT_TOUCH = "TRUE" *) ${target}_top_wrap #( 
+>>>>>>> cb79bb0ba7c533677847e482129de419ad24af9b
     .N_CORES          ( N_CORES ),
     .MP               ( N_MASTER_PORT ),
     .ID               ( ID_WIDTH )
