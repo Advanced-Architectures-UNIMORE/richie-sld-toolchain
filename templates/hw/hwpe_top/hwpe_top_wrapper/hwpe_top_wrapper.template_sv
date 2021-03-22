@@ -22,7 +22,7 @@
 import ${target}_package::*;
 import hwpe_ctrl_package::*;
 
-module ${target}_top_wrap
+(* DONT_TOUCH = "TRUE" *) module ${target}_top_wrap
 #(
   parameter int unsigned N_CORES = 2,
   parameter int unsigned MP  = ${n_tcdm_ports},
@@ -98,7 +98,7 @@ module ${target}_top_wrap
     periph_r_id    = periph.r_id;
   end
 
-  ${target}_top #(
+  (* DONT_TOUCH = "TRUE" *) ${target}_top #(
     .N_CORES ( N_CORES ),
     .MP      ( MP      ),
     .ID      ( ID      )

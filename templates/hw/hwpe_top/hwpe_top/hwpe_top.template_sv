@@ -21,7 +21,7 @@
 import ${target}_package::*;
 import hwpe_ctrl_package::*;
 
-module ${target}_top
+(* DONT_TOUCH = "TRUE" *) module ${target}_top
 #(
   parameter int unsigned N_CORES = 2,
   parameter int unsigned MP  = ${n_tcdm_ports},
@@ -57,7 +57,7 @@ module ${target}_top
   % endfor 
 
   // HWPE engine wrapper
-  ${target}_engine i_engine (
+  (* DONT_TOUCH = "TRUE" *) ${target}_engine i_engine (
     .clk_i            ( clk_i          ),
     .rst_ni           ( rst_ni         ),
     .test_mode_i      ( test_mode_i    ),
@@ -72,7 +72,7 @@ module ${target}_top
   );
 
   // HWPE streamer wrapper
-  ${target}_streamer #(
+  (* DONT_TOUCH = "TRUE" *) ${target}_streamer #(
     .MP ( MP )
   ) i_streamer (
     .clk_i            ( clk_i          ),
@@ -92,7 +92,7 @@ module ${target}_top
   );
 
   // HWPE ctrl wrapper
-  ${target}_ctrl #(
+  (* DONT_TOUCH = "TRUE" *) ${target}_ctrl #(
     .N_CORES   ( 2  ),
     .N_CONTEXT ( 2  ),
     .N_IO_REGS ( 16 ),
