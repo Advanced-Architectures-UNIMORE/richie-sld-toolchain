@@ -15,6 +15,9 @@ class hwpe_specs:
         # Environment
         self.dest_dir           = 'output'
 
+        # Overlay version [ hero_offloading , release_0_2 ]
+        self.overlay_version    = [ False , True ]
+
         # Generic
         self.hwpe_target        = 'MMUL_BASELINE'
         self.design_type        = 'hls'
