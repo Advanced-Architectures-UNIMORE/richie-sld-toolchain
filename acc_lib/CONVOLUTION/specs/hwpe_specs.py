@@ -32,7 +32,20 @@ class hwpe_specs:
         self.std_reg_num        = 5       
 
         # HWPE custom regfiles [ name , data-type , reg-dim , isport ]
-        self.custom_reg         = [ [ 'width' , 'int32_t' , 32 , 1 ] , [ 'height' , 'int32_t' , 32 , 1 ] ]
+        self.custom_reg         = [ [ 'width' , 'int32_t' , 32 , 1 ] , 
+                                    [ 'height' , 'int32_t' , 32 , 1 ] ,
+                                    [ 'filter_coeffs_0' , 'int32_t' , 32 , 1 ] ,
+                                    [ 'filter_coeffs_1' , 'int32_t' , 32 , 1 ] ,
+                                    [ 'filter_coeffs_2' , 'int32_t' , 32 , 1 ] ,
+                                    [ 'filter_coeffs_3' , 'int32_t' , 32 , 1 ] ,
+                                    [ 'filter_coeffs_4' , 'int32_t' , 32 , 1 ] ,
+                                    [ 'filter_coeffs_5' , 'int32_t' , 32 , 1 ] ,
+                                    [ 'filter_coeffs_6' , 'int32_t' , 32 , 1 ] ,
+                                    [ 'filter_coeffs_7' , 'int32_t' , 32 , 1 ] ,
+                                    [ 'filter_coeffs_8' , 'int32_t' , 32 , 1 ] ,
+                                    [ 'filter_coeffs_9' , 'int32_t' , 32 , 1 ] ,
+                                    [ 'filter_coeffs_10' , 'int32_t' , 32 , 1 ] ]
+
         self.custom_reg_num     = len(self.custom_reg)
 
         # FSM

@@ -7,7 +7,7 @@
 
 `timescale 1 ns / 1 ps 
 
-module Loop_border_A_proc6 (
+module Loop_border_A_proc7 (
         ap_clk,
         ap_rst,
         ap_start,
@@ -574,4 +574,4 @@ assign zext_ln257_fu_284_p1 = select_ln251_reg_419;
 
 assign zext_ln273_fu_353_p1 = add_ln273_fu_348_p2;
 
-endmodule //Loop_border_A_proc6
+endmodule //Loop_border_A_proc7

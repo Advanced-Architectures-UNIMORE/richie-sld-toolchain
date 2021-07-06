@@ -7,11 +7,22 @@
 
 `timescale 1 ns / 1 ps 
 
-(* CORE_GENERATION_INFO="filter11x11_strm,hls_ip_2019_2_AR72614,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xczu9eg-ffvb1156-2-e,HLS_INPUT_CLOCK=6.660000,HLS_INPUT_ARCH=dataflow,HLS_SYN_CLOCK=5.673000,HLS_SYN_LAT=102408,HLS_SYN_TPT=102406,HLS_SYN_MEM=44,HLS_SYN_DSP=36,HLS_SYN_FF=1206,HLS_SYN_LUT=2283,HLS_VERSION=2019_2_AR72614}" *)
+(* CORE_GENERATION_INFO="filter11x11_strm,hls_ip_2019_2_AR72614,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xczu9eg-ffvb1156-2-e,HLS_INPUT_CLOCK=6.660000,HLS_INPUT_ARCH=dataflow,HLS_SYN_CLOCK=5.673000,HLS_SYN_LAT=102408,HLS_SYN_TPT=102406,HLS_SYN_MEM=44,HLS_SYN_DSP=66,HLS_SYN_FF=1518,HLS_SYN_LUT=2915,HLS_VERSION=2019_2_AR72614}" *)
 
 module filter11x11_strm (
         width,
         height,
+        filter_coeffs_0,
+        filter_coeffs_1,
+        filter_coeffs_2,
+        filter_coeffs_3,
+        filter_coeffs_4,
+        filter_coeffs_5,
+        filter_coeffs_6,
+        filter_coeffs_7,
+        filter_coeffs_8,
+        filter_coeffs_9,
+        filter_coeffs_10,
         src_V_TDATA,
         dst_V_TDATA,
         ap_clk,
@@ -29,6 +40,17 @@ module filter11x11_strm (
 
 input  [31:0] width;
 input  [31:0] height;
+input  [31:0] filter_coeffs_0;
+input  [31:0] filter_coeffs_1;
+input  [31:0] filter_coeffs_2;
+input  [31:0] filter_coeffs_3;
+input  [31:0] filter_coeffs_4;
+input  [31:0] filter_coeffs_5;
+input  [31:0] filter_coeffs_6;
+input  [31:0] filter_coeffs_7;
+input  [31:0] filter_coeffs_8;
+input  [31:0] filter_coeffs_9;
+input  [31:0] filter_coeffs_10;
 input  [31:0] src_V_TDATA;
 output  [31:0] dst_V_TDATA;
 input   ap_clk;
@@ -43,106 +65,249 @@ output   ap_ready;
 output   ap_idle;
 
  reg    ap_rst_n_inv;
-wire    Loop_HConv_A_proc4_U0_ap_start;
-wire    Loop_HConv_A_proc4_U0_ap_done;
-wire    Loop_HConv_A_proc4_U0_ap_continue;
-wire    Loop_HConv_A_proc4_U0_ap_idle;
-wire    Loop_HConv_A_proc4_U0_ap_ready;
-wire    Loop_HConv_A_proc4_U0_start_out;
-wire    Loop_HConv_A_proc4_U0_start_write;
-wire    Loop_HConv_A_proc4_U0_src_V_TREADY;
-wire   [31:0] Loop_HConv_A_proc4_U0_hconv_V_din;
-wire    Loop_HConv_A_proc4_U0_hconv_V_write;
-wire    Loop_VConv_A_proc5_U0_ap_start;
-wire    Loop_VConv_A_proc5_U0_ap_done;
-wire    Loop_VConv_A_proc5_U0_ap_continue;
-wire    Loop_VConv_A_proc5_U0_ap_idle;
-wire    Loop_VConv_A_proc5_U0_ap_ready;
-wire    Loop_VConv_A_proc5_U0_start_out;
-wire    Loop_VConv_A_proc5_U0_start_write;
-wire    Loop_VConv_A_proc5_U0_hconv_V_read;
-wire   [31:0] Loop_VConv_A_proc5_U0_vconv_V_din;
-wire    Loop_VConv_A_proc5_U0_vconv_V_write;
-wire    Loop_border_A_proc6_U0_ap_start;
-wire    Loop_border_A_proc6_U0_ap_done;
-wire    Loop_border_A_proc6_U0_ap_continue;
-wire    Loop_border_A_proc6_U0_ap_idle;
-wire    Loop_border_A_proc6_U0_ap_ready;
-wire   [31:0] Loop_border_A_proc6_U0_dst_V_TDATA;
-wire    Loop_border_A_proc6_U0_dst_V_TVALID;
-wire    Loop_border_A_proc6_U0_vconv_V_read;
+wire    Loop_HConv_A_proc5_U0_ap_start;
+wire    Loop_HConv_A_proc5_U0_ap_done;
+wire    Loop_HConv_A_proc5_U0_ap_continue;
+wire    Loop_HConv_A_proc5_U0_ap_idle;
+wire    Loop_HConv_A_proc5_U0_ap_ready;
+wire    Loop_HConv_A_proc5_U0_start_out;
+wire    Loop_HConv_A_proc5_U0_start_write;
+wire    Loop_HConv_A_proc5_U0_src_V_TREADY;
+wire   [31:0] Loop_HConv_A_proc5_U0_hconv_V_din;
+wire    Loop_HConv_A_proc5_U0_hconv_V_write;
+wire   [31:0] Loop_HConv_A_proc5_U0_filter_coeffs_0_out_din;
+wire    Loop_HConv_A_proc5_U0_filter_coeffs_0_out_write;
+wire   [31:0] Loop_HConv_A_proc5_U0_filter_coeffs_1_out_din;
+wire    Loop_HConv_A_proc5_U0_filter_coeffs_1_out_write;
+wire   [31:0] Loop_HConv_A_proc5_U0_filter_coeffs_2_out_din;
+wire    Loop_HConv_A_proc5_U0_filter_coeffs_2_out_write;
+wire   [31:0] Loop_HConv_A_proc5_U0_filter_coeffs_3_out_din;
+wire    Loop_HConv_A_proc5_U0_filter_coeffs_3_out_write;
+wire   [31:0] Loop_HConv_A_proc5_U0_filter_coeffs_4_out_din;
+wire    Loop_HConv_A_proc5_U0_filter_coeffs_4_out_write;
+wire   [31:0] Loop_HConv_A_proc5_U0_filter_coeffs_5_out_din;
+wire    Loop_HConv_A_proc5_U0_filter_coeffs_5_out_write;
+wire   [31:0] Loop_HConv_A_proc5_U0_filter_coeffs_6_out_din;
+wire    Loop_HConv_A_proc5_U0_filter_coeffs_6_out_write;
+wire   [31:0] Loop_HConv_A_proc5_U0_filter_coeffs_7_out_din;
+wire    Loop_HConv_A_proc5_U0_filter_coeffs_7_out_write;
+wire   [31:0] Loop_HConv_A_proc5_U0_filter_coeffs_8_out_din;
+wire    Loop_HConv_A_proc5_U0_filter_coeffs_8_out_write;
+wire   [31:0] Loop_HConv_A_proc5_U0_filter_coeffs_9_out_din;
+wire    Loop_HConv_A_proc5_U0_filter_coeffs_9_out_write;
+wire   [31:0] Loop_HConv_A_proc5_U0_filter_coeffs_10_out_din;
+wire    Loop_HConv_A_proc5_U0_filter_coeffs_10_out_write;
+wire    Loop_VConv_A_proc6_U0_ap_start;
+wire    Loop_VConv_A_proc6_U0_ap_done;
+wire    Loop_VConv_A_proc6_U0_ap_continue;
+wire    Loop_VConv_A_proc6_U0_ap_idle;
+wire    Loop_VConv_A_proc6_U0_ap_ready;
+wire    Loop_VConv_A_proc6_U0_start_out;
+wire    Loop_VConv_A_proc6_U0_start_write;
+wire    Loop_VConv_A_proc6_U0_hconv_V_read;
+wire    Loop_VConv_A_proc6_U0_filter_coeffs_0_read;
+wire   [31:0] Loop_VConv_A_proc6_U0_vconv_V_din;
+wire    Loop_VConv_A_proc6_U0_vconv_V_write;
+wire    Loop_VConv_A_proc6_U0_filter_coeffs_1_read;
+wire    Loop_VConv_A_proc6_U0_filter_coeffs_2_read;
+wire    Loop_VConv_A_proc6_U0_filter_coeffs_3_read;
+wire    Loop_VConv_A_proc6_U0_filter_coeffs_4_read;
+wire    Loop_VConv_A_proc6_U0_filter_coeffs_5_read;
+wire    Loop_VConv_A_proc6_U0_filter_coeffs_6_read;
+wire    Loop_VConv_A_proc6_U0_filter_coeffs_7_read;
+wire    Loop_VConv_A_proc6_U0_filter_coeffs_8_read;
+wire    Loop_VConv_A_proc6_U0_filter_coeffs_9_read;
+wire    Loop_VConv_A_proc6_U0_filter_coeffs_10_read;
+wire    Loop_border_A_proc7_U0_ap_start;
+wire    Loop_border_A_proc7_U0_ap_done;
+wire    Loop_border_A_proc7_U0_ap_continue;
+wire    Loop_border_A_proc7_U0_ap_idle;
+wire    Loop_border_A_proc7_U0_ap_ready;
+wire   [31:0] Loop_border_A_proc7_U0_dst_V_TDATA;
+wire    Loop_border_A_proc7_U0_dst_V_TVALID;
+wire    Loop_border_A_proc7_U0_vconv_V_read;
 wire    ap_sync_continue;
 wire    hconv_V_full_n;
 wire   [31:0] hconv_V_dout;
 wire    hconv_V_empty_n;
+wire    filter_coeffs_0_c_full_n;
+wire   [31:0] filter_coeffs_0_c_dout;
+wire    filter_coeffs_0_c_empty_n;
+wire    filter_coeffs_1_c_full_n;
+wire   [31:0] filter_coeffs_1_c_dout;
+wire    filter_coeffs_1_c_empty_n;
+wire    filter_coeffs_2_c_full_n;
+wire   [31:0] filter_coeffs_2_c_dout;
+wire    filter_coeffs_2_c_empty_n;
+wire    filter_coeffs_3_c_full_n;
+wire   [31:0] filter_coeffs_3_c_dout;
+wire    filter_coeffs_3_c_empty_n;
+wire    filter_coeffs_4_c_full_n;
+wire   [31:0] filter_coeffs_4_c_dout;
+wire    filter_coeffs_4_c_empty_n;
+wire    filter_coeffs_5_c_full_n;
+wire   [31:0] filter_coeffs_5_c_dout;
+wire    filter_coeffs_5_c_empty_n;
+wire    filter_coeffs_6_c_full_n;
+wire   [31:0] filter_coeffs_6_c_dout;
+wire    filter_coeffs_6_c_empty_n;
+wire    filter_coeffs_7_c_full_n;
+wire   [31:0] filter_coeffs_7_c_dout;
+wire    filter_coeffs_7_c_empty_n;
+wire    filter_coeffs_8_c_full_n;
+wire   [31:0] filter_coeffs_8_c_dout;
+wire    filter_coeffs_8_c_empty_n;
+wire    filter_coeffs_9_c_full_n;
+wire   [31:0] filter_coeffs_9_c_dout;
+wire    filter_coeffs_9_c_empty_n;
+wire    filter_coeffs_10_c_full_n;
+wire   [31:0] filter_coeffs_10_c_dout;
+wire    filter_coeffs_10_c_empty_n;
 wire    vconv_V_full_n;
 wire   [31:0] vconv_V_dout;
 wire    vconv_V_empty_n;
 wire    ap_sync_done;
 wire    ap_sync_ready;
-wire   [0:0] start_for_Loop_VConv_A_proc5_U0_din;
-wire    start_for_Loop_VConv_A_proc5_U0_full_n;
-wire   [0:0] start_for_Loop_VConv_A_proc5_U0_dout;
-wire    start_for_Loop_VConv_A_proc5_U0_empty_n;
-wire   [0:0] start_for_Loop_border_A_proc6_U0_din;
-wire    start_for_Loop_border_A_proc6_U0_full_n;
-wire   [0:0] start_for_Loop_border_A_proc6_U0_dout;
-wire    start_for_Loop_border_A_proc6_U0_empty_n;
-wire    Loop_border_A_proc6_U0_start_full_n;
-wire    Loop_border_A_proc6_U0_start_write;
+wire   [0:0] start_for_Loop_VConv_A_proc6_U0_din;
+wire    start_for_Loop_VConv_A_proc6_U0_full_n;
+wire   [0:0] start_for_Loop_VConv_A_proc6_U0_dout;
+wire    start_for_Loop_VConv_A_proc6_U0_empty_n;
+wire   [0:0] start_for_Loop_border_A_proc7_U0_din;
+wire    start_for_Loop_border_A_proc7_U0_full_n;
+wire   [0:0] start_for_Loop_border_A_proc7_U0_dout;
+wire    start_for_Loop_border_A_proc7_U0_empty_n;
+wire    Loop_border_A_proc7_U0_start_full_n;
+wire    Loop_border_A_proc7_U0_start_write;
 
-Loop_HConv_A_proc4 Loop_HConv_A_proc4_U0(
+Loop_HConv_A_proc5 Loop_HConv_A_proc5_U0(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
-    .ap_start(Loop_HConv_A_proc4_U0_ap_start),
-    .start_full_n(start_for_Loop_VConv_A_proc5_U0_full_n),
-    .ap_done(Loop_HConv_A_proc4_U0_ap_done),
-    .ap_continue(Loop_HConv_A_proc4_U0_ap_continue),
-    .ap_idle(Loop_HConv_A_proc4_U0_ap_idle),
-    .ap_ready(Loop_HConv_A_proc4_U0_ap_ready),
-    .start_out(Loop_HConv_A_proc4_U0_start_out),
-    .start_write(Loop_HConv_A_proc4_U0_start_write),
+    .ap_start(Loop_HConv_A_proc5_U0_ap_start),
+    .start_full_n(start_for_Loop_VConv_A_proc6_U0_full_n),
+    .ap_done(Loop_HConv_A_proc5_U0_ap_done),
+    .ap_continue(Loop_HConv_A_proc5_U0_ap_continue),
+    .ap_idle(Loop_HConv_A_proc5_U0_ap_idle),
+    .ap_ready(Loop_HConv_A_proc5_U0_ap_ready),
+    .start_out(Loop_HConv_A_proc5_U0_start_out),
+    .start_write(Loop_HConv_A_proc5_U0_start_write),
     .src_V_TDATA(src_V_TDATA),
     .src_V_TVALID(src_V_TVALID),
-    .src_V_TREADY(Loop_HConv_A_proc4_U0_src_V_TREADY),
-    .hconv_V_din(Loop_HConv_A_proc4_U0_hconv_V_din),
+    .src_V_TREADY(Loop_HConv_A_proc5_U0_src_V_TREADY),
+    .filter_coeffs_0(filter_coeffs_0),
+    .filter_coeffs_1(filter_coeffs_1),
+    .filter_coeffs_2(filter_coeffs_2),
+    .filter_coeffs_3(filter_coeffs_3),
+    .filter_coeffs_4(filter_coeffs_4),
+    .filter_coeffs_5(filter_coeffs_5),
+    .filter_coeffs_6(filter_coeffs_6),
+    .filter_coeffs_7(filter_coeffs_7),
+    .filter_coeffs_8(filter_coeffs_8),
+    .filter_coeffs_9(filter_coeffs_9),
+    .filter_coeffs_10(filter_coeffs_10),
+    .hconv_V_din(Loop_HConv_A_proc5_U0_hconv_V_din),
     .hconv_V_full_n(hconv_V_full_n),
-    .hconv_V_write(Loop_HConv_A_proc4_U0_hconv_V_write)
+    .hconv_V_write(Loop_HConv_A_proc5_U0_hconv_V_write),
+    .filter_coeffs_0_out_din(Loop_HConv_A_proc5_U0_filter_coeffs_0_out_din),
+    .filter_coeffs_0_out_full_n(filter_coeffs_0_c_full_n),
+    .filter_coeffs_0_out_write(Loop_HConv_A_proc5_U0_filter_coeffs_0_out_write),
+    .filter_coeffs_1_out_din(Loop_HConv_A_proc5_U0_filter_coeffs_1_out_din),
+    .filter_coeffs_1_out_full_n(filter_coeffs_1_c_full_n),
+    .filter_coeffs_1_out_write(Loop_HConv_A_proc5_U0_filter_coeffs_1_out_write),
+    .filter_coeffs_2_out_din(Loop_HConv_A_proc5_U0_filter_coeffs_2_out_din),
+    .filter_coeffs_2_out_full_n(filter_coeffs_2_c_full_n),
+    .filter_coeffs_2_out_write(Loop_HConv_A_proc5_U0_filter_coeffs_2_out_write),
+    .filter_coeffs_3_out_din(Loop_HConv_A_proc5_U0_filter_coeffs_3_out_din),
+    .filter_coeffs_3_out_full_n(filter_coeffs_3_c_full_n),
+    .filter_coeffs_3_out_write(Loop_HConv_A_proc5_U0_filter_coeffs_3_out_write),
+    .filter_coeffs_4_out_din(Loop_HConv_A_proc5_U0_filter_coeffs_4_out_din),
+    .filter_coeffs_4_out_full_n(filter_coeffs_4_c_full_n),
+    .filter_coeffs_4_out_write(Loop_HConv_A_proc5_U0_filter_coeffs_4_out_write),
+    .filter_coeffs_5_out_din(Loop_HConv_A_proc5_U0_filter_coeffs_5_out_din),
+    .filter_coeffs_5_out_full_n(filter_coeffs_5_c_full_n),
+    .filter_coeffs_5_out_write(Loop_HConv_A_proc5_U0_filter_coeffs_5_out_write),
+    .filter_coeffs_6_out_din(Loop_HConv_A_proc5_U0_filter_coeffs_6_out_din),
+    .filter_coeffs_6_out_full_n(filter_coeffs_6_c_full_n),
+    .filter_coeffs_6_out_write(Loop_HConv_A_proc5_U0_filter_coeffs_6_out_write),
+    .filter_coeffs_7_out_din(Loop_HConv_A_proc5_U0_filter_coeffs_7_out_din),
+    .filter_coeffs_7_out_full_n(filter_coeffs_7_c_full_n),
+    .filter_coeffs_7_out_write(Loop_HConv_A_proc5_U0_filter_coeffs_7_out_write),
+    .filter_coeffs_8_out_din(Loop_HConv_A_proc5_U0_filter_coeffs_8_out_din),
+    .filter_coeffs_8_out_full_n(filter_coeffs_8_c_full_n),
+    .filter_coeffs_8_out_write(Loop_HConv_A_proc5_U0_filter_coeffs_8_out_write),
+    .filter_coeffs_9_out_din(Loop_HConv_A_proc5_U0_filter_coeffs_9_out_din),
+    .filter_coeffs_9_out_full_n(filter_coeffs_9_c_full_n),
+    .filter_coeffs_9_out_write(Loop_HConv_A_proc5_U0_filter_coeffs_9_out_write),
+    .filter_coeffs_10_out_din(Loop_HConv_A_proc5_U0_filter_coeffs_10_out_din),
+    .filter_coeffs_10_out_full_n(filter_coeffs_10_c_full_n),
+    .filter_coeffs_10_out_write(Loop_HConv_A_proc5_U0_filter_coeffs_10_out_write)
 );
 
-Loop_VConv_A_proc5 Loop_VConv_A_proc5_U0(
+Loop_VConv_A_proc6 Loop_VConv_A_proc6_U0(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
-    .ap_start(Loop_VConv_A_proc5_U0_ap_start),
-    .start_full_n(start_for_Loop_border_A_proc6_U0_full_n),
-    .ap_done(Loop_VConv_A_proc5_U0_ap_done),
-    .ap_continue(Loop_VConv_A_proc5_U0_ap_continue),
-    .ap_idle(Loop_VConv_A_proc5_U0_ap_idle),
-    .ap_ready(Loop_VConv_A_proc5_U0_ap_ready),
-    .start_out(Loop_VConv_A_proc5_U0_start_out),
-    .start_write(Loop_VConv_A_proc5_U0_start_write),
+    .ap_start(Loop_VConv_A_proc6_U0_ap_start),
+    .start_full_n(start_for_Loop_border_A_proc7_U0_full_n),
+    .ap_done(Loop_VConv_A_proc6_U0_ap_done),
+    .ap_continue(Loop_VConv_A_proc6_U0_ap_continue),
+    .ap_idle(Loop_VConv_A_proc6_U0_ap_idle),
+    .ap_ready(Loop_VConv_A_proc6_U0_ap_ready),
+    .start_out(Loop_VConv_A_proc6_U0_start_out),
+    .start_write(Loop_VConv_A_proc6_U0_start_write),
     .hconv_V_dout(hconv_V_dout),
     .hconv_V_empty_n(hconv_V_empty_n),
-    .hconv_V_read(Loop_VConv_A_proc5_U0_hconv_V_read),
-    .vconv_V_din(Loop_VConv_A_proc5_U0_vconv_V_din),
+    .hconv_V_read(Loop_VConv_A_proc6_U0_hconv_V_read),
+    .filter_coeffs_0_dout(filter_coeffs_0_c_dout),
+    .filter_coeffs_0_empty_n(filter_coeffs_0_c_empty_n),
+    .filter_coeffs_0_read(Loop_VConv_A_proc6_U0_filter_coeffs_0_read),
+    .vconv_V_din(Loop_VConv_A_proc6_U0_vconv_V_din),
     .vconv_V_full_n(vconv_V_full_n),
-    .vconv_V_write(Loop_VConv_A_proc5_U0_vconv_V_write)
+    .vconv_V_write(Loop_VConv_A_proc6_U0_vconv_V_write),
+    .filter_coeffs_1_dout(filter_coeffs_1_c_dout),
+    .filter_coeffs_1_empty_n(filter_coeffs_1_c_empty_n),
+    .filter_coeffs_1_read(Loop_VConv_A_proc6_U0_filter_coeffs_1_read),
+    .filter_coeffs_2_dout(filter_coeffs_2_c_dout),
+    .filter_coeffs_2_empty_n(filter_coeffs_2_c_empty_n),
+    .filter_coeffs_2_read(Loop_VConv_A_proc6_U0_filter_coeffs_2_read),
+    .filter_coeffs_3_dout(filter_coeffs_3_c_dout),
+    .filter_coeffs_3_empty_n(filter_coeffs_3_c_empty_n),
+    .filter_coeffs_3_read(Loop_VConv_A_proc6_U0_filter_coeffs_3_read),
+    .filter_coeffs_4_dout(filter_coeffs_4_c_dout),
+    .filter_coeffs_4_empty_n(filter_coeffs_4_c_empty_n),
+    .filter_coeffs_4_read(Loop_VConv_A_proc6_U0_filter_coeffs_4_read),
+    .filter_coeffs_5_dout(filter_coeffs_5_c_dout),
+    .filter_coeffs_5_empty_n(filter_coeffs_5_c_empty_n),
+    .filter_coeffs_5_read(Loop_VConv_A_proc6_U0_filter_coeffs_5_read),
+    .filter_coeffs_6_dout(filter_coeffs_6_c_dout),
+    .filter_coeffs_6_empty_n(filter_coeffs_6_c_empty_n),
+    .filter_coeffs_6_read(Loop_VConv_A_proc6_U0_filter_coeffs_6_read),
+    .filter_coeffs_7_dout(filter_coeffs_7_c_dout),
+    .filter_coeffs_7_empty_n(filter_coeffs_7_c_empty_n),
+    .filter_coeffs_7_read(Loop_VConv_A_proc6_U0_filter_coeffs_7_read),
+    .filter_coeffs_8_dout(filter_coeffs_8_c_dout),
+    .filter_coeffs_8_empty_n(filter_coeffs_8_c_empty_n),
+    .filter_coeffs_8_read(Loop_VConv_A_proc6_U0_filter_coeffs_8_read),
+    .filter_coeffs_9_dout(filter_coeffs_9_c_dout),
+    .filter_coeffs_9_empty_n(filter_coeffs_9_c_empty_n),
+    .filter_coeffs_9_read(Loop_VConv_A_proc6_U0_filter_coeffs_9_read),
+    .filter_coeffs_10_dout(filter_coeffs_10_c_dout),
+    .filter_coeffs_10_empty_n(filter_coeffs_10_c_empty_n),
+    .filter_coeffs_10_read(Loop_VConv_A_proc6_U0_filter_coeffs_10_read)
 );
 
-Loop_border_A_proc6 Loop_border_A_proc6_U0(
+Loop_border_A_proc7 Loop_border_A_proc7_U0(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
-    .ap_start(Loop_border_A_proc6_U0_ap_start),
-    .ap_done(Loop_border_A_proc6_U0_ap_done),
-    .ap_continue(Loop_border_A_proc6_U0_ap_continue),
-    .ap_idle(Loop_border_A_proc6_U0_ap_idle),
-    .ap_ready(Loop_border_A_proc6_U0_ap_ready),
-    .dst_V_TDATA(Loop_border_A_proc6_U0_dst_V_TDATA),
-    .dst_V_TVALID(Loop_border_A_proc6_U0_dst_V_TVALID),
+    .ap_start(Loop_border_A_proc7_U0_ap_start),
+    .ap_done(Loop_border_A_proc7_U0_ap_done),
+    .ap_continue(Loop_border_A_proc7_U0_ap_continue),
+    .ap_idle(Loop_border_A_proc7_U0_ap_idle),
+    .ap_ready(Loop_border_A_proc7_U0_ap_ready),
+    .dst_V_TDATA(Loop_border_A_proc7_U0_dst_V_TDATA),
+    .dst_V_TVALID(Loop_border_A_proc7_U0_dst_V_TVALID),
     .dst_V_TREADY(dst_V_TREADY),
     .vconv_V_dout(vconv_V_dout),
     .vconv_V_empty_n(vconv_V_empty_n),
-    .vconv_V_read(Loop_border_A_proc6_U0_vconv_V_read)
+    .vconv_V_read(Loop_border_A_proc7_U0_vconv_V_read)
 );
 
 fifo_w32_d2_A hconv_V_U(
@@ -150,12 +315,155 @@ fifo_w32_d2_A hconv_V_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(Loop_HConv_A_proc4_U0_hconv_V_din),
+    .if_din(Loop_HConv_A_proc5_U0_hconv_V_din),
     .if_full_n(hconv_V_full_n),
-    .if_write(Loop_HConv_A_proc4_U0_hconv_V_write),
+    .if_write(Loop_HConv_A_proc5_U0_hconv_V_write),
     .if_dout(hconv_V_dout),
     .if_empty_n(hconv_V_empty_n),
-    .if_read(Loop_VConv_A_proc5_U0_hconv_V_read)
+    .if_read(Loop_VConv_A_proc6_U0_hconv_V_read)
+);
+
+fifo_w32_d2_A filter_coeffs_0_c_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(Loop_HConv_A_proc5_U0_filter_coeffs_0_out_din),
+    .if_full_n(filter_coeffs_0_c_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_filter_coeffs_0_out_write),
+    .if_dout(filter_coeffs_0_c_dout),
+    .if_empty_n(filter_coeffs_0_c_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_filter_coeffs_0_read)
+);
+
+fifo_w32_d2_A filter_coeffs_1_c_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(Loop_HConv_A_proc5_U0_filter_coeffs_1_out_din),
+    .if_full_n(filter_coeffs_1_c_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_filter_coeffs_1_out_write),
+    .if_dout(filter_coeffs_1_c_dout),
+    .if_empty_n(filter_coeffs_1_c_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_filter_coeffs_1_read)
+);
+
+fifo_w32_d2_A filter_coeffs_2_c_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(Loop_HConv_A_proc5_U0_filter_coeffs_2_out_din),
+    .if_full_n(filter_coeffs_2_c_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_filter_coeffs_2_out_write),
+    .if_dout(filter_coeffs_2_c_dout),
+    .if_empty_n(filter_coeffs_2_c_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_filter_coeffs_2_read)
+);
+
+fifo_w32_d2_A filter_coeffs_3_c_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(Loop_HConv_A_proc5_U0_filter_coeffs_3_out_din),
+    .if_full_n(filter_coeffs_3_c_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_filter_coeffs_3_out_write),
+    .if_dout(filter_coeffs_3_c_dout),
+    .if_empty_n(filter_coeffs_3_c_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_filter_coeffs_3_read)
+);
+
+fifo_w32_d2_A filter_coeffs_4_c_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(Loop_HConv_A_proc5_U0_filter_coeffs_4_out_din),
+    .if_full_n(filter_coeffs_4_c_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_filter_coeffs_4_out_write),
+    .if_dout(filter_coeffs_4_c_dout),
+    .if_empty_n(filter_coeffs_4_c_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_filter_coeffs_4_read)
+);
+
+fifo_w32_d2_A filter_coeffs_5_c_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(Loop_HConv_A_proc5_U0_filter_coeffs_5_out_din),
+    .if_full_n(filter_coeffs_5_c_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_filter_coeffs_5_out_write),
+    .if_dout(filter_coeffs_5_c_dout),
+    .if_empty_n(filter_coeffs_5_c_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_filter_coeffs_5_read)
+);
+
+fifo_w32_d2_A filter_coeffs_6_c_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(Loop_HConv_A_proc5_U0_filter_coeffs_6_out_din),
+    .if_full_n(filter_coeffs_6_c_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_filter_coeffs_6_out_write),
+    .if_dout(filter_coeffs_6_c_dout),
+    .if_empty_n(filter_coeffs_6_c_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_filter_coeffs_6_read)
+);
+
+fifo_w32_d2_A filter_coeffs_7_c_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(Loop_HConv_A_proc5_U0_filter_coeffs_7_out_din),
+    .if_full_n(filter_coeffs_7_c_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_filter_coeffs_7_out_write),
+    .if_dout(filter_coeffs_7_c_dout),
+    .if_empty_n(filter_coeffs_7_c_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_filter_coeffs_7_read)
+);
+
+fifo_w32_d2_A filter_coeffs_8_c_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(Loop_HConv_A_proc5_U0_filter_coeffs_8_out_din),
+    .if_full_n(filter_coeffs_8_c_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_filter_coeffs_8_out_write),
+    .if_dout(filter_coeffs_8_c_dout),
+    .if_empty_n(filter_coeffs_8_c_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_filter_coeffs_8_read)
+);
+
+fifo_w32_d2_A filter_coeffs_9_c_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(Loop_HConv_A_proc5_U0_filter_coeffs_9_out_din),
+    .if_full_n(filter_coeffs_9_c_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_filter_coeffs_9_out_write),
+    .if_dout(filter_coeffs_9_c_dout),
+    .if_empty_n(filter_coeffs_9_c_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_filter_coeffs_9_read)
+);
+
+fifo_w32_d2_A filter_coeffs_10_c_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(Loop_HConv_A_proc5_U0_filter_coeffs_10_out_din),
+    .if_full_n(filter_coeffs_10_c_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_filter_coeffs_10_out_write),
+    .if_dout(filter_coeffs_10_c_dout),
+    .if_empty_n(filter_coeffs_10_c_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_filter_coeffs_10_read)
 );
 
 fifo_w32_d2_A vconv_V_U(
@@ -163,12 +471,12 @@ fifo_w32_d2_A vconv_V_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(Loop_VConv_A_proc5_U0_vconv_V_din),
+    .if_din(Loop_VConv_A_proc6_U0_vconv_V_din),
     .if_full_n(vconv_V_full_n),
-    .if_write(Loop_VConv_A_proc5_U0_vconv_V_write),
+    .if_write(Loop_VConv_A_proc6_U0_vconv_V_write),
     .if_dout(vconv_V_dout),
     .if_empty_n(vconv_V_empty_n),
-    .if_read(Loop_border_A_proc6_U0_vconv_V_read)
+    .if_read(Loop_border_A_proc7_U0_vconv_V_read)
 );
 
 start_for_Loop_VCmb6 start_for_Loop_VCmb6_U(
@@ -176,12 +484,12 @@ start_for_Loop_VCmb6 start_for_Loop_VCmb6_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(start_for_Loop_VConv_A_proc5_U0_din),
-    .if_full_n(start_for_Loop_VConv_A_proc5_U0_full_n),
-    .if_write(Loop_HConv_A_proc4_U0_start_write),
-    .if_dout(start_for_Loop_VConv_A_proc5_U0_dout),
-    .if_empty_n(start_for_Loop_VConv_A_proc5_U0_empty_n),
-    .if_read(Loop_VConv_A_proc5_U0_ap_ready)
+    .if_din(start_for_Loop_VConv_A_proc6_U0_din),
+    .if_full_n(start_for_Loop_VConv_A_proc6_U0_full_n),
+    .if_write(Loop_HConv_A_proc5_U0_start_write),
+    .if_dout(start_for_Loop_VConv_A_proc6_U0_dout),
+    .if_empty_n(start_for_Loop_VConv_A_proc6_U0_empty_n),
+    .if_read(Loop_VConv_A_proc6_U0_ap_ready)
 );
 
 start_for_Loop_boncg start_for_Loop_boncg_U(
@@ -189,35 +497,35 @@ start_for_Loop_boncg start_for_Loop_boncg_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(start_for_Loop_border_A_proc6_U0_din),
-    .if_full_n(start_for_Loop_border_A_proc6_U0_full_n),
-    .if_write(Loop_VConv_A_proc5_U0_start_write),
-    .if_dout(start_for_Loop_border_A_proc6_U0_dout),
-    .if_empty_n(start_for_Loop_border_A_proc6_U0_empty_n),
-    .if_read(Loop_border_A_proc6_U0_ap_ready)
+    .if_din(start_for_Loop_border_A_proc7_U0_din),
+    .if_full_n(start_for_Loop_border_A_proc7_U0_full_n),
+    .if_write(Loop_VConv_A_proc6_U0_start_write),
+    .if_dout(start_for_Loop_border_A_proc7_U0_dout),
+    .if_empty_n(start_for_Loop_border_A_proc7_U0_empty_n),
+    .if_read(Loop_border_A_proc7_U0_ap_ready)
 );
 
-assign Loop_HConv_A_proc4_U0_ap_continue = 1'b1;
+assign Loop_HConv_A_proc5_U0_ap_continue = 1'b1;
 
-assign Loop_HConv_A_proc4_U0_ap_start = ap_start;
+assign Loop_HConv_A_proc5_U0_ap_start = ap_start;
 
-assign Loop_VConv_A_proc5_U0_ap_continue = 1'b1;
+assign Loop_VConv_A_proc6_U0_ap_continue = 1'b1;
 
-assign Loop_VConv_A_proc5_U0_ap_start = start_for_Loop_VConv_A_proc5_U0_empty_n;
+assign Loop_VConv_A_proc6_U0_ap_start = start_for_Loop_VConv_A_proc6_U0_empty_n;
 
-assign Loop_border_A_proc6_U0_ap_continue = 1'b1;
+assign Loop_border_A_proc7_U0_ap_continue = 1'b1;
 
-assign Loop_border_A_proc6_U0_ap_start = start_for_Loop_border_A_proc6_U0_empty_n;
+assign Loop_border_A_proc7_U0_ap_start = start_for_Loop_border_A_proc7_U0_empty_n;
 
-assign Loop_border_A_proc6_U0_start_full_n = 1'b1;
+assign Loop_border_A_proc7_U0_start_full_n = 1'b1;
 
-assign Loop_border_A_proc6_U0_start_write = 1'b0;
+assign Loop_border_A_proc7_U0_start_write = 1'b0;
 
-assign ap_done = Loop_border_A_proc6_U0_ap_done;
+assign ap_done = Loop_border_A_proc7_U0_ap_done;
 
-assign ap_idle = (Loop_border_A_proc6_U0_ap_idle & Loop_VConv_A_proc5_U0_ap_idle & Loop_HConv_A_proc4_U0_ap_idle);
+assign ap_idle = (Loop_border_A_proc7_U0_ap_idle & Loop_VConv_A_proc6_U0_ap_idle & Loop_HConv_A_proc5_U0_ap_idle);
 
-assign ap_ready = Loop_HConv_A_proc4_U0_ap_ready;
+assign ap_ready = Loop_HConv_A_proc5_U0_ap_ready;
 
 always @ (*) begin
     ap_rst_n_inv = ~ap_rst_n;
@@ -225,18 +533,18 @@ end
 
 assign ap_sync_continue = 1'b1;
 
-assign ap_sync_done = Loop_border_A_proc6_U0_ap_done;
+assign ap_sync_done = Loop_border_A_proc7_U0_ap_done;
 
-assign ap_sync_ready = Loop_HConv_A_proc4_U0_ap_ready;
+assign ap_sync_ready = Loop_HConv_A_proc5_U0_ap_ready;
 
-assign dst_V_TDATA = Loop_border_A_proc6_U0_dst_V_TDATA;
+assign dst_V_TDATA = Loop_border_A_proc7_U0_dst_V_TDATA;
 
-assign dst_V_TVALID = Loop_border_A_proc6_U0_dst_V_TVALID;
+assign dst_V_TVALID = Loop_border_A_proc7_U0_dst_V_TVALID;
 
-assign src_V_TREADY = Loop_HConv_A_proc4_U0_src_V_TREADY;
+assign src_V_TREADY = Loop_HConv_A_proc5_U0_src_V_TREADY;
 
-assign start_for_Loop_VConv_A_proc5_U0_din = 1'b1;
+assign start_for_Loop_VConv_A_proc6_U0_din = 1'b1;
 
-assign start_for_Loop_border_A_proc6_U0_din = 1'b1;
+assign start_for_Loop_border_A_proc7_U0_din = 1'b1;
 
 endmodule //filter11x11_strm
