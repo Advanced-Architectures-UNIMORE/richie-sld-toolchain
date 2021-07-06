@@ -34,13 +34,13 @@ PULP_SRC				:= ${ROOT}/../src
 HW_TEST					:= ${ROOT}/../test
 HW_DEPS					:= ${ROOT}/../deps
 HWPE_REPO				:= hwpe-repo
-PULP_CLUSTER			:= ${HW_DEPS}/pulp_cluster/rtl
+PULP_CLUSTER			:= ${HW_DEPS}/overlay_cluster/rtl
 
 RM_F 					:= @rm -f
 RM_DF 					:= @rm -rf
 
 .PHONY: all export gen engine_dev static_rtl acc_lib clean
-all: pulp-integr
+all: overlay_deps
 
 repo-hw:
 	@echo "Exporting hardware wrapper and Bender to HWPE repo."

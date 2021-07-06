@@ -19,7 +19,7 @@ class hwpe_specs:
         self.overlay_version    = [ False , True ]
 
         # Generic
-        self.hwpe_target        = 'FILTER11x11_STRM'
+        self.hwpe_target        = 'CONVOLUTION'
         self.design_type        = 'hls'
 
         # HWPE streaming interfaces [ name , data-type , reg-dim ]

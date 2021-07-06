@@ -5,7 +5,7 @@
 
 `timescale 1 ns / 1 ps
 
-module start_for_Loop_VCocq_shiftReg (
+module start_for_Loop_boncg_shiftReg (
     clk,
     data,
     ce,
@@ -39,7 +39,7 @@ assign q = SRL_SIG[a];
 
 endmodule
 
-module start_for_Loop_VCocq (
+module start_for_Loop_boncg (
     clk,
     reset,
     if_empty_n,
@@ -109,12 +109,12 @@ end
 assign shiftReg_addr = mOutPtr[ADDR_WIDTH] == 1'b0 ? mOutPtr[ADDR_WIDTH-1:0]:{ADDR_WIDTH{1'b0}};
 assign shiftReg_ce = (if_write & if_write_ce) & internal_full_n;
 
-start_for_Loop_VCocq_shiftReg 
+start_for_Loop_boncg_shiftReg 
 #(
     .DATA_WIDTH(DATA_WIDTH),
     .ADDR_WIDTH(ADDR_WIDTH),
     .DEPTH(DEPTH))
-U_start_for_Loop_VCocq_ram (
+U_start_for_Loop_boncg_ram (
     .clk(clk),
     .data(shiftReg_data),
     .ce(shiftReg_ce),

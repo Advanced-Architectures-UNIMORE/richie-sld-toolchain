@@ -5,7 +5,7 @@
 
 `timescale 1 ns / 1 ps
 
-module start_for_Loop_Boncg_shiftReg (
+module start_for_Loop_VCmb6_shiftReg (
     clk,
     data,
     ce,
@@ -13,8 +13,8 @@ module start_for_Loop_Boncg_shiftReg (
     q);
 
 parameter DATA_WIDTH = 32'd1;
-parameter ADDR_WIDTH = 32'd2;
-parameter DEPTH = 3'd3;
+parameter ADDR_WIDTH = 32'd1;
+parameter DEPTH = 2'd2;
 
 input clk;
 input [DATA_WIDTH-1:0] data;
@@ -39,7 +39,7 @@ assign q = SRL_SIG[a];
 
 endmodule
 
-module start_for_Loop_Boncg (
+module start_for_Loop_VCmb6 (
     clk,
     reset,
     if_empty_n,
@@ -53,8 +53,8 @@ module start_for_Loop_Boncg (
 
 parameter MEM_STYLE   = "shiftreg";
 parameter DATA_WIDTH  = 32'd1;
-parameter ADDR_WIDTH  = 32'd2;
-parameter DEPTH       = 3'd3;
+parameter ADDR_WIDTH  = 32'd1;
+parameter DEPTH       = 2'd2;
 
 input clk;
 input reset;
@@ -90,17 +90,17 @@ always @ (posedge clk) begin
         if (((if_read & if_read_ce) == 1 & internal_empty_n == 1) && 
             ((if_write & if_write_ce) == 0 | internal_full_n == 0))
         begin
-            mOutPtr <= mOutPtr - 3'd1;
-            if (mOutPtr == 3'd0)
+            mOutPtr <= mOutPtr - 2'd1;
+            if (mOutPtr == 2'd0)
                 internal_empty_n <= 1'b0;
             internal_full_n <= 1'b1;
         end 
         else if (((if_read & if_read_ce) == 0 | internal_empty_n == 0) && 
             ((if_write & if_write_ce) == 1 & internal_full_n == 1))
         begin
-            mOutPtr <= mOutPtr + 3'd1;
+            mOutPtr <= mOutPtr + 2'd1;
             internal_empty_n <= 1'b1;
-            if (mOutPtr == DEPTH - 3'd2)
+            if (mOutPtr == DEPTH - 2'd2)
                 internal_full_n <= 1'b0;
         end 
     end
@@ -109,12 +109,12 @@ end
 assign shiftReg_addr = mOutPtr[ADDR_WIDTH] == 1'b0 ? mOutPtr[ADDR_WIDTH-1:0]:{ADDR_WIDTH{1'b0}};
 assign shiftReg_ce = (if_write & if_write_ce) & internal_full_n;
 
-start_for_Loop_Boncg_shiftReg 
+start_for_Loop_VCmb6_shiftReg 
 #(
     .DATA_WIDTH(DATA_WIDTH),
     .ADDR_WIDTH(ADDR_WIDTH),
     .DEPTH(DEPTH))
-U_start_for_Loop_Boncg_ram (
+U_start_for_Loop_VCmb6_ram (
     .clk(clk),
     .data(shiftReg_data),
     .ce(shiftReg_ce),
