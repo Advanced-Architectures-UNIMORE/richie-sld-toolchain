@@ -33,7 +33,7 @@
 # # git_deploy:
 # # 	@bash ${SCRIPTS_GIT_DEPLOY}/git-deploy.sh ${PY_VENV} ${OUT_DIR}
 
-hwpe_git_deploy:
+hwpe_git_deploy: clean_git_deploy
 	@bash ${SCRIPTS_GIT_DEPLOY}/set_filedir.sh ${OUT_DIR}
 
 clean_git_deploy:

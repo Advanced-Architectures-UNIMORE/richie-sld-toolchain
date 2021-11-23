@@ -24,7 +24,7 @@ REPO 					:= genacc
 
 # Choose target on those available in the application library (e.g. mmul_parallel)
 
-HWPE_TARGET				:= conv_mdc
+HWPE_TARGET				:= fir_mdc
 
 -include tools/common_mk/*.mk
 
