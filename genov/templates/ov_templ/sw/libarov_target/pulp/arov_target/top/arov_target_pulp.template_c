@@ -79,14 +79,20 @@ void arov_init(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator
 
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
+    if(cluster_id == ${cluster_id}){
+        switch (accelerator_id){
     % for j in range(n_acc_cl):
         <%
             # Determine accelerator ID
 
             accelerator_id = j
         %>
-	if(cluster_id == ${cluster_id} && accelerator_id == ${accelerator_id}) arov_cl${cluster_id}_lic${accelerator_id}_init(&(arov->${cl_lic_acc_names[accelerator_id]}_${cluster_id}_${accelerator_id})); \
+	        case ${accelerator_id}: arov_cl${cluster_id}_lic${accelerator_id}_init(&(arov->${cl_lic_acc_names[accelerator_id]}_${cluster_id}_${accelerator_id})); break; \
     % endfor
+            
+            default: printf("Error: No matching case for <arov_init>\n");
+        }
+    }
 % endfor
         
 };
@@ -111,14 +117,20 @@ int arov_activate(AROV_DEVICE_PTR arov, const int cluster_id, const int accelera
 
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
+    if(cluster_id == ${cluster_id}){
+        switch (accelerator_id){
     % for j in range(n_acc_cl):
         <%
             # Determine accelerator ID
 
             accelerator_id = j
         %>
-	if(cluster_id == ${cluster_id} && accelerator_id == ${accelerator_id}) offload_id = arov_cl${cluster_id}_lic${accelerator_id}_activate(); \
+	        case ${accelerator_id}: offload_id = arov_cl${cluster_id}_lic${accelerator_id}_activate(); break; \
     % endfor
+            
+            default: printf("Error: No matching case for <arov_activate>\n");
+        }
+    }
 % endfor
 
 
@@ -143,14 +155,20 @@ void arov_program(AROV_DEVICE_PTR arov, const int cluster_id, const int accelera
 
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
+    if(cluster_id == ${cluster_id}){
+        switch (accelerator_id){
     % for j in range(n_acc_cl):
         <%
             # Determine accelerator ID
 
             accelerator_id = j
         %>
-	if(cluster_id == ${cluster_id} && accelerator_id == ${accelerator_id}) arov_cl${cluster_id}_lic${accelerator_id}_program(&(arov->${cl_lic_acc_names[accelerator_id]}_${cluster_id}_${accelerator_id})); \
+	        case ${accelerator_id}: arov_cl${cluster_id}_lic${accelerator_id}_program(&(arov->${cl_lic_acc_names[accelerator_id]}_${cluster_id}_${accelerator_id})); break; \
     % endfor
+            
+            default: printf("Error: No matching case for <arov_program>\n");
+        }
+    }
 % endfor
         
 };
@@ -173,14 +191,20 @@ void arov_update_buffer_addr(AROV_DEVICE_PTR arov, const int cluster_id, const i
 
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
+    if(cluster_id == ${cluster_id}){
+        switch (accelerator_id){
     % for j in range(n_acc_cl):
         <%
             # Determine accelerator ID
 
             accelerator_id = j
         %>
-	if(cluster_id == ${cluster_id} && accelerator_id == ${accelerator_id}) arov_cl${cluster_id}_lic${accelerator_id}_update_buffer_addr(&(arov->${cl_lic_acc_names[accelerator_id]}_${cluster_id}_${accelerator_id})); \
+	        case ${accelerator_id}: arov_cl${cluster_id}_lic${accelerator_id}_update_buffer_addr(&(arov->${cl_lic_acc_names[accelerator_id]}_${cluster_id}_${accelerator_id})); break; \
     % endfor
+            
+            default: printf("Error: No matching case for <arov_update_buffer_addr>\n");
+        }
+    }
 % endfor
         
 };
@@ -203,14 +227,20 @@ void arov_compute(AROV_DEVICE_PTR arov, const int cluster_id, const int accelera
 
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
+    if(cluster_id == ${cluster_id}){
+        switch (accelerator_id){
     % for j in range(n_acc_cl):
         <%
             # Determine accelerator ID
 
             accelerator_id = j
         %>
-	if(cluster_id == ${cluster_id} && accelerator_id == ${accelerator_id}) arov_cl${cluster_id}_lic${accelerator_id}_compute(); \
+	        case ${accelerator_id}: arov_cl${cluster_id}_lic${accelerator_id}_compute(); break; \
     % endfor
+            
+            default: printf("Error: No matching case for <arov_compute>\n");
+        }
+    }
 % endfor
   
 };
@@ -233,14 +263,20 @@ void arov_wait(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator
 
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
+    if(cluster_id == ${cluster_id}){
+        switch (accelerator_id){
     % for j in range(n_acc_cl):
         <%
             # Determine accelerator ID
 
             accelerator_id = j
         %>
-	if(cluster_id == ${cluster_id} && accelerator_id == ${accelerator_id}) arov_cl${cluster_id}_lic${accelerator_id}_wait(); \
+	        case ${accelerator_id}: arov_cl${cluster_id}_lic${accelerator_id}_wait(); break; \
     % endfor
+            
+            default: printf("Error: No matching case for <arov_wait>\n");
+        }
+    }
 % endfor
       
 };
@@ -263,14 +299,20 @@ void arov_free(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator
 
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
+    if(cluster_id == ${cluster_id}){
+        switch (accelerator_id){
     % for j in range(n_acc_cl):
         <%
             # Determine accelerator ID
 
             accelerator_id = j
         %>
-	if(cluster_id == ${cluster_id} && accelerator_id == ${accelerator_id}) arov_cl${cluster_id}_lic${accelerator_id}_free(); \
+	        case ${accelerator_id}: arov_cl${cluster_id}_lic${accelerator_id}_free(); break; \
     % endfor
+            
+            default: printf("Error: No matching case for <arov_free>\n");
+        }
+    }
 % endfor
         
 };

@@ -254,12 +254,8 @@ void arov_cl${cl_offset}_lic${accelerator_id}_wait() {
     // The core starts polling on the accelerator to verify
     // whether It has terminated its operations.
 
-    int r_polling = 0;
-
-    while(!r_polling){
-      __asm__ __volatile__ ("" : : : "memory");
-      r_polling = hwpe_get_finished();
-      __asm__ __volatile__ ("" : : : "memory");
+    while(!hwpe_get_finished()){
+      asm volatile ("nop");
     }
 };
 

@@ -68,6 +68,7 @@ typedef struct hwpe_fsm_struct              hwpe_fsm_struct;
 
 struct hwpe_l1_ptr_struct {
     DEVICE_PTR ptr;
+    uint32_t dim_buffer;
 };
 
 struct hwpe_dma_struct {
