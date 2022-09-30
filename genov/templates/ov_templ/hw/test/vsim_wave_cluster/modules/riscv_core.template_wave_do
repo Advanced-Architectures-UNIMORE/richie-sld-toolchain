@@ -33,16 +33,16 @@
 % for core_offset in range(cl_n_cores):
 
 onerror {resume}
-quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/decoder_i} { /overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/decoder_i/instr_rdata_i[24:20]} rs2
-quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/decoder_i} { /overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/decoder_i/instr_rdata_i[19:15]} rs1
-quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i} { /overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/instr_rdata_i[6:0]} opcode
-quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i} { /overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/instr_rdata_i[11:7]} rd
-quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i} { /overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/instr_rdata_i[14:12]} funct3
-quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i} { /overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/instr_rdata_i[19:15]} rs1
-quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i} { /overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/instr_rdata_i[24:20]} rs2
+quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/decoder_i} { /overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/decoder_i/instr_rdata_i[24:20]} rs2
+quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/decoder_i} { /overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/decoder_i/instr_rdata_i[19:15]} rs1
+quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i} { /overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/instr_rdata_i[6:0]} opcode
+quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i} { /overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/instr_rdata_i[11:7]} rd
+quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i} { /overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/instr_rdata_i[14:12]} funct3
+quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i} { /overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/instr_rdata_i[19:15]} rs1
+quietly virtual signal -install {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i} { /overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/instr_rdata_i[24:20]} rs2
 quietly WaveActivateNextPane {} 0
 
-add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {core_region[${core_offset}]} -group {top} {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {top} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/*}
 % endfor
 </%def>
 
@@ -56,7 +56,7 @@ add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {co
 
 <%def name="vsim_waves_core_demux()">\
 % for core_offset in range(cl_n_cores):
-add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {core_region[${core_offset}]} -group {core_demux} {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/core_demux_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {core_demux} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/core_demux_i/*}
 % endfor
 </%def>
 
@@ -70,7 +70,7 @@ add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {co
 
 <%def name="vsim_waves_core_periph_demux()">\
 % for core_offset in range(cl_n_cores):
-add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {core_region[${core_offset}]} -group {periph_demux} {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/periph_demux_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {periph_demux} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/periph_demux_i/*}
 % endfor
 </%def>
 
@@ -90,7 +90,7 @@ add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {co
 
 <%def name="vsim_waves_core_if_stage()">\
 % for core_offset in range(cl_n_cores):
-add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {core_region[${core_offset}]} -group {riscv} -group {IF_stage} {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/if_stage_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {riscv} -group {IF_stage} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/if_stage_i/*}
 % endfor
 </%def>
 
@@ -104,7 +104,7 @@ add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {co
 
 <%def name="vsim_waves_core_id_stage()">\
 % for core_offset in range(cl_n_cores):
-add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {core_region[${core_offset}]} -group {riscv} -group {ID_stage} {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {riscv} -group {ID_stage} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/id_stage_i/*}
 % endfor
 </%def>
 
@@ -118,7 +118,7 @@ add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {co
 
 <%def name="vsim_waves_core_ex_stage()">\
 % for core_offset in range(cl_n_cores):
-add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {core_region[${core_offset}]} -group {riscv} -group {EX_stage} {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/ex_stage_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {riscv} -group {EX_stage} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/ex_stage_i/*}
 % endfor
 </%def>
 
@@ -132,7 +132,7 @@ add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {co
 
 <%def name="vsim_waves_core_lsu()">\
 % for core_offset in range(cl_n_cores):
-add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {core_region[${core_offset}]} -group {riscv} -group {LSU} {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/load_store_unit_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {riscv} -group {LSU} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/load_store_unit_i/*}
 % endfor
 </%def>
 
@@ -152,6 +152,6 @@ add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {co
 
 <%def name="vsim_waves_core_eu_ctrl()">\
 % for core_offset in range(cl_n_cores):
-add wave -noupdate -group {pulp_cluster[${cl_offset}]} -group {riscv} -group {core_region[${core_offset}]} -group {eu_ctrl_master} {/overlay_tb/dut/gen_clusters[${cl_offset}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/eu_ctrl_master/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {eu_ctrl_master} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/eu_ctrl_master/*}
 % endfor
 </%def>

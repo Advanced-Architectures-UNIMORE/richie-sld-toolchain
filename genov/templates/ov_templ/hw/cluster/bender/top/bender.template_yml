@@ -34,7 +34,7 @@ package:
 
 dependencies:
 % for i in range(n_wrapper_deps):
-  ${wrapper_deps[i]}: { path: "./ov_cfg/${ov_config}/wrappers/${wrapper_deps[i]}" }
+  ${wrapper_deps[i]}: { path: "./ov_cfg/${soc_name}/wrappers/${wrapper_deps[i]}" }
 % endfor
 
 export_include_dirs:

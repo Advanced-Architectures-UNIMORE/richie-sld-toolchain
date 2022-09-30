@@ -16,7 +16,7 @@
 # =====================================================================
 %>
 
-module pulp_t${target_soc} (\
+module pulp_t${target_fpga_soc} (\
   ${port('clk', 1, False)},\
   ${port('rst', 1, False, True)},
   ${axi_ports('mst', True, aw_pl2ps, dw, iw_pl2ps, uw_pl2ps)},
@@ -76,7 +76,7 @@ module pulp_t${target_soc} (\
   pulp_ooc #(
     .N_CLUSTERS     (${n_clusters}),
     .AXI_DW         (${dw}),
-    .L2_N_AXI_PORTS (1)
+    .L2_N_AXI_PORTS (${n_l2_banks})
   ) i_bound (
     .clk_i            (clk_i),
     .rst_ni           (rst_ni),

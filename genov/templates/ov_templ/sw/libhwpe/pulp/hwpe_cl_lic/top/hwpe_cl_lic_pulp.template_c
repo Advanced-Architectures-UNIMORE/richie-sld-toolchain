@@ -22,7 +22,7 @@
 
 /* =====================================================================
  * Project:      LibHWPE
- * Title:        hwpe_cl${cl_offset}_lic${accelerator_id}
+ * Title:        hwpe_cl${cl_id}_lic${accelerator_id}
  * Description:  Software APIs for ${cl_lic_acc_names[accelerator_id]}.
  *
  * $Date:        11.7.2022
@@ -38,12 +38,12 @@
 
 // Library
 
-#include <libhwpe/hwpe_cl${cl_offset}_lic${accelerator_id}.h>
+#include <libhwpe/hwpe_cl${cl_id}_lic${accelerator_id}.h>
 
 // Hardware abstraction layer
 
-#include <libhwpe/archi/hwpe_cl${cl_offset}_lic${accelerator_id}.h>
-#include <libhwpe/hal/hwpe_cl${cl_offset}_lic${accelerator_id}.h>
+#include <libhwpe/archi/hwpe_cl${cl_id}_lic${accelerator_id}.h>
+#include <libhwpe/hal/hwpe_cl${cl_id}_lic${accelerator_id}.h>
 
 /* PULP peripherals */
 
@@ -54,7 +54,7 @@
 
 /* Initialization */
 
-void arov_cl${cl_offset}_lic${accelerator_id}_init(${cl_lic_acc_names[accelerator_id]}_wrapper_struct *wrapper) {
+void arov_cl${cl_id}_lic${accelerator_id}_init(${cl_lic_acc_names[accelerator_id]}_wrapper_struct *wrapper) {
     
     // Set wrapper index
     wrapper->id   = ${accelerator_id};
@@ -65,7 +65,7 @@ void arov_cl${cl_offset}_lic${accelerator_id}_init(${cl_lic_acc_names[accelerato
 
 /* Activation */
 
-int arov_cl${cl_offset}_lic${accelerator_id}_activate() {
+int arov_cl${cl_id}_lic${accelerator_id}_activate() {
     
     // Activate wrapper
     int offload_id; 
@@ -76,7 +76,7 @@ int arov_cl${cl_offset}_lic${accelerator_id}_activate() {
 
 /* Programming */
 
-void arov_cl${cl_offset}_lic${accelerator_id}_program(${cl_lic_acc_names[accelerator_id]}_wrapper_struct *wrapper) {
+void arov_cl${cl_id}_lic${accelerator_id}_program(${cl_lic_acc_names[accelerator_id]}_wrapper_struct *wrapper) {
     
     // Extract streams
 
@@ -198,7 +198,7 @@ void arov_cl${cl_offset}_lic${accelerator_id}_program(${cl_lic_acc_names[acceler
 
 /* Data memory interaction */
 
-void arov_cl${cl_offset}_lic${accelerator_id}_update_buffer_addr(${cl_lic_acc_names[accelerator_id]}_wrapper_struct *wrapper) {
+void arov_cl${cl_id}_lic${accelerator_id}_update_buffer_addr(${cl_lic_acc_names[accelerator_id]}_wrapper_struct *wrapper) {
     
     // Extract streams
 
@@ -226,13 +226,13 @@ void arov_cl${cl_offset}_lic${accelerator_id}_update_buffer_addr(${cl_lic_acc_na
 
 /* Processing */
 
-void arov_cl${cl_offset}_lic${accelerator_id}_compute() {
+void arov_cl${cl_id}_lic${accelerator_id}_compute() {
     hwpe_trigger_job();
 };
 
 /* Synchronization */
 
-void arov_cl${cl_offset}_lic${accelerator_id}_wait() {
+void arov_cl${cl_id}_lic${accelerator_id}_wait() {
     
     /*
      * Synchroniation via Event Unit
@@ -261,7 +261,7 @@ void arov_cl${cl_offset}_lic${accelerator_id}_wait() {
 
 /* Deactivation */
 
-void arov_cl${cl_offset}_lic${accelerator_id}_free() {
+void arov_cl${cl_id}_lic${accelerator_id}_free() {
     hwpe_soft_clear();
     hwpe_cg_disable();
 };
@@ -299,7 +299,7 @@ void arov_cl${cl_offset}_lic${accelerator_id}_free() {
 //     stream->addr_gen.realign_type   = (stream->addr_gen.realign_type == 0) ? 0
 //                                                                              : stream->addr_gen.realign_type;
 //     // port offset
-//     stream->addr_gen.port_offset    = (stream->addr_gen.port_offset == 0) ? ${cl_n_tcdm_banks}
+//     stream->addr_gen.port_offset    = (stream->addr_gen.port_offset == 0) ? ${cl_n_l1_banks}
 //                                                                             : stream->addr_gen.port_offset;
 //     // step
 //     stream->addr_gen.step           = (stream->addr_gen.step == 4) ? 4

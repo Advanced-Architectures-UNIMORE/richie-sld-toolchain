@@ -27,8 +27,8 @@
 %>
 
 <%def name="inst_param_hwpe_hci_region()">
-    .HWPE_HCI_PRESENT         (pulp_cluster_${cl_offset}_cfg_pkg::HWPE_HCI_PRESENT),
-    .NB_HWPE_HCI              (pulp_cluster_${cl_offset}_cfg_pkg::N_HWPE_HCI),
+    .HWPE_HCI_PRESENT         (pulp_cluster_${cl_id}_cfg_pkg::HWPE_HCI_PRESENT),
+    .NB_HWPE_HCI              (pulp_cluster_${cl_id}_cfg_pkg::N_HWPE_HCI),
 </%def>
 
 <%
@@ -41,5 +41,5 @@
 %>
 
 <%def name="inst_param_hwpe_hci_interface()">
-    .NB_HWPE_HCI_PORTS_TOTAL  (pulp_cluster_${cl_offset}_cfg_pkg::N_HWPE_HCI_PORTS_TOTAL),
+    .NB_HWPE_HCI_PORTS_TOTAL  (pulp_cluster_${cl_id}_cfg_pkg::N_HWPE_HCI_PORTS_TOTAL),
 </%def>

@@ -26,7 +26,7 @@
 
 /* =====================================================================
  * Project:      Peripheral accelerator interface
- * Title:        pulp_cluster_${cl_offset}_lic_acc_intf.template_sv
+ * Title:        pulp_cluster_${cl_id}_lic_acc_intf.template_sv
  * Description:  The peripheral accelerator interface routes the slave 
  *               peripheral signals toward the slave port of HWPE-based
  *               accelerator wrappers.
@@ -63,7 +63,7 @@ module periph_acc_intf
     % if (cl_lic_acc_protocols[acc_offset] == "hwpe"):
 
   // Wrapper #${acc_offset}
-  localparam HWPE_${acc_offset}_ID = pulp_cluster_${cl_offset}_cfg_pkg::SPER_HWPE_${acc_offset}_ID - (NB_SPERIPHS - NB_SPERIPHS_HWPE);
+  localparam HWPE_${acc_offset}_ID = pulp_cluster_${cl_id}_cfg_pkg::SPER_HWPE_${acc_offset}_ID - (NB_SPERIPHS - NB_SPERIPHS_HWPE);
 
   assign speriph_hwpe_slave[HWPE_${acc_offset}_ID].gnt     = hwpe_cfg_master[${acc_offset}].gnt;
   assign speriph_hwpe_slave[HWPE_${acc_offset}_ID].r_rdata = hwpe_cfg_master[${acc_offset}].r_rdata;

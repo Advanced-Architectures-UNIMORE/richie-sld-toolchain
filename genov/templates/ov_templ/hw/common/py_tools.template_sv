@@ -20,7 +20,7 @@
 # =====================================================================
 # Title:        print_cl_acc_names
 # Type:         Template API
-# Description:  Print names of accelerators inside CL[cl_offset]
+# Description:  Print names of accelerators inside CL[cl_id]
 # =====================================================================
 %>
 
@@ -51,7 +51,7 @@ ${str_acc}\
 # Title:        print_cl_acc_n_data_ports
 # Type:         Template API
 # Description:  Print number of data ports associated with accelerators 
-#               inside CL[cl_offset]
+#               inside CL[cl_id]
 # =====================================================================
 %>
 
@@ -81,7 +81,7 @@ ${str_acc}\
 # Title:        print_cl_acc_protocols
 # Type:         Template API
 # Description:  Print communication protocols associated with accelerators 
-#               inside CL[cl_offset]
+#               inside CL[cl_id]
 # =====================================================================
 %>
 

@@ -24,7 +24,7 @@
 
 /* =====================================================================
  * Project:      LIC accelerator region
- * Title:        pulp_cluster_${cl_offset}_lic_acc_region.template_sv
+ * Title:        pulp_cluster_${cl_id}_lic_acc_region.template_sv
  * Description:  The accelerator region is connected to the overlay 
  *               infrastructure by means of a logarithmic interconnect. 
  *               This module also instantiates the accelerator interfaces 

@@ -25,7 +25,7 @@ package:
   authors: [ "Gianluca Bellocchi <gianluca.bellocchi@unimore.it>" ]
 
 dependencies:
-  soc: { path: "./ov_cfg/${ov_config}/soc" }
+  soc: { path: "./ov_cfg/${soc_name}/soc" }
 
 workspace:
   checkout_dir: "./deps"
@@ -33,5 +33,5 @@ workspace:
 sources:
   - target: test
     files:
-      - ov_cfg/${ov_config}/test/overlay_tb.sv
+      - ov_cfg/${soc_name}/test/overlay_tb.sv
 

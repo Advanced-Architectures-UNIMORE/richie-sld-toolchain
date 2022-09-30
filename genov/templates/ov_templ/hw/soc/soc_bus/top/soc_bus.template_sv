@@ -81,7 +81,7 @@ module soc_bus #(
   localparam int unsigned N_MASTERS = N_CLUSTERS + L2_N_PORTS + 3;
   localparam int unsigned N_SLAVES = soc_bus_pkg::n_slaves(N_CLUSTERS);
   localparam int unsigned IDX_L2_MEM = N_CLUSTERS;
-  localparam int unsigned IDX_RAB = IDX_L2_MEM + 1;
+  localparam int unsigned IDX_RAB = IDX_L2_MEM + L2_N_PORTS;
   localparam int unsigned IDX_MBOX_HOST = IDX_RAB + 1;
   localparam int unsigned IDX_MBOX_PULP = IDX_MBOX_HOST + 1;
 

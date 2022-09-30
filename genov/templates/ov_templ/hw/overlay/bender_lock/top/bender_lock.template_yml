@@ -234,7 +234,7 @@ packages:
 
   soc:
     source:
-      Path: "./ov_cfg/${ov_config}/soc"
+      Path: "./ov_cfg/${soc_name}/soc"
     dependencies: 
       - axi2apb
       - axi
@@ -250,7 +250,7 @@ packages:
 
   cluster:
     source:
-      Path: "./ov_cfg/${ov_config}/cluster" 
+      Path: "./ov_cfg/${soc_name}/cluster" 
     % if (n_wrapper_deps>0):
     dependencies:
       % for i in range(n_wrapper_deps):
@@ -269,7 +269,7 @@ packages:
 
   ${wrapper_deps[i]}:
     source:
-      Path: "./ov_cfg/${ov_config}/wrappers/${wrapper_deps[i]}"
+      Path: "./ov_cfg/${soc_name}/wrappers/${wrapper_deps[i]}"
     dependencies:
       - hwpe-stream
       - hwpe-ctrl

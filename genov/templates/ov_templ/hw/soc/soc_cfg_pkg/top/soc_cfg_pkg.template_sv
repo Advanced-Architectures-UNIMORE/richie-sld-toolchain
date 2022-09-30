@@ -65,7 +65,8 @@ package automatic soc_cfg_pkg;
   %>
 
   // -- L2 Memory
-  localparam int unsigned L2_SIZE = 128*1024; // [B], must be a power of 2
+  localparam int unsigned L2_SIZE = ${l2_size}; // [B], must be a power of 2
+  localparam int unsigned L2_N_AXI_PORTS = ${n_l2_banks};
   localparam bit L2_AMO_PRESENT = 1'b0;
 
   <%
@@ -73,7 +74,7 @@ package automatic soc_cfg_pkg;
   %>
 
   // Maximum number of beats in a DMA burst on the SoC bus
-  localparam int unsigned DMA_MAX_BURST_LEN = (pulp_cluster_${cl_offset}_cfg_pkg::DMA_MAX_BURST_SIZE) / (AXI_DW/8); // to be possibly specified for each cluster on the basis of BW needs
+  localparam int unsigned DMA_MAX_BURST_LEN = (pulp_cluster_${cl_id}_cfg_pkg::DMA_MAX_BURST_SIZE) / (AXI_DW/8); // to be possibly specified for each cluster on the basis of BW needs
 
   <%
     # Definition of data types

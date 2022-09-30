@@ -194,12 +194,12 @@ module pulp_cluster_ooc (
 
   pulp_cluster #(
     .ASYNC_INTF               (soc_cfg_pkg::ASYNC),
-    .NB_CORES                 (pulp_cluster_${cl_offset}_cfg_pkg::N_CORES),
-    .NB_DMAS                  (pulp_cluster_${cl_offset}_cfg_pkg::N_DMAS),
+    .NB_CORES                 (pulp_cluster_${cl_id}_cfg_pkg::N_CORES),
+    .NB_DMAS                  (pulp_cluster_${cl_id}_cfg_pkg::N_DMAS),
     .CLUSTER_ALIAS            (1'b1),
     .CLUSTER_ALIAS_BASE       (12'h1B0),
-    .TCDM_SIZE                (pulp_cluster_${cl_offset}_cfg_pkg::TCDM_SIZE),
-    .NB_TCDM_BANKS            (pulp_cluster_${cl_offset}_cfg_pkg::N_TCDM_BANKS),
+    .TCDM_SIZE                (pulp_cluster_${cl_id}_cfg_pkg::TCDM_SIZE),
+    .NB_TCDM_BANKS            (pulp_cluster_${cl_id}_cfg_pkg::N_TCDM_BANKS),
     // HWPE - LIC interconnect
     ${inst_param_hwpe_lic_region()}\
     ${inst_param_hwpe_lic_interface()}\
@@ -208,7 +208,7 @@ module pulp_cluster_ooc (
     ${inst_param_hwpe_hci_interface()}\
     // I$ Parameters
     .NB_CACHE_BANKS           (4),
-    .CACHE_SIZE               (pulp_cluster_${cl_offset}_cfg_pkg::ICACHE_SIZE),
+    .CACHE_SIZE               (pulp_cluster_${cl_id}_cfg_pkg::ICACHE_SIZE),
     .L2_SIZE                  (soc_cfg_pkg::L2_SIZE),
     // Core Parameters
     .DEM_PER_BEFORE_TCDM_TS   (1'b0),
@@ -226,13 +226,13 @@ module pulp_cluster_ooc (
     .DATA_WIDTH               (32),
     .ADDR_WIDTH               (32),
     .TEST_SET_BIT             (20),
-    .L1_AMO_PRESENT           (pulp_cluster_${cl_offset}_cfg_pkg::L1_AMO_PRESENT),
+    .L1_AMO_PRESENT           (pulp_cluster_${cl_id}_cfg_pkg::L1_AMO_PRESENT),
     // DMA Parameters
-    .NB_OUTSND_BURSTS         (pulp_cluster_${cl_offset}_cfg_pkg::DMA_MAX_N_TXNS),
-    .NB_DMA_STREAMS           (pulp_cluster_${cl_offset}_cfg_pkg::DMA_STREAMS   ),
+    .NB_OUTSND_BURSTS         (pulp_cluster_${cl_id}_cfg_pkg::DMA_MAX_N_TXNS),
+    .NB_DMA_STREAMS           (pulp_cluster_${cl_id}_cfg_pkg::DMA_STREAMS   ),
     // peripheral and periph interconnect parameters
-    .NB_SPERIPHS              (pulp_cluster_${cl_offset}_cfg_pkg::N_SPERIPHS),
-    .NB_SPERIPHS_HWPE         (pulp_cluster_${cl_offset}_cfg_pkg::N_SPERIPHS_HWPE)
+    .NB_SPERIPHS              (pulp_cluster_${cl_id}_cfg_pkg::N_SPERIPHS),
+    .NB_SPERIPHS_HWPE         (pulp_cluster_${cl_id}_cfg_pkg::N_SPERIPHS_HWPE)
   ) i_bound (
     .clk_i,
     .rst_ni,

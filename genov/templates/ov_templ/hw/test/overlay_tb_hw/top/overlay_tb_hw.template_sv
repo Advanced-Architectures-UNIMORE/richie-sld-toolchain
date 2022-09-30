@@ -59,7 +59,9 @@ module overlay_tb #(
   // SoC Parameters
   parameter int unsigned  N_CLUSTERS            = soc_cfg_pkg::N_CLUSTERS,
   parameter int unsigned  AXI_DW                = 128,
-  parameter int unsigned  L2_N_AXI_PORTS        = 1,
+
+  // L2 Parameters
+  parameter int unsigned  L2_N_AXI_PORTS        = soc_cfg_pkg::L2_N_AXI_PORTS,
   parameter bit           L2_AMO_PRESENT        = soc_cfg_pkg::L2_AMO_PRESENT
 );
 

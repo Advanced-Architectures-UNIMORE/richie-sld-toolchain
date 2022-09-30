@@ -44,7 +44,7 @@
     parameter NB_HWPE_LIC_PORTS_TOTAL = 0,
     % for acc_offset in range(n_acc_cl):
       % if cl_lic_acc_protocols[acc_offset] == "hwpe":
-    parameter NB_HWPE_LIC_PORTS_WRAPPER_${acc_offset} = pulp_cluster_${cl_offset}_cfg_pkg::N_HWPE_LIC_PORTS_WRAPPER_${acc_offset},
+    parameter NB_HWPE_LIC_PORTS_WRAPPER_${acc_offset} = pulp_cluster_${cl_id}_cfg_pkg::N_HWPE_LIC_PORTS_WRAPPER_${acc_offset},
       % endif
     % endfor
 

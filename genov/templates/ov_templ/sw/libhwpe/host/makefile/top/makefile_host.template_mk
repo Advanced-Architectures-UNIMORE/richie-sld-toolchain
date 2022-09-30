@@ -42,12 +42,12 @@ SRC_DIR  := .
 INC_DIR  := ../inc
 LIB_DIR  := ../lib
 
-SOURCES  := $(SRC_DIR)/hwpe_cl${cl_offset}_lic${accelerator_id}.c
+SOURCES  := $(SRC_DIR)/hwpe_cl${cl_id}_lic${accelerator_id}.c
 CFLAGS   := -Wall -O3 -g -I. -I$(HERO_PULP_INC_DIR)
 CFLAGS_SO:= $(CFLAGS) -shared -fPIC
 
-SO       := $(LIB_DIR)/libhwpe_cl${cl_offset}_lic${accelerator_id}.so
-A        := $(LIB_DIR)/libhwpe_cl${cl_offset}_lic${accelerator_id}.a
+SO       := $(LIB_DIR)/libhwpe_cl${cl_id}_lic${accelerator_id}.so
+A        := $(LIB_DIR)/libhwpe_cl${cl_id}_lic${accelerator_id}.a
 
 all: build
 
