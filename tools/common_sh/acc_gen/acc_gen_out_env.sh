@@ -110,15 +110,19 @@ if [ ! -d "$dir_out_target_acc" ]; then
         
         src=$dir_dev_target_acc/sw/ref_sw
         if [ -d "$src" ]; then
-            echo -e "[sh] >> Retrieving stimuli and golden results generator"
-            cp -rf $src $dest
+            echo -e "[sh] >> Retrieving stimuli and golden results generator (standalone test)"
+            cp -R $src $dest
         else
-            echo "[sh] >> Generator for stimuli and golden results not found"
+            echo "[sh] >> Generator for stimuli and golden results not found (standalone test)"
         fi
         
         src=$dir_dev_target_acc/sw/stim
         if [ -d "$src" ]; then
-            cp -rf $src/* $dest/stim
+            if [ ! -z "$(ls -A $src)" ]; then
+                cp -R $src/ $dest
+            fi
+        else
+            echo "[sh] >> Stimuli and golden results not found (standalone test)"
         fi
 
     else
@@ -131,15 +135,19 @@ if [ ! -d "$dir_out_target_acc" ]; then
         
         src=$dir_dev_target_acc/sw/ref_sw
         if [ -d "$src" ]; then
-            echo -e "[sh] >> Retrieving stimuli and golden results generator"
-            cp -rf $src $dest
+            echo -e "[sh] >> Retrieving stimuli and golden results generator (system test)"
+            cp -R $src $dest
         else
-            echo "[sh] >> Generator for stimuli and golden results not found"
+            echo "[sh] >> Generator for stimuli and golden results not found (system test)"
         fi
         
         src=$dir_dev_target_acc/sw/stim
         if [ -d "$src" ]; then
-            cp -rf $src/ $dest
+            if [ ! -z "$(ls -A $src)" ]; then
+                cp -R $src/ $dest
+            fi
+        else
+            echo "[sh] >> Stimuli and golden results not found (system test)"
         fi
 
     else
