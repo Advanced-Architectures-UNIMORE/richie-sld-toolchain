@@ -32,4 +32,4 @@ def print_soc_log(overlay_params, verbose=False):
       print("\n")
       print("[py] >> User-defined overlay specification:")
 
-      print("\n\tOverlay configuration:", overlay_params.ov_config)
+      print("\n\tSoC name:", overlay_params.soc_name)

@@ -31,26 +31,28 @@ class overlay_params_formatted:
 
     def __init__(self, ov_specs):
         self.format_overlay_author(ov_specs().author)
-        self.format_overlay_system(ov_specs().system)
+        self.format_overlay_soc(ov_specs().soc)
         self.format_overlay_cluster(ov_specs())
 
     '''
         Format author information.
     '''
 
-    def format_overlay_author(self, ov_specs):
-        self.author                             = ov_specs().author
-        self.email                              = ov_specs().email
+    def format_overlay_author(self, author_specs):
+        self.author                             = author_specs().author
+        self.email                              = author_specs().email
         return self
 
     '''
-        Format system information.
+        Format SoC information.
     '''
 
-    def format_overlay_system(self, ov_specs):
-        self.ov_config                          = ov_specs().ov_config
-        self.n_clusters                         = get_n_cl(ov_specs())
-        self.target_soc                         = ov_specs().target_soc
+    def format_overlay_soc(self, soc_specs):
+        self.soc_name                           = soc_specs().name
+        self.n_clusters                         = get_n_cl(soc_specs())
+        self.target_fpga_board                  = soc_specs().board
+        self.target_fpga_soc                    = get_target_soc(soc_specs().board)
+        self.l2                                 = soc_specs().l2
         self.aw                                 = 64 
         self.dw                                 = 128
         self.iw                                 = 3 + clog2(self.n_clusters+1) 
@@ -75,10 +77,10 @@ class overlay_params_formatted:
         self.list_cl_cores = []
         for cl_target in cl_list:
             self.list_cl_cores.append(format_cl_core_params(cl_target().core))
-        # data memory (tcdm)
-        self.list_cl_tcdm = []
+        # L1 data memory
+        self.list_cl_l1 = []
         for cl_target in cl_list:
-            self.list_cl_tcdm.append(format_cl_tcdm_params(cl_target().tcdm))
+            self.list_cl_l1.append(format_cl_l1_params(cl_target().l1))
         # hardware accelerators
         self.list_cl_lic = []
         self.list_cl_hci = []
@@ -116,6 +118,23 @@ def get_cl_targets_list(ov_specs):
 
 def get_n_cl(ov_specs):
     return len(get_cl_targets_list(ov_specs))
+
+'''
+  =====================================================================
+  Title:        get_target_soc
+  Type:         Function
+  Description:  Derive number of clusters.
+  =====================================================================
+'''
+
+def get_target_soc(target_board):
+    soc_dict = {
+        "zcu102": "xilzu9eg",
+        "zcu104": "xilzu7ev",
+        "ultra96_v2": "xilzu3eg",
+        "kv260": "xilk26"
+        }
+    return soc_dict[target_board]
 
 '''
   =====================================================================
@@ -266,18 +285,18 @@ def format_cl_core_params(cl_target_core):
 
 '''
   =====================================================================
-  Title:        format_cl_tcdm_params
+  Title:        format_cl_l1_params
   Type:         Function
-  Description:  Target a specific TCDM setup and extract and format TCDM 
+  Description:  Target a specific L1 setup and extract and format L1 
                 design parameters. The output content is formatted in a 
                 suitable way for template to be easily rendered.
   =====================================================================
 '''
 
-def format_cl_tcdm_params(cl_target_tcdm):
-    n_tcdm_banks        = cl_target_tcdm[0]
-    tcdm_size           = cl_target_tcdm[1]
-    return n_tcdm_banks, tcdm_size
+def format_cl_l1_params(cl_target_l1):
+    n_l1_banks        = cl_target_l1[0]
+    l1_size           = cl_target_l1[1]
+    return n_l1_banks, l1_size
 
 '''
   =====================================================================
@@ -343,7 +362,7 @@ def print_ov_log(overlay_params, verbose=False):
         print("\n")
         print("[py] >> User-defined overlay specification:")
 
-        print("\n\tOverlay configuration:", overlay_params.ov_config)
+        print("\n\tSoC name:", overlay_params.soc_name)
 
 '''
   =====================================================================
@@ -364,4 +383,4 @@ def print_ov_test_log(overlay_params, verbose=False):
         print("\n")
         print("[py] >> User-defined overlay specification:")
 
-        print("\n\tOverlay configuration:", overlay_params.ov_config)
+        print("\n\tSoC name:", overlay_params.soc_name)

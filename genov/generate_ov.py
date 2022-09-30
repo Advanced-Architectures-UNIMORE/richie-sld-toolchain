@@ -86,7 +86,7 @@ gen_ov_comps(
     overlay.PulpIp(),
     design_params,
     emitter,
-    ['soc', 'pulp_t' + design_params.target_soc, ['hw', 'v']],
+    ['soc', 'pulp_t' + design_params.target_fpga_soc, ['hw', 'v']],
     emitter.ov_gen_ip
 )
 

@@ -34,7 +34,7 @@ class Generator:
         The rendered output is a string.
     '''
         
-    def render(self, design_params, template, cl_offset=0, extra_params=[]):
+    def render(self, design_params, template, cl_id=0, extra_params=[]):
         # prepare input template
         target = Template(template)
         # rendering phase
@@ -42,22 +42,25 @@ class Generator:
             # author
             author                          = design_params.author,
             email                           = design_params.email,
-            # system
-            ov_config                       = design_params.ov_config,
+            # generated SoC
+            soc_name                        = design_params.soc_name,
+            # L2 memory
+            n_l2_banks                      = design_params.l2[0],
+            l2_size                         = design_params.l2[1],
             # number of clusters
             n_clusters                      = design_params.n_clusters,
-            # cluster offset
-            cl_offset                       = cl_offset,
+            # cluster ID
+            cl_id                           = cl_id,
             # logarithmic interconnect (LIC)
-            cl_lic_total_data_ports         = design_params.list_cl_lic[cl_offset][0], 
-            cl_lic_acc_names                = design_params.list_cl_lic[cl_offset][1],
-            cl_lic_acc_protocols            = design_params.list_cl_lic[cl_offset][2],
-            cl_lic_acc_n_data_ports         = design_params.list_cl_lic[cl_offset][3],
+            cl_lic_total_data_ports         = design_params.list_cl_lic[cl_id][0], 
+            cl_lic_acc_names                = design_params.list_cl_lic[cl_id][1],
+            cl_lic_acc_protocols            = design_params.list_cl_lic[cl_id][2],
+            cl_lic_acc_n_data_ports         = design_params.list_cl_lic[cl_id][3],
             # heterogeneous interconnect (HCI)
-            cl_hci_total_data_ports         = design_params.list_cl_hci[cl_offset][0],
-            cl_hci_acc_names                = design_params.list_cl_hci[cl_offset][1],
-            cl_hci_acc_protocols            = design_params.list_cl_hci[cl_offset][2],
-            cl_hci_acc_n_data_ports         = design_params.list_cl_hci[cl_offset][3],
+            cl_hci_total_data_ports         = design_params.list_cl_hci[cl_id][0],
+            cl_hci_acc_names                = design_params.list_cl_hci[cl_id][1],
+            cl_hci_acc_protocols            = design_params.list_cl_hci[cl_id][2],
+            cl_hci_acc_n_data_ports         = design_params.list_cl_hci[cl_id][3],
             # additional params
             extra_param_0                   = extra_params[0],
             extra_param_1                   = extra_params[1],
@@ -76,8 +79,8 @@ class Generator:
     ========================
 '''
 
-def gen_soc_comps(temp_obj, design_params, emitter, descr, out_dir, cl_offset=0, extra_params=[None for _ in range(3)]):
+def gen_soc_comps(temp_obj, design_params, emitter, descr, out_dir, cl_id=0, extra_params=[None for _ in range(3)]):
     template = temp_obj
-    out_target = Generator().render(design_params, template, cl_offset, extra_params)
+    out_target = Generator().render(design_params, template, cl_id, extra_params)
     filename = emitter.get_file_name(descr)
     emitter.out_gen(out_target, filename, out_dir)

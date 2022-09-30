@@ -25,10 +25,10 @@ from python.wrapper.process_params import wrapper_params_formatted
   =====================================================================
 '''
 
-def print_cl_log(overlay_params, cl_offset=0, verbose=False):
+def print_cl_log(overlay_params, cl_id=0, verbose=False):
 
     print("\n# =========================== #")
-    print("# Generation of Cluster n.", cl_offset, " #")
+    print("# Generation of Cluster n.", cl_id, " #")
     print("# =========================== #")
       
     if(verbose is True):
@@ -37,13 +37,13 @@ def print_cl_log(overlay_params, cl_offset=0, verbose=False):
       print("[py] >> User-defined cluster specification:")
 
       print("\n\tLIC interconnect:")
-      print("\t\tAccelerator names:",               overlay_params.list_cl_lic[cl_offset][1])
-      print("\t\tAccelerator protocols:",           overlay_params.list_cl_lic[cl_offset][2])
-      print("\t\tAccelerator data ports:",          overlay_params.list_cl_lic[cl_offset][3])
-      print("\t\tAccelerator data ports (total):",  overlay_params.list_cl_lic[cl_offset][0])
+      print("\t\tAccelerator names:",               overlay_params.list_cl_lic[cl_id][1])
+      print("\t\tAccelerator protocols:",           overlay_params.list_cl_lic[cl_id][2])
+      print("\t\tAccelerator data ports:",          overlay_params.list_cl_lic[cl_id][3])
+      print("\t\tAccelerator data ports (total):",  overlay_params.list_cl_lic[cl_id][0])
 
       print("\n\tHCI interconnect:")
-      print("\t\tAccelerator names:",               overlay_params.list_cl_hci[cl_offset][1])
-      print("\t\tAccelerator protocols:",           overlay_params.list_cl_hci[cl_offset][2])
-      print("\t\tAccelerator data ports:",          overlay_params.list_cl_hci[cl_offset][3])
-      print("\t\tAccelerator data ports (total):",  overlay_params.list_cl_hci[cl_offset][0])
+      print("\t\tAccelerator names:",               overlay_params.list_cl_hci[cl_id][1])
+      print("\t\tAccelerator protocols:",           overlay_params.list_cl_hci[cl_id][2])
+      print("\t\tAccelerator data ports:",          overlay_params.list_cl_hci[cl_id][3])
+      print("\t\tAccelerator data ports (total):",  overlay_params.list_cl_hci[cl_id][0])

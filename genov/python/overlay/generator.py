@@ -42,9 +42,15 @@ class Generator:
             # author
             author                          = design_params.author,
             email                           = design_params.email,
-            # system
-            ov_config                       = design_params.ov_config,
-            target_soc                      = design_params.target_soc, 
+            # generated SoC
+            soc_name                        = design_params.soc_name,
+            # target FPGA-based SoC (deployment)
+            target_fpga_board               = design_params.target_fpga_board,
+            target_fpga_soc                 = design_params.target_fpga_soc, 
+            # L2 memory
+            n_l2_banks                      = design_params.l2[0],
+            l2_size                         = design_params.l2[1],
+            # AXI interface
             aw                              = design_params.aw,
             dw                              = design_params.dw,
             iw                              = design_params.iw,
