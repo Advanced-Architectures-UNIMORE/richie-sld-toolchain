@@ -1,6 +1,6 @@
 '''
  =====================================================================
- Project:       Accelerator-Rich Overlay Generator (AROG)
+ Project:       GenOv
  Title:         ov_specs.py
  Description:   Specification file to guide the generation of HW/SW
 	            components for accelerator-rich overlays.
@@ -34,27 +34,35 @@ class ov_specs:
         return self
 
     '''
-        System
+        SoC
+
+        - 'name' ~ Name of this specific SoC instance
+        - 'board' ~ Available boards: 
+            >> "zcu102" 
+            >> "zcu104"
+            >> "ultra96_v2"
+            >> "kv260"
+        - 'l2' ~ [ n_banks, size (Bytes) ]
     '''
 
-    def system(self):
-        self.ov_config                          = 'arov_ncl1_nacc16'
-        self.target_soc                         = 'xilzu9eg'
+    def soc(self):
+        self.name                               = 'agile_1cl_16tg'
+        self.board                              = 'zcu102'
+        self.l2                                 = [ 1 , 128*1024]
         return self
 
     '''
-        Cluster #0
+        Clusters
 
         - 'core' ~ [ core_name, n_cores ]
-        - 'tcdm' ~ [ n_tcdm_banks, tcdm_size ]
+        - 'l1' ~ [ n_banks, size (Bytes) ]
         - 'lic' ~ [ acc_name , wrapper_protocol ]
         - 'hci' ~ [ acc_name , wrapper_protocol ]
     '''
 
     def cluster_0(self):
-        self.cl_offset                          = 0
         self.core                               = [ 'riscy', 8 ]
-        self.tcdm                               = [ 16 , 128]
+        self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
                                                     [ 'traffic_gen' , 'hwpe'],
                                                     [ 'traffic_gen' , 'hwpe'],
