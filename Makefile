@@ -34,7 +34,7 @@ REPO 			:= genov
 #				user through this.
 # =====================================================================
 
-TARGET_OV		:= ov_mdc_lic6wr
+TARGET_OV		:= agile_1cl_16tg
 
 # =====================================================================
 # Description:  Basic recipes and inclusion of sub-mk-files.
