@@ -23,51 +23,51 @@
 %>
 
 <%def name="vsim_waves_soc_periph_mst()">\
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_id
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_addr
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_len
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_size
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_burst
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_lock
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_cache
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_prot
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_qos
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_region
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_atop
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_user
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_valid
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_ready
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/w_data
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/w_strb
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/w_last
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/w_user
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/w_valid
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/w_ready
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/b_id
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/b_resp
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/b_user
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/b_valid
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/b_ready
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_id
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_addr
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_len
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_size
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_burst
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_lock
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_cache
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_prot
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_qos
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_region
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_user
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_valid
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_ready
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/r_id
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/r_data
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/r_resp
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/r_last
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/r_user
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/r_valid
-add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/r_ready
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_id
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_addr
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_len
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_size
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_burst
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_lock
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_cache
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_prot
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_qos
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_region
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_atop
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_user
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_valid
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/aw_ready
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/w_data
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/w_strb
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/w_last
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/w_user
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/w_valid
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/w_ready
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/b_id
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/b_resp
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/b_user
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/b_valid
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/b_ready
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_id
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_addr
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_len
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_size
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_burst
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_lock
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_cache
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_prot
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_qos
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_region
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_user
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_valid
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/ar_ready
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/r_id
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/r_data
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/r_resp
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/r_last
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/r_user
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/r_valid
+add wave -noupdate -group {SoC} -group {periph_mst} /overlay_tb/dut/periph_mst/r_ready
 </%def>
 
 <%
@@ -79,59 +79,59 @@ add wave -noupdate -group {soc} -group {periph_mst} /overlay_tb/dut/periph_mst/r
 %>
 
 <%def name="vsim_waves_soc_periph()">\
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_id
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_addr
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_len
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_size
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_burst
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_lock
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_cache
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_prot
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_qos
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_region
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_atop
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_user
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_valid
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_ready
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_data
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_strb
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_last
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_user
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_valid
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_ready
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/b_id
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/b_resp
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/b_user
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/b_valid
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/b_ready
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_id
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_addr
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_len
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_size
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_burst
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_lock
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_cache
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_prot
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_qos
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_region
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_user
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_valid
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_ready
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_id
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_data
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_resp
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_last
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_user
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_valid
-add wave -noupdate -group {soc} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_ready
-add wave -noupdate -group {soc} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/paddr
-add wave -noupdate -group {soc} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/pwdata
-add wave -noupdate -group {soc} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/pwrite
-add wave -noupdate -group {soc} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/psel
-add wave -noupdate -group {soc} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/penable
-add wave -noupdate -group {soc} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/prdata
-add wave -noupdate -group {soc} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/pready
-add wave -noupdate -group {soc} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/pslverr
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_id
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_addr
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_len
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_size
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_burst
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_lock
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_cache
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_prot
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_qos
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_region
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_atop
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_user
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_valid
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/aw_ready
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_data
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_strb
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_last
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_user
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_valid
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/w_ready
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/b_id
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/b_resp
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/b_user
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/b_valid
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/b_ready
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_id
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_addr
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_len
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_size
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_burst
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_lock
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_cache
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_prot
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_qos
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_region
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_user
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_valid
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/ar_ready
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_id
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_data
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_resp
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_last
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_user
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_valid
+add wave -noupdate -group {SoC} -group {soc_periphs/axi} /overlay_tb/dut/i_periphs/axi/r_ready
+add wave -noupdate -group {SoC} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/paddr
+add wave -noupdate -group {SoC} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/pwdata
+add wave -noupdate -group {SoC} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/pwrite
+add wave -noupdate -group {SoC} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/psel
+add wave -noupdate -group {SoC} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/penable
+add wave -noupdate -group {SoC} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/prdata
+add wave -noupdate -group {SoC} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/pready
+add wave -noupdate -group {SoC} -group {soc_periphs/apb} /overlay_tb/dut/i_periphs/apb/pslverr
 </%def>
 
 <%
@@ -143,14 +143,14 @@ add wave -noupdate -group {soc} -group {soc_periphs/apb} /overlay_tb/dut/i_perip
 %>
 
 <%def name="vsim_waves_soc_ctrl_regs()">\
-add wave -noupdate -group {soc} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/paddr
-add wave -noupdate -group {soc} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/pwdata
-add wave -noupdate -group {soc} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/pwrite
-add wave -noupdate -group {soc} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/psel
-add wave -noupdate -group {soc} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/penable
-add wave -noupdate -group {soc} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/prdata
-add wave -noupdate -group {soc} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/pready
-add wave -noupdate -group {soc} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/pslverr
+add wave -noupdate -group {SoC} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/paddr
+add wave -noupdate -group {SoC} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/pwdata
+add wave -noupdate -group {SoC} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/pwrite
+add wave -noupdate -group {SoC} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/psel
+add wave -noupdate -group {SoC} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/penable
+add wave -noupdate -group {SoC} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/prdata
+add wave -noupdate -group {SoC} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/pready
+add wave -noupdate -group {SoC} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_periphs/i_soc_ctrl_regs/apb/pslverr
 </%def>
 
 <%
@@ -162,49 +162,78 @@ add wave -noupdate -group {soc} -group {soc_ctrl_regs/apb} /overlay_tb/dut/i_per
 %>
 
 <%def name="vsim_waves_soc_l2_mem()">\
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_id}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_addr}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_len}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_size}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_burst}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_lock}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_cache}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_prot}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_qos}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_region}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_atop}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_user}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_valid}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/aw_ready}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/w_data}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/w_strb}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/w_last}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/w_user}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/w_valid}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/w_ready}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/b_id}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/b_resp}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/b_user}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/b_valid}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/b_ready}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_id}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_addr}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_len}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_size}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_burst}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_lock}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_cache}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_prot}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_qos}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_region}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_user}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_valid}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/ar_ready}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/r_id}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/r_data}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/r_resp}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/r_last}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/r_user}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/r_valid}
-add wave -noupdate -group {soc} -group {l2_mst[0]} {/overlay_tb/dut/l2_mst[0]/r_ready}
+% for i_l2_bank in range(n_l2_banks):
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_id}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_addr}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_len}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_size}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_burst}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_lock}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_cache}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_prot}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_qos}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_region}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_atop}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_user}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_valid}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/aw_ready}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/w_data}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/w_strb}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/w_last}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/w_user}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/w_valid}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/w_ready}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/b_id}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/b_resp}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/b_user}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/b_valid}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/b_ready}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_id}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_addr}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_len}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_size}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_burst}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_lock}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_cache}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_prot}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_qos}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_region}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_user}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_valid}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/ar_ready}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/r_id}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/r_data}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/r_resp}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/r_last}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/r_user}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/r_valid}
+add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l2_mst[${i_l2_bank}]/r_ready}
+% endfor
+</%def>
+
+<%
+# =====================================================================
+# Title:        vsim_waves_soc_bus
+# Type:         Template API
+# Description:  SoC bus.
+# =====================================================================
+%>
+
+<%def name="vsim_waves_soc_bus()">\
+
+add wave -noupdate -group {SoC} -group {SoC bus} -group {top} -label {r_valid} {/overlay_tb/dut/i_soc_bus/*}
+add wave -noupdate -group {SoC} -group {SoC bus} -group {i_axi_xbar} -label {r_valid} {/overlay_tb/dut/i_soc_bus/i_axi_xbar/*}
+<%
+    # N_MASTERS = N_CLUSTERS + L2_N_PORTS + 3 (RAB, MBOX_HOST, MBOX_PULP)
+%>
+% for i_master in range(n_clusters+n_l2_banks+3):
+add wave -noupdate -group {SoC} -group {SoC bus} -group {masters[${i_master}]} {/overlay_tb/dut/i_soc_bus/masters[${i_master}]/*}
+% endfor
+
+<%
+    # N_SLAVES = N_CLUSTERS + 1 (RAB)
+%>
+% for i_slave in range(n_clusters+1):
+add wave -noupdate -group {SoC} -group {SoC bus} -group {slave[${i_slave}]} {/overlay_tb/dut/i_soc_bus/slaves[${i_slave}]/*}
+% endfor
 </%def>

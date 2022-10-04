@@ -22,10 +22,11 @@ ${vsim_waves_soc_cluster_axi_outputs(cluster_offset)}
 
 % endfor
 
+${vsim_waves_soc_bus()}
+${vsim_waves_soc_l2_mem()}
 ${vsim_waves_soc_periph_mst()}
 ${vsim_waves_soc_periph()}
 ${vsim_waves_soc_ctrl_regs()}
-${vsim_waves_soc_l2_mem()}
 
 <%
 # =====================================================================

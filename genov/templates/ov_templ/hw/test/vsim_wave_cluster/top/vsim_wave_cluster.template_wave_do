@@ -23,6 +23,26 @@
 %>
 
 <%
+    # PULP cluster (top)
+%>
+
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {top} -group {s_mperiph_bus} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/s_mperiph_bus/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {top} -group {s_mperiph_demux_bus[0]} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/s_mperiph_demux_bus[0]/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {top} -group {s_mperiph_demux_bus[1]} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/s_mperiph_demux_bus[1]/*}
+
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {axi2per_wrap_i} -group {top} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/axi2per_wrap_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {axi2per_wrap_i} -group {axi2per_i} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/axi2per_wrap_i/axi2per_i/*}
+
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {per2axi_wrap_i} -group {top} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/per2axi_wrap_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {per2axi_wrap_i} -group {per2axi_i} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/per2axi_wrap_i/per2axi_i/*}
+
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {tryx_ctrl_i} -group {top} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/tryx_ctrl_i/*}
+
+${vsim_waves_cluster_bus()}
+${vsim_waves_cluster_interconnect()}
+${vsim_waves_cluster_peripherals()}
+
+<%
     # RISC-V core waves
 %>
 
@@ -40,13 +60,12 @@ ${vsim_waves_core_eu_ctrl()}
     # Cluster components waves
 %>
 
+${vsim_waves_cluster_core_periph_slave()}
 ${vsim_waves_cluster_dma_ooc_wrap()}
 ${vsim_waves_cluster_event_unit()}
 ${vsim_waves_cluster_speriph_mst(n_periphs)}
-${vsim_waves_cluster_interconnect()}
 ${vsim_waves_cluster_tcdm()}
 ${vsim_waves_cluster_icache()}
-${vsim_waves_cluster_core_periph_slave()}
 
 <%
     # LIC accelerator region waves

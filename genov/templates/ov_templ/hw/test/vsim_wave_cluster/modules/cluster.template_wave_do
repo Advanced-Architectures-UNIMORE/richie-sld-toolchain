@@ -16,6 +16,19 @@
 
 <%
 # =====================================================================
+# Title:        vsim_waves_bus
+# Type:         Template API
+# Description:  Cluster bus.
+# =====================================================================
+%>
+
+<%def name="vsim_waves_cluster_bus()">\
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_bus} -group {top} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_bus_wrap_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_bus} -group {i_xbar} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_bus_wrap_i/i_xbar/*}
+</%def>
+
+<%
+# =====================================================================
 # Title:        vsim_waves_interconnect
 # Type:         Template API
 # Description:  Cluster interconnect.
@@ -23,11 +36,27 @@
 %>
 
 <%def name="vsim_waves_cluster_interconnect()">\
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_interconnect} -group {top} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_interconnect_wrap_i/*}
+
 add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_interconnect} -group {tcdm_interco} -group {inputs} -label {s_core_tcdm_bus_add} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_interconnect_wrap_i/s_core_tcdm_bus_add}
 add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_interconnect} -group {tcdm_interco} -group {inputs} -label {iconn_inp_wdata} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_interconnect_wrap_i/iconn_inp_wdata}
 
 % for tcdm_bank_offset in range(cl_n_l1_banks):
 add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_interconnect} -group {tcdm_sram_master} -group {tcdm_sram_master[${tcdm_bank_offset}]} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_interconnect_wrap_i/tcdm_sram_master[${tcdm_bank_offset}]/*}
+% endfor
+</%def>
+
+<%
+# =====================================================================
+# Title:        vsim_waves_cluster_core_periph_slave
+# Type:         Template API
+# Description:  Peripheral slave.
+# =====================================================================
+%>
+
+<%def name="vsim_waves_cluster_core_periph_slave()">\
+% for core_offset in range(cl_n_cores):
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {core_periph_slave} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_interconnect_wrap_i/core_periph_slave[${core_offset}]/*}
 % endfor
 </%def>
 
@@ -55,6 +84,19 @@ add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {sram} -group {intf_sr
 
 <%def name="vsim_waves_cluster_icache()">\
 add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {icache[0]} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/icache_top_i/*}
+</%def>
+
+<%
+# =====================================================================
+# Title:        vsim_waves_peripherals
+# Type:         Template API
+# Description:  Cluster peripherals.
+# =====================================================================
+%>
+
+<%def name="vsim_waves_cluster_peripherals()">\
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} -group {top} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_peripherals_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} -group {core_eu_direct_link[0]}  {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_peripherals_i/core_eu_direct_link[0]/*}
 </%def>
 
 <%
@@ -93,18 +135,4 @@ add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} 
 
 <%def name="vsim_waves_cluster_event_unit()">\
 add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} -group {event_unit} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_peripherals_i/event_unit_flex_i/*}
-</%def>
-
-<%
-# =====================================================================
-# Title:        vsim_waves_cluster_core_periph_slave
-# Type:         Template API
-# Description:  Peripheral slave.
-# =====================================================================
-%>
-
-<%def name="vsim_waves_cluster_core_periph_slave()">\
-% for core_offset in range(cl_n_cores):
-add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {core_periph_slave} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_interconnect_wrap_i/core_periph_slave[${core_offset}]/*}
-% endfor
 </%def>
