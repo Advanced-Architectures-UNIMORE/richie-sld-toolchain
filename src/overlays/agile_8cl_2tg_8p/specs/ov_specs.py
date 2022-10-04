@@ -46,9 +46,9 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'agile_4cl_4tg'
+        self.name                               = 'agile_8cl_2tg_8p'
         self.board                              = 'zcu102'
-        self.l2                                 = [ 1 , 128*1024*64]
+        self.l2                                 = [ 8 , 128*1024*64]
         return self
 
     '''
@@ -64,8 +64,6 @@ class ov_specs:
         self.core                               = [ 'riscy', 8 ]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
-                                                    [ 'traffic_gen' , 'hwpe'],
-                                                    [ 'traffic_gen' , 'hwpe'],
                                                     [ 'traffic_gen' , 'hwpe']]
         self.hci                                = [ ]
         return self
@@ -74,8 +72,6 @@ class ov_specs:
         self.core                               = [ 'riscy', 8 ]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
-                                                    [ 'traffic_gen' , 'hwpe'],
-                                                    [ 'traffic_gen' , 'hwpe'],
                                                     [ 'traffic_gen' , 'hwpe']]
         self.hci                                = [ ]
         return self
@@ -84,8 +80,6 @@ class ov_specs:
         self.core                               = [ 'riscy', 8 ]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
-                                                    [ 'traffic_gen' , 'hwpe'],
-                                                    [ 'traffic_gen' , 'hwpe'],
                                                     [ 'traffic_gen' , 'hwpe']]
         self.hci                                = [ ]
         return self
@@ -94,8 +88,38 @@ class ov_specs:
         self.core                               = [ 'riscy', 8 ]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
-                                                    [ 'traffic_gen' , 'hwpe'],
-                                                    [ 'traffic_gen' , 'hwpe'],
+                                                    [ 'traffic_gen' , 'hwpe']]
+        self.hci                                = [ ]
+        return self
+
+    def cluster_4(self):
+        self.core                               = [ 'riscy', 8 ]
+        self.l1                                 = [ 16 , 128*1024]
+        self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
+                                                    [ 'traffic_gen' , 'hwpe']]
+        self.hci                                = [ ]
+        return self
+
+    def cluster_5(self):
+        self.core                               = [ 'riscy', 8 ]
+        self.l1                                 = [ 16 , 128*1024]
+        self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
+                                                    [ 'traffic_gen' , 'hwpe']]
+        self.hci                                = [ ]
+        return self
+
+    def cluster_6(self):
+        self.core                               = [ 'riscy', 8 ]
+        self.l1                                 = [ 16 , 128*1024]
+        self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
+                                                    [ 'traffic_gen' , 'hwpe']]
+        self.hci                                = [ ]
+        return self
+
+    def cluster_7(self):
+        self.core                               = [ 'riscy', 8 ]
+        self.l1                                 = [ 16 , 128*1024]
+        self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
                                                     [ 'traffic_gen' , 'hwpe']]
         self.hci                                = [ ]
         return self
