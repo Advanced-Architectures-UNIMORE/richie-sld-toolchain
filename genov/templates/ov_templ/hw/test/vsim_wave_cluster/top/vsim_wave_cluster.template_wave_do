@@ -72,7 +72,3 @@ ${vsim_waves_cluster_icache()}
 %>
 
 ${vsim_waves_lic_acc_region(n_acc_cl)}
-
-<%
-    # LIC accelerator interface waves
-%>

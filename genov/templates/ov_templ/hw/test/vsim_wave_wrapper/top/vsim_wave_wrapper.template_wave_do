@@ -1,0 +1,23 @@
+<%
+# =====================================================================
+# Project:       QuestaSim waves
+# Title:         vsim_wave_wrapper.template_wave_do
+# Description:   QuestaSim waves to simplify validation phase of cluster 
+#                components.
+#
+# $Date:         19.1.22
+#
+# Generator:     generate_ov_test
+# ===================================================================== */
+#
+# Copyright (C) 2021 University of Modena and Reggio Emilia.
+#
+# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+%>
+
+<%
+    # Accelerator wrapper components
+%>
+
+${vsim_waves_hwpe()}
+

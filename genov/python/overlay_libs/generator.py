@@ -102,6 +102,9 @@ class Generator:
             # addressgen
             acc_wr_addr_gen_in_isprogr      = acc_design_params.addr_gen_in_isprogr,
             acc_wr_addr_gen_out_isprogr     = acc_design_params.addr_gen_out_isprogr,
+            ####################
+            # EXTRA PARAMETERS #
+            ####################
             # additional params
             extra_param_0                   = extra_params[0],
             extra_param_1                   = extra_params[1],

@@ -34,39 +34,48 @@ class Generator:
         The rendered output is a string.
     '''
         
-    def render(self, design_params, template, cl_id=0, extra_params=[]):
+    def render(self, ov_design_params, template, cl_id=0, extra_params=[]):
         # prepare input template
         target = Template(template)
         # rendering phase
         string = target.render(
+            #############################
+            # SYSTEM-ON-CHIP PARAMETERS #
+            #############################
             # author
-            author                          = design_params.author,
-            email                           = design_params.email,
+            author                          = ov_design_params.author,
+            email                           = ov_design_params.email,
             # generated SoC
-            soc_name                        = design_params.soc_name,
+            soc_name                        = ov_design_params.soc_name,
             # L2 memory
-            n_l2_banks                      = design_params.l2[0],
-            l2_size                         = design_params.l2[1],
+            n_l2_banks                      = ov_design_params.l2[0],
+            l2_size                         = ov_design_params.l2[1],
             # number of clusters
-            n_clusters                      = design_params.n_clusters,
+            n_clusters                      = ov_design_params.n_clusters,
+            ######################
+            # CLUSTER PARAMETERS #
+            ######################
             # cluster ID
             cl_id                           = cl_id,
             # cluster cores
-            cl_core_name                    = design_params.list_cl_cores[cl_id][0],
-            cl_n_cores                      = design_params.list_cl_cores[cl_id][1],
+            cl_core_name                    = ov_design_params.list_cl_cores[cl_id][0],
+            cl_n_cores                      = ov_design_params.list_cl_cores[cl_id][1],
             # cluster data memory
-            cl_n_l1_banks                   = design_params.list_cl_l1[cl_id][0],
-            cl_l1_size                      = design_params.list_cl_l1[cl_id][1],
+            cl_n_l1_banks                   = ov_design_params.list_cl_l1[cl_id][0],
+            cl_l1_size                      = ov_design_params.list_cl_l1[cl_id][1],
             # logarithmic interconnect (LIC)
-            cl_lic_total_data_ports         = design_params.list_cl_lic[cl_id][0],
-            cl_lic_acc_names                = design_params.list_cl_lic[cl_id][1],
-            cl_lic_acc_protocols            = design_params.list_cl_lic[cl_id][2],
-            cl_lic_acc_n_data_ports         = design_params.list_cl_lic[cl_id][3],
+            cl_lic_total_data_ports         = ov_design_params.list_cl_lic[cl_id][0],
+            cl_lic_acc_names                = ov_design_params.list_cl_lic[cl_id][1],
+            cl_lic_acc_protocols            = ov_design_params.list_cl_lic[cl_id][2],
+            cl_lic_acc_n_data_ports         = ov_design_params.list_cl_lic[cl_id][3],
             # heterogeneous interconnect (HCI)
-            cl_hci_total_data_ports         = design_params.list_cl_hci[cl_id][0],
-            cl_hci_acc_names                = design_params.list_cl_hci[cl_id][1],
-            cl_hci_acc_protocols            = design_params.list_cl_hci[cl_id][2],
-            cl_hci_acc_n_data_ports         = design_params.list_cl_hci[cl_id][3],
+            cl_hci_total_data_ports         = ov_design_params.list_cl_hci[cl_id][0],
+            cl_hci_acc_names                = ov_design_params.list_cl_hci[cl_id][1],
+            cl_hci_acc_protocols            = ov_design_params.list_cl_hci[cl_id][2],
+            cl_hci_acc_n_data_ports         = ov_design_params.list_cl_hci[cl_id][3],
+            ####################
+            # EXTRA PARAMETERS #
+            ####################
             # additional params
             extra_param_0                   = extra_params[0],
             extra_param_1                   = extra_params[1],
@@ -85,8 +94,8 @@ class Generator:
     =================================
 '''
 
-def gen_ov_test_comps(temp_obj, design_params, emitter, descr, out_dir, cl_id=0, extra_params=[None for _ in range(3)]):
+def gen_ov_test_comps(temp_obj, ov_design_params, emitter, descr, out_dir, cl_id=0, extra_params=[None for _ in range(3)]):
     template = temp_obj
-    out_target = Generator().render(design_params, template, cl_id, extra_params)
+    out_target = Generator().render(ov_design_params, template, cl_id, extra_params)
     filename = emitter.get_file_name(descr)
     emitter.out_gen(out_target, filename, out_dir)

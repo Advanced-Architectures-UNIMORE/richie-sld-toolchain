@@ -21,8 +21,11 @@ import sys
     Import custom functions
 '''
 from python.overlay.process_params import overlay_params_formatted
+from python.wrapper.process_params import wrapper_params_formatted
 from python.overlay.process_params import print_ov_test_log
 from python.overlay_test.generator import gen_ov_test_comps
+from python.wrapper.generator import gen_acc_comps
+from python.wrapper.import_params import import_acc_dev_module
 
 '''
     Import emitter
@@ -52,12 +55,12 @@ ov_specs = ov_specs
 '''
     Format design parameters
 '''
-design_params = overlay_params_formatted(ov_specs)
+ov_design_params = overlay_params_formatted(ov_specs)
 
 '''
     Print overlay test log
 ''' 
-print_ov_test_log(design_params)
+print_ov_test_log(ov_design_params)
 
 '''
     Instantiate emitter item
@@ -87,7 +90,7 @@ test = Test()
 ''' 
 gen_ov_test_comps(
     test.OverlayTestbenchHw(),
-    design_params,
+    ov_design_params,
     emitter,
     ['tb', 'overlay_tb', ['hw', 'sv']],
     emitter.ov_gen_test
@@ -151,22 +154,54 @@ gen_ov_test_comps(
 ''' 
 gen_ov_test_comps(
     test.VsimWaveSoc(),
-    design_params,
+    ov_design_params,
     emitter,
     ['integr_support', 'vsim_wave_soc', ['integr_support', 'vsim_wave']],
     emitter.ov_gen_test_waves
 )
 
-for cl_offset in range(design_params.n_clusters):
+for cluster_id in range(ov_design_params.n_clusters):
 
     '''
         Generate design components ~ QuestaSim waves
     ''' 
     gen_ov_test_comps(
         test.VsimWaveCluster(),
-        design_params,
+        ov_design_params,
         emitter,
-        ['integr_support', 'vsim_wave_cluster_' + str(cl_offset), ['integr_support', 'vsim_wave']],
+        ['integr_support', 'vsim_wave_cluster_' + str(cluster_id), ['integr_support', 'vsim_wave']],
         emitter.ov_gen_test_waves,
-        cl_offset
+        cluster_id
     )
+
+    cl_lic_acc_names = ov_design_params.list_cl_lic[cluster_id][1]
+
+    for accelerator_id in range(len(cl_lic_acc_names)):
+
+        '''
+            Retrieve wrapper design parameters
+        '''
+
+        target_acc = cl_lic_acc_names[accelerator_id]
+        acc_specs = import_acc_dev_module(target_acc)
+
+        '''
+            Format wrapper design parameters
+        '''
+
+        acc_design_params = wrapper_params_formatted(acc_specs.acc_specs)
+
+        '''
+            Generate design components ~ QuestaSim waves
+        ''' 
+
+        hwpe_name = 'hwpe_cl' + str(cluster_id) + '_lic' + str(accelerator_id)
+
+        gen_acc_comps(
+            test.VsimWaveWrapper(),
+            acc_design_params,
+            emitter,
+            ['integr_support', 'vsim_wave_' + hwpe_name, ['integr_support', 'vsim_wave']],
+            emitter.ov_gen_test_waves,
+            [cluster_id, accelerator_id, None]
+        )

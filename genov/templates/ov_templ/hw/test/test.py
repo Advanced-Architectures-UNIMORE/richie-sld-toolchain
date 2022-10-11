@@ -19,7 +19,7 @@
 from templates.ov_templ.hw.test.overlay_tb_hw.top.overlay_tb_hw import OverlayTestbenchHw
 # from templates.ov_templ.hw.test.overlay_tb_sw.top.overlay_tb_sw import OverlayTestbenchSw
 from templates.ov_templ.hw.test.vsim_wave_cluster.top.vsim_wave_cluster import VsimWaveCluster
-# from templates.ov_templ.hw.test.vsim_wave_wrapper.top.vsim_wave_wrapper import VsimWaveWrapper
+from templates.ov_templ.hw.test.vsim_wave_wrapper.top.vsim_wave_wrapper import VsimWaveWrapper
 from templates.ov_templ.hw.test.vsim_wave_soc.top.vsim_wave_soc import VsimWaveSoc
 
 class Test:
@@ -50,29 +50,27 @@ class Test:
             temp_type = 'templates/ov_templ/hw/test/vsim_wave_cluster/',
             temp_top = 'vsim_wave_cluster.template_wave_do',
             temp_modules = ['cluster.template_wave_do',
+                            'riscv_core.template_wave_do',
                             'lic_acc_region.template_wave_do',
-                            'riscv_core.template_wave_do'
             ],
             path_common = self.path_common
         ).top()
 
-    # def VsimWaveWrapper(self):
-    #     print("\n[py] >> Overlay ~ QuestaSim waves (Wrapper)")
-    #     return VsimWaveWrapper(
-    #         temp_type = 'templates/ov_templ/hw/test/vsim_wave_wrapper/',
-    #         temp_top = 'vsim_wave_wrapper.template_wave_do',
-    #         temp_modules = ['hwpe/hwpe_ctrl.template_wave_do', 
-    #                         'hwpe/hwpe_engine.template_wave_do', 
-    #                         'hwpe/hwpe_fsm.template_wave_do',
-    #                         'hwpe/hwpe_streamer.template_wave_do',
-    #                         'hwpe/hwpe_top.template_wave_do',
-    #                         'hwpe/kernel_interface/mdc_dataflow.template_wave_do',
-    #                         'hwpe/kernel_interface/xil_ap_ctrl_hs.template_wave_do',
-    #                         'hwpe/kernel_interface/kernel_hls.template_wave_do',
-    #                         'hwpe.template_wave_do'
-    #         ],
-    #         path_common = self.path_common
-    #     ).top()
+    def VsimWaveWrapper(self):
+        print("\n[py] >> Overlay ~ QuestaSim waves (Wrapper)")
+        return VsimWaveWrapper(
+            temp_type = 'templates/ov_templ/hw/test/vsim_wave_wrapper/',
+            temp_top = 'vsim_wave_wrapper.template_wave_do',
+            temp_modules = ['hwpe/hwpe_ctrl.template_wave_do', 
+                            'hwpe/hwpe_engine.template_wave_do', 
+                            'hwpe/hwpe_fsm.template_wave_do',
+                            'hwpe/hwpe_streamer.template_wave_do',
+                            'hwpe/hwpe_top.template_wave_do',
+                            'hwpe/accelerator_kernel.template_wave_do',
+                            'hwpe.template_wave_do'
+            ],
+            path_common = self.path_common
+        ).top()
 
     def VsimWaveSoc(self):
         print("\n[py] >> Overlay ~ QuestaSim waves (SoC)")

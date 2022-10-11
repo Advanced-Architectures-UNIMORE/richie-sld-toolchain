@@ -1,8 +1,8 @@
 <%
 # =====================================================================
 # Project:       QuestaSim waves
-# Title:         cluster.template_wave_do
-# Description:   QuestaSim waves of PULP cluster components.
+# Title:         hwpe.template_wave_do
+# Description:   QuestaSim waves of accelerator wrapper components.
 #
 # $Date:         18.1.2022
 #
@@ -42,27 +42,19 @@ ${vsim_waves_hwpe_engine()}
 
 <%
 # =====================================================================
-# Description:  HWPE kernel adapter.
+# Description:  Accelerator kernel adapter.
 # =====================================================================
 %>
 
-% if is_ap_ctrl_hs is True:
-${vsim_waves_hwpe_kernel_adapter_xil_ap_ctrl_hs()}
-% endif
-
-% if is_mdc_dataflow is True:
-${vsim_waves_hwpe_kernel_adapter_mdc_dataflow()}
-% endif
+${vsim_waves_accelerator_kernel_adapter()}
 
 <%
 # =====================================================================
-# Description:  HWPE kernel HLS.
+# Description:  HW accelerator.
 # =====================================================================
 %>
 
-% if design_type is 'hls':
-${vsim_waves_hwpe_kernel_HLS()}
-% endif
+${vsim_waves_hw_accelerator()}
 
 <%
 # =====================================================================
@@ -70,10 +62,16 @@ ${vsim_waves_hwpe_kernel_HLS()}
 # =====================================================================
 %>
 
+% if is_ap_ctrl_hs is True:
 ${vsim_waves_hwpe_streamer()}
 ${vsim_waves_hwpe_streamer_source()}
 ${vsim_waves_hwpe_streamer_sink()}
 ${vsim_waves_hwpe_streamer_addressgen()}
+% endif
+
+% if is_mdc_dataflow is True:
+${vsim_waves_hwpe_streamer()}
+% endif
 
 <%
 # =====================================================================

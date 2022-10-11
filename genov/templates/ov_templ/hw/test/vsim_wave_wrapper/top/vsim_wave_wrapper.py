@@ -1,9 +1,9 @@
 '''
  =====================================================================
  Project:       QuestaSim waves
- Title:         vsim_wave_cluster.py
- Description:   QuestaSim waves to simplify validation phase of cluster 
-                components.
+ Title:         vsim_wave_wrapper.py
+ Description:   QuestaSim waves to simplify validation phase of accelerator  
+                wrapper components.
 
  Date:          19.1.22
  ===================================================================== */
@@ -18,6 +18,6 @@
 
 from python.collector import collector
 
-class VsimWaveCluster(collector):
+class VsimWaveWrapper(collector):
     def top(self):
         return self.get_template()
