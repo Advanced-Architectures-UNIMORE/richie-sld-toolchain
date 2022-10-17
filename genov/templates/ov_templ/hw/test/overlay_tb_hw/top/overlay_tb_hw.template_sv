@@ -384,8 +384,8 @@ module overlay_tb #(
   % for i in range(n_clusters):
   for (genvar iBank = 0; iBank < N_TCDM_BANKS_CL_${i}; iBank++) begin: gen_fill_tcdm_bank_${i}
     initial begin
-      $display("Reading SLM file: %s/slm_files/l1_0_%01d.slm", getenv("VSIM_PRJ_TARGET"), iBank);
-      $readmemh($sformatf("%s/slm_files/l1_0_%01d.slm", getenv("VSIM_PRJ_TARGET"), iBank),
+      $display("Reading SLM file: %s/slm_files/l1_0_%01d.slm", getenv("VSIM_PRJ_PATH"), iBank);
+      $readmemh($sformatf("%s/slm_files/l1_0_%01d.slm", getenv("VSIM_PRJ_PATH"), iBank),
         dut.gen_clusters[${i}].gen_cluster_sync.i_cluster.i_ooc.i_bound.gen_tcdm_banks[iBank].i_tc_sram.sram);
     end
   end
@@ -401,8 +401,8 @@ module overlay_tb #(
         for (genvar iCol = 0; iCol < N_PAR_CUTS; iCol++) begin: gen_fill_l2_cols
           int unsigned file_ser_idx = iPort*N_SER_CUTS + iRow;
           initial begin
-            $display("Reading SLM file: %s/slm_files/l2_%01d_%01d.slm", getenv("VSIM_PRJ_TARGET"), file_ser_idx, iCol);
-            $readmemh($sformatf("%s/slm_files/l2_%01d_%01d.slm", getenv("VSIM_PRJ_TARGET"), file_ser_idx, iCol),
+            $display("Reading SLM file: %s/slm_files/l2_%01d_%01d.slm", getenv("VSIM_PRJ_PATH"), file_ser_idx, iCol);
+            $readmemh($sformatf("%s/slm_files/l2_%01d_%01d.slm", getenv("VSIM_PRJ_PATH"), file_ser_idx, iCol),
               dut.gen_l2_ports[iPort].l2_memory_w_amo.i_l2_mem.gen_rows[iRow].gen_cols[iCol].i_tc_sram_cut.sram);
           end
         end
@@ -418,8 +418,8 @@ module overlay_tb #(
         for (genvar iCol = 0; iCol < N_PAR_CUTS; iCol++) begin: gen_fill_l2_cols
           int unsigned file_ser_idx = iPort*N_SER_CUTS + iRow;
           initial begin
-            $display("Reading SLM file: %s/slm_files/l2_%01d_%01d.slm", getenv("VSIM_PRJ_TARGET"), file_ser_idx, iCol);
-            $readmemh($sformatf("%s/slm_files/l2_%01d_%01d.slm", getenv("VSIM_PRJ_TARGET"), file_ser_idx, iCol),
+            $display("Reading SLM file: %s/slm_files/l2_%01d_%01d.slm", getenv("VSIM_PRJ_PATH"), file_ser_idx, iCol);
+            $readmemh($sformatf("%s/slm_files/l2_%01d_%01d.slm", getenv("VSIM_PRJ_PATH"), file_ser_idx, iCol),
               dut.gen_l2_ports[iPort].l2_memory_no_amo.i_l2_mem.gen_rows[iRow].gen_cols[iCol].i_tc_sram_cut.sram);
           end
         end

@@ -20,6 +20,7 @@ from templates.ov_templ.hw.test.overlay_tb_hw.top.overlay_tb_hw import OverlayTe
 # from templates.ov_templ.hw.test.overlay_tb_sw.top.overlay_tb_sw import OverlayTestbenchSw
 from templates.ov_templ.hw.test.vsim_wave_cluster.top.vsim_wave_cluster import VsimWaveCluster
 from templates.ov_templ.hw.test.vsim_wave_wrapper.top.vsim_wave_wrapper import VsimWaveWrapper
+from templates.ov_templ.hw.test.vsim_wave_experiment_view.top.vsim_wave_experiment_view import VsimWaveExperimentView
 from templates.ov_templ.hw.test.vsim_wave_soc.top.vsim_wave_soc import VsimWaveSoc
 
 class Test:
@@ -80,6 +81,17 @@ class Test:
             temp_modules = ['pulp_cluster_inputs.template_wave_do',
                             'pulp_cluster_outputs.template_wave_do',
                             'soc.template_wave_do'
+            ],
+            path_common = self.path_common
+        ).top()
+
+    def VsimWaveExperimentView(self):
+        print("\n[py] >> Overlay ~ QuestaSim waves (Experiment)")
+        return VsimWaveSoc(
+            temp_type = 'templates/ov_templ/hw/test/vsim_wave_experiment_view/',
+            temp_top = 'vsim_wave_experiment_view.template_wave_do',
+            temp_modules = ['group_by_device.template_wave_do',
+                            'group_by_cluster.template_wave_do'
             ],
             path_common = self.path_common
         ).top()

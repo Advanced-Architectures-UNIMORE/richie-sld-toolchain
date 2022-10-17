@@ -113,7 +113,9 @@ int arov_activate(AROV_DEVICE_PTR accelerators, const int cluster_id, const int 
 void arov_program(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
 void arov_update_buffer_addr(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
 void arov_compute(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
-void arov_wait(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
+void arov_wait_eu(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
+void arov_wait_polling(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
+int arov_is_finished(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator_id);
 void arov_free(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
 
 #endif

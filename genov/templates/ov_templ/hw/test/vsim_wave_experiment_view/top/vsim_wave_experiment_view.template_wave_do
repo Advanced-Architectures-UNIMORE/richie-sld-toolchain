@@ -1,0 +1,19 @@
+<%
+# =====================================================================
+# Project:       QuestaSim waves
+# Title:         vsim_wave_experiment_view.template_wave_do
+# Description:   QuestaSim waves to simplify validation phase of cluster 
+#                components.
+#
+# $Date:         13.10.2022
+#
+# Generator:     generate_ov_test
+# ===================================================================== */
+#
+# Copyright (C) 2021 University of Modena and Reggio Emilia.
+#
+# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+%>
+
+${vsim_waves_experiment_group_by_device()}
+${vsim_waves_experiment_group_by_cluster()}

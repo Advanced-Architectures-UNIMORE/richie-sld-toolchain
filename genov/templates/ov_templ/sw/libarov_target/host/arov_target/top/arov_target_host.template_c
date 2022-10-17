@@ -40,7 +40,7 @@ void arov_init(AROV_DEVICE_PTR accelerators, const int cluster_id, const int acc
 }
 
 int arov_activate(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
-    return;
+    return 0;
 }
 
 void arov_program(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
@@ -55,8 +55,16 @@ void arov_compute(AROV_DEVICE_PTR accelerators, const int cluster_id, const int 
     return;
 }
 
-void arov_wait(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
+void arov_wait_eu(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
     return;
+}
+
+void arov_wait_polling(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
+    return;
+}
+
+int arov_is_finished(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator_id){
+    return 0;
 }
 
 void arov_free(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){

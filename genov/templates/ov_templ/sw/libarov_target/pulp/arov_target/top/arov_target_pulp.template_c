@@ -133,7 +133,6 @@ int arov_activate(AROV_DEVICE_PTR arov, const int cluster_id, const int accelera
     }
 % endfor
 
-
     return offload_id;        
 };
 
@@ -245,7 +244,7 @@ void arov_compute(AROV_DEVICE_PTR arov, const int cluster_id, const int accelera
   
 };
 
-void arov_wait(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator_id){
+void arov_wait_eu(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator_id){
     
     /* Decide which hardware accelerator to wait for */
     
@@ -271,14 +270,89 @@ void arov_wait(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator
 
             accelerator_id = j
         %>
-	        case ${accelerator_id}: arov_cl${cluster_id}_lic${accelerator_id}_wait(); break; \
+	        case ${accelerator_id}: arov_cl${cluster_id}_lic${accelerator_id}_wait_eu(); break; \
     % endfor
             
-            default: printf("Error: No matching case for <arov_wait>\n");
+            default: printf("Error: No matching case for <arov_wait_eu>\n");
         }
     }
 % endfor
       
+};
+
+void arov_wait_polling(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator_id){
+    
+    /* Decide which hardware accelerator to wait for */
+    
+% for i in range(n_clusters):
+    <%
+        # Determine cluster ID
+
+        cluster_id = i
+
+        # List of accelerator names
+        cl_lic_acc_names = list_cl_lic[i][1]
+        cl_hci_acc_names = list_cl_hci[i][1]
+
+        # Count number of wrappers
+
+        n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
+    %>
+    if(cluster_id == ${cluster_id}){
+        switch (accelerator_id){
+    % for j in range(n_acc_cl):
+        <%
+            # Determine accelerator ID
+
+            accelerator_id = j
+        %>
+	        case ${accelerator_id}: arov_cl${cluster_id}_lic${accelerator_id}_wait_polling(); break; \
+    % endfor
+            
+            default: printf("Error: No matching case for <arov_wait_polling>\n");
+        }
+    }
+% endfor
+      
+};
+
+int arov_is_finished(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator_id){
+    
+    /* Decide which hardware accelerator to check for termination */
+
+    int is_finished;
+    
+% for i in range(n_clusters):
+    <%
+        # Determine cluster ID
+
+        cluster_id = i
+
+        # List of accelerator names
+        cl_lic_acc_names = list_cl_lic[i][1]
+        cl_hci_acc_names = list_cl_hci[i][1]
+
+        # Count number of wrappers
+
+        n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
+    %>
+    if(cluster_id == ${cluster_id}){
+        switch (accelerator_id){
+    % for j in range(n_acc_cl):
+        <%
+            # Determine accelerator ID
+
+            accelerator_id = j
+        %>
+	        case ${accelerator_id}: is_finished = arov_cl${cluster_id}_lic${accelerator_id}_is_finished(); break; \
+    % endfor
+            
+            default: printf("Error: No matching case for <arov_is_finished>\n");
+        }
+    }
+% endfor
+
+    return is_finished;
 };
 
 void arov_free(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator_id){

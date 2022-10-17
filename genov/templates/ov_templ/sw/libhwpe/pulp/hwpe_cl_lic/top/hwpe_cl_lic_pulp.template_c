@@ -230,26 +230,25 @@ void arov_cl${cl_id}_lic${accelerator_id}_compute() {
     hwpe_trigger_job();
 };
 
-/* Synchronization */
+/* Synchronization via Event Unit */
 
-void arov_cl${cl_id}_lic${accelerator_id}_wait() {
+void arov_cl${cl_id}_lic${accelerator_id}_wait_eu() {
     
-    /*
-     * Synchroniation via Event Unit
-     */
+    // TODO: Accelerators share the same event line inside a cluster,
+    // hence the processor needs to proactively check which accelerator
+    // has terminated after an event is received.
 
-    // TODO: Not ready yet for accelerator-rich!
+    // Cores go to sleep and EU is programmed to wait for
+    // hardware event coming from the accelerator region.
 
-    // // Cores go to sleep and EU is programmed to wait for
-    // // hardware event coming from the accelerator region.
+    __asm__ __volatile__ ("" : : : "memory");
+    eu_evt_maskWaitAndClr(1 << ARCHI_CL_EVT_ACC0);
+    __asm__ __volatile__ ("" : : : "memory");
+};
 
-    // __asm__ __volatile__ ("" : : : "memory");
-    // eu_evt_maskWaitAndClr(1 << ARCHI_CL_EVT_ACC0);
-    // __asm__ __volatile__ ("" : : : "memory");
+/* Synchronization via Active Core Polling */
 
-    /*
-     * Synchroniation via Active Core Polling
-     */
+void arov_cl${cl_id}_lic${accelerator_id}_wait_polling() {
 
     // The core starts polling on the accelerator to verify
     // whether It has terminated its operations.
@@ -259,212 +258,18 @@ void arov_cl${cl_id}_lic${accelerator_id}_wait() {
     }
 };
 
+/* Termination */
+
+int arov_cl${cl_id}_lic${accelerator_id}_is_finished() {
+
+    // Check if accelerator has terminated its operation
+    int is_finished = hwpe_get_finished();
+    return is_finished; 
+};
+
 /* Deactivation */
 
 void arov_cl${cl_id}_lic${accelerator_id}_free() {
     hwpe_soft_clear();
     hwpe_cg_disable();
 };
-
-/* ==================================================================================== */
-
-/* 
- * The following code is currently not used.
- */
-
-// void ${cl_lic_acc_names[accelerator_id]}_init_addr_gen(${cl_lic_acc_names[accelerator_id]}_stream_struct *stream) {
-
-//     // transaction size
-//     stream->addr_gen.trans_size     = (stream->addr_gen.trans_size == stream->params.width * stream->params.stripe_height) ? (stream->params.width * stream->params.stripe_height)
-//                                                                                                                                : stream->addr_gen.trans_size;
-//     // line stride
-//     stream->addr_gen.line_stride    = (stream->addr_gen.line_stride == 0) ? 0
-//                                                                             : stream->addr_gen.line_stride;
-//     // line length
-//     stream->addr_gen.line_length    = (stream->addr_gen.line_length == stream->params.width) ? stream->params.width
-//                                                                                                 : stream->addr_gen.line_length;
-//     // feat stride
-//     stream->addr_gen.feat_stride    = (stream->addr_gen.feat_stride == 0) ? 0 : stream->addr_gen.feat_stride;
-
-//     // feat length
-//     stream->addr_gen.feat_length    = (stream->addr_gen.feat_length == stream->params.stripe_height) ? stream->params.stripe_height
-//                                                                                                         : stream->addr_gen.feat_length;
-//     // feat roll
-//     stream->addr_gen.feat_roll      = (stream->addr_gen.feat_roll == 0) ? 0
-//                                                                           : stream->addr_gen.feat_roll;
-//     // loop outer
-//     stream->addr_gen.loop_outer     = (stream->addr_gen.loop_outer == 0) ? 0
-//                                                                            : stream->addr_gen.loop_outer;
-//     // realign type
-//     stream->addr_gen.realign_type   = (stream->addr_gen.realign_type == 0) ? 0
-//                                                                              : stream->addr_gen.realign_type;
-//     // port offset
-//     stream->addr_gen.port_offset    = (stream->addr_gen.port_offset == 0) ? ${cl_n_l1_banks}
-//                                                                             : stream->addr_gen.port_offset;
-//     // step
-//     stream->addr_gen.step           = (stream->addr_gen.step == 4) ? 4
-//                                                                      : stream->addr_gen.step;
-// };
-
-// int ${cl_lic_acc_names[accelerator_id]}_activate(${cl_lic_acc_names[accelerator_id]}_ctrl_struct *ctrl) {
-//     int offload_id; 
-//     hwpe_cg_enable(); 
-//     while((offload_id = hwpe_acquire_job()) < 0);
-//     return offload_id;
-// };
-
-// void ${cl_lic_acc_names[accelerator_id]}_set_std_regs(
-// % for i in range (acc_wr_n_sink):
-//     hwpe_stream_struct *stream_${acc_wr_stream_in[i]},
-// % endfor
-// % for j in range (acc_wr_n_source):
-//     hwpe_stream_struct *stream_${acc_wr_stream_out[j]},
-// % endfor
-//     ${cl_lic_acc_names[accelerator_id]}_ctrl_struct *ctrl
-// ) {
-
-//     /* Iteration length */
-
-//     // Number of engine computations before an event is generated
-    
-% for j in range (acc_wr_n_source):
-//     hwpe_len_iter_set_${acc_wr_stream_out[j]}(ctrl->fsm.n_engine_runs - 1);
-% endfor
-
-//     /* Address generator programming */
-
-% for i in range (acc_wr_n_sink):
-    % if (acc_wr_addr_gen_in_isprogr[i]):
-        % if (acc_wr_is_parallel_in[i]):
-//     hwpe_addr_gen_${acc_wr_stream_in[i]}(
-//         stream_${acc_wr_stream_in[i]}->addr_gen.trans_size,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.line_stride,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.line_length,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.feat_stride,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.feat_length,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.feat_roll,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.loop_outer,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.realign_type,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.port_offset,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.step
-//     );
-      % else:
-//     hwpe_addr_gen_${acc_wr_stream_in[i]}(
-//         stream_${acc_wr_stream_in[i]}->addr_gen.trans_size,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.line_stride,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.line_length,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.feat_stride,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.feat_length,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.feat_roll,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.loop_outer,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.realign_type,
-//         stream_${acc_wr_stream_in[i]}->addr_gen.step
-//     );
-        % endif
-    % endif
-% endfor
-
-% for j in range (acc_wr_n_source):
-    % if (acc_wr_addr_gen_out_isprogr[j]):
-        % if (acc_wr_is_parallel_out[j]):
-//     hwpe_addr_gen_${acc_wr_stream_out[j]}(
-//         stream_${acc_wr_stream_out[j]}->addr_gen.trans_size,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.line_stride,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.line_length,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.feat_stride,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.feat_length,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.feat_roll,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.loop_outer,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.realign_type,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.port_offset,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.step
-//     );
-        % else:
-//     hwpe_addr_gen_${acc_wr_stream_out[j]}(
-//         stream_${acc_wr_stream_out[j]}->addr_gen.trans_size,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.line_stride,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.line_length,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.feat_stride,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.feat_length,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.feat_roll,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.loop_outer,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.realign_type,
-//         stream_${acc_wr_stream_out[j]}->addr_gen.step
-//     );
-        % endif
-    % endif
-% endfor
-// };
-
-// void ${cl_lic_acc_names[accelerator_id]}_set_custom_regs(${cl_lic_acc_names[accelerator_id]}_ctrl_struct *ctrl) {
-
-//     /* Set user custom registers */
-
-% if acc_wr_custom_reg_num>0:
-    % for i in range (acc_wr_custom_reg_num):
-//     hwpe_${acc_wr_custom_reg_name[i]}_set( ctrl->custom_regs.${acc_wr_custom_reg_name[i]} );
-    % endfor 
-% endif
-// }; 
-
-% for i in range (acc_wr_n_sink):
-// void ${cl_lic_acc_names[accelerator_id]}_set_buffer_${acc_wr_stream_in[i]}(hwpe_stream_struct *stream_${acc_wr_stream_in[i]}){
-    
-//     /* Program controller with L1 buffer address */
-
-//     hwpe_${acc_wr_stream_in[i]}_addr_set((int32_t)stream_${acc_wr_stream_in[i]}->tcdm.ptr);
-// }
-% endfor
-% for j in range (acc_wr_n_source):
-// void ${cl_lic_acc_names[accelerator_id]}_set_buffer_${acc_wr_stream_out[j]}(hwpe_stream_struct *stream_${acc_wr_stream_out[j]}){
-    
-//     /* Program controller with L1 buffer address */
-
-//     hwpe_${acc_wr_stream_out[j]}_addr_set((int32_t)stream_${acc_wr_stream_out[j]}->tcdm.ptr);
-// }
-% endfor
-
-// void ${cl_lic_acc_names[accelerator_id]}_compute() {
-//     hwpe_trigger_job();
-// };
-
-// void ${cl_lic_acc_names[accelerator_id]}_wait() {
-
-//     /* Synchronization via Event Unit */
-
-//     // TODO: Not ready yet for accelerator-rich!
-
-//     // // Cores go to sleep and EU is programmed to wait for
-//     // // hardware event coming from the accelerator region.
-
-//     // __asm__ __volatile__ ("" : : : "memory");
-//     // eu_evt_maskWaitAndClr(1 << ARCHI_CL_EVT_ACC0);
-//     // __asm__ __volatile__ ("" : : : "memory");
-
-//     /* Synchronization via Core Polling */
-
-//     // The core starts polling on the accelerator to verify 
-//     // whether It has terminated its operations.
-
-//     static int r_polling = 0;
-
-//     while(!r_polling){
-//       __asm__ __volatile__ ("" : : : "memory");
-//       r_polling = hwpe_get_finished();
-//       __asm__ __volatile__ ("" : : : "memory");
-//     }
-// };
-
-// void ${cl_lic_acc_names[accelerator_id]}_disable() {
-//     hwpe_soft_clear();
-//     hwpe_cg_disable();
-// };
-
-// void ${cl_lic_acc_names[accelerator_id]}_wrapper_l1free(${cl_lic_acc_names[accelerator_id]}_wrapper_struct* a) { hero_l1free(a); };
-// void ${cl_lic_acc_names[accelerator_id]}_wrapper_l2free(${cl_lic_acc_names[accelerator_id]}_wrapper_struct* a) { hero_l2free(a); };
-
-// void ${cl_lic_acc_names[accelerator_id]}_stream_l1free(${cl_lic_acc_names[accelerator_id]}_stream_struct* a) { hero_l1free(a); };
-// void ${cl_lic_acc_names[accelerator_id]}_stream_l2free(${cl_lic_acc_names[accelerator_id]}_stream_struct* a) { hero_l2free(a); };
-
-// void ${cl_lic_acc_names[accelerator_id]}_ctrl_l1free(${cl_lic_acc_names[accelerator_id]}_ctrl_struct* a) { hero_l1free(a); };
-// void ${cl_lic_acc_names[accelerator_id]}_ctrl_l2free(${cl_lic_acc_names[accelerator_id]}_ctrl_struct* a) { hero_l2free(a); };
