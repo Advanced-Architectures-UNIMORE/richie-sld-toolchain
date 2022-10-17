@@ -46,9 +46,9 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'agile_16cl_1tg_4p'
+        self.name                               = 'agile_16cl_1tg_32p'
         self.board                              = 'zcu102'
-        self.l2                                 = [ 4 , 128*1024*64]
+        self.l2                                 = [ 32 , 128*1024*128]
         return self
 
     '''

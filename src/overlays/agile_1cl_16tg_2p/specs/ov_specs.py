@@ -35,7 +35,7 @@ class ov_specs:
 
     '''
         SoC
-        
+
         - 'name' ~ Name of this specific SoC instance
         - 'board' ~ Available boards: 
             >> "zcu102" 
@@ -46,9 +46,9 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'agile_2cl_8tg'
+        self.name                               = 'agile_1cl_16tg_2p'
         self.board                              = 'zcu102'
-        self.l2                                 = [ 1 , 128*1024*128]
+        self.l2                                 = [ 2 , 128*1024*128]
         return self
 
     '''
@@ -70,15 +70,8 @@ class ov_specs:
                                                     [ 'traffic_gen' , 'hwpe'],
                                                     [ 'traffic_gen' , 'hwpe'],
                                                     [ 'traffic_gen' , 'hwpe'],
-                                                    [ 'traffic_gen' , 'hwpe']]
-        self.hci                                = [ ]
-        return self
-
-    def cluster_1(self):
-        self.cl_offset                          = 1
-        self.core                               = [ 'riscy', 8 ]
-        self.l1                                 = [ 16 , 128*1024]
-        self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
+                                                    [ 'traffic_gen' , 'hwpe'],
+                                                    [ 'traffic_gen' , 'hwpe'],
                                                     [ 'traffic_gen' , 'hwpe'],
                                                     [ 'traffic_gen' , 'hwpe'],
                                                     [ 'traffic_gen' , 'hwpe'],
