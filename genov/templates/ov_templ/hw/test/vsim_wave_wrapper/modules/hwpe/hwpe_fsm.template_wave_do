@@ -24,7 +24,7 @@
 
 <%def name="vsim_waves_hwpe_ctrl_fsm()">\
 
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {FSM} -group {top} - {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_fsm/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {FSM} -group {top} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_fsm/*}
 
 add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {FSM} -label {current_state} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_fsm/curr_state}
 add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {FSM} -label {next_state} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_fsm/next_state}
