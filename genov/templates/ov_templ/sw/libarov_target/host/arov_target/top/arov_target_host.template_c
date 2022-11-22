@@ -35,38 +35,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-void arov_init(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
-    return;
-}
-
-int arov_activate(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
-    return 0;
-}
-
-void arov_program(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
-    return;
-}
-
-void arov_update_buffer_addr(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
-    return;
-}
-
-void arov_compute(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
-    return;
-}
-
-void arov_wait_eu(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
-    return;
-}
-
-void arov_wait_polling(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
-    return;
-}
-
-int arov_is_finished(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator_id){
-    return 0;
-}
-
-void arov_free(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
-    return;
-}
+% if inline_arov_api == 0:
+${def_arov_api_host()}
+% else:
+// The definition of AROV APIs is in the header file to force their inlining in the application executable.
+// To control the AROV library generation, act on the generation/rendering parameters in the respective software libs generator.
+// Read GenOv documentation for more infos.
+% endif

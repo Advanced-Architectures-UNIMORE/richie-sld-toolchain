@@ -63,6 +63,10 @@
 #include <common_structs/def_struct_hwpe_${acc_design_names[i]}.h>
 % endfor
 
+% if inline_arov_api == 1:
+${def_hwpe_includes_inline()}
+% endif
+
 // If LLVM, use our address space support, otherwise fall back to bit-compatible
 // data types.
 #if defined(__llvm__)
@@ -108,6 +112,9 @@ struct arov_struct {
 
 };
 
+% if inline_arov_api == 0:
+/* AROV functions declaration  */
+
 void arov_init(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
 int arov_activate(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
 void arov_program(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
@@ -117,5 +124,10 @@ void arov_wait_eu(AROV_DEVICE_PTR accelerators, const int cluster_id, const int 
 void arov_wait_polling(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
 int arov_is_finished(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator_id);
 void arov_free(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id);
+% else:
+/* AROV functions definition  */
+
+${def_arov_api_pulp_inline()}
+% endif
 
 #endif

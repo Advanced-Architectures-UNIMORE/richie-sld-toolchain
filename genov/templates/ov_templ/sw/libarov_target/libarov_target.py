@@ -32,7 +32,7 @@ class LibArov:
         return ArovTargetHost(
             temp_type = 'templates/ov_templ/sw/libarov_target/host/arov_target/',
             temp_top = 'arov_target_host.template_c',
-            temp_modules = [],
+            temp_modules = ['arov_api_host.template_c'],
             path_common = self.path_common
         ).top()
 
@@ -50,7 +50,7 @@ class LibArov:
         return ArovTargetPulp(
             temp_type = 'templates/ov_templ/sw/libarov_target/pulp/arov_target/',
             temp_top = 'arov_target_pulp.template_c',
-            temp_modules = [],
+            temp_modules = ['arov_api_pulp.template_c'],
             path_common = self.path_common
         ).top()
 
@@ -68,6 +68,6 @@ class LibArov:
         return ArovTargetHeader(
             temp_type = 'templates/ov_templ/sw/libarov_target/inc/arov_target/',
             temp_top = 'arov_target_header.template_c',
-            temp_modules = [],
+            temp_modules = ['arov_api_pulp_inline.template_c'],
             path_common = self.path_common
         ).top()

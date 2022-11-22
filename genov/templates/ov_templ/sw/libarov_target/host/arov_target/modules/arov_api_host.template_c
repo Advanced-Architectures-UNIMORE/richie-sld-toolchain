@@ -1,0 +1,61 @@
+<%
+# =====================================================================
+# Project:       LibAROV
+# Title:         arov_api_host.template_c
+# Description:   Template APIs defining AROV host APIs.
+#
+# Date:          22.11.2022
+# ===================================================================== */
+#
+# Copyright (C) 2022 University of Modena and Reggio Emilia.
+#
+# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+%>
+
+<%
+# =====================================================================
+# Title:        def_arov_api_host
+# Type:         Template API
+# Description:  Define AROV APIs.
+# =====================================================================
+%>
+
+<%def name="def_arov_api_host()">\
+
+void arov_init(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
+    return;
+}
+
+int arov_activate(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
+    return 0;
+}
+
+void arov_program(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
+    return;
+}
+
+void arov_update_buffer_addr(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
+    return;
+}
+
+void arov_compute(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
+    return;
+}
+
+void arov_wait_eu(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
+    return;
+}
+
+void arov_wait_polling(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
+    return;
+}
+
+int arov_is_finished(AROV_DEVICE_PTR arov, const int cluster_id, const int accelerator_id){
+    return 0;
+}
+
+void arov_free(AROV_DEVICE_PTR accelerators, const int cluster_id, const int accelerator_id){
+    return;
+}
+
+</%def>

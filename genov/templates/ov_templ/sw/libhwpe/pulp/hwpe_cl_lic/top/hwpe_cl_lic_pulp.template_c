@@ -81,17 +81,17 @@ void arov_cl${cl_id}_lic${accelerator_id}_program(${cl_lic_acc_names[accelerator
     // Extract streams
 
 % for i in range (acc_wr_n_sink):
-    ${cl_lic_acc_names[accelerator_id]}_stream_struct stream_${acc_wr_stream_in[i]}   = wrapper->${acc_wr_stream_in[i]}; \
+    // ${cl_lic_acc_names[accelerator_id]}_stream_struct stream_${acc_wr_stream_in[i]}   = wrapper->${acc_wr_stream_in[i]}; \
 % endfor
 
 % for j in range (acc_wr_n_source):
-    ${cl_lic_acc_names[accelerator_id]}_stream_struct stream_${acc_wr_stream_out[j]}  = wrapper->${acc_wr_stream_out[j]}; \
+    // ${cl_lic_acc_names[accelerator_id]}_stream_struct stream_${acc_wr_stream_out[j]}  = wrapper->${acc_wr_stream_out[j]}; \
 % endfor
 
 
     // Extract controller
 
-    ${cl_lic_acc_names[accelerator_id]}_ctrl_struct ctrl          = wrapper->ctrl;
+    // ${cl_lic_acc_names[accelerator_id]}_ctrl_struct ctrl          = wrapper->ctrl;
 
     /*
      * STANDARD REGISTERS
@@ -102,7 +102,7 @@ void arov_cl${cl_id}_lic${accelerator_id}_program(${cl_lic_acc_names[accelerator
     // Number of engine computations before an event is generated
     
 % for j in range (acc_wr_n_source):
-    hwpe_len_iter_set_${acc_wr_stream_out[j]}(ctrl.fsm.n_engine_runs - 1);
+    hwpe_len_iter_set_${acc_wr_stream_out[j]}(wrapper->ctrl.fsm.n_engine_runs - 1);
 % endfor
 
     // Address generator programming
@@ -111,28 +111,28 @@ void arov_cl${cl_id}_lic${accelerator_id}_program(${cl_lic_acc_names[accelerator
     % if (acc_wr_addr_gen_in_isprogr[i]):
         % if (acc_wr_is_parallel_in[i]):
     hwpe_addr_gen_${acc_wr_stream_in[i]}(
-        stream_${acc_wr_stream_in[i]}.addr_gen.trans_size,
-        stream_${acc_wr_stream_in[i]}.addr_gen.line_stride,
-        stream_${acc_wr_stream_in[i]}.addr_gen.line_length,
-        stream_${acc_wr_stream_in[i]}.addr_gen.feat_stride,
-        stream_${acc_wr_stream_in[i]}.addr_gen.feat_length,
-        stream_${acc_wr_stream_in[i]}.addr_gen.feat_roll,
-        stream_${acc_wr_stream_in[i]}.addr_gen.loop_outer,
-        stream_${acc_wr_stream_in[i]}.addr_gen.realign_type,
-        stream_${acc_wr_stream_in[i]}.addr_gen.port_offset,
-        stream_${acc_wr_stream_in[i]}.addr_gen.step
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.trans_size,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.line_stride,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.line_length,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.feat_stride,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.feat_length,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.feat_roll,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.loop_outer,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.realign_type,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.port_offset,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.step
     );
       % else:
     hwpe_addr_gen_${acc_wr_stream_in[i]}(
-        stream_${acc_wr_stream_in[i]}.addr_gen.trans_size,
-        stream_${acc_wr_stream_in[i]}.addr_gen.line_stride,
-        stream_${acc_wr_stream_in[i]}.addr_gen.line_length,
-        stream_${acc_wr_stream_in[i]}.addr_gen.feat_stride,
-        stream_${acc_wr_stream_in[i]}.addr_gen.feat_length,
-        stream_${acc_wr_stream_in[i]}.addr_gen.feat_roll,
-        stream_${acc_wr_stream_in[i]}.addr_gen.loop_outer,
-        stream_${acc_wr_stream_in[i]}.addr_gen.realign_type,
-        stream_${acc_wr_stream_in[i]}.addr_gen.step
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.trans_size,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.line_stride,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.line_length,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.feat_stride,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.feat_length,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.feat_roll,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.loop_outer,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.realign_type,
+        wrapper->${acc_wr_stream_in[i]}.addr_gen.step
     );
         % endif
     % endif
@@ -142,28 +142,28 @@ void arov_cl${cl_id}_lic${accelerator_id}_program(${cl_lic_acc_names[accelerator
     % if (acc_wr_addr_gen_out_isprogr[j]):
         % if (acc_wr_is_parallel_out[j]):
     hwpe_addr_gen_${acc_wr_stream_out[j]}(
-        stream_${acc_wr_stream_out[j]}.addr_gen.trans_size,
-        stream_${acc_wr_stream_out[j]}.addr_gen.line_stride,
-        stream_${acc_wr_stream_out[j]}.addr_gen.line_length,
-        stream_${acc_wr_stream_out[j]}.addr_gen.feat_stride,
-        stream_${acc_wr_stream_out[j]}.addr_gen.feat_length,
-        stream_${acc_wr_stream_out[j]}.addr_gen.feat_roll,
-        stream_${acc_wr_stream_out[j]}.addr_gen.loop_outer,
-        stream_${acc_wr_stream_out[j]}.addr_gen.realign_type,
-        stream_${acc_wr_stream_out[j]}.addr_gen.port_offset,
-        stream_${acc_wr_stream_out[j]}.addr_gen.step
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.trans_size,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.line_stride,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.line_length,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.feat_stride,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.feat_length,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.feat_roll,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.loop_outer,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.realign_type,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.port_offset,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.step
     );
         % else:
     hwpe_addr_gen_${acc_wr_stream_out[j]}(
-        stream_${acc_wr_stream_out[j]}.addr_gen.trans_size,
-        stream_${acc_wr_stream_out[j]}.addr_gen.line_stride,
-        stream_${acc_wr_stream_out[j]}.addr_gen.line_length,
-        stream_${acc_wr_stream_out[j]}.addr_gen.feat_stride,
-        stream_${acc_wr_stream_out[j]}.addr_gen.feat_length,
-        stream_${acc_wr_stream_out[j]}.addr_gen.feat_roll,
-        stream_${acc_wr_stream_out[j]}.addr_gen.loop_outer,
-        stream_${acc_wr_stream_out[j]}.addr_gen.realign_type,
-        stream_${acc_wr_stream_out[j]}.addr_gen.step
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.trans_size,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.line_stride,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.line_length,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.feat_stride,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.feat_length,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.feat_roll,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.loop_outer,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.realign_type,
+        wrapper->${acc_wr_stream_out[j]}.addr_gen.step
     );
         % endif
     % endif
@@ -177,7 +177,7 @@ void arov_cl${cl_id}_lic${accelerator_id}_program(${cl_lic_acc_names[accelerator
 
 % if acc_wr_custom_reg_num>0:
     % for i in range (acc_wr_custom_reg_num):
-    hwpe_${acc_wr_custom_reg_name[i]}_set( ctrl.custom_regs.${acc_wr_custom_reg_name[i]} );
+    hwpe_${acc_wr_custom_reg_name[i]}_set( wrapper->ctrl.custom_regs.${acc_wr_custom_reg_name[i]} );
     % endfor 
 % endif
 
@@ -188,11 +188,11 @@ void arov_cl${cl_id}_lic${accelerator_id}_program(${cl_lic_acc_names[accelerator
     // Program controller with L1 buffer address
 
 % for i in range (acc_wr_n_sink):    
-    hwpe_${acc_wr_stream_in[i]}_addr_set((int32_t)stream_${acc_wr_stream_in[i]}.tcdm.ptr);
+    hwpe_${acc_wr_stream_in[i]}_addr_set((int32_t)wrapper->${acc_wr_stream_in[i]}.tcdm.ptr);
 % endfor
 
 % for j in range (acc_wr_n_source):
-    hwpe_${acc_wr_stream_out[j]}_addr_set((int32_t)stream_${acc_wr_stream_out[j]}.tcdm.ptr);
+    hwpe_${acc_wr_stream_out[j]}_addr_set((int32_t)wrapper->${acc_wr_stream_out[j]}.tcdm.ptr);
 % endfor
 };
 
@@ -203,10 +203,10 @@ void arov_cl${cl_id}_lic${accelerator_id}_update_buffer_addr(${cl_lic_acc_names[
     // Extract streams
 
 % for i in range (acc_wr_n_sink):
-    ${cl_lic_acc_names[accelerator_id]}_stream_struct stream_${acc_wr_stream_in[i]}   = wrapper->${acc_wr_stream_in[i]};
+    // ${cl_lic_acc_names[accelerator_id]}_stream_struct stream_${acc_wr_stream_in[i]}   = wrapper->${acc_wr_stream_in[i]};
 % endfor
 % for j in range (acc_wr_n_source):
-    ${cl_lic_acc_names[accelerator_id]}_stream_struct stream_${acc_wr_stream_out[j]}  = wrapper->${acc_wr_stream_out[j]};
+    // ${cl_lic_acc_names[accelerator_id]}_stream_struct stream_${acc_wr_stream_out[j]}  = wrapper->${acc_wr_stream_out[j]};
 % endfor
 
     /*
@@ -216,11 +216,11 @@ void arov_cl${cl_id}_lic${accelerator_id}_update_buffer_addr(${cl_lic_acc_names[
     // Program controller with L1 buffer address
 
 % for i in range (acc_wr_n_sink):    
-    hwpe_${acc_wr_stream_in[i]}_addr_set((int32_t)stream_${acc_wr_stream_in[i]}.tcdm.ptr);
+    hwpe_${acc_wr_stream_in[i]}_addr_set((int32_t)wrapper->${acc_wr_stream_in[i]}.tcdm.ptr);
 % endfor
 
 % for j in range (acc_wr_n_source):
-    hwpe_${acc_wr_stream_out[j]}_addr_set((int32_t)stream_${acc_wr_stream_out[j]}.tcdm.ptr);
+    hwpe_${acc_wr_stream_out[j]}_addr_set((int32_t)wrapper->${acc_wr_stream_out[j]}.tcdm.ptr);
 % endfor
 };
 
