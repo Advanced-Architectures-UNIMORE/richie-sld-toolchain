@@ -26,6 +26,8 @@
 <%def name="vsim_waves_experiment_group_by_cluster()">\
 % for cl_id in range(n_clusters):
 
+add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL_${cl_id}} -label {CLK} /overlay_tb/dut/clk_i
+
     <%
         # Additional design parameters
         cl_lic_acc_names = extra_param_0.list_cl_lic[cl_id][1]
