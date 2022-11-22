@@ -102,6 +102,11 @@ class Generator:
             # addressgen
             acc_wr_addr_gen_in_isprogr      = acc_design_params.addr_gen_in_isprogr,
             acc_wr_addr_gen_out_isprogr     = acc_design_params.addr_gen_out_isprogr,
+            ##############################
+            # SOFTWARE DESIGN PARAMETERS #
+            ##############################
+            # NB: These are not yet exposed to the front-end
+            inline_arov_api                 = 1,
             ####################
             # EXTRA PARAMETERS #
             ####################
