@@ -67,7 +67,7 @@ cluster = Cluster()
 
 '''
     =====================================================================
-    Component:      System-on-Chip - Packages
+    Component:      Parameters and macros
 
     Description:    Generation of hardware components for SoC. 
     ===================================================================== */
@@ -87,9 +87,21 @@ for cl_offset in range(design_params.n_clusters):
         cl_offset
     )
 
+    '''
+        Generate design components ~ PULP cluster macros
+    ''' 
+    gen_cl_comps(
+        cluster.PulpClusterDefines(),
+        design_params,
+        emitter,
+        ['cl', str(cl_offset) + '_defines', ['hw', 'sv']],
+        emitter.ov_gen_cl_pkg,
+        cl_offset
+    )
+
 '''
     =====================================================================
-    Component:      Accelerator-rich cluster - Hardware
+    Component:      Hardware
 
     Description:    Generation of hardware components for cluster. 
     ===================================================================== */

@@ -1,0 +1,37 @@
+<%
+# =====================================================================
+# Project:      Cluster package
+# Title:        pulp_cluster_defines.template_sv
+# Description:  Cluster macros.
+#
+# $Date:        23.11.2022
+#
+# Generator:    generate_cluster
+# =====================================================================
+#
+# Copyright (C) 2022 University of Modena and Reggio Emilia.
+#
+# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+#
+# =====================================================================
+%>
+/*
+ * Copyright (C) 2022 University of Modena and Reggio Emilia.
+ *
+ * Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+ *
+ */
+
+
+`ifndef PULP_CLUSTER_${cl_id}_DEFINES_SV
+`define PULP_CLUSTER_${cl_id}_DEFINES_SV
+
+<%
+    # Definition of macros for instruction cache
+%>
+
+// `define PULP_CLUSTER_${cl_id}_PRIVATE_ICACHE
+`define PULP_CLUSTER_${cl_id}_MP_ICACHE
+// `define PULP_CLUSTER_${cl_id}_SP_ICACHE
+
+`endif
