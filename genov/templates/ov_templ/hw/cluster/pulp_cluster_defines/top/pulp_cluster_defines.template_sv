@@ -30,8 +30,12 @@
     # Definition of macros for instruction cache
 %>
 
-// `define PULP_CLUSTER_${cl_id}_PRIVATE_ICACHE
-`define PULP_CLUSTER_${cl_id}_MP_ICACHE
-// `define PULP_CLUSTER_${cl_id}_SP_ICACHE
+// WPI: 
+//  1. Differentiate on cluster ID to enable heterogeneous clusters
+//  2. Wrap instruction caches and generate their wrapper where different versions are enabled through MACROs
+//  3. In pulp_cluster find a way to instantiate different caches. Same also applies for HWPEs, clusters in SoC, etc. A common solution is needed.
+
+// `define PULP_CLUSTER_PRIVATE_ICACHE
+`define PULP_CLUSTER_MP_ICACHE
 
 `endif
