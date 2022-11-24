@@ -53,6 +53,7 @@ ${vsim_waves_core_periph_demux()}
 ${vsim_waves_core_if_stage()}
 ${vsim_waves_core_id_stage()}
 ${vsim_waves_core_ex_stage()}
+${vsim_waves_core_cs_registers()}
 ${vsim_waves_core_lsu()}
 ${vsim_waves_core_eu_ctrl()}
 

@@ -155,3 +155,17 @@ add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_r
 add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {eu_ctrl_master} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/eu_ctrl_master/*}
 % endfor
 </%def>
+
+<%
+# =====================================================================
+# Title:        vsim_waves_core_cs_registers
+# Type:         Template API
+# Description:  Control status registers.
+# =====================================================================
+%>
+
+<%def name="vsim_waves_core_cs_registers()">\
+% for core_offset in range(cl_n_cores):
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {riscv} -group {core_region[${core_offset}]} -group {cs_registers} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[${core_offset}]/core_region_i/RISCV_CORE/cs_registers_i/*}
+% endfor
+</%def>
