@@ -48,7 +48,7 @@ class ov_specs:
     def soc(self):
         self.name                               = 'agile_16cl_1tg'
         self.board                              = 'zcu102'
-        self.l2                                 = [ 1 , 128*1024*128]
+        self.l2                                 = [ 1 , 128*1024*16]
         return self
 
     '''
