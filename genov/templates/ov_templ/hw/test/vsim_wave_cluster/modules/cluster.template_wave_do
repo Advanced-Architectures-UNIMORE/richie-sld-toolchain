@@ -136,3 +136,15 @@ add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} 
 <%def name="vsim_waves_cluster_event_unit()">\
 add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} -group {event_unit} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_peripherals_i/event_unit_flex_i/*}
 </%def>
+
+<%
+# =====================================================================
+# Title:        vsim_waves_cluster_timer_unit
+# Type:         Template API
+# Description:  Timer unit.
+# =====================================================================
+%>
+
+<%def name="vsim_waves_cluster_timer_unit()">\
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} -group {timer_unit} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_peripherals_i/cluster_timer_wrap_i/timer_unit_i/*}
+</%def>

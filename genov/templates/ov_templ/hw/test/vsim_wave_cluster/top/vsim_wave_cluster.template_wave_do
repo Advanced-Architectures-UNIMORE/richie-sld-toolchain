@@ -64,6 +64,7 @@ ${vsim_waves_core_eu_ctrl()}
 ${vsim_waves_cluster_core_periph_slave()}
 ${vsim_waves_cluster_dma_ooc_wrap()}
 ${vsim_waves_cluster_event_unit()}
+${vsim_waves_cluster_timer_unit()}
 ${vsim_waves_cluster_speriph_mst(n_periphs)}
 ${vsim_waves_cluster_tcdm()}
 ${vsim_waves_cluster_icache()}
