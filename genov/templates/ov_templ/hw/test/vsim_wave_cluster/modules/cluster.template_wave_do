@@ -135,6 +135,9 @@ add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} 
 
 <%def name="vsim_waves_cluster_event_unit()">\
 add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} -group {event_unit} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_peripherals_i/event_unit_flex_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} -group {event_unit} -group {soc_fifo} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_peripherals_i/event_unit_flex_i/soc_periph_fifo_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} -group {event_unit} -group {speriph_slave} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_peripherals_i/event_unit_flex_i/speriph_slave/*} 
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {cluster_peripherals} -group {event_unit} -group {event_unit_interface_mux} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/cluster_peripherals_i/event_unit_flex_i/event_unit_interface_mux_i/*}
 </%def>
 
 <%
