@@ -221,8 +221,8 @@ add wave -noupdate -group {SoC} -group {l2_mst[${i_l2_bank}]} {/overlay_tb/dut/l
 
 <%def name="vsim_waves_soc_bus()">\
 
-add wave -noupdate -group {SoC} -group {SoC bus} -group {top} -label {r_valid} {/overlay_tb/dut/i_soc_bus/*}
-add wave -noupdate -group {SoC} -group {SoC bus} -group {i_axi_xbar} -label {r_valid} {/overlay_tb/dut/i_soc_bus/i_axi_xbar/*}
+add wave -noupdate -group {SoC} -group {SoC bus} -group {top} {/overlay_tb/dut/i_soc_bus/*}
+add wave -noupdate -group {SoC} -group {SoC bus} -group {i_axi_xbar} {/overlay_tb/dut/i_soc_bus/i_axi_xbar/*}
 <%
     # N_MASTERS = N_CLUSTERS + L2_N_PORTS + 3 (RAB, MBOX_HOST, MBOX_PULP)
 %>
