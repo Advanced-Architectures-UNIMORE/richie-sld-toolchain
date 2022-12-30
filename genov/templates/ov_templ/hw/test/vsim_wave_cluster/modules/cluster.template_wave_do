@@ -83,7 +83,9 @@ add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {sram} -group {intf_sr
 %>
 
 <%def name="vsim_waves_cluster_icache()">\
-add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {icache[0]} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/icache_top_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {icache[0]} -group {top} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/icache_top_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {icache[0]} -group {central_controller} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/icache_top_i/u_cache_controller_to_axi/CENTRAL_CONTROLLER/*}
+
 </%def>
 
 <%
