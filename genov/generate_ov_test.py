@@ -195,16 +195,16 @@ for cluster_id in range(ov_design_params.n_clusters):
             Generate design components ~ QuestaSim waves
         ''' 
 
-        # hwpe_name = 'hwpe_cl' + str(cluster_id) + '_lic' + str(accelerator_id)
+        hwpe_name = 'hwpe_cl' + str(cluster_id) + '_lic' + str(accelerator_id)
 
-        # gen_acc_comps(
-        #     test.VsimWaveWrapper(),
-        #     acc_design_params,
-        #     emitter,
-        #     ['integr_support', 'vsim_wave_' + hwpe_name, ['integr_support', 'vsim_wave']],
-        #     emitter.ov_gen_test_waves,
-        #     [cluster_id, accelerator_id, None]
-        # )
+        gen_acc_comps(
+            test.VsimWaveWrapper(),
+            acc_design_params,
+            emitter,
+            ['integr_support', 'vsim_wave_' + hwpe_name, ['integr_support', 'vsim_wave']],
+            emitter.ov_gen_test_waves,
+            [cluster_id, accelerator_id, None]
+        )
 
 '''
     Generate design components ~ QuestaSim waves
