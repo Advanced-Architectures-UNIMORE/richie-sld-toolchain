@@ -15,16 +15,16 @@ module color_detect_xFInRange_9_0_128_128_15_0_1_9_1_3_s (
         ap_continue,
         ap_idle,
         ap_ready,
-        rgb2hsv_data2_dout,
-        rgb2hsv_data2_num_data_valid,
-        rgb2hsv_data2_fifo_cap,
-        rgb2hsv_data2_empty_n,
-        rgb2hsv_data2_read,
-        imgHelper1_data3_din,
-        imgHelper1_data3_num_data_valid,
-        imgHelper1_data3_fifo_cap,
-        imgHelper1_data3_full_n,
-        imgHelper1_data3_write,
+        rgb2hsv_data119_dout,
+        rgb2hsv_data119_num_data_valid,
+        rgb2hsv_data119_fifo_cap,
+        rgb2hsv_data119_empty_n,
+        rgb2hsv_data119_read,
+        imgHelper1_data120_din,
+        imgHelper1_data120_num_data_valid,
+        imgHelper1_data120_fifo_cap,
+        imgHelper1_data120_full_n,
+        imgHelper1_data120_write,
         p_read,
         p_read1
 );
@@ -42,24 +42,24 @@ output   ap_done;
 input   ap_continue;
 output   ap_idle;
 output   ap_ready;
-input  [23:0] rgb2hsv_data2_dout;
-input  [1:0] rgb2hsv_data2_num_data_valid;
-input  [1:0] rgb2hsv_data2_fifo_cap;
-input   rgb2hsv_data2_empty_n;
-output   rgb2hsv_data2_read;
-output  [7:0] imgHelper1_data3_din;
-input  [1:0] imgHelper1_data3_num_data_valid;
-input  [1:0] imgHelper1_data3_fifo_cap;
-input   imgHelper1_data3_full_n;
-output   imgHelper1_data3_write;
+input  [23:0] rgb2hsv_data119_dout;
+input  [1:0] rgb2hsv_data119_num_data_valid;
+input  [1:0] rgb2hsv_data119_fifo_cap;
+input   rgb2hsv_data119_empty_n;
+output   rgb2hsv_data119_read;
+output  [7:0] imgHelper1_data120_din;
+input  [1:0] imgHelper1_data120_num_data_valid;
+input  [1:0] imgHelper1_data120_fifo_cap;
+input   imgHelper1_data120_full_n;
+output   imgHelper1_data120_write;
 input  [15:0] p_read;
 input  [15:0] p_read1;
 
 reg ap_done;
 reg ap_idle;
 reg ap_ready;
-reg rgb2hsv_data2_read;
-reg imgHelper1_data3_write;
+reg rgb2hsv_data119_read;
+reg imgHelper1_data120_write;
 
 reg    ap_done_reg;
 (* fsm_encoding = "none" *) reg   [4:0] ap_CS_fsm;
@@ -71,9 +71,9 @@ wire    grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_ap_start;
 wire    grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_ap_done;
 wire    grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_ap_idle;
 wire    grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_ap_ready;
-wire    grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_rgb2hsv_data2_read;
-wire   [7:0] grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data3_din;
-wire    grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data3_write;
+wire    grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_rgb2hsv_data119_read;
+wire   [7:0] grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data120_din;
+wire    grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data120_write;
 reg    grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_ap_start_reg;
 wire    ap_CS_fsm_state5;
 reg    ap_block_state1;
@@ -104,16 +104,16 @@ color_detect_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2 grp_xFInRange_Pi
     .ap_done(grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_ap_done),
     .ap_idle(grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_ap_idle),
     .ap_ready(grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_ap_ready),
-    .rgb2hsv_data2_dout(rgb2hsv_data2_dout),
-    .rgb2hsv_data2_num_data_valid(2'd0),
-    .rgb2hsv_data2_fifo_cap(2'd0),
-    .rgb2hsv_data2_empty_n(rgb2hsv_data2_empty_n),
-    .rgb2hsv_data2_read(grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_rgb2hsv_data2_read),
-    .imgHelper1_data3_din(grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data3_din),
-    .imgHelper1_data3_num_data_valid(2'd0),
-    .imgHelper1_data3_fifo_cap(2'd0),
-    .imgHelper1_data3_full_n(imgHelper1_data3_full_n),
-    .imgHelper1_data3_write(grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data3_write),
+    .rgb2hsv_data119_dout(rgb2hsv_data119_dout),
+    .rgb2hsv_data119_num_data_valid(2'd0),
+    .rgb2hsv_data119_fifo_cap(2'd0),
+    .rgb2hsv_data119_empty_n(rgb2hsv_data119_empty_n),
+    .rgb2hsv_data119_read(grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_rgb2hsv_data119_read),
+    .imgHelper1_data120_din(grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data120_din),
+    .imgHelper1_data120_num_data_valid(2'd0),
+    .imgHelper1_data120_fifo_cap(2'd0),
+    .imgHelper1_data120_full_n(imgHelper1_data120_full_n),
+    .imgHelper1_data120_write(grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data120_write),
     .bound(bound_reg_70)
 );
 
@@ -123,7 +123,7 @@ color_detect_mul_mul_16ns_16ns_32_4_1 #(
     .din0_WIDTH( 16 ),
     .din1_WIDTH( 16 ),
     .dout_WIDTH( 32 ))
-mul_mul_16ns_16ns_32_4_1_U68(
+mul_mul_16ns_16ns_32_4_1_U78(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_53_p0),
@@ -226,17 +226,17 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state5)) begin
-        imgHelper1_data3_write = grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data3_write;
+        imgHelper1_data120_write = grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data120_write;
     end else begin
-        imgHelper1_data3_write = 1'b0;
+        imgHelper1_data120_write = 1'b0;
     end
 end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state5)) begin
-        rgb2hsv_data2_read = grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_rgb2hsv_data2_read;
+        rgb2hsv_data119_read = grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_rgb2hsv_data119_read;
     end else begin
-        rgb2hsv_data2_read = 1'b0;
+        rgb2hsv_data119_read = 1'b0;
     end
 end
 
@@ -291,6 +291,6 @@ assign grp_fu_53_p10 = p_read1;
 
 assign grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_ap_start = grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_ap_start_reg;
 
-assign imgHelper1_data3_din = grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data3_din;
+assign imgHelper1_data120_din = grp_xFInRange_Pipeline_VITIS_LOOP_92_1_VITIS_LOOP_96_2_fu_36_imgHelper1_data120_din;
 
 endmodule //color_detect_xFInRange_9_0_128_128_15_0_1_9_1_3_s

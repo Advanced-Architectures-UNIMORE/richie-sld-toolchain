@@ -14,16 +14,16 @@ module color_detect_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132
         ap_done,
         ap_idle,
         ap_ready,
-        imgInput_data1_dout,
-        imgInput_data1_num_data_valid,
-        imgInput_data1_fifo_cap,
-        imgInput_data1_empty_n,
-        imgInput_data1_read,
-        rgb2hsv_data2_din,
-        rgb2hsv_data2_num_data_valid,
-        rgb2hsv_data2_fifo_cap,
-        rgb2hsv_data2_full_n,
-        rgb2hsv_data2_write,
+        imgInput_data118_dout,
+        imgInput_data118_num_data_valid,
+        imgInput_data118_fifo_cap,
+        imgInput_data118_empty_n,
+        imgInput_data118_read,
+        rgb2hsv_data119_din,
+        rgb2hsv_data119_num_data_valid,
+        rgb2hsv_data119_fifo_cap,
+        rgb2hsv_data119_full_n,
+        rgb2hsv_data119_write,
         bound
 );
 
@@ -35,21 +35,21 @@ input   ap_start;
 output   ap_done;
 output   ap_idle;
 output   ap_ready;
-input  [23:0] imgInput_data1_dout;
-input  [1:0] imgInput_data1_num_data_valid;
-input  [1:0] imgInput_data1_fifo_cap;
-input   imgInput_data1_empty_n;
-output   imgInput_data1_read;
-output  [23:0] rgb2hsv_data2_din;
-input  [1:0] rgb2hsv_data2_num_data_valid;
-input  [1:0] rgb2hsv_data2_fifo_cap;
-input   rgb2hsv_data2_full_n;
-output   rgb2hsv_data2_write;
+input  [23:0] imgInput_data118_dout;
+input  [1:0] imgInput_data118_num_data_valid;
+input  [1:0] imgInput_data118_fifo_cap;
+input   imgInput_data118_empty_n;
+output   imgInput_data118_read;
+output  [23:0] rgb2hsv_data119_din;
+input  [1:0] rgb2hsv_data119_num_data_valid;
+input  [1:0] rgb2hsv_data119_fifo_cap;
+input   rgb2hsv_data119_full_n;
+output   rgb2hsv_data119_write;
 input  [63:0] bound;
 
 reg ap_idle;
-reg imgInput_data1_read;
-reg rgb2hsv_data2_write;
+reg imgInput_data118_read;
+reg rgb2hsv_data119_write;
 
 (* fsm_encoding = "none" *) reg   [0:0] ap_CS_fsm;
 wire    ap_CS_fsm_pp0_stage0;
@@ -105,9 +105,9 @@ wire   [31:0] void_bgr2hsv_Mat_9_128_128_1_2_Mat_9_128_128_1_2_sdiv_q0;
 wire   [7:0] void_bgr2hsv_Mat_9_128_128_1_2_Mat_9_128_128_1_2_hdiv_address0;
 reg    void_bgr2hsv_Mat_9_128_128_1_2_Mat_9_128_128_1_2_hdiv_ce0;
 wire   [31:0] void_bgr2hsv_Mat_9_128_128_1_2_Mat_9_128_128_1_2_hdiv_q0;
-reg    imgInput_data1_blk_n;
+reg    imgInput_data118_blk_n;
 wire    ap_block_pp0_stage0;
-reg    rgb2hsv_data2_blk_n;
+reg    rgb2hsv_data119_blk_n;
 reg    ap_block_pp0_stage0_11001;
 wire   [7:0] b_V_fu_232_p1;
 reg   [7:0] b_V_reg_637;
@@ -328,7 +328,7 @@ color_detect_mac_muladd_20s_8ns_12ns_20_4_1 #(
     .din1_WIDTH( 8 ),
     .din2_WIDTH( 12 ),
     .dout_WIDTH( 20 ))
-mac_muladd_20s_8ns_12ns_20_4_1_U47(
+mac_muladd_20s_8ns_12ns_20_4_1_U57(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_600_p0),
@@ -346,7 +346,7 @@ color_detect_ama_addmuladd_13s_9s_17ns_12ns_30_4_1 #(
     .din2_WIDTH( 17 ),
     .din3_WIDTH( 12 ),
     .dout_WIDTH( 30 ))
-ama_addmuladd_13s_9s_17ns_12ns_30_4_1_U48(
+ama_addmuladd_13s_9s_17ns_12ns_30_4_1_U58(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(and_ln157_2_reg_791),
@@ -562,12 +562,12 @@ always @ (posedge ap_clk) begin
         b_V_reg_637_pp0_iter4_reg <= b_V_reg_637_pp0_iter3_reg;
         b_V_reg_637_pp0_iter5_reg <= b_V_reg_637_pp0_iter4_reg;
         diff_V_reg_736 <= diff_V_fu_378_p2;
-        g_V_reg_644 <= {{imgInput_data1_dout[15:8]}};
+        g_V_reg_644 <= {{imgInput_data118_dout[15:8]}};
         g_V_reg_644_pp0_iter3_reg <= g_V_reg_644;
         g_V_reg_644_pp0_iter4_reg <= g_V_reg_644_pp0_iter3_reg;
         g_V_reg_644_pp0_iter5_reg <= g_V_reg_644_pp0_iter4_reg;
         g_V_reg_644_pp0_iter6_reg <= g_V_reg_644_pp0_iter5_reg;
-        r_V_reg_650 <= {{imgInput_data1_dout[23:16]}};
+        r_V_reg_650 <= {{imgInput_data118_dout[23:16]}};
         r_V_reg_650_pp0_iter3_reg <= r_V_reg_650;
         r_V_reg_650_pp0_iter4_reg <= r_V_reg_650_pp0_iter3_reg;
         r_V_reg_650_pp0_iter5_reg <= r_V_reg_650_pp0_iter4_reg;
@@ -669,33 +669,33 @@ end
 
 always @ (*) begin
     if (((ap_enable_reg_pp0_iter2 == 1'b1) & (1'b0 == ap_block_pp0_stage0))) begin
-        imgInput_data1_blk_n = imgInput_data1_empty_n;
+        imgInput_data118_blk_n = imgInput_data118_empty_n;
     end else begin
-        imgInput_data1_blk_n = 1'b1;
+        imgInput_data118_blk_n = 1'b1;
     end
 end
 
 always @ (*) begin
     if (((ap_enable_reg_pp0_iter2 == 1'b1) & (1'b0 == ap_block_pp0_stage0_11001))) begin
-        imgInput_data1_read = 1'b1;
+        imgInput_data118_read = 1'b1;
     end else begin
-        imgInput_data1_read = 1'b0;
+        imgInput_data118_read = 1'b0;
     end
 end
 
 always @ (*) begin
     if (((ap_enable_reg_pp0_iter13 == 1'b1) & (1'b0 == ap_block_pp0_stage0))) begin
-        rgb2hsv_data2_blk_n = rgb2hsv_data2_full_n;
+        rgb2hsv_data119_blk_n = rgb2hsv_data119_full_n;
     end else begin
-        rgb2hsv_data2_blk_n = 1'b1;
+        rgb2hsv_data119_blk_n = 1'b1;
     end
 end
 
 always @ (*) begin
     if (((ap_enable_reg_pp0_iter13 == 1'b1) & (1'b0 == ap_block_pp0_stage0_11001))) begin
-        rgb2hsv_data2_write = 1'b1;
+        rgb2hsv_data119_write = 1'b1;
     end else begin
-        rgb2hsv_data2_write = 1'b0;
+        rgb2hsv_data119_write = 1'b0;
     end
 end
 
@@ -785,15 +785,15 @@ assign ap_CS_fsm_pp0_stage0 = ap_CS_fsm[32'd0];
 assign ap_block_pp0_stage0 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_block_pp0_stage0_01001 = (((rgb2hsv_data2_full_n == 1'b0) & (ap_enable_reg_pp0_iter13 == 1'b1)) | ((imgInput_data1_empty_n == 1'b0) & (ap_enable_reg_pp0_iter2 == 1'b1)));
+    ap_block_pp0_stage0_01001 = (((rgb2hsv_data119_full_n == 1'b0) & (ap_enable_reg_pp0_iter13 == 1'b1)) | ((imgInput_data118_empty_n == 1'b0) & (ap_enable_reg_pp0_iter2 == 1'b1)));
 end
 
 always @ (*) begin
-    ap_block_pp0_stage0_11001 = (((rgb2hsv_data2_full_n == 1'b0) & (ap_enable_reg_pp0_iter13 == 1'b1)) | ((imgInput_data1_empty_n == 1'b0) & (ap_enable_reg_pp0_iter2 == 1'b1)));
+    ap_block_pp0_stage0_11001 = (((rgb2hsv_data119_full_n == 1'b0) & (ap_enable_reg_pp0_iter13 == 1'b1)) | ((imgInput_data118_empty_n == 1'b0) & (ap_enable_reg_pp0_iter2 == 1'b1)));
 end
 
 always @ (*) begin
-    ap_block_pp0_stage0_subdone = (((rgb2hsv_data2_full_n == 1'b0) & (ap_enable_reg_pp0_iter13 == 1'b1)) | ((imgInput_data1_empty_n == 1'b0) & (ap_enable_reg_pp0_iter2 == 1'b1)));
+    ap_block_pp0_stage0_subdone = (((rgb2hsv_data119_full_n == 1'b0) & (ap_enable_reg_pp0_iter13 == 1'b1)) | ((imgInput_data118_empty_n == 1'b0) & (ap_enable_reg_pp0_iter2 == 1'b1)));
 end
 
 assign ap_block_state10_pp0_stage0_iter9 = ~(1'b1 == 1'b1);
@@ -805,7 +805,7 @@ assign ap_block_state12_pp0_stage0_iter11 = ~(1'b1 == 1'b1);
 assign ap_block_state13_pp0_stage0_iter12 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_block_state14_pp0_stage0_iter13 = (rgb2hsv_data2_full_n == 1'b0);
+    ap_block_state14_pp0_stage0_iter13 = (rgb2hsv_data119_full_n == 1'b0);
 end
 
 assign ap_block_state1_pp0_stage0_iter0 = ~(1'b1 == 1'b1);
@@ -813,7 +813,7 @@ assign ap_block_state1_pp0_stage0_iter0 = ~(1'b1 == 1'b1);
 assign ap_block_state2_pp0_stage0_iter1 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_block_state3_pp0_stage0_iter2 = (imgInput_data1_empty_n == 1'b0);
+    ap_block_state3_pp0_stage0_iter2 = (imgInput_data118_empty_n == 1'b0);
 end
 
 assign ap_block_state4_pp0_stage0_iter3 = ~(1'b1 == 1'b1);
@@ -834,7 +834,7 @@ assign ap_enable_reg_pp0_iter0 = ap_start_int;
 
 assign ap_loop_exit_ready = ap_condition_exit_pp0_iter1_stage0;
 
-assign b_V_fu_232_p1 = imgInput_data1_dout[7:0];
+assign b_V_fu_232_p1 = imgInput_data118_dout[7:0];
 
 assign diff_V_fu_378_p2 = (sub_ln186_fu_373_p2 + add_ln186_reg_730);
 
@@ -876,7 +876,7 @@ assign ret_V_9_fu_432_p2 = (select_ln126_fu_411_p3 & ret_V_16_reg_761);
 
 assign ret_V_fu_315_p2 = (ret_V_13_fu_309_p2 + 10'd256);
 
-assign rgb2hsv_data2_din = {{{add_ln186_reg_730_pp0_iter12_reg}, {trunc_ln2_reg_806_pp0_iter12_reg}}, {add_ln161_reg_811}};
+assign rgb2hsv_data119_din = {{{add_ln186_reg_730_pp0_iter12_reg}, {trunc_ln2_reg_806_pp0_iter12_reg}}, {add_ln161_reg_811}};
 
 assign select_ln126_1_fu_418_p3 = ((vg_reg_750[0:0] == 1'b1) ? 11'd2047 : 11'd0);
 

@@ -10,12 +10,12 @@
 module color_detect_colorthresholding_9_0_3_128_128_1_s (
         p_read,
         p_read1,
-        rgb2hsv_data2_dout,
-        rgb2hsv_data2_empty_n,
-        rgb2hsv_data2_read,
-        imgHelper1_data3_din,
-        imgHelper1_data3_full_n,
-        imgHelper1_data3_write,
+        rgb2hsv_data119_dout,
+        rgb2hsv_data119_empty_n,
+        rgb2hsv_data119_read,
+        imgHelper1_data120_din,
+        imgHelper1_data120_full_n,
+        imgHelper1_data120_write,
         ap_clk,
         ap_rst,
         p_read_ap_vld,
@@ -30,12 +30,12 @@ module color_detect_colorthresholding_9_0_3_128_128_1_s (
 
 input  [31:0] p_read;
 input  [31:0] p_read1;
-input  [23:0] rgb2hsv_data2_dout;
-input   rgb2hsv_data2_empty_n;
-output   rgb2hsv_data2_read;
-output  [7:0] imgHelper1_data3_din;
-input   imgHelper1_data3_full_n;
-output   imgHelper1_data3_write;
+input  [23:0] rgb2hsv_data119_dout;
+input   rgb2hsv_data119_empty_n;
+output   rgb2hsv_data119_read;
+output  [7:0] imgHelper1_data120_din;
+input   imgHelper1_data120_full_n;
+output   imgHelper1_data120_write;
 input   ap_clk;
 input   ap_rst;
 input   p_read_ap_vld;
@@ -68,9 +68,9 @@ wire    xFInRange_9_0_128_128_15_0_1_9_1_3_U0_ap_done;
 wire    xFInRange_9_0_128_128_15_0_1_9_1_3_U0_ap_continue;
 wire    xFInRange_9_0_128_128_15_0_1_9_1_3_U0_ap_idle;
 wire    xFInRange_9_0_128_128_15_0_1_9_1_3_U0_ap_ready;
-wire    xFInRange_9_0_128_128_15_0_1_9_1_3_U0_rgb2hsv_data2_read;
-wire   [7:0] xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data3_din;
-wire    xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data3_write;
+wire    xFInRange_9_0_128_128_15_0_1_9_1_3_U0_rgb2hsv_data119_read;
+wire   [7:0] xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data120_din;
+wire    xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data120_write;
 wire   [15:0] img_height_loc_channel_dout;
 wire   [1:0] img_height_loc_channel_num_data_valid;
 wire   [1:0] img_height_loc_channel_fifo_cap;
@@ -109,16 +109,16 @@ color_detect_xFInRange_9_0_128_128_15_0_1_9_1_3_s xFInRange_9_0_128_128_15_0_1_9
     .ap_continue(xFInRange_9_0_128_128_15_0_1_9_1_3_U0_ap_continue),
     .ap_idle(xFInRange_9_0_128_128_15_0_1_9_1_3_U0_ap_idle),
     .ap_ready(xFInRange_9_0_128_128_15_0_1_9_1_3_U0_ap_ready),
-    .rgb2hsv_data2_dout(rgb2hsv_data2_dout),
-    .rgb2hsv_data2_num_data_valid(2'd0),
-    .rgb2hsv_data2_fifo_cap(2'd0),
-    .rgb2hsv_data2_empty_n(rgb2hsv_data2_empty_n),
-    .rgb2hsv_data2_read(xFInRange_9_0_128_128_15_0_1_9_1_3_U0_rgb2hsv_data2_read),
-    .imgHelper1_data3_din(xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data3_din),
-    .imgHelper1_data3_num_data_valid(2'd0),
-    .imgHelper1_data3_fifo_cap(2'd0),
-    .imgHelper1_data3_full_n(imgHelper1_data3_full_n),
-    .imgHelper1_data3_write(xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data3_write),
+    .rgb2hsv_data119_dout(rgb2hsv_data119_dout),
+    .rgb2hsv_data119_num_data_valid(2'd0),
+    .rgb2hsv_data119_fifo_cap(2'd0),
+    .rgb2hsv_data119_empty_n(rgb2hsv_data119_empty_n),
+    .rgb2hsv_data119_read(xFInRange_9_0_128_128_15_0_1_9_1_3_U0_rgb2hsv_data119_read),
+    .imgHelper1_data120_din(xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data120_din),
+    .imgHelper1_data120_num_data_valid(2'd0),
+    .imgHelper1_data120_fifo_cap(2'd0),
+    .imgHelper1_data120_full_n(imgHelper1_data120_full_n),
+    .imgHelper1_data120_write(xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data120_write),
     .p_read(img_height_loc_channel_dout),
     .p_read1(img_width_loc_channel_dout)
 );
@@ -199,11 +199,11 @@ assign colorthresholding_9_0_3_128_128_1_Block_entry1_proc_U0_p_read = {{p_read[
 
 assign colorthresholding_9_0_3_128_128_1_Block_entry1_proc_U0_p_read1 = {{p_read1[(16 - 32'd1):0]}};
 
-assign imgHelper1_data3_din = xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data3_din;
+assign imgHelper1_data120_din = xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data120_din;
 
-assign imgHelper1_data3_write = xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data3_write;
+assign imgHelper1_data120_write = xFInRange_9_0_128_128_15_0_1_9_1_3_U0_imgHelper1_data120_write;
 
-assign rgb2hsv_data2_read = xFInRange_9_0_128_128_15_0_1_9_1_3_U0_rgb2hsv_data2_read;
+assign rgb2hsv_data119_read = xFInRange_9_0_128_128_15_0_1_9_1_3_U0_rgb2hsv_data119_read;
 
 assign xFInRange_9_0_128_128_15_0_1_9_1_3_U0_ap_continue = ap_continue;
 

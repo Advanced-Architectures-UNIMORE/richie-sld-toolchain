@@ -25,16 +25,16 @@ module color_detect_bgr2hsv_9_128_128_1_s (
         p_src_mat_cols_fifo_cap,
         p_src_mat_cols_empty_n,
         p_src_mat_cols_read,
-        imgInput_data1_dout,
-        imgInput_data1_num_data_valid,
-        imgInput_data1_fifo_cap,
-        imgInput_data1_empty_n,
-        imgInput_data1_read,
-        rgb2hsv_data2_din,
-        rgb2hsv_data2_num_data_valid,
-        rgb2hsv_data2_fifo_cap,
-        rgb2hsv_data2_full_n,
-        rgb2hsv_data2_write
+        imgInput_data118_dout,
+        imgInput_data118_num_data_valid,
+        imgInput_data118_fifo_cap,
+        imgInput_data118_empty_n,
+        imgInput_data118_read,
+        rgb2hsv_data119_din,
+        rgb2hsv_data119_num_data_valid,
+        rgb2hsv_data119_fifo_cap,
+        rgb2hsv_data119_full_n,
+        rgb2hsv_data119_write
 );
 
 parameter    ap_ST_fsm_state1 = 5'd1;
@@ -60,24 +60,24 @@ input  [1:0] p_src_mat_cols_num_data_valid;
 input  [1:0] p_src_mat_cols_fifo_cap;
 input   p_src_mat_cols_empty_n;
 output   p_src_mat_cols_read;
-input  [23:0] imgInput_data1_dout;
-input  [1:0] imgInput_data1_num_data_valid;
-input  [1:0] imgInput_data1_fifo_cap;
-input   imgInput_data1_empty_n;
-output   imgInput_data1_read;
-output  [23:0] rgb2hsv_data2_din;
-input  [1:0] rgb2hsv_data2_num_data_valid;
-input  [1:0] rgb2hsv_data2_fifo_cap;
-input   rgb2hsv_data2_full_n;
-output   rgb2hsv_data2_write;
+input  [23:0] imgInput_data118_dout;
+input  [1:0] imgInput_data118_num_data_valid;
+input  [1:0] imgInput_data118_fifo_cap;
+input   imgInput_data118_empty_n;
+output   imgInput_data118_read;
+output  [23:0] rgb2hsv_data119_din;
+input  [1:0] rgb2hsv_data119_num_data_valid;
+input  [1:0] rgb2hsv_data119_fifo_cap;
+input   rgb2hsv_data119_full_n;
+output   rgb2hsv_data119_write;
 
 reg ap_done;
 reg ap_idle;
 reg ap_ready;
 reg p_src_mat_rows_read;
 reg p_src_mat_cols_read;
-reg imgInput_data1_read;
-reg rgb2hsv_data2_write;
+reg imgInput_data118_read;
+reg rgb2hsv_data119_write;
 
 reg    ap_done_reg;
 (* fsm_encoding = "none" *) reg   [4:0] ap_CS_fsm;
@@ -94,9 +94,9 @@ wire    grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52
 wire    grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_ap_done;
 wire    grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_ap_idle;
 wire    grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_ap_ready;
-wire    grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_imgInput_data1_read;
-wire   [23:0] grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data2_din;
-wire    grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data2_write;
+wire    grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_imgInput_data118_read;
+wire   [23:0] grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data119_din;
+wire    grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data119_write;
 reg    grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_ap_start_reg;
 reg   [4:0] ap_NS_fsm;
 wire    ap_NS_fsm_state4;
@@ -127,16 +127,16 @@ color_detect_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2 grp_
     .ap_done(grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_ap_done),
     .ap_idle(grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_ap_idle),
     .ap_ready(grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_ap_ready),
-    .imgInput_data1_dout(imgInput_data1_dout),
-    .imgInput_data1_num_data_valid(2'd0),
-    .imgInput_data1_fifo_cap(2'd0),
-    .imgInput_data1_empty_n(imgInput_data1_empty_n),
-    .imgInput_data1_read(grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_imgInput_data1_read),
-    .rgb2hsv_data2_din(grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data2_din),
-    .rgb2hsv_data2_num_data_valid(2'd0),
-    .rgb2hsv_data2_fifo_cap(2'd0),
-    .rgb2hsv_data2_full_n(rgb2hsv_data2_full_n),
-    .rgb2hsv_data2_write(grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data2_write),
+    .imgInput_data118_dout(imgInput_data118_dout),
+    .imgInput_data118_num_data_valid(2'd0),
+    .imgInput_data118_fifo_cap(2'd0),
+    .imgInput_data118_empty_n(imgInput_data118_empty_n),
+    .imgInput_data118_read(grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_imgInput_data118_read),
+    .rgb2hsv_data119_din(grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data119_din),
+    .rgb2hsv_data119_num_data_valid(2'd0),
+    .rgb2hsv_data119_fifo_cap(2'd0),
+    .rgb2hsv_data119_full_n(rgb2hsv_data119_full_n),
+    .rgb2hsv_data119_write(grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data119_write),
     .bound(bound_reg_99)
 );
 
@@ -146,7 +146,7 @@ color_detect_mul_32ns_32ns_64_2_1 #(
     .din0_WIDTH( 32 ),
     .din1_WIDTH( 32 ),
     .dout_WIDTH( 64 ))
-mul_32ns_32ns_64_2_1_U57(
+mul_32ns_32ns_64_2_1_U67(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(grp_fu_73_p0),
@@ -248,9 +248,9 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state5)) begin
-        imgInput_data1_read = grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_imgInput_data1_read;
+        imgInput_data118_read = grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_imgInput_data118_read;
     end else begin
-        imgInput_data1_read = 1'b0;
+        imgInput_data118_read = 1'b0;
     end
 end
 
@@ -288,9 +288,9 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state5)) begin
-        rgb2hsv_data2_write = grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data2_write;
+        rgb2hsv_data119_write = grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data119_write;
     end else begin
-        rgb2hsv_data2_write = 1'b0;
+        rgb2hsv_data119_write = 1'b0;
     end
 end
 
@@ -349,6 +349,6 @@ assign grp_fu_73_p1 = grp_fu_73_p10;
 
 assign grp_fu_73_p10 = cols_reg_79;
 
-assign rgb2hsv_data2_din = grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data2_din;
+assign rgb2hsv_data119_din = grp_bgr2hsv_9_128_128_1_Pipeline_VITIS_LOOP_128_1_VITIS_LOOP_132_2_fu_52_rgb2hsv_data119_din;
 
 endmodule //color_detect_bgr2hsv_9_128_128_1_s

@@ -14,16 +14,16 @@ module color_detect_xferode_128_128_1_0_1_0_129_3_3_s (
         ap_done,
         ap_idle,
         ap_ready,
-        imgHelper4_data6_dout,
-        imgHelper4_data6_num_data_valid,
-        imgHelper4_data6_fifo_cap,
-        imgHelper4_data6_empty_n,
-        imgHelper4_data6_read,
-        imgOutput_data7_din,
-        imgOutput_data7_num_data_valid,
-        imgOutput_data7_fifo_cap,
-        imgOutput_data7_full_n,
-        imgOutput_data7_write,
+        imgHelper4_data123_dout,
+        imgHelper4_data123_num_data_valid,
+        imgHelper4_data123_fifo_cap,
+        imgHelper4_data123_empty_n,
+        imgHelper4_data123_read,
+        imgOutput_data124_din,
+        imgOutput_data124_num_data_valid,
+        imgOutput_data124_fifo_cap,
+        imgOutput_data124_full_n,
+        imgOutput_data124_write,
         img_height,
         img_width
 );
@@ -44,24 +44,24 @@ input   ap_start;
 output   ap_done;
 output   ap_idle;
 output   ap_ready;
-input  [7:0] imgHelper4_data6_dout;
-input  [1:0] imgHelper4_data6_num_data_valid;
-input  [1:0] imgHelper4_data6_fifo_cap;
-input   imgHelper4_data6_empty_n;
-output   imgHelper4_data6_read;
-output  [7:0] imgOutput_data7_din;
-input  [1:0] imgOutput_data7_num_data_valid;
-input  [1:0] imgOutput_data7_fifo_cap;
-input   imgOutput_data7_full_n;
-output   imgOutput_data7_write;
+input  [7:0] imgHelper4_data123_dout;
+input  [1:0] imgHelper4_data123_num_data_valid;
+input  [1:0] imgHelper4_data123_fifo_cap;
+input   imgHelper4_data123_empty_n;
+output   imgHelper4_data123_read;
+output  [7:0] imgOutput_data124_din;
+input  [1:0] imgOutput_data124_num_data_valid;
+input  [1:0] imgOutput_data124_fifo_cap;
+input   imgOutput_data124_full_n;
+output   imgOutput_data124_write;
 input  [15:0] img_height;
 input  [15:0] img_width;
 
 reg ap_done;
 reg ap_idle;
 reg ap_ready;
-reg imgHelper4_data6_read;
-reg imgOutput_data7_write;
+reg imgHelper4_data123_read;
+reg imgOutput_data124_write;
 
 (* fsm_encoding = "none" *) reg   [8:0] ap_CS_fsm;
 wire    ap_CS_fsm_state1;
@@ -73,12 +73,12 @@ wire   [0:0] cmp_i_i142_i_fu_256_p2;
 reg   [0:0] cmp_i_i142_i_reg_384;
 wire    ap_CS_fsm_state7;
 wire   [0:0] icmp_ln1027_3_fu_248_p2;
-wire   [1:0] empty_38_fu_261_p1;
-reg   [1:0] empty_38_reg_389;
-wire   [1:0] empty_39_fu_265_p1;
-reg   [1:0] empty_39_reg_394;
-wire   [1:0] empty_40_fu_269_p1;
-reg   [1:0] empty_40_reg_399;
+wire   [1:0] empty_39_fu_261_p1;
+reg   [1:0] empty_39_reg_389;
+wire   [1:0] empty_40_fu_265_p1;
+reg   [1:0] empty_40_reg_394;
+wire   [1:0] empty_41_fu_269_p1;
+reg   [1:0] empty_41_reg_399;
 reg    buf_V_ce0;
 wire   [7:0] buf_V_q0;
 reg   [6:0] buf_V_address1;
@@ -106,7 +106,7 @@ wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_ap_
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_ap_done;
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_ap_idle;
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_ap_ready;
-wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_imgHelper4_data6_read;
+wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_imgHelper4_data123_read;
 wire   [6:0] grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_buf_V_1_address1;
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_buf_V_1_ce1;
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_buf_V_1_we1;
@@ -115,9 +115,9 @@ wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_ap_start;
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_ap_done;
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_ap_idle;
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_ap_ready;
-wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgHelper4_data6_read;
-wire   [7:0] grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data7_din;
-wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data7_write;
+wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgHelper4_data123_read;
+wire   [7:0] grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data124_din;
+wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data124_write;
 wire   [6:0] grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_buf_V_2_address0;
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_buf_V_2_ce0;
 wire   [6:0] grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_buf_V_2_address1;
@@ -149,9 +149,9 @@ reg   [12:0] i_col_V_2_fu_90;
 wire   [12:0] i_col_V_3_fu_202_p2;
 reg   [12:0] row_V_fu_94;
 wire   [12:0] row_V_3_fu_273_p2;
-reg   [12:0] empty_35_fu_98;
-reg   [12:0] empty_36_fu_102;
-reg   [12:0] empty_37_fu_106;
+reg   [12:0] empty_36_fu_98;
+reg   [12:0] empty_37_fu_102;
+reg   [12:0] empty_38_fu_106;
 wire   [15:0] zext_ln1027_fu_193_p1;
 wire   [15:0] zext_ln1027_1_fu_244_p1;
 reg   [8:0] ap_NS_fsm;
@@ -244,11 +244,11 @@ color_detect_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2 grp_xfero
     .ap_done(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_ap_done),
     .ap_idle(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_ap_idle),
     .ap_ready(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_ap_ready),
-    .imgHelper4_data6_dout(imgHelper4_data6_dout),
-    .imgHelper4_data6_num_data_valid(2'd0),
-    .imgHelper4_data6_fifo_cap(2'd0),
-    .imgHelper4_data6_empty_n(imgHelper4_data6_empty_n),
-    .imgHelper4_data6_read(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_imgHelper4_data6_read),
+    .imgHelper4_data123_dout(imgHelper4_data123_dout),
+    .imgHelper4_data123_num_data_valid(2'd0),
+    .imgHelper4_data123_fifo_cap(2'd0),
+    .imgHelper4_data123_empty_n(imgHelper4_data123_empty_n),
+    .imgHelper4_data123_read(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_imgHelper4_data123_read),
     .img_width(img_width),
     .buf_V_1_address1(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_buf_V_1_address1),
     .buf_V_1_ce1(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_buf_V_1_ce1),
@@ -263,16 +263,16 @@ color_detect_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop grp_xferode_128_1
     .ap_done(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_ap_done),
     .ap_idle(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_ap_idle),
     .ap_ready(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_ap_ready),
-    .imgHelper4_data6_dout(imgHelper4_data6_dout),
-    .imgHelper4_data6_num_data_valid(2'd0),
-    .imgHelper4_data6_fifo_cap(2'd0),
-    .imgHelper4_data6_empty_n(imgHelper4_data6_empty_n),
-    .imgHelper4_data6_read(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgHelper4_data6_read),
-    .imgOutput_data7_din(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data7_din),
-    .imgOutput_data7_num_data_valid(2'd0),
-    .imgOutput_data7_fifo_cap(2'd0),
-    .imgOutput_data7_full_n(imgOutput_data7_full_n),
-    .imgOutput_data7_write(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data7_write),
+    .imgHelper4_data123_dout(imgHelper4_data123_dout),
+    .imgHelper4_data123_num_data_valid(2'd0),
+    .imgHelper4_data123_fifo_cap(2'd0),
+    .imgHelper4_data123_empty_n(imgHelper4_data123_empty_n),
+    .imgHelper4_data123_read(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgHelper4_data123_read),
+    .imgOutput_data124_din(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data124_din),
+    .imgOutput_data124_num_data_valid(2'd0),
+    .imgOutput_data124_fifo_cap(2'd0),
+    .imgOutput_data124_full_n(imgOutput_data124_full_n),
+    .imgOutput_data124_write(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data124_write),
     .img_width(img_width),
     .buf_V_2_address0(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_buf_V_2_address0),
     .buf_V_2_ce0(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_buf_V_2_ce0),
@@ -295,9 +295,9 @@ color_detect_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop grp_xferode_128_1
     .buf_V_ce1(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_buf_V_ce1),
     .buf_V_we1(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_buf_V_we1),
     .buf_V_d1(grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_buf_V_d1),
-    .p_cast1(empty_39_reg_394),
-    .p_cast2(empty_40_reg_399),
-    .p_cast(empty_38_reg_389),
+    .p_cast1(empty_40_reg_394),
+    .p_cast2(empty_41_reg_399),
+    .p_cast(empty_39_reg_389),
     .cmp_i_i142_i(cmp_i_i142_i_reg_384)
 );
 
@@ -347,25 +347,25 @@ end
 
 always @ (posedge ap_clk) begin
     if (((1'b1 == ap_CS_fsm_state6) & ((icmp_ln1027_reg_324 == 1'd1) | (icmp_ln1027_2_fu_197_p2 == 1'd0)))) begin
-        empty_35_fu_98 <= grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_263_1_fu_139_row_ind_V_out;
+        empty_36_fu_98 <= grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_263_1_fu_139_row_ind_V_out;
     end else if (((icmp_ln1027_3_fu_248_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state7))) begin
-        empty_35_fu_98 <= empty_36_fu_102;
+        empty_36_fu_98 <= empty_37_fu_102;
     end
 end
 
 always @ (posedge ap_clk) begin
     if (((1'b1 == ap_CS_fsm_state6) & ((icmp_ln1027_reg_324 == 1'd1) | (icmp_ln1027_2_fu_197_p2 == 1'd0)))) begin
-        empty_36_fu_102 <= grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_263_1_fu_139_row_ind_V_1_out;
+        empty_37_fu_102 <= grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_263_1_fu_139_row_ind_V_1_out;
     end else if (((icmp_ln1027_3_fu_248_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state7))) begin
-        empty_36_fu_102 <= empty_37_fu_106;
+        empty_37_fu_102 <= empty_38_fu_106;
     end
 end
 
 always @ (posedge ap_clk) begin
     if (((1'b1 == ap_CS_fsm_state6) & ((icmp_ln1027_reg_324 == 1'd1) | (icmp_ln1027_2_fu_197_p2 == 1'd0)))) begin
-        empty_37_fu_106 <= grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_263_1_fu_139_row_ind_V_2_out;
+        empty_38_fu_106 <= grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_263_1_fu_139_row_ind_V_2_out;
     end else if (((icmp_ln1027_3_fu_248_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state7))) begin
-        empty_37_fu_106 <= empty_35_fu_98;
+        empty_38_fu_106 <= empty_36_fu_98;
     end
 end
 
@@ -390,9 +390,9 @@ end
 always @ (posedge ap_clk) begin
     if (((icmp_ln1027_3_fu_248_p2 == 1'd0) & (1'b1 == ap_CS_fsm_state7))) begin
         cmp_i_i142_i_reg_384 <= cmp_i_i142_i_fu_256_p2;
-        empty_38_reg_389 <= empty_38_fu_261_p1;
-        empty_39_reg_394 <= empty_39_fu_265_p1;
-        empty_40_reg_399 <= empty_40_fu_269_p1;
+        empty_39_reg_389 <= empty_39_fu_261_p1;
+        empty_40_reg_394 <= empty_40_fu_265_p1;
+        empty_41_reg_399 <= empty_41_fu_269_p1;
     end
 end
 
@@ -566,19 +566,19 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state9)) begin
-        imgHelper4_data6_read = grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgHelper4_data6_read;
+        imgHelper4_data123_read = grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgHelper4_data123_read;
     end else if ((1'b1 == ap_CS_fsm_state4)) begin
-        imgHelper4_data6_read = grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_imgHelper4_data6_read;
+        imgHelper4_data123_read = grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2_fu_146_imgHelper4_data123_read;
     end else begin
-        imgHelper4_data6_read = 1'b0;
+        imgHelper4_data123_read = 1'b0;
     end
 end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state9)) begin
-        imgOutput_data7_write = grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data7_write;
+        imgOutput_data124_write = grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data124_write;
     end else begin
-        imgOutput_data7_write = 1'b0;
+        imgOutput_data124_write = 1'b0;
     end
 end
 
@@ -663,11 +663,11 @@ assign ap_CS_fsm_state9 = ap_CS_fsm[32'd8];
 
 assign cmp_i_i142_i_fu_256_p2 = ((zext_ln1027_1_fu_244_p1 < img_height) ? 1'b1 : 1'b0);
 
-assign empty_38_fu_261_p1 = empty_37_fu_106[1:0];
+assign empty_39_fu_261_p1 = empty_38_fu_106[1:0];
 
-assign empty_39_fu_265_p1 = empty_35_fu_98[1:0];
+assign empty_40_fu_265_p1 = empty_36_fu_98[1:0];
 
-assign empty_40_fu_269_p1 = empty_36_fu_102[1:0];
+assign empty_41_fu_269_p1 = empty_37_fu_102[1:0];
 
 assign grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_ap_start = grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_ap_start_reg;
 
@@ -683,7 +683,7 @@ assign icmp_ln1027_3_fu_248_p2 = ((zext_ln1027_1_fu_244_p1 > img_height) ? 1'b1 
 
 assign icmp_ln1027_fu_170_p2 = ((img_width == 16'd0) ? 1'b1 : 1'b0);
 
-assign imgOutput_data7_din = grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data7_din;
+assign imgOutput_data124_din = grp_xferode_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop_fu_154_imgOutput_data124_din;
 
 assign row_V_3_fu_273_p2 = (row_V_fu_94 + 13'd1);
 

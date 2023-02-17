@@ -17,16 +17,16 @@ module color_detect_erode_0_0_128_128_0_3_3_1_1_s (
         ap_ready,
         p_read,
         p_read1,
-        imgHelper1_data3_dout,
-        imgHelper1_data3_num_data_valid,
-        imgHelper1_data3_fifo_cap,
-        imgHelper1_data3_empty_n,
-        imgHelper1_data3_read,
-        imgHelper2_data4_din,
-        imgHelper2_data4_num_data_valid,
-        imgHelper2_data4_fifo_cap,
-        imgHelper2_data4_full_n,
-        imgHelper2_data4_write
+        imgHelper1_data120_dout,
+        imgHelper1_data120_num_data_valid,
+        imgHelper1_data120_fifo_cap,
+        imgHelper1_data120_empty_n,
+        imgHelper1_data120_read,
+        imgHelper2_data121_din,
+        imgHelper2_data121_num_data_valid,
+        imgHelper2_data121_fifo_cap,
+        imgHelper2_data121_full_n,
+        imgHelper2_data121_write
 );
 
 parameter    ap_ST_fsm_state1 = 2'd1;
@@ -41,22 +41,22 @@ output   ap_idle;
 output   ap_ready;
 input  [31:0] p_read;
 input  [31:0] p_read1;
-input  [7:0] imgHelper1_data3_dout;
-input  [1:0] imgHelper1_data3_num_data_valid;
-input  [1:0] imgHelper1_data3_fifo_cap;
-input   imgHelper1_data3_empty_n;
-output   imgHelper1_data3_read;
-output  [7:0] imgHelper2_data4_din;
-input  [1:0] imgHelper2_data4_num_data_valid;
-input  [1:0] imgHelper2_data4_fifo_cap;
-input   imgHelper2_data4_full_n;
-output   imgHelper2_data4_write;
+input  [7:0] imgHelper1_data120_dout;
+input  [1:0] imgHelper1_data120_num_data_valid;
+input  [1:0] imgHelper1_data120_fifo_cap;
+input   imgHelper1_data120_empty_n;
+output   imgHelper1_data120_read;
+output  [7:0] imgHelper2_data121_din;
+input  [1:0] imgHelper2_data121_num_data_valid;
+input  [1:0] imgHelper2_data121_fifo_cap;
+input   imgHelper2_data121_full_n;
+output   imgHelper2_data121_write;
 
 reg ap_done;
 reg ap_idle;
 reg ap_ready;
-reg imgHelper1_data3_read;
-reg imgHelper2_data4_write;
+reg imgHelper1_data120_read;
+reg imgHelper2_data121_write;
 
 reg    ap_done_reg;
 (* fsm_encoding = "none" *) reg   [1:0] ap_CS_fsm;
@@ -69,9 +69,9 @@ wire    grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_ap_start;
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_ap_done;
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_ap_idle;
 wire    grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_ap_ready;
-wire    grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgHelper4_data6_read;
-wire   [7:0] grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data7_din;
-wire    grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data7_write;
+wire    grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgHelper4_data123_read;
+wire   [7:0] grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data124_din;
+wire    grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data124_write;
 reg    grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_ap_start_reg;
 reg    ap_block_state1_ignore_call6;
 wire    ap_CS_fsm_state2;
@@ -95,16 +95,16 @@ color_detect_xferode_128_128_1_0_1_0_129_3_3_s grp_xferode_128_128_1_0_1_0_129_3
     .ap_done(grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_ap_done),
     .ap_idle(grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_ap_idle),
     .ap_ready(grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_ap_ready),
-    .imgHelper4_data6_dout(imgHelper1_data3_dout),
-    .imgHelper4_data6_num_data_valid(2'd0),
-    .imgHelper4_data6_fifo_cap(2'd0),
-    .imgHelper4_data6_empty_n(imgHelper1_data3_empty_n),
-    .imgHelper4_data6_read(grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgHelper4_data6_read),
-    .imgOutput_data7_din(grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data7_din),
-    .imgOutput_data7_num_data_valid(2'd0),
-    .imgOutput_data7_fifo_cap(2'd0),
-    .imgOutput_data7_full_n(imgHelper2_data4_full_n),
-    .imgOutput_data7_write(grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data7_write),
+    .imgHelper4_data123_dout(imgHelper1_data120_dout),
+    .imgHelper4_data123_num_data_valid(2'd0),
+    .imgHelper4_data123_fifo_cap(2'd0),
+    .imgHelper4_data123_empty_n(imgHelper1_data120_empty_n),
+    .imgHelper4_data123_read(grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgHelper4_data123_read),
+    .imgOutput_data124_din(grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data124_din),
+    .imgOutput_data124_num_data_valid(2'd0),
+    .imgOutput_data124_fifo_cap(2'd0),
+    .imgOutput_data124_full_n(imgHelper2_data121_full_n),
+    .imgOutput_data124_write(grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data124_write),
     .img_height(imgheight_reg_54),
     .img_width(imgwidth_reg_59)
 );
@@ -190,17 +190,17 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state2)) begin
-        imgHelper1_data3_read = grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgHelper4_data6_read;
+        imgHelper1_data120_read = grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgHelper4_data123_read;
     end else begin
-        imgHelper1_data3_read = 1'b0;
+        imgHelper1_data120_read = 1'b0;
     end
 end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state2)) begin
-        imgHelper2_data4_write = grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data7_write;
+        imgHelper2_data121_write = grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data124_write;
     end else begin
-        imgHelper2_data4_write = 1'b0;
+        imgHelper2_data121_write = 1'b0;
     end
 end
 
@@ -240,7 +240,7 @@ end
 
 assign grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_ap_start = grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_ap_start_reg;
 
-assign imgHelper2_data4_din = grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data7_din;
+assign imgHelper2_data121_din = grp_xferode_128_128_1_0_1_0_129_3_3_s_fu_34_imgOutput_data124_din;
 
 assign imgheight_fu_44_p1 = p_read[15:0];
 

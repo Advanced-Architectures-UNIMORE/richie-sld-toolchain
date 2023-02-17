@@ -14,11 +14,11 @@ module color_detect_xferode_128_128_1_0_1_0_129_3_3_Pipeline_VITIS_LOOP_278_2 (
         ap_done,
         ap_idle,
         ap_ready,
-        imgHelper4_data6_dout,
-        imgHelper4_data6_num_data_valid,
-        imgHelper4_data6_fifo_cap,
-        imgHelper4_data6_empty_n,
-        imgHelper4_data6_read,
+        imgHelper4_data123_dout,
+        imgHelper4_data123_num_data_valid,
+        imgHelper4_data123_fifo_cap,
+        imgHelper4_data123_empty_n,
+        imgHelper4_data123_read,
         img_width,
         buf_V_1_address1,
         buf_V_1_ce1,
@@ -34,11 +34,11 @@ input   ap_start;
 output   ap_done;
 output   ap_idle;
 output   ap_ready;
-input  [7:0] imgHelper4_data6_dout;
-input  [1:0] imgHelper4_data6_num_data_valid;
-input  [1:0] imgHelper4_data6_fifo_cap;
-input   imgHelper4_data6_empty_n;
-output   imgHelper4_data6_read;
+input  [7:0] imgHelper4_data123_dout;
+input  [1:0] imgHelper4_data123_num_data_valid;
+input  [1:0] imgHelper4_data123_fifo_cap;
+input   imgHelper4_data123_empty_n;
+output   imgHelper4_data123_read;
 input  [15:0] img_width;
 output  [6:0] buf_V_1_address1;
 output   buf_V_1_ce1;
@@ -46,7 +46,7 @@ output   buf_V_1_we1;
 output  [7:0] buf_V_1_d1;
 
 reg ap_idle;
-reg imgHelper4_data6_read;
+reg imgHelper4_data123_read;
 reg buf_V_1_ce1;
 reg buf_V_1_we1;
 
@@ -64,12 +64,12 @@ wire   [0:0] icmp_ln1027_fu_95_p2;
 reg    ap_condition_exit_pp0_iter0_stage0;
 wire    ap_loop_exit_ready;
 reg    ap_ready_int;
-reg    imgHelper4_data6_blk_n;
+reg    imgHelper4_data123_blk_n;
 wire    ap_block_pp0_stage0;
 reg   [12:0] i_col_V_1_reg_123;
 reg    ap_block_pp0_stage0_11001;
 reg   [12:0] i_col_V_1_reg_123_pp0_iter1_reg;
-reg   [7:0] imgHelper4_data6_read_reg_132;
+reg   [7:0] imgHelper4_data123_read_reg_132;
 wire   [63:0] zext_ln541_fu_112_p1;
 reg   [12:0] i_col_V_fu_50;
 wire   [12:0] i_col_V_2_fu_101_p2;
@@ -165,7 +165,7 @@ always @ (posedge ap_clk) begin
         ap_loop_exit_ready_pp0_iter1_reg <= ap_loop_exit_ready;
         i_col_V_1_reg_123 <= ap_sig_allocacmp_i_col_V_1;
         i_col_V_1_reg_123_pp0_iter1_reg <= i_col_V_1_reg_123;
-        imgHelper4_data6_read_reg_132 <= imgHelper4_data6_dout;
+        imgHelper4_data123_read_reg_132 <= imgHelper4_data123_dout;
     end
 end
 
@@ -235,17 +235,17 @@ end
 
 always @ (*) begin
     if (((1'b0 == ap_block_pp0_stage0) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
-        imgHelper4_data6_blk_n = imgHelper4_data6_empty_n;
+        imgHelper4_data123_blk_n = imgHelper4_data123_empty_n;
     end else begin
-        imgHelper4_data6_blk_n = 1'b1;
+        imgHelper4_data123_blk_n = 1'b1;
     end
 end
 
 always @ (*) begin
     if (((1'b0 == ap_block_pp0_stage0_11001) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
-        imgHelper4_data6_read = 1'b1;
+        imgHelper4_data123_read = 1'b1;
     end else begin
-        imgHelper4_data6_read = 1'b0;
+        imgHelper4_data123_read = 1'b0;
     end
 end
 
@@ -265,17 +265,17 @@ assign ap_CS_fsm_pp0_stage0 = ap_CS_fsm[32'd0];
 assign ap_block_pp0_stage0 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_block_pp0_stage0_11001 = ((imgHelper4_data6_empty_n == 1'b0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_block_pp0_stage0_11001 = ((imgHelper4_data123_empty_n == 1'b0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_block_pp0_stage0_subdone = ((imgHelper4_data6_empty_n == 1'b0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_block_pp0_stage0_subdone = ((imgHelper4_data123_empty_n == 1'b0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 assign ap_block_state1_pp0_stage0_iter0 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_block_state2_pp0_stage0_iter1 = (imgHelper4_data6_empty_n == 1'b0);
+    ap_block_state2_pp0_stage0_iter1 = (imgHelper4_data123_empty_n == 1'b0);
 end
 
 assign ap_block_state3_pp0_stage0_iter2 = ~(1'b1 == 1'b1);
@@ -288,7 +288,7 @@ assign ap_loop_exit_ready = ap_condition_exit_pp0_iter0_stage0;
 
 assign buf_V_1_address1 = zext_ln541_fu_112_p1;
 
-assign buf_V_1_d1 = imgHelper4_data6_read_reg_132;
+assign buf_V_1_d1 = imgHelper4_data123_read_reg_132;
 
 assign i_col_V_2_fu_101_p2 = (ap_sig_allocacmp_i_col_V_1 + 13'd1);
 

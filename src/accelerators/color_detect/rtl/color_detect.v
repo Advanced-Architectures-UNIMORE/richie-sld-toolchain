@@ -7,11 +7,23 @@
 
 `timescale 1 ns / 1 ps 
 
-(* CORE_GENERATION_INFO="color_detect_color_detect,hls_ip_2022_2_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xczu9eg-ffvb1156-2-e,HLS_INPUT_CLOCK=3.300000,HLS_INPUT_ARCH=dataflow,HLS_SYN_CLOCK=2.701875,HLS_SYN_LAT=8203,HLS_SYN_TPT=8203,HLS_SYN_MEM=16,HLS_SYN_DSP=0,HLS_SYN_FF=10290,HLS_SYN_LUT=12647,HLS_VERSION=2022_2_1}" *)
+(* CORE_GENERATION_INFO="color_detect_color_detect,hls_ip_2022_2_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xczu9eg-ffvb1156-2-e,HLS_INPUT_CLOCK=3.300000,HLS_INPUT_ARCH=dataflow,HLS_SYN_CLOCK=2.692000,HLS_SYN_LAT=-1,HLS_SYN_TPT=-1,HLS_SYN_MEM=16,HLS_SYN_DSP=0,HLS_SYN_FF=7419,HLS_SYN_LUT=8613,HLS_VERSION=2022_2_1}" *)
 
 module color_detect (
         img_in_TDATA,
+        img_in_TKEEP,
+        img_in_TSTRB,
+        img_in_TUSER,
+        img_in_TLAST,
+        img_in_TID,
+        img_in_TDEST,
         img_out_TDATA,
+        img_out_TKEEP,
+        img_out_TSTRB,
+        img_out_TUSER,
+        img_out_TLAST,
+        img_out_TID,
+        img_out_TDEST,
         rows,
         cols,
         ap_clk,
@@ -28,7 +40,19 @@ module color_detect (
 
 
 input  [31:0] img_in_TDATA;
-output  [31:0] img_out_TDATA;
+input  [3:0] img_in_TKEEP;
+input  [3:0] img_in_TSTRB;
+input  [0:0] img_in_TUSER;
+input  [0:0] img_in_TLAST;
+input  [0:0] img_in_TID;
+input  [0:0] img_in_TDEST;
+output  [7:0] img_out_TDATA;
+output  [0:0] img_out_TKEEP;
+output  [0:0] img_out_TSTRB;
+output  [0:0] img_out_TUSER;
+output  [0:0] img_out_TLAST;
+output  [0:0] img_out_TID;
+output  [0:0] img_out_TDEST;
 input  [31:0] rows;
 input  [31:0] cols;
 input   ap_clk;
@@ -118,20 +142,20 @@ wire    ap_channel_done_imgInput_cols_c20_channel;
 wire    imgInput_cols_c20_channel_full_n;
 reg    ap_sync_reg_channel_write_imgInput_cols_c20_channel;
 wire    ap_sync_channel_write_imgInput_cols_c20_channel;
-wire    Array2xfMat_32_9_128_128_1_U0_ap_start;
-wire    Array2xfMat_32_9_128_128_1_U0_ap_done;
-wire    Array2xfMat_32_9_128_128_1_U0_ap_continue;
-wire    Array2xfMat_32_9_128_128_1_U0_ap_idle;
-wire    Array2xfMat_32_9_128_128_1_U0_ap_ready;
-wire    Array2xfMat_32_9_128_128_1_U0_start_out;
-wire    Array2xfMat_32_9_128_128_1_U0_start_write;
-wire    Array2xfMat_32_9_128_128_1_U0_img_in_TREADY;
-wire   [23:0] Array2xfMat_32_9_128_128_1_U0_imgInput_data1_din;
-wire    Array2xfMat_32_9_128_128_1_U0_imgInput_data1_write;
-wire   [31:0] Array2xfMat_32_9_128_128_1_U0_imgInput_rows_c_din;
-wire    Array2xfMat_32_9_128_128_1_U0_imgInput_rows_c_write;
-wire   [31:0] Array2xfMat_32_9_128_128_1_U0_imgInput_cols_c_din;
-wire    Array2xfMat_32_9_128_128_1_U0_imgInput_cols_c_write;
+wire    AXIvideo2xfMat_32_9_128_128_1_U0_ap_start;
+wire    AXIvideo2xfMat_32_9_128_128_1_U0_ap_done;
+wire    AXIvideo2xfMat_32_9_128_128_1_U0_ap_continue;
+wire    AXIvideo2xfMat_32_9_128_128_1_U0_ap_idle;
+wire    AXIvideo2xfMat_32_9_128_128_1_U0_ap_ready;
+wire    AXIvideo2xfMat_32_9_128_128_1_U0_start_out;
+wire    AXIvideo2xfMat_32_9_128_128_1_U0_start_write;
+wire    AXIvideo2xfMat_32_9_128_128_1_U0_img_in_TREADY;
+wire   [23:0] AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_data118_din;
+wire    AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_data118_write;
+wire   [31:0] AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_rows_c_din;
+wire    AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_rows_c_write;
+wire   [31:0] AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_cols_c_din;
+wire    AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_cols_c_write;
 wire    bgr2hsv_9_128_128_1_U0_ap_start;
 wire    bgr2hsv_9_128_128_1_U0_ap_done;
 wire    bgr2hsv_9_128_128_1_U0_ap_continue;
@@ -139,12 +163,12 @@ wire    bgr2hsv_9_128_128_1_U0_ap_idle;
 wire    bgr2hsv_9_128_128_1_U0_ap_ready;
 wire    bgr2hsv_9_128_128_1_U0_p_src_mat_rows_read;
 wire    bgr2hsv_9_128_128_1_U0_p_src_mat_cols_read;
-wire    bgr2hsv_9_128_128_1_U0_imgInput_data1_read;
-wire   [23:0] bgr2hsv_9_128_128_1_U0_rgb2hsv_data2_din;
-wire    bgr2hsv_9_128_128_1_U0_rgb2hsv_data2_write;
-wire    colorthresholding_9_0_3_128_128_1_U0_rgb2hsv_data2_read;
-wire   [7:0] colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data3_din;
-wire    colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data3_write;
+wire    bgr2hsv_9_128_128_1_U0_imgInput_data118_read;
+wire   [23:0] bgr2hsv_9_128_128_1_U0_rgb2hsv_data119_din;
+wire    bgr2hsv_9_128_128_1_U0_rgb2hsv_data119_write;
+wire    colorthresholding_9_0_3_128_128_1_U0_rgb2hsv_data119_read;
+wire   [7:0] colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data120_din;
+wire    colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data120_write;
 wire    colorthresholding_9_0_3_128_128_1_U0_ap_start;
 wire    colorthresholding_9_0_3_128_128_1_U0_ap_done;
 wire    colorthresholding_9_0_3_128_128_1_U0_ap_ready;
@@ -155,41 +179,47 @@ wire    erode_0_0_128_128_0_3_3_1_1_U0_ap_done;
 wire    erode_0_0_128_128_0_3_3_1_1_U0_ap_continue;
 wire    erode_0_0_128_128_0_3_3_1_1_U0_ap_idle;
 wire    erode_0_0_128_128_0_3_3_1_1_U0_ap_ready;
-wire    erode_0_0_128_128_0_3_3_1_1_U0_imgHelper1_data3_read;
-wire   [7:0] erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data4_din;
-wire    erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data4_write;
+wire    erode_0_0_128_128_0_3_3_1_1_U0_imgHelper1_data120_read;
+wire   [7:0] erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data121_din;
+wire    erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data121_write;
 wire    dilate_0_0_128_128_0_3_3_1_1_U0_ap_start;
 wire    dilate_0_0_128_128_0_3_3_1_1_U0_ap_done;
 wire    dilate_0_0_128_128_0_3_3_1_1_U0_ap_continue;
 wire    dilate_0_0_128_128_0_3_3_1_1_U0_ap_idle;
 wire    dilate_0_0_128_128_0_3_3_1_1_U0_ap_ready;
-wire    dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data4_read;
-wire   [7:0] dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data5_din;
-wire    dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data5_write;
+wire    dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data121_read;
+wire   [7:0] dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data122_din;
+wire    dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data122_write;
 wire    dilate_0_0_128_128_0_3_3_1_1_1_U0_ap_start;
 wire    dilate_0_0_128_128_0_3_3_1_1_1_U0_ap_done;
 wire    dilate_0_0_128_128_0_3_3_1_1_1_U0_ap_continue;
 wire    dilate_0_0_128_128_0_3_3_1_1_1_U0_ap_idle;
 wire    dilate_0_0_128_128_0_3_3_1_1_1_U0_ap_ready;
-wire    dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper3_data5_read;
-wire   [7:0] dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data6_din;
-wire    dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data6_write;
+wire    dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper3_data122_read;
+wire   [7:0] dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data123_din;
+wire    dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data123_write;
 wire    erode_0_0_128_128_0_3_3_1_1_2_U0_ap_start;
 wire    erode_0_0_128_128_0_3_3_1_1_2_U0_ap_done;
 wire    erode_0_0_128_128_0_3_3_1_1_2_U0_ap_continue;
 wire    erode_0_0_128_128_0_3_3_1_1_2_U0_ap_idle;
 wire    erode_0_0_128_128_0_3_3_1_1_2_U0_ap_ready;
-wire    erode_0_0_128_128_0_3_3_1_1_2_U0_imgHelper4_data6_read;
-wire   [7:0] erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data7_din;
-wire    erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data7_write;
-wire    xfMat2Array_32_0_128_128_1_1_U0_ap_start;
-wire    xfMat2Array_32_0_128_128_1_1_U0_ap_done;
-wire    xfMat2Array_32_0_128_128_1_1_U0_ap_continue;
-wire    xfMat2Array_32_0_128_128_1_1_U0_ap_idle;
-wire    xfMat2Array_32_0_128_128_1_1_U0_ap_ready;
-wire    xfMat2Array_32_0_128_128_1_1_U0_imgOutput_data7_read;
-wire   [31:0] xfMat2Array_32_0_128_128_1_1_U0_img_out_TDATA;
-wire    xfMat2Array_32_0_128_128_1_1_U0_img_out_TVALID;
+wire    erode_0_0_128_128_0_3_3_1_1_2_U0_imgHelper4_data123_read;
+wire   [7:0] erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data124_din;
+wire    erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data124_write;
+wire    xfMat2AXIvideo_8_0_128_128_1_U0_ap_start;
+wire    xfMat2AXIvideo_8_0_128_128_1_U0_ap_done;
+wire    xfMat2AXIvideo_8_0_128_128_1_U0_ap_continue;
+wire    xfMat2AXIvideo_8_0_128_128_1_U0_ap_idle;
+wire    xfMat2AXIvideo_8_0_128_128_1_U0_ap_ready;
+wire    xfMat2AXIvideo_8_0_128_128_1_U0_imgOutput_data124_read;
+wire   [7:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDATA;
+wire    xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TVALID;
+wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TKEEP;
+wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TSTRB;
+wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TUSER;
+wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TLAST;
+wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TID;
+wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDEST;
 wire   [31:0] imgInput_cols_c20_channel_dout;
 wire   [1:0] imgInput_cols_c20_channel_num_data_valid;
 wire   [1:0] imgInput_cols_c20_channel_fifo_cap;
@@ -341,37 +371,43 @@ color_detect_Block_entry1_proc Block_entry1_proc_U0(
     .ap_return_13(Block_entry1_proc_U0_ap_return_13)
 );
 
-color_detect_Array2xfMat_32_9_128_128_1_s Array2xfMat_32_9_128_128_1_U0(
+color_detect_AXIvideo2xfMat_32_9_128_128_1_s AXIvideo2xfMat_32_9_128_128_1_U0(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
-    .ap_start(Array2xfMat_32_9_128_128_1_U0_ap_start),
+    .ap_start(AXIvideo2xfMat_32_9_128_128_1_U0_ap_start),
     .start_full_n(start_for_bgr2hsv_9_128_128_1_U0_full_n),
-    .ap_done(Array2xfMat_32_9_128_128_1_U0_ap_done),
-    .ap_continue(Array2xfMat_32_9_128_128_1_U0_ap_continue),
-    .ap_idle(Array2xfMat_32_9_128_128_1_U0_ap_idle),
-    .ap_ready(Array2xfMat_32_9_128_128_1_U0_ap_ready),
-    .start_out(Array2xfMat_32_9_128_128_1_U0_start_out),
-    .start_write(Array2xfMat_32_9_128_128_1_U0_start_write),
+    .ap_done(AXIvideo2xfMat_32_9_128_128_1_U0_ap_done),
+    .ap_continue(AXIvideo2xfMat_32_9_128_128_1_U0_ap_continue),
+    .ap_idle(AXIvideo2xfMat_32_9_128_128_1_U0_ap_idle),
+    .ap_ready(AXIvideo2xfMat_32_9_128_128_1_U0_ap_ready),
+    .start_out(AXIvideo2xfMat_32_9_128_128_1_U0_start_out),
+    .start_write(AXIvideo2xfMat_32_9_128_128_1_U0_start_write),
     .img_in_TDATA(img_in_TDATA),
     .img_in_TVALID(img_in_TVALID),
-    .img_in_TREADY(Array2xfMat_32_9_128_128_1_U0_img_in_TREADY),
+    .img_in_TREADY(AXIvideo2xfMat_32_9_128_128_1_U0_img_in_TREADY),
+    .img_in_TKEEP(img_in_TKEEP),
+    .img_in_TSTRB(img_in_TSTRB),
+    .img_in_TUSER(img_in_TUSER),
+    .img_in_TLAST(img_in_TLAST),
+    .img_in_TID(img_in_TID),
+    .img_in_TDEST(img_in_TDEST),
     .p_read(imgInput_rows_c19_channel_dout),
     .p_read1(imgInput_cols_c20_channel_dout),
-    .imgInput_data1_din(Array2xfMat_32_9_128_128_1_U0_imgInput_data1_din),
-    .imgInput_data1_num_data_valid(imgInput_data_num_data_valid),
-    .imgInput_data1_fifo_cap(imgInput_data_fifo_cap),
-    .imgInput_data1_full_n(imgInput_data_full_n),
-    .imgInput_data1_write(Array2xfMat_32_9_128_128_1_U0_imgInput_data1_write),
-    .imgInput_rows_c_din(Array2xfMat_32_9_128_128_1_U0_imgInput_rows_c_din),
+    .imgInput_data118_din(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_data118_din),
+    .imgInput_data118_num_data_valid(imgInput_data_num_data_valid),
+    .imgInput_data118_fifo_cap(imgInput_data_fifo_cap),
+    .imgInput_data118_full_n(imgInput_data_full_n),
+    .imgInput_data118_write(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_data118_write),
+    .imgInput_rows_c_din(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_rows_c_din),
     .imgInput_rows_c_num_data_valid(imgInput_rows_c_num_data_valid),
     .imgInput_rows_c_fifo_cap(imgInput_rows_c_fifo_cap),
     .imgInput_rows_c_full_n(imgInput_rows_c_full_n),
-    .imgInput_rows_c_write(Array2xfMat_32_9_128_128_1_U0_imgInput_rows_c_write),
-    .imgInput_cols_c_din(Array2xfMat_32_9_128_128_1_U0_imgInput_cols_c_din),
+    .imgInput_rows_c_write(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_rows_c_write),
+    .imgInput_cols_c_din(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_cols_c_din),
     .imgInput_cols_c_num_data_valid(imgInput_cols_c_num_data_valid),
     .imgInput_cols_c_fifo_cap(imgInput_cols_c_fifo_cap),
     .imgInput_cols_c_full_n(imgInput_cols_c_full_n),
-    .imgInput_cols_c_write(Array2xfMat_32_9_128_128_1_U0_imgInput_cols_c_write)
+    .imgInput_cols_c_write(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_cols_c_write)
 );
 
 color_detect_bgr2hsv_9_128_128_1_s bgr2hsv_9_128_128_1_U0(
@@ -392,27 +428,27 @@ color_detect_bgr2hsv_9_128_128_1_s bgr2hsv_9_128_128_1_U0(
     .p_src_mat_cols_fifo_cap(imgInput_cols_c_fifo_cap),
     .p_src_mat_cols_empty_n(imgInput_cols_c_empty_n),
     .p_src_mat_cols_read(bgr2hsv_9_128_128_1_U0_p_src_mat_cols_read),
-    .imgInput_data1_dout(imgInput_data_dout),
-    .imgInput_data1_num_data_valid(imgInput_data_num_data_valid),
-    .imgInput_data1_fifo_cap(imgInput_data_fifo_cap),
-    .imgInput_data1_empty_n(imgInput_data_empty_n),
-    .imgInput_data1_read(bgr2hsv_9_128_128_1_U0_imgInput_data1_read),
-    .rgb2hsv_data2_din(bgr2hsv_9_128_128_1_U0_rgb2hsv_data2_din),
-    .rgb2hsv_data2_num_data_valid(rgb2hsv_data_num_data_valid),
-    .rgb2hsv_data2_fifo_cap(rgb2hsv_data_fifo_cap),
-    .rgb2hsv_data2_full_n(rgb2hsv_data_full_n),
-    .rgb2hsv_data2_write(bgr2hsv_9_128_128_1_U0_rgb2hsv_data2_write)
+    .imgInput_data118_dout(imgInput_data_dout),
+    .imgInput_data118_num_data_valid(imgInput_data_num_data_valid),
+    .imgInput_data118_fifo_cap(imgInput_data_fifo_cap),
+    .imgInput_data118_empty_n(imgInput_data_empty_n),
+    .imgInput_data118_read(bgr2hsv_9_128_128_1_U0_imgInput_data118_read),
+    .rgb2hsv_data119_din(bgr2hsv_9_128_128_1_U0_rgb2hsv_data119_din),
+    .rgb2hsv_data119_num_data_valid(rgb2hsv_data_num_data_valid),
+    .rgb2hsv_data119_fifo_cap(rgb2hsv_data_fifo_cap),
+    .rgb2hsv_data119_full_n(rgb2hsv_data_full_n),
+    .rgb2hsv_data119_write(bgr2hsv_9_128_128_1_U0_rgb2hsv_data119_write)
 );
 
 color_detect_colorthresholding_9_0_3_128_128_1_s colorthresholding_9_0_3_128_128_1_U0(
     .p_read(rgb2hsv_rows_channel_dout),
     .p_read1(rgb2hsv_cols_channel_dout),
-    .rgb2hsv_data2_dout(rgb2hsv_data_dout),
-    .rgb2hsv_data2_empty_n(rgb2hsv_data_empty_n),
-    .rgb2hsv_data2_read(colorthresholding_9_0_3_128_128_1_U0_rgb2hsv_data2_read),
-    .imgHelper1_data3_din(colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data3_din),
-    .imgHelper1_data3_full_n(imgHelper1_data_full_n),
-    .imgHelper1_data3_write(colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data3_write),
+    .rgb2hsv_data119_dout(rgb2hsv_data_dout),
+    .rgb2hsv_data119_empty_n(rgb2hsv_data_empty_n),
+    .rgb2hsv_data119_read(colorthresholding_9_0_3_128_128_1_U0_rgb2hsv_data119_read),
+    .imgHelper1_data120_din(colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data120_din),
+    .imgHelper1_data120_full_n(imgHelper1_data_full_n),
+    .imgHelper1_data120_write(colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data120_write),
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
     .p_read_ap_vld(1'b0),
@@ -434,16 +470,16 @@ color_detect_erode_0_0_128_128_0_3_3_1_1_s erode_0_0_128_128_0_3_3_1_1_U0(
     .ap_ready(erode_0_0_128_128_0_3_3_1_1_U0_ap_ready),
     .p_read(imgHelper1_rows_channel_dout),
     .p_read1(imgHelper1_cols_channel_dout),
-    .imgHelper1_data3_dout(imgHelper1_data_dout),
-    .imgHelper1_data3_num_data_valid(imgHelper1_data_num_data_valid),
-    .imgHelper1_data3_fifo_cap(imgHelper1_data_fifo_cap),
-    .imgHelper1_data3_empty_n(imgHelper1_data_empty_n),
-    .imgHelper1_data3_read(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper1_data3_read),
-    .imgHelper2_data4_din(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data4_din),
-    .imgHelper2_data4_num_data_valid(imgHelper2_data_num_data_valid),
-    .imgHelper2_data4_fifo_cap(imgHelper2_data_fifo_cap),
-    .imgHelper2_data4_full_n(imgHelper2_data_full_n),
-    .imgHelper2_data4_write(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data4_write)
+    .imgHelper1_data120_dout(imgHelper1_data_dout),
+    .imgHelper1_data120_num_data_valid(imgHelper1_data_num_data_valid),
+    .imgHelper1_data120_fifo_cap(imgHelper1_data_fifo_cap),
+    .imgHelper1_data120_empty_n(imgHelper1_data_empty_n),
+    .imgHelper1_data120_read(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper1_data120_read),
+    .imgHelper2_data121_din(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data121_din),
+    .imgHelper2_data121_num_data_valid(imgHelper2_data_num_data_valid),
+    .imgHelper2_data121_fifo_cap(imgHelper2_data_fifo_cap),
+    .imgHelper2_data121_full_n(imgHelper2_data_full_n),
+    .imgHelper2_data121_write(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data121_write)
 );
 
 color_detect_dilate_0_0_128_128_0_3_3_1_1_s dilate_0_0_128_128_0_3_3_1_1_U0(
@@ -456,16 +492,16 @@ color_detect_dilate_0_0_128_128_0_3_3_1_1_s dilate_0_0_128_128_0_3_3_1_1_U0(
     .ap_ready(dilate_0_0_128_128_0_3_3_1_1_U0_ap_ready),
     .p_read(imgHelper2_rows_channel_dout),
     .p_read1(imgHelper2_cols_channel_dout),
-    .imgHelper2_data4_dout(imgHelper2_data_dout),
-    .imgHelper2_data4_num_data_valid(imgHelper2_data_num_data_valid),
-    .imgHelper2_data4_fifo_cap(imgHelper2_data_fifo_cap),
-    .imgHelper2_data4_empty_n(imgHelper2_data_empty_n),
-    .imgHelper2_data4_read(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data4_read),
-    .imgHelper3_data5_din(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data5_din),
-    .imgHelper3_data5_num_data_valid(imgHelper3_data_num_data_valid),
-    .imgHelper3_data5_fifo_cap(imgHelper3_data_fifo_cap),
-    .imgHelper3_data5_full_n(imgHelper3_data_full_n),
-    .imgHelper3_data5_write(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data5_write)
+    .imgHelper2_data121_dout(imgHelper2_data_dout),
+    .imgHelper2_data121_num_data_valid(imgHelper2_data_num_data_valid),
+    .imgHelper2_data121_fifo_cap(imgHelper2_data_fifo_cap),
+    .imgHelper2_data121_empty_n(imgHelper2_data_empty_n),
+    .imgHelper2_data121_read(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data121_read),
+    .imgHelper3_data122_din(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data122_din),
+    .imgHelper3_data122_num_data_valid(imgHelper3_data_num_data_valid),
+    .imgHelper3_data122_fifo_cap(imgHelper3_data_fifo_cap),
+    .imgHelper3_data122_full_n(imgHelper3_data_full_n),
+    .imgHelper3_data122_write(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data122_write)
 );
 
 color_detect_dilate_0_0_128_128_0_3_3_1_1_1 dilate_0_0_128_128_0_3_3_1_1_1_U0(
@@ -478,16 +514,16 @@ color_detect_dilate_0_0_128_128_0_3_3_1_1_1 dilate_0_0_128_128_0_3_3_1_1_1_U0(
     .ap_ready(dilate_0_0_128_128_0_3_3_1_1_1_U0_ap_ready),
     .p_read(imgHelper3_rows_channel_dout),
     .p_read1(imgHelper3_cols_channel_dout),
-    .imgHelper3_data5_dout(imgHelper3_data_dout),
-    .imgHelper3_data5_num_data_valid(imgHelper3_data_num_data_valid),
-    .imgHelper3_data5_fifo_cap(imgHelper3_data_fifo_cap),
-    .imgHelper3_data5_empty_n(imgHelper3_data_empty_n),
-    .imgHelper3_data5_read(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper3_data5_read),
-    .imgHelper4_data6_din(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data6_din),
-    .imgHelper4_data6_num_data_valid(imgHelper4_data_num_data_valid),
-    .imgHelper4_data6_fifo_cap(imgHelper4_data_fifo_cap),
-    .imgHelper4_data6_full_n(imgHelper4_data_full_n),
-    .imgHelper4_data6_write(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data6_write)
+    .imgHelper3_data122_dout(imgHelper3_data_dout),
+    .imgHelper3_data122_num_data_valid(imgHelper3_data_num_data_valid),
+    .imgHelper3_data122_fifo_cap(imgHelper3_data_fifo_cap),
+    .imgHelper3_data122_empty_n(imgHelper3_data_empty_n),
+    .imgHelper3_data122_read(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper3_data122_read),
+    .imgHelper4_data123_din(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data123_din),
+    .imgHelper4_data123_num_data_valid(imgHelper4_data_num_data_valid),
+    .imgHelper4_data123_fifo_cap(imgHelper4_data_fifo_cap),
+    .imgHelper4_data123_full_n(imgHelper4_data_full_n),
+    .imgHelper4_data123_write(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data123_write)
 );
 
 color_detect_erode_0_0_128_128_0_3_3_1_1_2 erode_0_0_128_128_0_3_3_1_1_2_U0(
@@ -500,39 +536,45 @@ color_detect_erode_0_0_128_128_0_3_3_1_1_2 erode_0_0_128_128_0_3_3_1_1_2_U0(
     .ap_ready(erode_0_0_128_128_0_3_3_1_1_2_U0_ap_ready),
     .p_read(imgHelper4_rows_channel_dout),
     .p_read1(imgHelper4_cols_channel_dout),
-    .imgHelper4_data6_dout(imgHelper4_data_dout),
-    .imgHelper4_data6_num_data_valid(imgHelper4_data_num_data_valid),
-    .imgHelper4_data6_fifo_cap(imgHelper4_data_fifo_cap),
-    .imgHelper4_data6_empty_n(imgHelper4_data_empty_n),
-    .imgHelper4_data6_read(erode_0_0_128_128_0_3_3_1_1_2_U0_imgHelper4_data6_read),
-    .imgOutput_data7_din(erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data7_din),
-    .imgOutput_data7_num_data_valid(imgOutput_data_num_data_valid),
-    .imgOutput_data7_fifo_cap(imgOutput_data_fifo_cap),
-    .imgOutput_data7_full_n(imgOutput_data_full_n),
-    .imgOutput_data7_write(erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data7_write)
+    .imgHelper4_data123_dout(imgHelper4_data_dout),
+    .imgHelper4_data123_num_data_valid(imgHelper4_data_num_data_valid),
+    .imgHelper4_data123_fifo_cap(imgHelper4_data_fifo_cap),
+    .imgHelper4_data123_empty_n(imgHelper4_data_empty_n),
+    .imgHelper4_data123_read(erode_0_0_128_128_0_3_3_1_1_2_U0_imgHelper4_data123_read),
+    .imgOutput_data124_din(erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data124_din),
+    .imgOutput_data124_num_data_valid(imgOutput_data_num_data_valid),
+    .imgOutput_data124_fifo_cap(imgOutput_data_fifo_cap),
+    .imgOutput_data124_full_n(imgOutput_data_full_n),
+    .imgOutput_data124_write(erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data124_write)
 );
 
-color_detect_xfMat2Array_32_0_128_128_1_1_s xfMat2Array_32_0_128_128_1_1_U0(
+color_detect_xfMat2AXIvideo_8_0_128_128_1_s xfMat2AXIvideo_8_0_128_128_1_U0(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
-    .ap_start(xfMat2Array_32_0_128_128_1_1_U0_ap_start),
-    .ap_done(xfMat2Array_32_0_128_128_1_1_U0_ap_done),
-    .ap_continue(xfMat2Array_32_0_128_128_1_1_U0_ap_continue),
-    .ap_idle(xfMat2Array_32_0_128_128_1_1_U0_ap_idle),
-    .ap_ready(xfMat2Array_32_0_128_128_1_1_U0_ap_ready),
+    .ap_start(xfMat2AXIvideo_8_0_128_128_1_U0_ap_start),
+    .ap_done(xfMat2AXIvideo_8_0_128_128_1_U0_ap_done),
+    .ap_continue(xfMat2AXIvideo_8_0_128_128_1_U0_ap_continue),
+    .ap_idle(xfMat2AXIvideo_8_0_128_128_1_U0_ap_idle),
+    .ap_ready(xfMat2AXIvideo_8_0_128_128_1_U0_ap_ready),
     .p_read(imgOutput_rows_channel_dout),
     .p_read1(imgOutput_cols_channel_dout),
-    .imgOutput_data7_dout(imgOutput_data_dout),
-    .imgOutput_data7_num_data_valid(imgOutput_data_num_data_valid),
-    .imgOutput_data7_fifo_cap(imgOutput_data_fifo_cap),
-    .imgOutput_data7_empty_n(imgOutput_data_empty_n),
-    .imgOutput_data7_read(xfMat2Array_32_0_128_128_1_1_U0_imgOutput_data7_read),
-    .img_out_TDATA(xfMat2Array_32_0_128_128_1_1_U0_img_out_TDATA),
-    .img_out_TVALID(xfMat2Array_32_0_128_128_1_1_U0_img_out_TVALID),
-    .img_out_TREADY(img_out_TREADY)
+    .imgOutput_data124_dout(imgOutput_data_dout),
+    .imgOutput_data124_num_data_valid(imgOutput_data_num_data_valid),
+    .imgOutput_data124_fifo_cap(imgOutput_data_fifo_cap),
+    .imgOutput_data124_empty_n(imgOutput_data_empty_n),
+    .imgOutput_data124_read(xfMat2AXIvideo_8_0_128_128_1_U0_imgOutput_data124_read),
+    .img_out_TDATA(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDATA),
+    .img_out_TVALID(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TVALID),
+    .img_out_TREADY(img_out_TREADY),
+    .img_out_TKEEP(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TKEEP),
+    .img_out_TSTRB(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TSTRB),
+    .img_out_TUSER(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TUSER),
+    .img_out_TLAST(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TLAST),
+    .img_out_TID(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TID),
+    .img_out_TDEST(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDEST)
 );
 
-color_detect_fifo_w32_d2_S_x0 imgInput_cols_c20_channel_U(
+color_detect_fifo_w32_d2_S imgInput_cols_c20_channel_U(
     .clk(ap_clk),
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
@@ -544,10 +586,10 @@ color_detect_fifo_w32_d2_S_x0 imgInput_cols_c20_channel_U(
     .if_num_data_valid(imgInput_cols_c20_channel_num_data_valid),
     .if_fifo_cap(imgInput_cols_c20_channel_fifo_cap),
     .if_empty_n(imgInput_cols_c20_channel_empty_n),
-    .if_read(Array2xfMat_32_9_128_128_1_U0_ap_ready)
+    .if_read(AXIvideo2xfMat_32_9_128_128_1_U0_ap_ready)
 );
 
-color_detect_fifo_w32_d2_S_x0 imgInput_rows_c19_channel_U(
+color_detect_fifo_w32_d2_S imgInput_rows_c19_channel_U(
     .clk(ap_clk),
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
@@ -559,7 +601,7 @@ color_detect_fifo_w32_d2_S_x0 imgInput_rows_c19_channel_U(
     .if_num_data_valid(imgInput_rows_c19_channel_num_data_valid),
     .if_fifo_cap(imgInput_rows_c19_channel_fifo_cap),
     .if_empty_n(imgInput_rows_c19_channel_empty_n),
-    .if_read(Array2xfMat_32_9_128_128_1_U0_ap_ready)
+    .if_read(AXIvideo2xfMat_32_9_128_128_1_U0_ap_ready)
 );
 
 color_detect_fifo_w32_d9_S imgOutput_cols_channel_U(
@@ -574,7 +616,7 @@ color_detect_fifo_w32_d9_S imgOutput_cols_channel_U(
     .if_num_data_valid(imgOutput_cols_channel_num_data_valid),
     .if_fifo_cap(imgOutput_cols_channel_fifo_cap),
     .if_empty_n(imgOutput_cols_channel_empty_n),
-    .if_read(xfMat2Array_32_0_128_128_1_1_U0_ap_ready)
+    .if_read(xfMat2AXIvideo_8_0_128_128_1_U0_ap_ready)
 );
 
 color_detect_fifo_w32_d9_S imgOutput_rows_channel_U(
@@ -589,7 +631,7 @@ color_detect_fifo_w32_d9_S imgOutput_rows_channel_U(
     .if_num_data_valid(imgOutput_rows_channel_num_data_valid),
     .if_fifo_cap(imgOutput_rows_channel_fifo_cap),
     .if_empty_n(imgOutput_rows_channel_empty_n),
-    .if_read(xfMat2Array_32_0_128_128_1_1_U0_ap_ready)
+    .if_read(xfMat2AXIvideo_8_0_128_128_1_U0_ap_ready)
 );
 
 color_detect_fifo_w32_d8_S imgHelper4_cols_channel_U(
@@ -712,7 +754,7 @@ color_detect_fifo_w32_d5_S imgHelper1_rows_channel_U(
     .if_read(erode_0_0_128_128_0_3_3_1_1_U0_ap_ready)
 );
 
-color_detect_fifo_w32_d4_S_x rgb2hsv_rows_channel_U(
+color_detect_fifo_w32_d4_S rgb2hsv_rows_channel_U(
     .clk(ap_clk),
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
@@ -727,7 +769,7 @@ color_detect_fifo_w32_d4_S_x rgb2hsv_rows_channel_U(
     .if_read(colorthresholding_9_0_3_128_128_1_U0_ap_ready)
 );
 
-color_detect_fifo_w32_d4_S_x rgb2hsv_cols_channel_U(
+color_detect_fifo_w32_d4_S rgb2hsv_cols_channel_U(
     .clk(ap_clk),
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
@@ -747,24 +789,24 @@ color_detect_fifo_w24_d2_S imgInput_data_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(Array2xfMat_32_9_128_128_1_U0_imgInput_data1_din),
+    .if_din(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_data118_din),
     .if_full_n(imgInput_data_full_n),
-    .if_write(Array2xfMat_32_9_128_128_1_U0_imgInput_data1_write),
+    .if_write(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_data118_write),
     .if_dout(imgInput_data_dout),
     .if_num_data_valid(imgInput_data_num_data_valid),
     .if_fifo_cap(imgInput_data_fifo_cap),
     .if_empty_n(imgInput_data_empty_n),
-    .if_read(bgr2hsv_9_128_128_1_U0_imgInput_data1_read)
+    .if_read(bgr2hsv_9_128_128_1_U0_imgInput_data118_read)
 );
 
-color_detect_fifo_w32_d2_S_x0 imgInput_rows_c_U(
+color_detect_fifo_w32_d2_S imgInput_rows_c_U(
     .clk(ap_clk),
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(Array2xfMat_32_9_128_128_1_U0_imgInput_rows_c_din),
+    .if_din(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_rows_c_din),
     .if_full_n(imgInput_rows_c_full_n),
-    .if_write(Array2xfMat_32_9_128_128_1_U0_imgInput_rows_c_write),
+    .if_write(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_rows_c_write),
     .if_dout(imgInput_rows_c_dout),
     .if_num_data_valid(imgInput_rows_c_num_data_valid),
     .if_fifo_cap(imgInput_rows_c_fifo_cap),
@@ -772,14 +814,14 @@ color_detect_fifo_w32_d2_S_x0 imgInput_rows_c_U(
     .if_read(bgr2hsv_9_128_128_1_U0_p_src_mat_rows_read)
 );
 
-color_detect_fifo_w32_d2_S_x0 imgInput_cols_c_U(
+color_detect_fifo_w32_d2_S imgInput_cols_c_U(
     .clk(ap_clk),
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(Array2xfMat_32_9_128_128_1_U0_imgInput_cols_c_din),
+    .if_din(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_cols_c_din),
     .if_full_n(imgInput_cols_c_full_n),
-    .if_write(Array2xfMat_32_9_128_128_1_U0_imgInput_cols_c_write),
+    .if_write(AXIvideo2xfMat_32_9_128_128_1_U0_imgInput_cols_c_write),
     .if_dout(imgInput_cols_c_dout),
     .if_num_data_valid(imgInput_cols_c_num_data_valid),
     .if_fifo_cap(imgInput_cols_c_fifo_cap),
@@ -792,14 +834,14 @@ color_detect_fifo_w24_d2_S rgb2hsv_data_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(bgr2hsv_9_128_128_1_U0_rgb2hsv_data2_din),
+    .if_din(bgr2hsv_9_128_128_1_U0_rgb2hsv_data119_din),
     .if_full_n(rgb2hsv_data_full_n),
-    .if_write(bgr2hsv_9_128_128_1_U0_rgb2hsv_data2_write),
+    .if_write(bgr2hsv_9_128_128_1_U0_rgb2hsv_data119_write),
     .if_dout(rgb2hsv_data_dout),
     .if_num_data_valid(rgb2hsv_data_num_data_valid),
     .if_fifo_cap(rgb2hsv_data_fifo_cap),
     .if_empty_n(rgb2hsv_data_empty_n),
-    .if_read(colorthresholding_9_0_3_128_128_1_U0_rgb2hsv_data2_read)
+    .if_read(colorthresholding_9_0_3_128_128_1_U0_rgb2hsv_data119_read)
 );
 
 color_detect_fifo_w8_d2_S imgHelper1_data_U(
@@ -807,14 +849,14 @@ color_detect_fifo_w8_d2_S imgHelper1_data_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data3_din),
+    .if_din(colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data120_din),
     .if_full_n(imgHelper1_data_full_n),
-    .if_write(colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data3_write),
+    .if_write(colorthresholding_9_0_3_128_128_1_U0_imgHelper1_data120_write),
     .if_dout(imgHelper1_data_dout),
     .if_num_data_valid(imgHelper1_data_num_data_valid),
     .if_fifo_cap(imgHelper1_data_fifo_cap),
     .if_empty_n(imgHelper1_data_empty_n),
-    .if_read(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper1_data3_read)
+    .if_read(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper1_data120_read)
 );
 
 color_detect_fifo_w8_d2_S imgHelper2_data_U(
@@ -822,14 +864,14 @@ color_detect_fifo_w8_d2_S imgHelper2_data_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data4_din),
+    .if_din(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data121_din),
     .if_full_n(imgHelper2_data_full_n),
-    .if_write(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data4_write),
+    .if_write(erode_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data121_write),
     .if_dout(imgHelper2_data_dout),
     .if_num_data_valid(imgHelper2_data_num_data_valid),
     .if_fifo_cap(imgHelper2_data_fifo_cap),
     .if_empty_n(imgHelper2_data_empty_n),
-    .if_read(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data4_read)
+    .if_read(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper2_data121_read)
 );
 
 color_detect_fifo_w8_d2_S imgHelper3_data_U(
@@ -837,14 +879,14 @@ color_detect_fifo_w8_d2_S imgHelper3_data_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data5_din),
+    .if_din(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data122_din),
     .if_full_n(imgHelper3_data_full_n),
-    .if_write(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data5_write),
+    .if_write(dilate_0_0_128_128_0_3_3_1_1_U0_imgHelper3_data122_write),
     .if_dout(imgHelper3_data_dout),
     .if_num_data_valid(imgHelper3_data_num_data_valid),
     .if_fifo_cap(imgHelper3_data_fifo_cap),
     .if_empty_n(imgHelper3_data_empty_n),
-    .if_read(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper3_data5_read)
+    .if_read(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper3_data122_read)
 );
 
 color_detect_fifo_w8_d2_S imgHelper4_data_U(
@@ -852,14 +894,14 @@ color_detect_fifo_w8_d2_S imgHelper4_data_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data6_din),
+    .if_din(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data123_din),
     .if_full_n(imgHelper4_data_full_n),
-    .if_write(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data6_write),
+    .if_write(dilate_0_0_128_128_0_3_3_1_1_1_U0_imgHelper4_data123_write),
     .if_dout(imgHelper4_data_dout),
     .if_num_data_valid(imgHelper4_data_num_data_valid),
     .if_fifo_cap(imgHelper4_data_fifo_cap),
     .if_empty_n(imgHelper4_data_empty_n),
-    .if_read(erode_0_0_128_128_0_3_3_1_1_2_U0_imgHelper4_data6_read)
+    .if_read(erode_0_0_128_128_0_3_3_1_1_2_U0_imgHelper4_data123_read)
 );
 
 color_detect_fifo_w8_d2_S imgOutput_data_U(
@@ -867,14 +909,14 @@ color_detect_fifo_w8_d2_S imgOutput_data_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data7_din),
+    .if_din(erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data124_din),
     .if_full_n(imgOutput_data_full_n),
-    .if_write(erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data7_write),
+    .if_write(erode_0_0_128_128_0_3_3_1_1_2_U0_imgOutput_data124_write),
     .if_dout(imgOutput_data_dout),
     .if_num_data_valid(imgOutput_data_num_data_valid),
     .if_fifo_cap(imgOutput_data_fifo_cap),
     .if_empty_n(imgOutput_data_empty_n),
-    .if_read(xfMat2Array_32_0_128_128_1_1_U0_imgOutput_data7_read)
+    .if_read(xfMat2AXIvideo_8_0_128_128_1_U0_imgOutput_data124_read)
 );
 
 color_detect_start_for_bgr2hsv_9_128_128_1_U0 start_for_bgr2hsv_9_128_128_1_U0_U(
@@ -884,7 +926,7 @@ color_detect_start_for_bgr2hsv_9_128_128_1_U0 start_for_bgr2hsv_9_128_128_1_U0_U
     .if_write_ce(1'b1),
     .if_din(start_for_bgr2hsv_9_128_128_1_U0_din),
     .if_full_n(start_for_bgr2hsv_9_128_128_1_U0_full_n),
-    .if_write(Array2xfMat_32_9_128_128_1_U0_start_write),
+    .if_write(AXIvideo2xfMat_32_9_128_128_1_U0_start_write),
     .if_dout(start_for_bgr2hsv_9_128_128_1_U0_dout),
     .if_empty_n(start_for_bgr2hsv_9_128_128_1_U0_empty_n),
     .if_read(bgr2hsv_9_128_128_1_U0_ap_ready)
@@ -1058,9 +1100,9 @@ always @ (posedge ap_clk) begin
     end
 end
 
-assign Array2xfMat_32_9_128_128_1_U0_ap_continue = 1'b1;
+assign AXIvideo2xfMat_32_9_128_128_1_U0_ap_continue = 1'b1;
 
-assign Array2xfMat_32_9_128_128_1_U0_ap_start = (imgInput_rows_c19_channel_empty_n & imgInput_cols_c20_channel_empty_n);
+assign AXIvideo2xfMat_32_9_128_128_1_U0_ap_start = (imgInput_rows_c19_channel_empty_n & imgInput_cols_c20_channel_empty_n);
 
 assign Block_entry1_proc_U0_ap_continue = (ap_sync_channel_write_rgb2hsv_rows_channel & ap_sync_channel_write_rgb2hsv_cols_channel & ap_sync_channel_write_imgOutput_rows_channel & ap_sync_channel_write_imgOutput_cols_channel & ap_sync_channel_write_imgInput_rows_c19_channel & ap_sync_channel_write_imgInput_cols_c20_channel & ap_sync_channel_write_imgHelper4_rows_channel & ap_sync_channel_write_imgHelper4_cols_channel & ap_sync_channel_write_imgHelper3_rows_channel & ap_sync_channel_write_imgHelper3_cols_channel & ap_sync_channel_write_imgHelper2_rows_channel & ap_sync_channel_write_imgHelper2_cols_channel & ap_sync_channel_write_imgHelper1_rows_channel & ap_sync_channel_write_imgHelper1_cols_channel);
 
@@ -1094,9 +1136,9 @@ assign ap_channel_done_rgb2hsv_cols_channel = ((ap_sync_reg_channel_write_rgb2hs
 
 assign ap_channel_done_rgb2hsv_rows_channel = ((ap_sync_reg_channel_write_rgb2hsv_rows_channel ^ 1'b1) & Block_entry1_proc_U0_ap_done);
 
-assign ap_done = xfMat2Array_32_0_128_128_1_1_U0_ap_done;
+assign ap_done = xfMat2AXIvideo_8_0_128_128_1_U0_ap_done;
 
-assign ap_idle = (xfMat2Array_32_0_128_128_1_1_U0_ap_idle & (rgb2hsv_cols_channel_empty_n ^ 1'b1) & (rgb2hsv_rows_channel_empty_n ^ 1'b1) & (imgHelper1_rows_channel_empty_n ^ 1'b1) & (imgHelper1_cols_channel_empty_n ^ 1'b1) & (imgHelper2_rows_channel_empty_n ^ 1'b1) & (imgHelper2_cols_channel_empty_n ^ 1'b1) & (imgHelper3_rows_channel_empty_n ^ 1'b1) & (imgHelper3_cols_channel_empty_n ^ 1'b1) & (imgHelper4_rows_channel_empty_n ^ 1'b1) & (imgHelper4_cols_channel_empty_n ^ 1'b1) & (imgOutput_rows_channel_empty_n ^ 1'b1) & (imgOutput_cols_channel_empty_n ^ 1'b1) & (imgInput_rows_c19_channel_empty_n ^ 1'b1) & (imgInput_cols_c20_channel_empty_n ^ 1'b1) & erode_0_0_128_128_0_3_3_1_1_U0_ap_idle & erode_0_0_128_128_0_3_3_1_1_2_U0_ap_idle & dilate_0_0_128_128_0_3_3_1_1_U0_ap_idle & dilate_0_0_128_128_0_3_3_1_1_1_U0_ap_idle & colorthresholding_9_0_3_128_128_1_U0_ap_idle & bgr2hsv_9_128_128_1_U0_ap_idle & Block_entry1_proc_U0_ap_idle & Array2xfMat_32_9_128_128_1_U0_ap_idle);
+assign ap_idle = (xfMat2AXIvideo_8_0_128_128_1_U0_ap_idle & (rgb2hsv_cols_channel_empty_n ^ 1'b1) & (rgb2hsv_rows_channel_empty_n ^ 1'b1) & (imgHelper1_rows_channel_empty_n ^ 1'b1) & (imgHelper1_cols_channel_empty_n ^ 1'b1) & (imgHelper2_rows_channel_empty_n ^ 1'b1) & (imgHelper2_cols_channel_empty_n ^ 1'b1) & (imgHelper3_rows_channel_empty_n ^ 1'b1) & (imgHelper3_cols_channel_empty_n ^ 1'b1) & (imgHelper4_rows_channel_empty_n ^ 1'b1) & (imgHelper4_cols_channel_empty_n ^ 1'b1) & (imgOutput_rows_channel_empty_n ^ 1'b1) & (imgOutput_cols_channel_empty_n ^ 1'b1) & (imgInput_rows_c19_channel_empty_n ^ 1'b1) & (imgInput_cols_c20_channel_empty_n ^ 1'b1) & erode_0_0_128_128_0_3_3_1_1_U0_ap_idle & erode_0_0_128_128_0_3_3_1_1_2_U0_ap_idle & dilate_0_0_128_128_0_3_3_1_1_U0_ap_idle & dilate_0_0_128_128_0_3_3_1_1_1_U0_ap_idle & colorthresholding_9_0_3_128_128_1_U0_ap_idle & bgr2hsv_9_128_128_1_U0_ap_idle & Block_entry1_proc_U0_ap_idle & AXIvideo2xfMat_32_9_128_128_1_U0_ap_idle);
 
 assign ap_ready = Block_entry1_proc_U0_ap_ready;
 
@@ -1156,16 +1198,28 @@ assign erode_0_0_128_128_0_3_3_1_1_U0_ap_continue = 1'b1;
 
 assign erode_0_0_128_128_0_3_3_1_1_U0_ap_start = (imgHelper1_rows_channel_empty_n & imgHelper1_cols_channel_empty_n);
 
-assign img_in_TREADY = Array2xfMat_32_9_128_128_1_U0_img_in_TREADY;
+assign img_in_TREADY = AXIvideo2xfMat_32_9_128_128_1_U0_img_in_TREADY;
 
-assign img_out_TDATA = xfMat2Array_32_0_128_128_1_1_U0_img_out_TDATA;
+assign img_out_TDATA = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDATA;
 
-assign img_out_TVALID = xfMat2Array_32_0_128_128_1_1_U0_img_out_TVALID;
+assign img_out_TDEST = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDEST;
+
+assign img_out_TID = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TID;
+
+assign img_out_TKEEP = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TKEEP;
+
+assign img_out_TLAST = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TLAST;
+
+assign img_out_TSTRB = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TSTRB;
+
+assign img_out_TUSER = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TUSER;
+
+assign img_out_TVALID = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TVALID;
 
 assign start_for_bgr2hsv_9_128_128_1_U0_din = 1'b1;
 
-assign xfMat2Array_32_0_128_128_1_1_U0_ap_continue = 1'b1;
+assign xfMat2AXIvideo_8_0_128_128_1_U0_ap_continue = 1'b1;
 
-assign xfMat2Array_32_0_128_128_1_1_U0_ap_start = (imgOutput_rows_channel_empty_n & imgOutput_cols_channel_empty_n);
+assign xfMat2AXIvideo_8_0_128_128_1_U0_ap_start = (imgOutput_rows_channel_empty_n & imgOutput_cols_channel_empty_n);
 
 endmodule //color_detect

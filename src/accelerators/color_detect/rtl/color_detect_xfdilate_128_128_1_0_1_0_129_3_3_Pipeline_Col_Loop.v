@@ -14,16 +14,16 @@ module color_detect_xfdilate_128_128_1_0_1_0_129_3_3_Pipeline_Col_Loop (
         ap_done,
         ap_idle,
         ap_ready,
-        imgHelper3_data51_dout,
-        imgHelper3_data51_num_data_valid,
-        imgHelper3_data51_fifo_cap,
-        imgHelper3_data51_empty_n,
-        imgHelper3_data51_read,
-        imgHelper4_data6_din,
-        imgHelper4_data6_num_data_valid,
-        imgHelper4_data6_fifo_cap,
-        imgHelper4_data6_full_n,
-        imgHelper4_data6_write,
+        imgHelper3_data1221_dout,
+        imgHelper3_data1221_num_data_valid,
+        imgHelper3_data1221_fifo_cap,
+        imgHelper3_data1221_empty_n,
+        imgHelper3_data1221_read,
+        imgHelper4_data123_din,
+        imgHelper4_data123_num_data_valid,
+        imgHelper4_data123_fifo_cap,
+        imgHelper4_data123_full_n,
+        imgHelper4_data123_write,
         img_width,
         buf_V_4_address0,
         buf_V_4_ce0,
@@ -60,16 +60,16 @@ input   ap_start;
 output   ap_done;
 output   ap_idle;
 output   ap_ready;
-input  [7:0] imgHelper3_data51_dout;
-input  [1:0] imgHelper3_data51_num_data_valid;
-input  [1:0] imgHelper3_data51_fifo_cap;
-input   imgHelper3_data51_empty_n;
-output   imgHelper3_data51_read;
-output  [7:0] imgHelper4_data6_din;
-input  [1:0] imgHelper4_data6_num_data_valid;
-input  [1:0] imgHelper4_data6_fifo_cap;
-input   imgHelper4_data6_full_n;
-output   imgHelper4_data6_write;
+input  [7:0] imgHelper3_data1221_dout;
+input  [1:0] imgHelper3_data1221_num_data_valid;
+input  [1:0] imgHelper3_data1221_fifo_cap;
+input   imgHelper3_data1221_empty_n;
+output   imgHelper3_data1221_read;
+output  [7:0] imgHelper4_data123_din;
+input  [1:0] imgHelper4_data123_num_data_valid;
+input  [1:0] imgHelper4_data123_fifo_cap;
+input   imgHelper4_data123_full_n;
+output   imgHelper4_data123_write;
 input  [15:0] img_width;
 output  [6:0] buf_V_4_address0;
 output   buf_V_4_ce0;
@@ -98,8 +98,8 @@ input  [1:0] p_cast;
 input  [0:0] cmp_i_i131_i;
 
 reg ap_idle;
-reg imgHelper3_data51_read;
-reg imgHelper4_data6_write;
+reg imgHelper3_data1221_read;
+reg imgHelper4_data123_write;
 reg buf_V_4_ce0;
 reg[6:0] buf_V_4_address1;
 reg buf_V_4_ce1;
@@ -152,9 +152,9 @@ wire   [0:0] icmp_ln1027_fu_346_p2;
 reg    ap_condition_exit_pp0_iter0_stage0;
 wire    ap_loop_exit_ready;
 reg    ap_ready_int;
-reg    imgHelper3_data51_blk_n;
+reg    imgHelper3_data1221_blk_n;
 wire    ap_block_pp0_stage0;
-reg    imgHelper4_data6_blk_n;
+reg    imgHelper4_data123_blk_n;
 reg    ap_block_pp0_stage0_11001;
 wire   [1:0] p_cast_read_reg_610;
 reg   [12:0] col_V_3_reg_625;
@@ -170,7 +170,7 @@ wire   [0:0] icmp_ln1027_10_fu_358_p2;
 reg   [0:0] icmp_ln1027_10_reg_635_pp0_iter1_reg;
 reg   [0:0] icmp_ln1027_10_reg_635_pp0_iter2_reg;
 reg   [0:0] icmp_ln1027_10_reg_635_pp0_iter3_reg;
-reg   [7:0] imgHelper3_data51_read_reg_639;
+reg   [7:0] imgHelper3_data1221_read_reg_639;
 wire   [63:0] conv_i97_i_fu_369_p1;
 reg   [63:0] conv_i97_i_reg_646;
 wire   [0:0] icmp_ln1031_fu_378_p2;
@@ -320,7 +320,7 @@ color_detect_mux_32_8_1_1 #(
     .din2_WIDTH( 8 ),
     .din3_WIDTH( 2 ),
     .dout_WIDTH( 8 ))
-mux_32_8_1_1_U116(
+mux_32_8_1_1_U126(
     .din0(buf_V_q0),
     .din1(buf_V_3_q0),
     .din2(buf_V_4_q0),
@@ -336,7 +336,7 @@ color_detect_mux_32_8_1_1 #(
     .din2_WIDTH( 8 ),
     .din3_WIDTH( 2 ),
     .dout_WIDTH( 8 ))
-mux_32_8_1_1_U117(
+mux_32_8_1_1_U127(
     .din0(buf_V_q0),
     .din1(buf_V_3_q0),
     .din2(buf_V_4_q0),
@@ -352,7 +352,7 @@ color_detect_mux_32_8_1_1 #(
     .din2_WIDTH( 8 ),
     .din3_WIDTH( 2 ),
     .dout_WIDTH( 8 ))
-mux_32_8_1_1_U118(
+mux_32_8_1_1_U128(
     .din0(buf_V_q0),
     .din1(buf_V_3_q0),
     .din2(buf_V_4_q0),
@@ -736,7 +736,7 @@ end
 
 always @ (posedge ap_clk) begin
     if (((ap_predicate_op50_read_state2 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0) & (1'b0 == ap_block_pp0_stage0_11001))) begin
-        imgHelper3_data51_read_reg_639 <= imgHelper3_data51_dout;
+        imgHelper3_data1221_read_reg_639 <= imgHelper3_data1221_dout;
     end
 end
 
@@ -842,7 +842,7 @@ end
 always @ (*) begin
     if ((1'b1 == ap_condition_654)) begin
         if ((cmp_i_i131_i == 1'd1)) begin
-            buf_V_3_d1 = imgHelper3_data51_read_reg_639;
+            buf_V_3_d1 = imgHelper3_data1221_read_reg_639;
         end else if ((cmp_i_i131_i_read_reg_606 == 1'd0)) begin
             buf_V_3_d1 = 8'd0;
         end else begin
@@ -894,7 +894,7 @@ end
 always @ (*) begin
     if ((1'b1 == ap_condition_658)) begin
         if ((cmp_i_i131_i == 1'd1)) begin
-            buf_V_4_d1 = imgHelper3_data51_read_reg_639;
+            buf_V_4_d1 = imgHelper3_data1221_read_reg_639;
         end else if ((cmp_i_i131_i_read_reg_606 == 1'd0)) begin
             buf_V_4_d1 = 8'd0;
         end else begin
@@ -946,7 +946,7 @@ end
 always @ (*) begin
     if ((1'b1 == ap_condition_661)) begin
         if ((cmp_i_i131_i == 1'd1)) begin
-            buf_V_d1 = imgHelper3_data51_read_reg_639;
+            buf_V_d1 = imgHelper3_data1221_read_reg_639;
         end else if ((cmp_i_i131_i_read_reg_606 == 1'd0)) begin
             buf_V_d1 = 8'd0;
         end else begin
@@ -967,33 +967,33 @@ end
 
 always @ (*) begin
     if (((ap_predicate_op50_read_state2 == 1'b1) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0) & (1'b0 == ap_block_pp0_stage0))) begin
-        imgHelper3_data51_blk_n = imgHelper3_data51_empty_n;
+        imgHelper3_data1221_blk_n = imgHelper3_data1221_empty_n;
     end else begin
-        imgHelper3_data51_blk_n = 1'b1;
+        imgHelper3_data1221_blk_n = 1'b1;
     end
 end
 
 always @ (*) begin
     if (((ap_predicate_op50_read_state2 == 1'b1) & (ap_enable_reg_pp0_iter1 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0) & (1'b0 == ap_block_pp0_stage0_11001))) begin
-        imgHelper3_data51_read = 1'b1;
+        imgHelper3_data1221_read = 1'b1;
     end else begin
-        imgHelper3_data51_read = 1'b0;
+        imgHelper3_data1221_read = 1'b0;
     end
 end
 
 always @ (*) begin
     if (((icmp_ln1031_reg_653_pp0_iter9_reg == 1'd0) & (ap_enable_reg_pp0_iter10 == 1'b1) & (1'b0 == ap_block_pp0_stage0))) begin
-        imgHelper4_data6_blk_n = imgHelper4_data6_full_n;
+        imgHelper4_data123_blk_n = imgHelper4_data123_full_n;
     end else begin
-        imgHelper4_data6_blk_n = 1'b1;
+        imgHelper4_data123_blk_n = 1'b1;
     end
 end
 
 always @ (*) begin
     if (((icmp_ln1031_reg_653_pp0_iter9_reg == 1'd0) & (ap_enable_reg_pp0_iter10 == 1'b1) & (1'b0 == ap_block_pp0_stage0_11001))) begin
-        imgHelper4_data6_write = 1'b1;
+        imgHelper4_data123_write = 1'b1;
     end else begin
-        imgHelper4_data6_write = 1'b0;
+        imgHelper4_data123_write = 1'b0;
     end
 end
 
@@ -1013,27 +1013,27 @@ assign ap_CS_fsm_pp0_stage0 = ap_CS_fsm[32'd0];
 assign ap_block_pp0_stage0 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_block_pp0_stage0_01001 = (((icmp_ln1031_reg_653_pp0_iter9_reg == 1'd0) & (imgHelper4_data6_full_n == 1'b0) & (ap_enable_reg_pp0_iter10 == 1'b1)) | ((ap_predicate_op50_read_state2 == 1'b1) & (imgHelper3_data51_empty_n == 1'b0) & (ap_enable_reg_pp0_iter1 == 1'b1)));
+    ap_block_pp0_stage0_01001 = (((icmp_ln1031_reg_653_pp0_iter9_reg == 1'd0) & (imgHelper4_data123_full_n == 1'b0) & (ap_enable_reg_pp0_iter10 == 1'b1)) | ((ap_predicate_op50_read_state2 == 1'b1) & (imgHelper3_data1221_empty_n == 1'b0) & (ap_enable_reg_pp0_iter1 == 1'b1)));
 end
 
 always @ (*) begin
-    ap_block_pp0_stage0_11001 = (((icmp_ln1031_reg_653_pp0_iter9_reg == 1'd0) & (imgHelper4_data6_full_n == 1'b0) & (ap_enable_reg_pp0_iter10 == 1'b1)) | ((ap_predicate_op50_read_state2 == 1'b1) & (imgHelper3_data51_empty_n == 1'b0) & (ap_enable_reg_pp0_iter1 == 1'b1)));
+    ap_block_pp0_stage0_11001 = (((icmp_ln1031_reg_653_pp0_iter9_reg == 1'd0) & (imgHelper4_data123_full_n == 1'b0) & (ap_enable_reg_pp0_iter10 == 1'b1)) | ((ap_predicate_op50_read_state2 == 1'b1) & (imgHelper3_data1221_empty_n == 1'b0) & (ap_enable_reg_pp0_iter1 == 1'b1)));
 end
 
 always @ (*) begin
-    ap_block_pp0_stage0_subdone = (((icmp_ln1031_reg_653_pp0_iter9_reg == 1'd0) & (imgHelper4_data6_full_n == 1'b0) & (ap_enable_reg_pp0_iter10 == 1'b1)) | ((ap_predicate_op50_read_state2 == 1'b1) & (imgHelper3_data51_empty_n == 1'b0) & (ap_enable_reg_pp0_iter1 == 1'b1)));
+    ap_block_pp0_stage0_subdone = (((icmp_ln1031_reg_653_pp0_iter9_reg == 1'd0) & (imgHelper4_data123_full_n == 1'b0) & (ap_enable_reg_pp0_iter10 == 1'b1)) | ((ap_predicate_op50_read_state2 == 1'b1) & (imgHelper3_data1221_empty_n == 1'b0) & (ap_enable_reg_pp0_iter1 == 1'b1)));
 end
 
 assign ap_block_state10_pp0_stage0_iter9 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_block_state11_pp0_stage0_iter10 = ((icmp_ln1031_reg_653_pp0_iter9_reg == 1'd0) & (imgHelper4_data6_full_n == 1'b0));
+    ap_block_state11_pp0_stage0_iter10 = ((icmp_ln1031_reg_653_pp0_iter9_reg == 1'd0) & (imgHelper4_data123_full_n == 1'b0));
 end
 
 assign ap_block_state1_pp0_stage0_iter0 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_block_state2_pp0_stage0_iter1 = ((ap_predicate_op50_read_state2 == 1'b1) & (imgHelper3_data51_empty_n == 1'b0));
+    ap_block_state2_pp0_stage0_iter1 = ((ap_predicate_op50_read_state2 == 1'b1) & (imgHelper3_data1221_empty_n == 1'b0));
 end
 
 assign ap_block_state3_pp0_stage0_iter2 = ~(1'b1 == 1'b1);
@@ -1122,7 +1122,7 @@ assign icmp_ln1035_7_fu_546_p2 = ((max_V_36_fu_540_p3 < src_buf_temp_copy_extrac
 
 assign icmp_ln1035_fu_422_p2 = ((max_V_fu_84 < max_V_25_fu_96) ? 1'b1 : 1'b0);
 
-assign imgHelper4_data6_din = ((icmp_ln1035_7_reg_754[0:0] == 1'b1) ? src_buf_temp_copy_extract_V_0_8_reg_692_pp0_iter9_reg : max_V_36_reg_749);
+assign imgHelper4_data123_din = ((icmp_ln1035_7_reg_754[0:0] == 1'b1) ? src_buf_temp_copy_extract_V_0_8_reg_692_pp0_iter9_reg : max_V_36_reg_749);
 
 assign max_V_28_fu_428_p3 = ((icmp_ln1035_fu_422_p2[0:0] == 1'b1) ? max_V_25_fu_96 : max_V_fu_84);
 
