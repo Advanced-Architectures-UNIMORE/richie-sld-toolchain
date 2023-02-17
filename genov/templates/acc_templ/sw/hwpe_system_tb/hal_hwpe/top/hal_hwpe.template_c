@@ -129,6 +129,14 @@ static inline void hwpe_tilestride_set(unsigned int value) {
   HWPE_WRITE(value, ${target.upper()}_REG_TILESTRIDE);
 }
 
+% if is_hls_stream is True:
+  % for i in range (n_sink):
+static inline void hwpe_packet_size_set_${stream_in[i]}(unsigned int value) {
+  HWPE_WRITE(value, ${target.upper()}_REG_PACKET_SIZE_${stream_in[i].upper()});
+}
+  % endfor
+% endif
+
 % for j in range (n_source):
 static inline void hwpe_len_iter_set_${stream_out[j]}(unsigned int value) {
   HWPE_WRITE(value, ${target.upper()}_REG_CNT_LIMIT_${stream_out[j].upper()});

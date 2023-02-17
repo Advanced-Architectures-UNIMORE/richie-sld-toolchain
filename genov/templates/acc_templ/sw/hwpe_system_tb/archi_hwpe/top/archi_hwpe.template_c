@@ -202,7 +202,16 @@ addr_current = addr_top
 ${standard_archi(addr_current)}
 
 <%
-addr_top += ((std_reg_num -1) + n_source) * 4 # number of "cnt_limit" regs scale linearly with "n_source", while other std-regs are constant
+# 1. a part of standard registers do not change with a variable number of IO streams.
+# 2. "cnt_limit" registers are always one per source stream (input), so they account for n_source items.
+# 3. in case of an hls::stream interface, then one register per source stream is added to specify the packet dimension (refer to AMBA® 4 AXI4-Stream Protocol).
+
+addr_top += ((std_reg_num -1) + n_source) * 4 
+
+if (is_hls_stream is True):
+    addr_top += n_source * 4
+endif
+
 addr_current = addr_top
 %>
 
