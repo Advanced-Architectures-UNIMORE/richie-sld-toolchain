@@ -97,6 +97,16 @@ void arov_cl${cl_id}_lic${accelerator_id}_program(${cl_lic_acc_names[accelerator
      * STANDARD REGISTERS
      */
 
+% if acc_wr_is_hls_stream is True:
+    // Packet size - only for hls::stream object (refer to AMBA 4 AXI4-Stream Protocol)
+
+    // Necessary to drive the last signal for sink (input) streams
+    
+  % for i in range (acc_wr_n_sink):
+    hwpe_packet_size_set_${acc_wr_stream_in[i]}(wrapper->ctrl.engine.packet_size_${acc_wr_stream_in[i]} - 1);
+  % endfor
+% endif
+
     // Iteration length
 
     // Number of engine computations before an event is generated

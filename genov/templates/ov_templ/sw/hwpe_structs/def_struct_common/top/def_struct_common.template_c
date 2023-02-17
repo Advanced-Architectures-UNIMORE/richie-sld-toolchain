@@ -62,6 +62,7 @@ typedef struct hwpe_addr_gen_struct         hwpe_addr_gen_struct;
 typedef struct hwpe_dataset_params_struct   hwpe_dataset_params_struct;
 typedef struct hwpe_stream_struct           hwpe_stream_struct;
 typedef struct hwpe_sw_states               hwpe_sw_states;
+typedef struct hwpe_engine_struct           hwpe_engine_struct;
 typedef struct hwpe_fsm_struct              hwpe_fsm_struct;
 
 /* Definition - Structs */
@@ -105,6 +106,14 @@ struct hwpe_stream_struct {
     // hwpe_dma_struct dma;
     hwpe_addr_gen_struct addr_gen;
     hwpe_dataset_params_struct params;
+};
+
+struct hwpe_engine_struct {
+% if acc_wr_is_hls_stream is True:
+    % for i in range (acc_wr_n_sink):
+    uint32_t packet_size_${acc_wr_stream_in[i]};
+    % endfor
+% endif
 };
 
 struct hwpe_fsm_struct {

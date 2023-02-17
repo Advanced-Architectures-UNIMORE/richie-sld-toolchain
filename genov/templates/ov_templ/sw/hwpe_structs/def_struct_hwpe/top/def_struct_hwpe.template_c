@@ -58,6 +58,7 @@ struct ${cl_lic_acc_names[accelerator_id]}_custom_regs_struct {
 };
 
 struct ${cl_lic_acc_names[accelerator_id]}_ctrl_struct {
+    hwpe_engine_struct engine;
     hwpe_fsm_struct fsm;
     ${cl_lic_acc_names[accelerator_id]}_custom_regs_struct custom_regs;
 };
