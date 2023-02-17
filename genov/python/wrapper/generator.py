@@ -49,6 +49,7 @@ class Generator:
             design_type             = design_params.design_type,
             is_ap_ctrl_hs           = design_params.is_ap_ctrl_hs,
             is_mdc_dataflow         = design_params.is_mdc_dataflow,
+            is_hls_stream           = design_params.is_hls_stream,
             # streaming
             n_sink                  = design_params.n_sink, 
             n_source                = design_params.n_source,

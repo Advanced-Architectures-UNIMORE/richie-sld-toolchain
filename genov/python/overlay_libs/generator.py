@@ -81,6 +81,7 @@ class Generator:
             acc_wr_design_type              = acc_design_params.design_type,
             acc_wr_is_ap_ctrl_hs            = acc_design_params.is_ap_ctrl_hs,
             acc_wr_is_mdc_dataflow          = acc_design_params.is_mdc_dataflow,
+            acc_wr_is_hls_stream            = acc_design_params.is_hls_stream,
             # streaming
             acc_wr_n_sink                   = acc_design_params.n_sink, 
             acc_wr_n_source                 = acc_design_params.n_source,

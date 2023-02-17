@@ -57,8 +57,9 @@ class wrapper_params_formatted:
     def format_wrapper_kernel(self, acc_specs):
         self.target                             = acc_specs().target
         self.design_type                        = acc_specs().design_type
-        self.is_ap_ctrl_hs                      = acc_specs().intf_protocol[0]
-        self.is_mdc_dataflow                    = acc_specs().intf_protocol[1]
+        self.is_ap_ctrl_hs                      = acc_specs().intf_protocol == 'ap_ctrl_hs'
+        self.is_mdc_dataflow                    = acc_specs().intf_protocol == 'mdc_dataflow'
+        self.is_hls_stream                      = acc_specs().intf_protocol == 'hls_stream'
         return self
 
     '''
