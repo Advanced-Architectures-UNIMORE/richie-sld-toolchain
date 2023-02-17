@@ -168,14 +168,22 @@
 
 <%
 # Implementation of output counters for parallelized (partitioned) streaming interfaces.
-# Having trackers the design needs just one counter instead of 'is_parallel_out[j]'.
+# Having trackers the design needs just one counter per parallel stream.
 %>
 
   always_ff @(posedge clk_i or negedge rst_ni)
   begin: ${stream_out[j]}_cnt
     if((~rst_ni) | ctrl_i.clear)
       cnt_${stream_out[j]} = 32'b0;
-    else if( track_${stream_out[j]}_AND & flags_o.done )
+  % if design_type is 'hls':
+    % if is_hls_stream is True:
+  else if( flags_k_ad.last[${j}] & flags_k_ad.done ) // TO-DO: Test with multiple outputs! Might break...
+    % else:
+  else if( track_${stream_out[j]}_AND & flags_k_ad.done )
+    % endif
+  % else:
+  else if( track_${stream_out[j]}_AND & flags_k_ad.done )
+  % endif
       cnt_${stream_out[j]} = cnt_${stream_out[j]} + 1;
     else
       cnt_${stream_out[j]} = cnt_${stream_out[j]};
@@ -185,14 +193,22 @@
     % else:
 
 <%
-# Implementation of output counyers for standard streaming interfaces.
+# Implementation of output counters for standard streaming interfaces.
 %>
 
   always_ff @(posedge clk_i or negedge rst_ni)
   begin: ${stream_out[j]}_cnt
     if((~rst_ni) | ctrl_i.clear)
       cnt_${stream_out[j]} = 32'b0;
-    else if( track_${stream_out[j]}_q & flags_o.done )
+  % if design_type is 'hls':
+    % if is_hls_stream is True:
+    else if( flags_k_ad.last[${j}] & flags_k_ad.done ) // TO-DO: Test with multiple outputs! Might break...
+    % else:
+    else if( track_${stream_out[j]}_q & flags_k_ad.done )
+    % endif
+  % else:
+    else if( track_${stream_out[j]}_q & flags_k_ad.done )
+  % endif
       cnt_${stream_out[j]} = cnt_${stream_out[j]} + 1;
     else
       cnt_${stream_out[j]} = cnt_${stream_out[j]};

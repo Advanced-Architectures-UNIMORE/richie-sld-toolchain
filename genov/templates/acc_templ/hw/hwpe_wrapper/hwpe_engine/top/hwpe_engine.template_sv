@@ -119,8 +119,23 @@ module ${target}_engine (\
       % endif
     % endif
 
+    <%
+    ###########################################################
+    ## Kernel adapter interface -> Xilinx hls::stream object ##
+    ###########################################################
+    %>
+
+    % if design_type is 'hls':
+      % if is_hls_stream is True:
+    ${xil_hls_stream_kernel_adapter_custom_regs()}
+    ${xil_hls_stream_kernel_adapter_ctrl()}
+    ${xil_hls_stream_kernel_adapter_flags()}
+      % endif
+    % endif
+
   );
 
+  % if is_hls_stream is False: 
   // At the moment output strobe is always '1
   // All bytes of output streams are written
   // to TCDM
@@ -136,6 +151,7 @@ module ${target}_engine (\
       % endif
     % endfor 
   end
+  % endif
 
 endmodule\
 

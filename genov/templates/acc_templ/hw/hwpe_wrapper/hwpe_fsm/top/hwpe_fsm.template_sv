@@ -83,6 +83,7 @@ module ${target}_fsm (
     ctrl_engine_o.clear      = '1; // Clear counters
     ctrl_engine_o.enable     = '1; // Enable execution
     ctrl_engine_o.start      = '0; // Trigger execution
+${engine_init_packet_size()}
 ${engine_init_cnt_limit()}
 
     // Slave

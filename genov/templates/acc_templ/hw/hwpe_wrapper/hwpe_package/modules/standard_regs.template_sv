@@ -30,6 +30,15 @@
           addr_current += 1
         %>
 
+  % if is_hls_stream is True:
+    % for i in range (n_sink):
+  parameter int unsigned ${TARGET}_REG_PACKET_SIZE_${stream_in[i].upper()}     = ${addr_current};
+        <%  
+          addr_current += 1
+        %>
+    % endfor
+  % endif
+
   % for j in range (n_source):
   parameter int unsigned ${TARGET}_REG_CNT_LIMIT_${stream_out[j].upper()}     = ${addr_current};
         <%  

@@ -106,7 +106,15 @@ module ${target}_ctrl
     % endif
   % endfor
 
-  // FSM
+  % if is_hls_stream is True:
+  // Packet size - hls::stream
+    % for i in range (n_sink):
+  logic unsigned [31:0] static_reg_packet_size_${stream_in[i]};
+    % endfor
+  % endif
+
+  // Number of compute cycles per output data
+  // TODO: Add more documentation for this
   % for j in range (n_source):
   logic unsigned [31:0] static_reg_cnt_limit_${stream_out[j]};
   % endfor
@@ -149,7 +157,15 @@ module ${target}_ctrl
   assign static_reg_tilestride = reg_file.hwpe_params[${TARGET}_REG_SHIFT_TILESTRIDE];
   assign static_reg_onestride  = 4;
 
-  // FSM signals
+  % if is_hls_stream is True:
+  // Packet size - hls::stream
+    % for i in range (n_sink):
+  assign static_reg_packet_size_${stream_in[i]} = reg_file.hwpe_params[${TARGET}_REG_PACKET_SIZE_${stream_in[i].upper()}];
+    % endfor
+  % endif
+
+  // Number of compute cycles per output data
+  // TODO: Add more documentation for this
   % for j in range (n_source):
   assign static_reg_cnt_limit_${stream_out[j]} = reg_file.hwpe_params[${TARGET}_REG_CNT_LIMIT_${stream_out[j].upper()}] + 1;
   % endfor
@@ -300,13 +316,20 @@ module ${target}_ctrl
       % endif
     % endfor
 
-    /* Custom register file mappings to FSM */
+    /* Standard register file mappings to FSM */
+    % if is_hls_stream is True:
+    // Packet size - hls::stream
+      % for i in range (n_sink):
+    fsm_ctrl.packet_size_${stream_in[i]}            = static_reg_packet_size_${stream_in[i]};
+      % endfor
+    % endif
+    
     % for j in range (n_source):
     fsm_ctrl.cnt_limit_${stream_out[j]}             = static_reg_cnt_limit_${stream_out[j]};
     % endfor
 
+    /* Custom register file mappings to FSM */
     % if custom_reg_num>0:
-    // Custom registers
       % for i in range (custom_reg_num):
     fsm_ctrl.${custom_reg_name[i]}    = static_reg_${custom_reg_name[i]}; \
       % endfor

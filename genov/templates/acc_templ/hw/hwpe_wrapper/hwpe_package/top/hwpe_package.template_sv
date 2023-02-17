@@ -76,7 +76,16 @@ addr_current = addr_top
   ${standard_regs(addr_current)}
 
   <%
-    addr_top += (std_reg_num -1) + n_source # number of "cnt_limit" regs scale linearly with "n_source", while other std-regs are constant
+    # 1. a part of standard registers do not change with a variable number of IO streams.
+    # 2. "cnt_limit" registers are always one per source stream (input), so they account for n_source items.
+    # 3. in case of an hls::stream interface, then one register per source stream is added to specify the packet dimension (refer to AMBA® 4 AXI4-Stream Protocol).
+    
+    addr_top += (std_reg_num -1) + n_source 
+    
+    if (is_hls_stream is True):
+      addr_top += n_source
+    endif
+  
     addr_current = addr_top
   %>
 
@@ -187,6 +196,12 @@ addr_current = addr_top
     logic enable;
     logic start;
 
+    % if is_hls_stream is True:
+      % for i in range (n_sink):
+    logic unsigned [23:0] packet_size_${stream_in[i]};
+      % endfor
+    % endif
+
     % for j in range (n_source):
       % if (is_parallel_out[j]):
     logic unsigned [$clog2(${target.upper()}_CNT_LEN):0] cnt_limit_${stream_out[j]};
@@ -225,12 +240,22 @@ addr_current = addr_top
 
   typedef struct packed {
     logic start;
+    % if is_hls_stream is True:
+      % for i in range (n_sink):
+    logic unsigned [23:0] packet_size_${stream_in[i]};
+      % endfor
+    % endif
   } ctrl_kernel_adapter_${target}_t; 
 
   typedef struct packed {
     logic done;
     logic idle;
     logic ready;
+    % if is_hls_stream is True:
+    logic [${n_sink}-1:0] last;
+    % endif
+
+    
   } flags_kernel_adapter_${target}_t;
 
   <%
@@ -354,12 +379,14 @@ addr_current = addr_top
     % endfor
 
     // Computation
+    % if is_hls_stream is True:
+      % for i in range (n_sink):
+    logic unsigned [23:0] packet_size_${stream_in[i]};
+      % endfor
+    % endif
+
     % for j in range (n_source):
-      % if (is_parallel_out[j]):
     logic unsigned [$clog2(${target.upper()}_CNT_LEN):0] cnt_limit_${stream_out[j]};
-      % else:
-    logic unsigned [$clog2(${target.upper()}_CNT_LEN):0] cnt_limit_${stream_out[j]};
-      % endif
     % endfor
 
     % if custom_reg_num>0:

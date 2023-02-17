@@ -65,7 +65,8 @@ class hwpe_wrapper:
                             'map_ctrl_flags.template_sv',
                             'kernel_adapter_interface/hdl/' + 'pulp_std.template_sv', 
                             'kernel_adapter_interface/hls/' + 'xil_ap_ctrl_hs.template_sv', 
-                            'kernel_adapter_interface/hls/' + 'mdc_dataflow.template_sv'],
+                            'kernel_adapter_interface/hls/' + 'mdc_dataflow.template_sv',
+                            'kernel_adapter_interface/hls/' + 'xil_hls_stream.template_sv'],
             path_common = self.path_common
         ).top()
 
@@ -78,9 +79,11 @@ class hwpe_wrapper:
                             'kernel_adapter_interface/hdl/' + 'pulp_std.template_sv', 
                             'kernel_adapter_interface/hls/' + 'xil_ap_ctrl_hs.template_sv', 
                             'kernel_adapter_interface/hls/' + 'mdc_dataflow.template_sv',
+                            'kernel_adapter_interface/hls/' + 'xil_hls_stream.template_sv',
                             'kernel_interface/hdl/' + 'pulp_std.template_sv', 
                             'kernel_interface/hls/' + 'xil_ap_ctrl_hs.template_sv', 
-                            'kernel_interface/hls/' + 'mdc_dataflow.template_sv'],
+                            'kernel_interface/hls/' + 'mdc_dataflow.template_sv',
+                            'kernel_interface/hls/' + 'xil_hls_stream.template_sv'],
             path_common = self.path_common
         ).top()
 

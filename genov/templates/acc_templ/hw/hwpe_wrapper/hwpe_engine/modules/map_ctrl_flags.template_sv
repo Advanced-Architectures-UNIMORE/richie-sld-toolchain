@@ -77,6 +77,12 @@
 
   assign ctrl_k_ad.start = ctrl_i.start;
 
+  % if is_hls_stream is True:
+    % for i in range (n_sink):
+  assign ctrl_k_ad.packet_size_${stream_in[i]} = ctrl_i.packet_size_${stream_in[i]};
+    % endfor
+  % endif
+
 </%def>
 
 <%def name="map_engine_flags_v1_hls()">\

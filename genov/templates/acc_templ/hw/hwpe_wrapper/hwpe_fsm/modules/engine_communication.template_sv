@@ -10,6 +10,14 @@
 ##################################################
 %>
 
+<%def name="engine_init_packet_size()">\
+\
+  % for i in range (n_sink):
+    ctrl_engine_o.packet_size_${stream_in[i]}  = ctrl_i.packet_size_${stream_in[i]};
+  % endfor
+\
+</%def>
+
 <%def name="engine_init_cnt_limit()">\
 \
   % for j in range (n_source):

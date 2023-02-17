@@ -1,0 +1,31 @@
+<%
+##########################################################
+## Kernel adapter interface - Xilinx hls::stream object ##
+##########################################################
+%>
+
+<%
+##################################################
+## Kernel adapter interface - Control interface ##
+##################################################
+%>
+
+<%def name="xil_hls_stream_engine_ctrl()">\
+
+  // Control signals
+  input  ctrl_kernel_adapter_${target}_t           ctrl_i,
+
+</%def>
+
+<%
+################################################
+## Kernel adapter interface - Flags interface ##
+################################################
+%>
+
+<%def name="xil_hls_stream_engine_flags()">\
+
+  // Flag signals
+  output  flags_kernel_adapter_${target}_t           flags_o
+\
+</%def>
