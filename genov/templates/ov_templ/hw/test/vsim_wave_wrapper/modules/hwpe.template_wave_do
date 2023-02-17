@@ -62,7 +62,7 @@ ${vsim_waves_hw_accelerator()}
 # =====================================================================
 %>
 
-% if is_ap_ctrl_hs is True:
+% if (is_ap_ctrl_hs is True) or (is_hls_stream is True):
 ${vsim_waves_hwpe_streamer()}
 ${vsim_waves_hwpe_streamer_source()}
 ${vsim_waves_hwpe_streamer_sink()}
