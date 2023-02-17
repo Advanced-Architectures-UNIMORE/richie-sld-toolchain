@@ -1,101 +1,114 @@
-########################################################
-## Gianluca Bellocchi <gianluca.bellocchi@unimore.it> ##
-########################################################
+'''
+ =====================================================================
+ Project:       FIR filter (128 taps)
+ Title:         acc_specs.py
+ Description:   Specification file to guide the generation of HW/SW
+	            components for hardware wrappers.
+
+ Date:          25.1.2022
+ ===================================================================== */
+
+ Copyright (C) 2022 University of Modena and Reggio Emilia.
+
+ Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+
+'''
 
 #!/usr/bin/env python3
 
-# HWPE attributes
-class hwpe_specs:
+class acc_specs:
 
-    # User knobs
+    '''
+        ==========
+        User knobs
+        ==========
+    '''
 
-    def author_k(self):
-        # Engineer(-s)
+    '''
+        Wrapper information
+
+        - 'is_third_party' ~ Default value is False. If the wrapper is provided by 
+        third-parties and thus not need to be generated, this variable can be set 
+        to True. Under this event, the third-party wrapper can be inserted under
+        rtl/ and will then be copied in the outer repository.
+        
+    '''
+
+    def wrapper(self):
+        self.is_third_party                     = False
+        return self
+
+    '''
+        Author information
+    '''
+
+    def author(self):
         self.author                             = 'Gianluca Bellocchi'    
         self.email                              = '<gianluca.bellocchi@unimore.it>'
         return self
 
-    def kernel_k(self):
-        # Generic
+    '''
+        Kernel information:
+
+        - 'target' ~ Acceleration kernel. This the target of the hardware wrapper generator.
+
+        - 'design_type' ~ Design methodology employed to construct the acceleration kernel. 
+        Handcrafted HDL (set 'hdl') and HLS-compiled (set 'hls') methods are supported.
+
+        - 'intf_protocol' ~ Selection of interface between acceleration kernel and wrapper. Set 
+        the desired interface as 'True', while leaving the others set to 'False'. Now the proposed
+        methodology supports:
+            
+            > 'ap_ctrl_hs' - Xilinx ap_ctrl_hs (refer to UG902)
+            > 'mdc_dataflow' - MDC dataflow
+            > 'hls_stream' - Xilinx hls::stream object (refer to AMBA 4 AXI4-Stream Protocol)
+    '''
+
+    def kernel(self):
         self.target                             = 'fir_dataflow'
         self.design_type                        = 'hls'
-        # Kernel design [ is_ap_ctrl_hs , is_mdc_dataflow ]
-        self.intf_kernel                        = [ False , True ]
+        self.intf_protocol                      = 'mdc_dataflow'
         return self
 
-    def streaming_k(self):
-        # HWPE streaming interfaces [ name , data-type , reg-dim , is_parallel , parallelism_factor]
+    '''
+        Streaming interface information:
+
+        - 'list_sink_stream' ~ [ name , data-type , reg-dim , is_parallel , parallelism_factor]
+
+        - 'list_source_stream' ~ [ name , data-type , reg-dim , is_parallel , parallelism_factor]
+    '''
+
+    def streaming(self):
         self.list_sink_stream                   = [ [ 'x_V' , 'int32_t' , 32 , False, 1 ] ]
         self.list_source_stream                 = [ [ 'y_V' , 'int32_t' , 32 , False, 1 ] ]
         return self
 
-    def regfile_k(self):
-        # HWPE standard regfiles
+    '''
+        Custom register file information:
+
+        - 'std_reg_num' ~ Number of standard registers. Do not modify this unless you have specific
+        templates of HWPE that support a different number of standard registers.
+
+        - 'custom_reg' ~ [ name , data-type , reg-dim , is_port ]
+    '''
+
+    def regfile(self):
         self.std_reg_num                        = 4       
-        # HWPE custom regfiles [ name , data-type , reg-dim , is_port ]
         self.custom_reg                         = [ [ 'coeff_0_V' , 'uint32_t' , 32 , 1 ] , 
                                                     [ 'coeff_1_V' , 'uint32_t' , 32 , 1 ] ,
                                                     [ 'coeff_2_V' , 'uint32_t' , 32 , 1 ] , 
                                                     [ 'coeff_3_V' , 'uint32_t' , 32 , 1 ] ]
         return self
 
-    def addressgen_k(self):
-        # Address generation [ is_programmable ]
+    '''
+        Address generator registers information:
+
+        - 'addr_gen_in' ~ Set to 'True' if you want a programmable  address generator for input streams.
+
+        - 'addr_gen_out' ~ Set to 'True' if you want a programmable  address generator for output streams.
+    '''
+
+    def addressgen(self):
         self.addr_gen_in                        = [ [True] ]
         self.addr_gen_out                       = [ [True] ]
         return self
-
-    # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
-
-    # Additional parameters
-
-    def kernel_d(self):
-        # Kernel interface
-        self.is_ap_ctrl_hs                      = self.intf_kernel[0]
-        self.is_mdc_dataflow                    = self.intf_kernel[1]
-
-    def streaming_d(self):    
-        self.n_sink                             = len(self.list_sink_stream)
-        self.n_source                           = len(self.list_source_stream)
-        self.stream_in                          = [item[0] for item in self.list_sink_stream]
-        self.stream_out                         = [item[0] for item in self.list_source_stream]
-        self.stream_in_dtype                    = [item[1] for item in self.list_sink_stream]
-        self.stream_out_dtype                   = [item[1] for item in self.list_source_stream]
-        self.is_parallel_in                     = [item[3] for item in self.list_sink_stream]
-        self.is_parallel_out                    = [item[3] for item in self.list_source_stream]
-        self.in_parallelism_factor              = [item[4] for item in self.list_sink_stream]
-        self.out_parallelism_factor             = [item[4] for item in self.list_source_stream]
-        return self
-
-    def regfile_d(self):    
-        # HWPE custom regfiles
-        self.custom_reg_name                    = [item[0] for item in self.custom_reg]
-        self.custom_reg_dtype                   = [item[1] for item in self.custom_reg]
-        self.custom_reg_dim                     = [item[2] for item in self.custom_reg]
-        self.custom_reg_isport                  = [item[3] for item in self.custom_reg]
-        self.custom_reg_num                     = len(self.custom_reg)
-        return self
-
-    def addressgen_d(self):
-        # Address generation
-        self.addr_gen_in_isprogr                = [item[0] for item in self.addr_gen_in]
-        self.addr_gen_out_isprogr               = [item[0] for item in self.addr_gen_out]
-        return self
-
-    # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
-
-    def __init__(self):
-        # user-defined
-        self.author_k()
-        self.kernel_k()
-        self.streaming_k()
-        self.regfile_k()
-        self.addressgen_k()
-        # derived
-        self.kernel_d()
-        self.streaming_d()
-        self.regfile_d()
-        self.addressgen_d()
-
-    # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
-

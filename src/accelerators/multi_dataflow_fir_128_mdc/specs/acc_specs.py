@@ -55,18 +55,19 @@ class acc_specs:
         - 'design_type' ~ Design methodology employed to construct the acceleration kernel. 
         Handcrafted HDL (set 'hdl') and HLS-compiled (set 'hls') methods are supported.
 
-        - 'intf_kernel' ~ Selection of interface between acceleration kernel and wrapper. Set 
+        - 'intf_protocol' ~ Selection of interface between acceleration kernel and wrapper. Set 
         the desired interface as 'True', while leaving the others set to 'False'. Now the proposed
         methodology supports:
             
-            > Xilinx ap_ctrl_hs (refer to UG902)
-            > MDC dataflow
+            > 'ap_ctrl_hs' - Xilinx ap_ctrl_hs (refer to UG902)
+            > 'mdc_dataflow' - MDC dataflow
+            > 'hls_stream' - Xilinx hls::stream object (refer to AMBA 4 AXI4-Stream Protocol)
     '''
 
     def kernel(self):
         self.target                             = 'multi_dataflow_fir_128_mdc'
         self.design_type                        = 'hls'
-        self.intf_kernel                        = [ False , True ]
+        self.intf_protocol                      = 'mdc_dataflow'
         return self
 
     '''

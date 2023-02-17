@@ -20,7 +20,7 @@ class hwpe_specs:
         self.target                             = 'fir'
         self.design_type                        = 'hls'
         # Kernel design [ is_ap_ctrl_hs , is_mdc_dataflow ]
-        self.intf_kernel                        = [ True , False ]
+        self.intf_protocol                        = [ True , False ]
         return self
 
     def streaming_k(self):
@@ -63,8 +63,8 @@ class hwpe_specs:
 
     def kernel_d(self):
         # Kernel interface
-        self.is_ap_ctrl_hs                      = self.intf_kernel[0]
-        self.is_mdc_dataflow                    = self.intf_kernel[1]
+        self.is_ap_ctrl_hs                      = self.intf_protocol[0]
+        self.is_mdc_dataflow                    = self.intf_protocol[1]
 
     def streaming_d(self):    
         self.n_sink                             = len(self.list_sink_stream)
