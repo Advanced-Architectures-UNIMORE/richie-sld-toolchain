@@ -132,10 +132,11 @@ module ${target}_kernel_adapter (\
 
   % if design_type is 'hls':
     % if is_hls_stream is True:
+  ${xil_hls_stream_stream_dwidth_match()}
   ${xil_hls_stream_kernel_ctrl()}
+  ${xil_hls_stream_stream_strobes()}
   ${xil_hls_stream_kernel_flags()}
   ${xil_hls_stream_kernel_intf()}
-  ${xil_hls_stream_stream_strobes()}
     % endif
   % endif
 

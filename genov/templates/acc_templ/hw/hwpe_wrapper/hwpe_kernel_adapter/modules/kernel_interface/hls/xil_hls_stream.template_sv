@@ -15,7 +15,6 @@
   // Input stream controls
   % for i in range (n_sink):
   logic [${n_bytes_in[i]}-1:0] ${stream_in[i]}_i_TKEEP;
-  logic [${n_bytes_in[i]}-1:0] ${stream_in[i]}_i_TSTRB;
   logic ${stream_in[i]}_i_TUSER;
   logic ${stream_in[i]}_i_TLAST;
   logic ${stream_in[i]}_i_TID;
@@ -24,7 +23,6 @@
   logic unsigned [31:0] cnt_last_${stream_in[i]};
 
   assign ${stream_in[i]}_i_TKEEP = 'hf;
-  assign ${stream_in[i]}_i_TSTRB = '0;
   assign ${stream_in[i]}_i_TUSER = '1;
   assign ${stream_in[i]}_i_TID   = '1;
   assign ${stream_in[i]}_i_TDEST = '0;
@@ -55,14 +53,12 @@
   // Output stream controls
   % for j in range (n_source):
   logic [${n_bytes_out[j]}-1:0] ${stream_out[j]}_o_TKEEP;
-  logic [${n_bytes_out[j]}-1:0] ${stream_out[j]}_o_TSTRB;
   logic ${stream_out[j]}_o_TUSER;
   logic ${stream_out[j]}_o_TLAST;
   logic ${stream_out[j]}_o_TID;
   logic ${stream_out[j]}_o_TDEST;
 
   assign flags_o.last[${j}] = ${stream_out[j]}_o_TLAST;
-  assign ${stream_out[j]}_o.strb = ${stream_out[j]}_o_TSTRB;
   % endfor
 
 </%def>
@@ -94,7 +90,7 @@
 
     // Sink ports
     % for i in range (n_sink):
-    .${stream_in[i]}_TDATA  ( ${stream_in[i]}_i.data  ),
+    .${stream_in[i]}_TDATA  ( ${stream_in[i]}_data_kernel ),
     .${stream_in[i]}_TVALID ( ${stream_in[i]}_i.valid ),
     .${stream_in[i]}_TREADY ( ${stream_in[i]}_i.ready ),
 
@@ -108,7 +104,7 @@
 
     // Source ports
     % for j in range (n_source):
-    .${stream_out[j]}_TDATA  ( ${stream_out[j]}_o.data  ),
+    .${stream_out[j]}_TDATA  ( ${stream_out[j]}_data_kernel ),
     .${stream_out[j]}_TVALID ( ${stream_out[j]}_o.valid ),
     .${stream_out[j]}_TREADY ( ${stream_out[j]}_o.ready ),
     
@@ -135,7 +131,6 @@
     .ap_idle       ( flags_o.idle             ),
     .ap_ready      ( flags_o.ready            )
   );
-
 </%def>
 
 <%
@@ -146,5 +141,90 @@
 
 <%def name="xil_hls_stream_stream_strobes()">\
 
+  // Input strobes
+  % for i in range (n_sink):
+  logic [${n_bytes_in[i]}-1:0] ${stream_in[i]}_i_TSTRB;
+  % endfor
+
+  % for i in range (n_sink):
+  assign ${stream_in[i]}_i_TSTRB = '0;
+  % endfor
+
+  // Output strobes
+  % for j in range (n_source):
+  logic [${n_bytes_out[j]}-1:0] ${stream_out[j]}_o_TSTRB;
+  % endfor
+
+  % for j in range (n_source):
+  assign ${stream_out[j]}_o.strb = ${stream_out[j]}_o_TSTRB;
+  % endfor
 </%def>
 
+<%
+#######################################################
+## Kernel interface - Match data width of IO streams ##
+#######################################################
+%>
+
+<%def name="xil_hls_stream_stream_dwidth_match()">\
+
+  // Input data width matching
+  % for i in range (n_sink):
+  logic [${stream_in_dwidth[i]}-1:0] ${stream_in[i]}_data_kernel;
+  % endfor
+
+  % for i in range (n_sink):
+    % if stream_in_dwidth[i]>pulp_dwidth:
+
+      <%
+        diff_dwidth = stream_in_dwidth[i] - pulp_dwidth
+      %>
+
+  assign ${stream_in[i]}_data_kernel = {${diff_dwidth}'b0, ${stream_in[i]}_i.data};
+
+    % elif stream_in_dwidth[i]<pulp_dwidth:
+
+      <%
+        diff_dwidth = pulp_dwidth - stream_in_dwidth[i]
+      %>
+
+  // TO-DO: Not supported yet
+  assign ${stream_in[i]}_data_kernel = ${stream_in[i]}_i.data;
+
+    % elif stream_in_dwidth[i]==pulp_dwidth:
+
+  assign ${stream_in[i]}_data_kernel = ${stream_in[i]}_i.data;
+  
+    % endif
+  % endfor
+
+  // Output data width matching
+  % for j in range (n_source):
+  logic [${stream_out_dwidth[j]}-1:0] ${stream_out[j]}_data_kernel;
+  % endfor
+
+  % for j in range (n_source):
+    % if stream_out_dwidth[j]>pulp_dwidth:
+
+      <%
+        diff_dwidth = stream_out_dwidth[j] - pulp_dwidth
+      %>
+
+  // TO-DO: Not supported yet
+  assign ${stream_out[j]}_o.data = ${stream_out[j]}_data_kernel;
+
+    % elif stream_out_dwidth[j]<pulp_dwidth:
+
+      <%
+        diff_dwidth = pulp_dwidth - stream_out_dwidth[j]
+      %>
+  
+  assign ${stream_out[j]}_o.data = {${diff_dwidth}'b0, ${stream_out[j]}_data_kernel};
+
+    % elif stream_out_dwidth[j]==pulp_dwidth:
+
+  assign ${stream_out[j]}_data_kernel = ${stream_out[j]}_o.data;
+  
+    % endif
+  % endfor
+</%def>
