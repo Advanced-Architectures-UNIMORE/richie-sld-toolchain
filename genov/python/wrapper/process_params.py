@@ -73,6 +73,8 @@ class wrapper_params_formatted:
         self.stream_out                         = [item[0] for item in acc_specs().list_source_stream]
         self.stream_in_dtype                    = [item[1] for item in acc_specs().list_sink_stream]
         self.stream_out_dtype                   = [item[1] for item in acc_specs().list_source_stream]
+        self.stream_in_dwidth                   = [item[2] for item in acc_specs().list_sink_stream]
+        self.stream_out_dwidth                  = [item[2] for item in acc_specs().list_source_stream]
         self.is_parallel_in                     = [item[3] for item in acc_specs().list_sink_stream]
         self.is_parallel_out                    = [item[3] for item in acc_specs().list_source_stream]
         self.in_parallelism_factor              = [item[4] for item in acc_specs().list_sink_stream]

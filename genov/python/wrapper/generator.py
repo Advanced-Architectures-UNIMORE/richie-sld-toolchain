@@ -57,6 +57,8 @@ class Generator:
             stream_out              = design_params.stream_out,
             stream_in_dtype         = design_params.stream_in_dtype,
             stream_out_dtype        = design_params.stream_out_dtype,
+            stream_in_dwidth        = design_params.stream_in_dwidth,
+            stream_out_dwidth       = design_params.stream_out_dwidth,
             is_parallel_in          = design_params.is_parallel_in,
             is_parallel_out         = design_params.is_parallel_out,
             in_parallelism_factor   = design_params.in_parallelism_factor,
