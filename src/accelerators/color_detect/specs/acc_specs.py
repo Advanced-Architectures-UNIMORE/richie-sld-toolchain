@@ -80,7 +80,7 @@ class acc_specs:
 
     def streaming(self):
         self.list_sink_stream                   = [ [ 'img_in' , 'int32_t' , 32 , False , 1] ]
-        self.list_source_stream                 = [ [ 'img_out' , 'int32_t' , 32 , False , 1] ]
+        self.list_source_stream                 = [ [ 'img_out' , 'int32_t' , 8 , False , 1] ]
         return self
 
     '''
