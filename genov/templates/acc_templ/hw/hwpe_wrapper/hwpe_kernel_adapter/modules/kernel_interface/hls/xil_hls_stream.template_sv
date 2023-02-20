@@ -14,8 +14,8 @@
 
   // Input stream controls
   % for i in range (n_sink):
-  logic [3:0] ${stream_in[i]}_i_TKEEP;
-  logic [3:0] ${stream_in[i]}_i_TSTRB;
+  logic [${n_bytes_in[i]}-1:0] ${stream_in[i]}_i_TKEEP;
+  logic [${n_bytes_in[i]}-1:0] ${stream_in[i]}_i_TSTRB;
   logic ${stream_in[i]}_i_TUSER;
   logic ${stream_in[i]}_i_TLAST;
   logic ${stream_in[i]}_i_TID;
@@ -23,7 +23,7 @@
 
   logic unsigned [31:0] cnt_last_${stream_in[i]};
 
-  assign ${stream_in[i]}_i_TKEEP = 4'b1111;
+  assign ${stream_in[i]}_i_TKEEP = 'hf;
   assign ${stream_in[i]}_i_TSTRB = '0;
   assign ${stream_in[i]}_i_TUSER = '1;
   assign ${stream_in[i]}_i_TID   = '1;
@@ -54,8 +54,8 @@
 
   // Output stream controls
   % for j in range (n_source):
-  logic [3:0] ${stream_out[j]}_o_TKEEP;
-  logic [3:0] ${stream_out[j]}_o_TSTRB;
+  logic [${n_bytes_out[j]}-1:0] ${stream_out[j]}_o_TKEEP;
+  logic [${n_bytes_out[j]}-1:0] ${stream_out[j]}_o_TSTRB;
   logic ${stream_out[j]}_o_TUSER;
   logic ${stream_out[j]}_o_TLAST;
   logic ${stream_out[j]}_o_TID;

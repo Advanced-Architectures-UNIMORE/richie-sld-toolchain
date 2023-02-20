@@ -81,7 +81,7 @@ module ${target}_kernel_adapter (\
   % endif
   
 );
-
+  
   <%
   #######################################
   ## Kernel interface -> PULP standard ##
