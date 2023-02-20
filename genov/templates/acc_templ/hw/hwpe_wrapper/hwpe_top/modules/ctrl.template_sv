@@ -39,16 +39,18 @@
 <%
   # Counting standard registers
 
-  # these do not vary with the number of source streams: 
-  #     "nb_iter", "linestride", "tilestride"
-  n_io_regs += std_reg_num - 1 
-
-  # "cnt_limit" on the other side is parametrized on the number of source streams 
-  # it is used in the FSM to know how many engine "done" events terminate kernel execution
-  for j in range (n_source):
-    n_io_regs += 1 
-  endfor
+  # 1. a part of standard registers do not change with a variable number of IO streams ("nb_iter", "linestride", "tilestride").
   
+  n_io_regs += std_reg_num - 1 
+  
+  # 2. "cnt_limit" registers are always one per source stream (input), so they account for n_source items.
+  # The register information is used in the FSM to know how many engine "done" events terminate kernel execution.
+
+  n_io_regs += n_source
+  
+  # 3. In case of an hls::stream interface, then one register per source stream is added to specify the packet dimension (refer to AMBA® 4 AXI4-Stream Protocol).
+  
+  n_io_regs += n_sink
 %>
 
 <%
