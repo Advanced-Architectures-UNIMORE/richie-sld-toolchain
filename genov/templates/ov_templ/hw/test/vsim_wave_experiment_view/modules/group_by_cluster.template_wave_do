@@ -26,7 +26,7 @@
 <%def name="vsim_waves_experiment_group_by_cluster()">\
 % for cl_id in range(n_clusters):
 
-add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL_${cl_id}} -label {CLK} /overlay_tb/dut/clk_i
+add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {CLK} /overlay_tb/dut/clk_i
 
     <%
         # Additional design parameters
@@ -36,13 +36,13 @@ add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL_${cl_id}}
 
         n_acc_cl = len(cl_lic_acc_names)
     %>
-add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL_${cl_id}} -label {CORE_0_CL_${cl_id} - CLK en}  {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[0]/core_region_i/clock_en_i}
-add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL_${cl_id}} -label {CORE_0_CL_${cl_id} - INSTR req}  {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[0]/core_region_i/instr_req_o}
+add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {CORE[${cl_id},0]-CLK-en}  {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[0]/core_region_i/clock_en_i}
+add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {CORE[${cl_id},0]-INSTR-req}  {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[0]/core_region_i/instr_req_o}
 
-add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL_${cl_id}} -label {DMA_0_CL_${cl_id} - WRITE valid} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/w_valid}
-add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL_${cl_id}} -label {DMA_0_CL_${cl_id} - WRITE ready} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/w_ready}
-add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL_${cl_id}} -label {DMA_0_CL_${cl_id} - READ valid} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/r_valid}
-add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL_${cl_id}} -label {DMA_0_CL_${cl_id} - READ ready} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/r_ready}
+add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {DMA[${cl_id},0]-W-valid} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/w_valid}
+add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {DMA[${cl_id},0]-W-ready} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/w_ready}
+add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {DMA[${cl_id},0]-R-valid} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/r_valid}
+add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {DMA[${cl_id},0]-R-ready} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/r_ready}
     
     % for acc_id in range(n_acc_cl):
 
@@ -62,7 +62,7 @@ add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL_${cl_id}}
                 port_offset_relative = port_offset - mst_port_offset_L
             %>
 
-add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL_${cl_id}} -label {ACC_${acc_id}_CL_${cl_id}_PORT_${port_offset_relative}} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/hwpe_xbar_master[${port_offset}]/r_valid}
+add wave -noupdate -expand -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {${cl_lic_acc_names[acc_id].upper()}[${cl_id},${acc_id},${port_offset_relative}]-req} {/overlay_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/hwpe_xbar_master[${port_offset}]/req}
         % endfor
 
     % endfor
