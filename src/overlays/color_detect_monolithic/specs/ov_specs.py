@@ -46,7 +46,7 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'color_detect_1cl_monolithic'
+        self.name                               = 'color_detect_monolithic'
         self.board                              = 'zcu102'
         self.l2                                 = [ 1 , 128*1024*16]
         return self
