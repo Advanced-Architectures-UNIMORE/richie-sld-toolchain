@@ -46,9 +46,9 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'color_detect_1cl_pipeline'
+        self.name                               = 'color_detect_baseline'
         self.board                              = 'zcu102'
-        self.l2                                 = [ 1 , 128*1024*16]
+        self.l2                                 = [ 1 , 128*1024]
         return self
 
     '''
@@ -62,7 +62,7 @@ class ov_specs:
 
     def cluster_0(self):
         self.core                               = [ 'riscy', 8 ]
-        self.l1                                 = [ 16 , 128*1024]
+        self.l1                                 = [ 4 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],
                                                     [ 'erode_cv' , 'hwpe'],
