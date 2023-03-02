@@ -27,5 +27,5 @@
 
   // Flag signals
   output  flags_kernel_adapter_${target}_t           flags_o
-\
+
 </%def>
