@@ -7,7 +7,7 @@
 
 `timescale 1 ns / 1 ps 
 
-(* CORE_GENERATION_INFO="threshold_cv_threshold_cv,hls_ip_2022_2_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xczu9eg-ffvb1156-2-e,HLS_INPUT_CLOCK=3.300000,HLS_INPUT_ARCH=dataflow,HLS_SYN_CLOCK=2.409000,HLS_SYN_LAT=-1,HLS_SYN_TPT=-1,HLS_SYN_MEM=0,HLS_SYN_DSP=0,HLS_SYN_FF=1455,HLS_SYN_LUT=1846,HLS_VERSION=2022_2_1}" *)
+(* CORE_GENERATION_INFO="threshold_cv_threshold_cv,hls_ip_2022_2_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xczu9eg-ffvb1156-2-e,HLS_INPUT_CLOCK=3.300000,HLS_INPUT_ARCH=dataflow,HLS_SYN_CLOCK=2.409000,HLS_SYN_LAT=-1,HLS_SYN_TPT=-1,HLS_SYN_MEM=0,HLS_SYN_DSP=0,HLS_SYN_FF=1323,HLS_SYN_LUT=1653,HLS_VERSION=2022_2_1}" *)
 
 module threshold_cv (
         img_in_TDATA,
@@ -68,80 +68,79 @@ output   ap_idle;
 
  reg    ap_rst_n_inv;
 wire    Block_entry1_proc_U0_ap_start;
+wire    Block_entry1_proc_U0_start_full_n;
 wire    Block_entry1_proc_U0_ap_done;
 wire    Block_entry1_proc_U0_ap_continue;
 wire    Block_entry1_proc_U0_ap_idle;
 wire    Block_entry1_proc_U0_ap_ready;
-wire   [31:0] Block_entry1_proc_U0_ap_return_0;
-wire   [31:0] Block_entry1_proc_U0_ap_return_1;
-wire   [31:0] Block_entry1_proc_U0_ap_return_2;
-wire   [31:0] Block_entry1_proc_U0_ap_return_3;
-wire    ap_channel_done_threshold_in_cols_c10_channel;
-wire    threshold_in_cols_c10_channel_full_n;
-reg    ap_sync_reg_channel_write_threshold_in_cols_c10_channel;
-wire    ap_sync_channel_write_threshold_in_cols_c10_channel;
-wire    ap_channel_done_threshold_in_rows_c9_channel;
-wire    threshold_in_rows_c9_channel_full_n;
-reg    ap_sync_reg_channel_write_threshold_in_rows_c9_channel;
-wire    ap_sync_channel_write_threshold_in_rows_c9_channel;
-wire    ap_channel_done_threshold_out_cols_channel;
-wire    threshold_out_cols_channel_full_n;
-reg    ap_sync_reg_channel_write_threshold_out_cols_channel;
-wire    ap_sync_channel_write_threshold_out_cols_channel;
-wire    ap_channel_done_threshold_out_rows_channel;
+wire    Block_entry1_proc_U0_start_out;
+wire    Block_entry1_proc_U0_start_write;
+wire   [31:0] Block_entry1_proc_U0_threshold_out_rows_din;
+wire    Block_entry1_proc_U0_threshold_out_rows_write;
+wire   [31:0] Block_entry1_proc_U0_threshold_out_cols_din;
+wire    Block_entry1_proc_U0_threshold_out_cols_write;
+wire   [31:0] Block_entry1_proc_U0_threshold_in_rows_c9_din;
+wire    Block_entry1_proc_U0_threshold_in_rows_c9_write;
+wire   [31:0] Block_entry1_proc_U0_threshold_in_cols_c10_din;
+wire    Block_entry1_proc_U0_threshold_in_cols_c10_write;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_start;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_done;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_continue;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_idle;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_ready;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_start_out;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_start_write;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_img_in_TREADY;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_img_1_read;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_img_2_read;
+wire   [23:0] AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_data17_din;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_data17_write;
+wire   [31:0] AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_rows_c_din;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_rows_c_write;
+wire   [31:0] AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_cols_c_din;
+wire    AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_cols_c_write;
+wire    colorthresholding_patch_9_0_3_128_128_1_0_0_U0_p_src_mat_rows_read;
+wire    colorthresholding_patch_9_0_3_128_128_1_0_0_U0_p_src_mat_cols_read;
+wire    colorthresholding_patch_9_0_3_128_128_1_0_0_U0_threshold_in_data17_read;
+wire   [7:0] colorthresholding_patch_9_0_3_128_128_1_0_0_U0_threshold_out_data18_din;
+wire    colorthresholding_patch_9_0_3_128_128_1_0_0_U0_threshold_out_data18_write;
+wire    colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_start;
+wire    colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_done;
+wire    colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_ready;
+wire    colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_idle;
+wire    colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_continue;
+wire    xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_start;
+wire    xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_done;
+wire    xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_continue;
+wire    xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_idle;
+wire    xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_ready;
+wire    xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_1_read;
+wire    xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_2_read;
+wire    xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_threshold_out_data18_read;
+wire   [7:0] xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TDATA;
+wire    xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TVALID;
+wire   [0:0] xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TKEEP;
+wire   [0:0] xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TSTRB;
+wire   [0:0] xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TUSER;
+wire   [0:0] xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TLAST;
+wire   [0:0] xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TID;
+wire   [0:0] xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TDEST;
 wire    threshold_out_rows_channel_full_n;
-reg    ap_sync_reg_channel_write_threshold_out_rows_channel;
-wire    ap_sync_channel_write_threshold_out_rows_channel;
-wire    AXIvideo2xfMat_32_9_128_128_1_U0_ap_start;
-wire    AXIvideo2xfMat_32_9_128_128_1_U0_ap_done;
-wire    AXIvideo2xfMat_32_9_128_128_1_U0_ap_continue;
-wire    AXIvideo2xfMat_32_9_128_128_1_U0_ap_idle;
-wire    AXIvideo2xfMat_32_9_128_128_1_U0_ap_ready;
-wire    AXIvideo2xfMat_32_9_128_128_1_U0_start_out;
-wire    AXIvideo2xfMat_32_9_128_128_1_U0_start_write;
-wire    AXIvideo2xfMat_32_9_128_128_1_U0_img_in_TREADY;
-wire   [23:0] AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_data22_din;
-wire    AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_data22_write;
-wire   [31:0] AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_rows_c_din;
-wire    AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_rows_c_write;
-wire   [31:0] AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_cols_c_din;
-wire    AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_cols_c_write;
-wire    colorthresholding_9_0_3_128_128_1_U0_p_src_mat_rows_read;
-wire    colorthresholding_9_0_3_128_128_1_U0_p_src_mat_cols_read;
-wire    colorthresholding_9_0_3_128_128_1_U0_threshold_in_data22_read;
-wire   [7:0] colorthresholding_9_0_3_128_128_1_U0_threshold_out_data23_din;
-wire    colorthresholding_9_0_3_128_128_1_U0_threshold_out_data23_write;
-wire    colorthresholding_9_0_3_128_128_1_U0_ap_start;
-wire    colorthresholding_9_0_3_128_128_1_U0_ap_done;
-wire    colorthresholding_9_0_3_128_128_1_U0_ap_ready;
-wire    colorthresholding_9_0_3_128_128_1_U0_ap_idle;
-wire    colorthresholding_9_0_3_128_128_1_U0_ap_continue;
-wire    xfMat2AXIvideo_8_0_128_128_1_U0_ap_start;
-wire    xfMat2AXIvideo_8_0_128_128_1_U0_ap_done;
-wire    xfMat2AXIvideo_8_0_128_128_1_U0_ap_continue;
-wire    xfMat2AXIvideo_8_0_128_128_1_U0_ap_idle;
-wire    xfMat2AXIvideo_8_0_128_128_1_U0_ap_ready;
-wire    xfMat2AXIvideo_8_0_128_128_1_U0_threshold_out_data23_read;
-wire   [7:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDATA;
-wire    xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TVALID;
-wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TKEEP;
-wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TSTRB;
-wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TUSER;
-wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TLAST;
-wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TID;
-wire   [0:0] xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDEST;
 wire   [31:0] threshold_out_rows_channel_dout;
-wire   [2:0] threshold_out_rows_channel_num_data_valid;
-wire   [2:0] threshold_out_rows_channel_fifo_cap;
+wire   [1:0] threshold_out_rows_channel_num_data_valid;
+wire   [1:0] threshold_out_rows_channel_fifo_cap;
 wire    threshold_out_rows_channel_empty_n;
+wire    threshold_out_cols_channel_full_n;
 wire   [31:0] threshold_out_cols_channel_dout;
-wire   [2:0] threshold_out_cols_channel_num_data_valid;
-wire   [2:0] threshold_out_cols_channel_fifo_cap;
+wire   [1:0] threshold_out_cols_channel_num_data_valid;
+wire   [1:0] threshold_out_cols_channel_fifo_cap;
 wire    threshold_out_cols_channel_empty_n;
+wire    threshold_in_rows_c9_channel_full_n;
 wire   [31:0] threshold_in_rows_c9_channel_dout;
 wire   [1:0] threshold_in_rows_c9_channel_num_data_valid;
 wire   [1:0] threshold_in_rows_c9_channel_fifo_cap;
 wire    threshold_in_rows_c9_channel_empty_n;
+wire    threshold_in_cols_c10_channel_full_n;
 wire   [31:0] threshold_in_cols_c10_channel_dout;
 wire   [1:0] threshold_in_cols_c10_channel_num_data_valid;
 wire   [1:0] threshold_in_cols_c10_channel_fifo_cap;
@@ -166,151 +165,185 @@ wire   [7:0] threshold_out_data_dout;
 wire   [1:0] threshold_out_data_num_data_valid;
 wire   [1:0] threshold_out_data_fifo_cap;
 wire    threshold_out_data_empty_n;
-wire   [0:0] start_for_colorthresholding_9_0_3_128_128_1_U0_din;
-wire    start_for_colorthresholding_9_0_3_128_128_1_U0_full_n;
-wire   [0:0] start_for_colorthresholding_9_0_3_128_128_1_U0_dout;
-wire    start_for_colorthresholding_9_0_3_128_128_1_U0_empty_n;
-wire    ap_ce_reg;
-
-// power-on initialization
-initial begin
-#0 ap_sync_reg_channel_write_threshold_in_cols_c10_channel = 1'b0;
-#0 ap_sync_reg_channel_write_threshold_in_rows_c9_channel = 1'b0;
-#0 ap_sync_reg_channel_write_threshold_out_cols_channel = 1'b0;
-#0 ap_sync_reg_channel_write_threshold_out_rows_channel = 1'b0;
-end
+wire   [0:0] start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_din;
+wire    start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_full_n;
+wire   [0:0] start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_dout;
+wire    start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_empty_n;
+wire   [0:0] start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_din;
+wire    start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_full_n;
+wire   [0:0] start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_dout;
+wire    start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_empty_n;
+wire   [0:0] start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_din;
+wire    start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_full_n;
+wire   [0:0] start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_dout;
+wire    start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_empty_n;
 
 threshold_cv_Block_entry1_proc Block_entry1_proc_U0(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
     .ap_start(Block_entry1_proc_U0_ap_start),
+    .start_full_n(Block_entry1_proc_U0_start_full_n),
     .ap_done(Block_entry1_proc_U0_ap_done),
     .ap_continue(Block_entry1_proc_U0_ap_continue),
     .ap_idle(Block_entry1_proc_U0_ap_idle),
     .ap_ready(Block_entry1_proc_U0_ap_ready),
+    .start_out(Block_entry1_proc_U0_start_out),
+    .start_write(Block_entry1_proc_U0_start_write),
     .rows(rows),
     .cols(cols),
-    .ap_return_0(Block_entry1_proc_U0_ap_return_0),
-    .ap_return_1(Block_entry1_proc_U0_ap_return_1),
-    .ap_return_2(Block_entry1_proc_U0_ap_return_2),
-    .ap_return_3(Block_entry1_proc_U0_ap_return_3)
+    .threshold_out_rows_din(Block_entry1_proc_U0_threshold_out_rows_din),
+    .threshold_out_rows_num_data_valid(threshold_out_rows_channel_num_data_valid),
+    .threshold_out_rows_fifo_cap(threshold_out_rows_channel_fifo_cap),
+    .threshold_out_rows_full_n(threshold_out_rows_channel_full_n),
+    .threshold_out_rows_write(Block_entry1_proc_U0_threshold_out_rows_write),
+    .threshold_out_cols_din(Block_entry1_proc_U0_threshold_out_cols_din),
+    .threshold_out_cols_num_data_valid(threshold_out_cols_channel_num_data_valid),
+    .threshold_out_cols_fifo_cap(threshold_out_cols_channel_fifo_cap),
+    .threshold_out_cols_full_n(threshold_out_cols_channel_full_n),
+    .threshold_out_cols_write(Block_entry1_proc_U0_threshold_out_cols_write),
+    .threshold_in_rows_c9_din(Block_entry1_proc_U0_threshold_in_rows_c9_din),
+    .threshold_in_rows_c9_num_data_valid(threshold_in_rows_c9_channel_num_data_valid),
+    .threshold_in_rows_c9_fifo_cap(threshold_in_rows_c9_channel_fifo_cap),
+    .threshold_in_rows_c9_full_n(threshold_in_rows_c9_channel_full_n),
+    .threshold_in_rows_c9_write(Block_entry1_proc_U0_threshold_in_rows_c9_write),
+    .threshold_in_cols_c10_din(Block_entry1_proc_U0_threshold_in_cols_c10_din),
+    .threshold_in_cols_c10_num_data_valid(threshold_in_cols_c10_channel_num_data_valid),
+    .threshold_in_cols_c10_fifo_cap(threshold_in_cols_c10_channel_fifo_cap),
+    .threshold_in_cols_c10_full_n(threshold_in_cols_c10_channel_full_n),
+    .threshold_in_cols_c10_write(Block_entry1_proc_U0_threshold_in_cols_c10_write)
 );
 
-threshold_cv_AXIvideo2xfMat_32_9_128_128_1_s AXIvideo2xfMat_32_9_128_128_1_U0(
+threshold_cv_AXIvideo2xfMat_patch_32_9_128_128_1_0_s AXIvideo2xfMat_patch_32_9_128_128_1_0_U0(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
-    .ap_start(AXIvideo2xfMat_32_9_128_128_1_U0_ap_start),
-    .start_full_n(start_for_colorthresholding_9_0_3_128_128_1_U0_full_n),
-    .ap_done(AXIvideo2xfMat_32_9_128_128_1_U0_ap_done),
-    .ap_continue(AXIvideo2xfMat_32_9_128_128_1_U0_ap_continue),
-    .ap_idle(AXIvideo2xfMat_32_9_128_128_1_U0_ap_idle),
-    .ap_ready(AXIvideo2xfMat_32_9_128_128_1_U0_ap_ready),
-    .start_out(AXIvideo2xfMat_32_9_128_128_1_U0_start_out),
-    .start_write(AXIvideo2xfMat_32_9_128_128_1_U0_start_write),
+    .ap_start(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_start),
+    .start_full_n(start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_full_n),
+    .ap_done(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_done),
+    .ap_continue(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_continue),
+    .ap_idle(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_idle),
+    .ap_ready(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_ready),
+    .start_out(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_start_out),
+    .start_write(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_start_write),
     .img_in_TDATA(img_in_TDATA),
     .img_in_TVALID(img_in_TVALID),
-    .img_in_TREADY(AXIvideo2xfMat_32_9_128_128_1_U0_img_in_TREADY),
+    .img_in_TREADY(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_img_in_TREADY),
     .img_in_TKEEP(img_in_TKEEP),
     .img_in_TSTRB(img_in_TSTRB),
     .img_in_TUSER(img_in_TUSER),
     .img_in_TLAST(img_in_TLAST),
     .img_in_TID(img_in_TID),
     .img_in_TDEST(img_in_TDEST),
-    .p_read(threshold_in_rows_c9_channel_dout),
-    .p_read1(threshold_in_cols_c10_channel_dout),
-    .threshold_in_data22_din(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_data22_din),
-    .threshold_in_data22_num_data_valid(threshold_in_data_num_data_valid),
-    .threshold_in_data22_fifo_cap(threshold_in_data_fifo_cap),
-    .threshold_in_data22_full_n(threshold_in_data_full_n),
-    .threshold_in_data22_write(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_data22_write),
-    .threshold_in_rows_c_din(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_rows_c_din),
+    .img_1_dout(threshold_in_rows_c9_channel_dout),
+    .img_1_num_data_valid(threshold_in_rows_c9_channel_num_data_valid),
+    .img_1_fifo_cap(threshold_in_rows_c9_channel_fifo_cap),
+    .img_1_empty_n(threshold_in_rows_c9_channel_empty_n),
+    .img_1_read(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_img_1_read),
+    .img_2_dout(threshold_in_cols_c10_channel_dout),
+    .img_2_num_data_valid(threshold_in_cols_c10_channel_num_data_valid),
+    .img_2_fifo_cap(threshold_in_cols_c10_channel_fifo_cap),
+    .img_2_empty_n(threshold_in_cols_c10_channel_empty_n),
+    .img_2_read(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_img_2_read),
+    .threshold_in_data17_din(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_data17_din),
+    .threshold_in_data17_num_data_valid(threshold_in_data_num_data_valid),
+    .threshold_in_data17_fifo_cap(threshold_in_data_fifo_cap),
+    .threshold_in_data17_full_n(threshold_in_data_full_n),
+    .threshold_in_data17_write(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_data17_write),
+    .threshold_in_rows_c_din(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_rows_c_din),
     .threshold_in_rows_c_num_data_valid(threshold_in_rows_c_num_data_valid),
     .threshold_in_rows_c_fifo_cap(threshold_in_rows_c_fifo_cap),
     .threshold_in_rows_c_full_n(threshold_in_rows_c_full_n),
-    .threshold_in_rows_c_write(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_rows_c_write),
-    .threshold_in_cols_c_din(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_cols_c_din),
+    .threshold_in_rows_c_write(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_rows_c_write),
+    .threshold_in_cols_c_din(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_cols_c_din),
     .threshold_in_cols_c_num_data_valid(threshold_in_cols_c_num_data_valid),
     .threshold_in_cols_c_fifo_cap(threshold_in_cols_c_fifo_cap),
     .threshold_in_cols_c_full_n(threshold_in_cols_c_full_n),
-    .threshold_in_cols_c_write(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_cols_c_write)
+    .threshold_in_cols_c_write(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_cols_c_write)
 );
 
-threshold_cv_colorthresholding_9_0_3_128_128_1_s colorthresholding_9_0_3_128_128_1_U0(
+threshold_cv_colorthresholding_patch_9_0_3_128_128_1_0_0_s colorthresholding_patch_9_0_3_128_128_1_0_0_U0(
     .p_src_mat_rows_dout(threshold_in_rows_c_dout),
     .p_src_mat_rows_empty_n(threshold_in_rows_c_empty_n),
-    .p_src_mat_rows_read(colorthresholding_9_0_3_128_128_1_U0_p_src_mat_rows_read),
+    .p_src_mat_rows_read(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_p_src_mat_rows_read),
     .p_src_mat_cols_dout(threshold_in_cols_c_dout),
     .p_src_mat_cols_empty_n(threshold_in_cols_c_empty_n),
-    .p_src_mat_cols_read(colorthresholding_9_0_3_128_128_1_U0_p_src_mat_cols_read),
-    .threshold_in_data22_dout(threshold_in_data_dout),
-    .threshold_in_data22_empty_n(threshold_in_data_empty_n),
-    .threshold_in_data22_read(colorthresholding_9_0_3_128_128_1_U0_threshold_in_data22_read),
-    .threshold_out_data23_din(colorthresholding_9_0_3_128_128_1_U0_threshold_out_data23_din),
-    .threshold_out_data23_full_n(threshold_out_data_full_n),
-    .threshold_out_data23_write(colorthresholding_9_0_3_128_128_1_U0_threshold_out_data23_write),
+    .p_src_mat_cols_read(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_p_src_mat_cols_read),
+    .threshold_in_data17_dout(threshold_in_data_dout),
+    .threshold_in_data17_empty_n(threshold_in_data_empty_n),
+    .threshold_in_data17_read(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_threshold_in_data17_read),
+    .threshold_out_data18_din(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_threshold_out_data18_din),
+    .threshold_out_data18_full_n(threshold_out_data_full_n),
+    .threshold_out_data18_write(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_threshold_out_data18_write),
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
-    .ap_start(colorthresholding_9_0_3_128_128_1_U0_ap_start),
-    .ap_done(colorthresholding_9_0_3_128_128_1_U0_ap_done),
-    .ap_ready(colorthresholding_9_0_3_128_128_1_U0_ap_ready),
-    .ap_idle(colorthresholding_9_0_3_128_128_1_U0_ap_idle),
-    .ap_continue(colorthresholding_9_0_3_128_128_1_U0_ap_continue)
+    .ap_start(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_start),
+    .ap_done(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_done),
+    .ap_ready(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_ready),
+    .ap_idle(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_idle),
+    .ap_continue(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_continue)
 );
 
-threshold_cv_xfMat2AXIvideo_8_0_128_128_1_s xfMat2AXIvideo_8_0_128_128_1_U0(
+threshold_cv_xfMat2AXIvideo_patch_8_0_128_128_1_0_s xfMat2AXIvideo_patch_8_0_128_128_1_0_U0(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst_n_inv),
-    .ap_start(xfMat2AXIvideo_8_0_128_128_1_U0_ap_start),
-    .ap_done(xfMat2AXIvideo_8_0_128_128_1_U0_ap_done),
-    .ap_continue(xfMat2AXIvideo_8_0_128_128_1_U0_ap_continue),
-    .ap_idle(xfMat2AXIvideo_8_0_128_128_1_U0_ap_idle),
-    .ap_ready(xfMat2AXIvideo_8_0_128_128_1_U0_ap_ready),
-    .p_read(threshold_out_rows_channel_dout),
-    .p_read1(threshold_out_cols_channel_dout),
-    .threshold_out_data23_dout(threshold_out_data_dout),
-    .threshold_out_data23_num_data_valid(threshold_out_data_num_data_valid),
-    .threshold_out_data23_fifo_cap(threshold_out_data_fifo_cap),
-    .threshold_out_data23_empty_n(threshold_out_data_empty_n),
-    .threshold_out_data23_read(xfMat2AXIvideo_8_0_128_128_1_U0_threshold_out_data23_read),
-    .img_out_TDATA(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDATA),
-    .img_out_TVALID(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TVALID),
+    .ap_start(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_start),
+    .ap_done(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_done),
+    .ap_continue(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_continue),
+    .ap_idle(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_idle),
+    .ap_ready(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_ready),
+    .img_1_dout(threshold_out_rows_channel_dout),
+    .img_1_num_data_valid(threshold_out_rows_channel_num_data_valid),
+    .img_1_fifo_cap(threshold_out_rows_channel_fifo_cap),
+    .img_1_empty_n(threshold_out_rows_channel_empty_n),
+    .img_1_read(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_1_read),
+    .img_2_dout(threshold_out_cols_channel_dout),
+    .img_2_num_data_valid(threshold_out_cols_channel_num_data_valid),
+    .img_2_fifo_cap(threshold_out_cols_channel_fifo_cap),
+    .img_2_empty_n(threshold_out_cols_channel_empty_n),
+    .img_2_read(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_2_read),
+    .threshold_out_data18_dout(threshold_out_data_dout),
+    .threshold_out_data18_num_data_valid(threshold_out_data_num_data_valid),
+    .threshold_out_data18_fifo_cap(threshold_out_data_fifo_cap),
+    .threshold_out_data18_empty_n(threshold_out_data_empty_n),
+    .threshold_out_data18_read(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_threshold_out_data18_read),
+    .img_out_TDATA(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TDATA),
+    .img_out_TVALID(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TVALID),
     .img_out_TREADY(img_out_TREADY),
-    .img_out_TKEEP(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TKEEP),
-    .img_out_TSTRB(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TSTRB),
-    .img_out_TUSER(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TUSER),
-    .img_out_TLAST(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TLAST),
-    .img_out_TID(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TID),
-    .img_out_TDEST(xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDEST)
+    .img_out_TKEEP(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TKEEP),
+    .img_out_TSTRB(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TSTRB),
+    .img_out_TUSER(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TUSER),
+    .img_out_TLAST(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TLAST),
+    .img_out_TID(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TID),
+    .img_out_TDEST(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TDEST)
 );
 
-threshold_cv_fifo_w32_d4_S threshold_out_rows_channel_U(
+threshold_cv_fifo_w32_d2_S threshold_out_rows_channel_U(
     .clk(ap_clk),
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(Block_entry1_proc_U0_ap_return_0),
+    .if_din(Block_entry1_proc_U0_threshold_out_rows_din),
     .if_full_n(threshold_out_rows_channel_full_n),
-    .if_write(ap_channel_done_threshold_out_rows_channel),
+    .if_write(Block_entry1_proc_U0_threshold_out_rows_write),
     .if_dout(threshold_out_rows_channel_dout),
     .if_num_data_valid(threshold_out_rows_channel_num_data_valid),
     .if_fifo_cap(threshold_out_rows_channel_fifo_cap),
     .if_empty_n(threshold_out_rows_channel_empty_n),
-    .if_read(xfMat2AXIvideo_8_0_128_128_1_U0_ap_ready)
+    .if_read(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_1_read)
 );
 
-threshold_cv_fifo_w32_d4_S threshold_out_cols_channel_U(
+threshold_cv_fifo_w32_d2_S threshold_out_cols_channel_U(
     .clk(ap_clk),
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(Block_entry1_proc_U0_ap_return_1),
+    .if_din(Block_entry1_proc_U0_threshold_out_cols_din),
     .if_full_n(threshold_out_cols_channel_full_n),
-    .if_write(ap_channel_done_threshold_out_cols_channel),
+    .if_write(Block_entry1_proc_U0_threshold_out_cols_write),
     .if_dout(threshold_out_cols_channel_dout),
     .if_num_data_valid(threshold_out_cols_channel_num_data_valid),
     .if_fifo_cap(threshold_out_cols_channel_fifo_cap),
     .if_empty_n(threshold_out_cols_channel_empty_n),
-    .if_read(xfMat2AXIvideo_8_0_128_128_1_U0_ap_ready)
+    .if_read(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_2_read)
 );
 
 threshold_cv_fifo_w32_d2_S threshold_in_rows_c9_channel_U(
@@ -318,14 +351,14 @@ threshold_cv_fifo_w32_d2_S threshold_in_rows_c9_channel_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(Block_entry1_proc_U0_ap_return_2),
+    .if_din(Block_entry1_proc_U0_threshold_in_rows_c9_din),
     .if_full_n(threshold_in_rows_c9_channel_full_n),
-    .if_write(ap_channel_done_threshold_in_rows_c9_channel),
+    .if_write(Block_entry1_proc_U0_threshold_in_rows_c9_write),
     .if_dout(threshold_in_rows_c9_channel_dout),
     .if_num_data_valid(threshold_in_rows_c9_channel_num_data_valid),
     .if_fifo_cap(threshold_in_rows_c9_channel_fifo_cap),
     .if_empty_n(threshold_in_rows_c9_channel_empty_n),
-    .if_read(AXIvideo2xfMat_32_9_128_128_1_U0_ap_ready)
+    .if_read(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_img_1_read)
 );
 
 threshold_cv_fifo_w32_d2_S threshold_in_cols_c10_channel_U(
@@ -333,14 +366,14 @@ threshold_cv_fifo_w32_d2_S threshold_in_cols_c10_channel_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(Block_entry1_proc_U0_ap_return_3),
+    .if_din(Block_entry1_proc_U0_threshold_in_cols_c10_din),
     .if_full_n(threshold_in_cols_c10_channel_full_n),
-    .if_write(ap_channel_done_threshold_in_cols_c10_channel),
+    .if_write(Block_entry1_proc_U0_threshold_in_cols_c10_write),
     .if_dout(threshold_in_cols_c10_channel_dout),
     .if_num_data_valid(threshold_in_cols_c10_channel_num_data_valid),
     .if_fifo_cap(threshold_in_cols_c10_channel_fifo_cap),
     .if_empty_n(threshold_in_cols_c10_channel_empty_n),
-    .if_read(AXIvideo2xfMat_32_9_128_128_1_U0_ap_ready)
+    .if_read(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_img_2_read)
 );
 
 threshold_cv_fifo_w24_d2_S threshold_in_data_U(
@@ -348,14 +381,14 @@ threshold_cv_fifo_w24_d2_S threshold_in_data_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_data22_din),
+    .if_din(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_data17_din),
     .if_full_n(threshold_in_data_full_n),
-    .if_write(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_data22_write),
+    .if_write(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_data17_write),
     .if_dout(threshold_in_data_dout),
     .if_num_data_valid(threshold_in_data_num_data_valid),
     .if_fifo_cap(threshold_in_data_fifo_cap),
     .if_empty_n(threshold_in_data_empty_n),
-    .if_read(colorthresholding_9_0_3_128_128_1_U0_threshold_in_data22_read)
+    .if_read(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_threshold_in_data17_read)
 );
 
 threshold_cv_fifo_w32_d2_S threshold_in_rows_c_U(
@@ -363,14 +396,14 @@ threshold_cv_fifo_w32_d2_S threshold_in_rows_c_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_rows_c_din),
+    .if_din(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_rows_c_din),
     .if_full_n(threshold_in_rows_c_full_n),
-    .if_write(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_rows_c_write),
+    .if_write(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_rows_c_write),
     .if_dout(threshold_in_rows_c_dout),
     .if_num_data_valid(threshold_in_rows_c_num_data_valid),
     .if_fifo_cap(threshold_in_rows_c_fifo_cap),
     .if_empty_n(threshold_in_rows_c_empty_n),
-    .if_read(colorthresholding_9_0_3_128_128_1_U0_p_src_mat_rows_read)
+    .if_read(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_p_src_mat_rows_read)
 );
 
 threshold_cv_fifo_w32_d2_S threshold_in_cols_c_U(
@@ -378,14 +411,14 @@ threshold_cv_fifo_w32_d2_S threshold_in_cols_c_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_cols_c_din),
+    .if_din(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_cols_c_din),
     .if_full_n(threshold_in_cols_c_full_n),
-    .if_write(AXIvideo2xfMat_32_9_128_128_1_U0_threshold_in_cols_c_write),
+    .if_write(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_threshold_in_cols_c_write),
     .if_dout(threshold_in_cols_c_dout),
     .if_num_data_valid(threshold_in_cols_c_num_data_valid),
     .if_fifo_cap(threshold_in_cols_c_fifo_cap),
     .if_empty_n(threshold_in_cols_c_empty_n),
-    .if_read(colorthresholding_9_0_3_128_128_1_U0_p_src_mat_cols_read)
+    .if_read(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_p_src_mat_cols_read)
 );
 
 threshold_cv_fifo_w8_d2_S threshold_out_data_U(
@@ -393,96 +426,68 @@ threshold_cv_fifo_w8_d2_S threshold_out_data_U(
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(colorthresholding_9_0_3_128_128_1_U0_threshold_out_data23_din),
+    .if_din(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_threshold_out_data18_din),
     .if_full_n(threshold_out_data_full_n),
-    .if_write(colorthresholding_9_0_3_128_128_1_U0_threshold_out_data23_write),
+    .if_write(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_threshold_out_data18_write),
     .if_dout(threshold_out_data_dout),
     .if_num_data_valid(threshold_out_data_num_data_valid),
     .if_fifo_cap(threshold_out_data_fifo_cap),
     .if_empty_n(threshold_out_data_empty_n),
-    .if_read(xfMat2AXIvideo_8_0_128_128_1_U0_threshold_out_data23_read)
+    .if_read(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_threshold_out_data18_read)
 );
 
-threshold_cv_start_for_colorthresholding_9_0_3_128_128_1_U0 start_for_colorthresholding_9_0_3_128_128_1_U0_U(
+threshold_cv_start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0 start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_U(
     .clk(ap_clk),
     .reset(ap_rst_n_inv),
     .if_read_ce(1'b1),
     .if_write_ce(1'b1),
-    .if_din(start_for_colorthresholding_9_0_3_128_128_1_U0_din),
-    .if_full_n(start_for_colorthresholding_9_0_3_128_128_1_U0_full_n),
-    .if_write(AXIvideo2xfMat_32_9_128_128_1_U0_start_write),
-    .if_dout(start_for_colorthresholding_9_0_3_128_128_1_U0_dout),
-    .if_empty_n(start_for_colorthresholding_9_0_3_128_128_1_U0_empty_n),
-    .if_read(colorthresholding_9_0_3_128_128_1_U0_ap_ready)
+    .if_din(start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_din),
+    .if_full_n(start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_full_n),
+    .if_write(Block_entry1_proc_U0_start_write),
+    .if_dout(start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_dout),
+    .if_empty_n(start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_empty_n),
+    .if_read(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_ready)
 );
 
-always @ (posedge ap_clk) begin
-    if (ap_rst_n_inv == 1'b1) begin
-        ap_sync_reg_channel_write_threshold_in_cols_c10_channel <= 1'b0;
-    end else begin
-        if (((Block_entry1_proc_U0_ap_done & Block_entry1_proc_U0_ap_continue) == 1'b1)) begin
-            ap_sync_reg_channel_write_threshold_in_cols_c10_channel <= 1'b0;
-        end else begin
-            ap_sync_reg_channel_write_threshold_in_cols_c10_channel <= ap_sync_channel_write_threshold_in_cols_c10_channel;
-        end
-    end
-end
+threshold_cv_start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0 start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_din),
+    .if_full_n(start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_full_n),
+    .if_write(Block_entry1_proc_U0_start_write),
+    .if_dout(start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_dout),
+    .if_empty_n(start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_empty_n),
+    .if_read(xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_ready)
+);
 
-always @ (posedge ap_clk) begin
-    if (ap_rst_n_inv == 1'b1) begin
-        ap_sync_reg_channel_write_threshold_in_rows_c9_channel <= 1'b0;
-    end else begin
-        if (((Block_entry1_proc_U0_ap_done & Block_entry1_proc_U0_ap_continue) == 1'b1)) begin
-            ap_sync_reg_channel_write_threshold_in_rows_c9_channel <= 1'b0;
-        end else begin
-            ap_sync_reg_channel_write_threshold_in_rows_c9_channel <= ap_sync_channel_write_threshold_in_rows_c9_channel;
-        end
-    end
-end
+threshold_cv_start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0 start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_U(
+    .clk(ap_clk),
+    .reset(ap_rst_n_inv),
+    .if_read_ce(1'b1),
+    .if_write_ce(1'b1),
+    .if_din(start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_din),
+    .if_full_n(start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_full_n),
+    .if_write(AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_start_write),
+    .if_dout(start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_dout),
+    .if_empty_n(start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_empty_n),
+    .if_read(colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_ready)
+);
 
-always @ (posedge ap_clk) begin
-    if (ap_rst_n_inv == 1'b1) begin
-        ap_sync_reg_channel_write_threshold_out_cols_channel <= 1'b0;
-    end else begin
-        if (((Block_entry1_proc_U0_ap_done & Block_entry1_proc_U0_ap_continue) == 1'b1)) begin
-            ap_sync_reg_channel_write_threshold_out_cols_channel <= 1'b0;
-        end else begin
-            ap_sync_reg_channel_write_threshold_out_cols_channel <= ap_sync_channel_write_threshold_out_cols_channel;
-        end
-    end
-end
+assign AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_continue = 1'b1;
 
-always @ (posedge ap_clk) begin
-    if (ap_rst_n_inv == 1'b1) begin
-        ap_sync_reg_channel_write_threshold_out_rows_channel <= 1'b0;
-    end else begin
-        if (((Block_entry1_proc_U0_ap_done & Block_entry1_proc_U0_ap_continue) == 1'b1)) begin
-            ap_sync_reg_channel_write_threshold_out_rows_channel <= 1'b0;
-        end else begin
-            ap_sync_reg_channel_write_threshold_out_rows_channel <= ap_sync_channel_write_threshold_out_rows_channel;
-        end
-    end
-end
+assign AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_start = start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_empty_n;
 
-assign AXIvideo2xfMat_32_9_128_128_1_U0_ap_continue = 1'b1;
-
-assign AXIvideo2xfMat_32_9_128_128_1_U0_ap_start = (threshold_in_rows_c9_channel_empty_n & threshold_in_cols_c10_channel_empty_n);
-
-assign Block_entry1_proc_U0_ap_continue = (ap_sync_channel_write_threshold_out_rows_channel & ap_sync_channel_write_threshold_out_cols_channel & ap_sync_channel_write_threshold_in_rows_c9_channel & ap_sync_channel_write_threshold_in_cols_c10_channel);
+assign Block_entry1_proc_U0_ap_continue = 1'b1;
 
 assign Block_entry1_proc_U0_ap_start = ap_start;
 
-assign ap_channel_done_threshold_in_cols_c10_channel = ((ap_sync_reg_channel_write_threshold_in_cols_c10_channel ^ 1'b1) & Block_entry1_proc_U0_ap_done);
+assign Block_entry1_proc_U0_start_full_n = (start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_full_n & start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_full_n);
 
-assign ap_channel_done_threshold_in_rows_c9_channel = ((ap_sync_reg_channel_write_threshold_in_rows_c9_channel ^ 1'b1) & Block_entry1_proc_U0_ap_done);
+assign ap_done = xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_done;
 
-assign ap_channel_done_threshold_out_cols_channel = ((ap_sync_reg_channel_write_threshold_out_cols_channel ^ 1'b1) & Block_entry1_proc_U0_ap_done);
-
-assign ap_channel_done_threshold_out_rows_channel = ((ap_sync_reg_channel_write_threshold_out_rows_channel ^ 1'b1) & Block_entry1_proc_U0_ap_done);
-
-assign ap_done = xfMat2AXIvideo_8_0_128_128_1_U0_ap_done;
-
-assign ap_idle = (xfMat2AXIvideo_8_0_128_128_1_U0_ap_idle & (threshold_in_cols_c10_channel_empty_n ^ 1'b1) & (threshold_in_rows_c9_channel_empty_n ^ 1'b1) & (threshold_out_cols_channel_empty_n ^ 1'b1) & (threshold_out_rows_channel_empty_n ^ 1'b1) & colorthresholding_9_0_3_128_128_1_U0_ap_idle & Block_entry1_proc_U0_ap_idle & AXIvideo2xfMat_32_9_128_128_1_U0_ap_idle);
+assign ap_idle = (xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_idle & colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_idle & Block_entry1_proc_U0_ap_idle & AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_ap_idle);
 
 assign ap_ready = Block_entry1_proc_U0_ap_ready;
 
@@ -490,40 +495,36 @@ always @ (*) begin
     ap_rst_n_inv = ~ap_rst_n;
 end
 
-assign ap_sync_channel_write_threshold_in_cols_c10_channel = ((threshold_in_cols_c10_channel_full_n & ap_channel_done_threshold_in_cols_c10_channel) | ap_sync_reg_channel_write_threshold_in_cols_c10_channel);
+assign colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_continue = 1'b1;
 
-assign ap_sync_channel_write_threshold_in_rows_c9_channel = ((threshold_in_rows_c9_channel_full_n & ap_channel_done_threshold_in_rows_c9_channel) | ap_sync_reg_channel_write_threshold_in_rows_c9_channel);
+assign colorthresholding_patch_9_0_3_128_128_1_0_0_U0_ap_start = start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_empty_n;
 
-assign ap_sync_channel_write_threshold_out_cols_channel = ((threshold_out_cols_channel_full_n & ap_channel_done_threshold_out_cols_channel) | ap_sync_reg_channel_write_threshold_out_cols_channel);
+assign img_in_TREADY = AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_img_in_TREADY;
 
-assign ap_sync_channel_write_threshold_out_rows_channel = ((threshold_out_rows_channel_full_n & ap_channel_done_threshold_out_rows_channel) | ap_sync_reg_channel_write_threshold_out_rows_channel);
+assign img_out_TDATA = xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TDATA;
 
-assign colorthresholding_9_0_3_128_128_1_U0_ap_continue = 1'b1;
+assign img_out_TDEST = xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TDEST;
 
-assign colorthresholding_9_0_3_128_128_1_U0_ap_start = start_for_colorthresholding_9_0_3_128_128_1_U0_empty_n;
+assign img_out_TID = xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TID;
 
-assign img_in_TREADY = AXIvideo2xfMat_32_9_128_128_1_U0_img_in_TREADY;
+assign img_out_TKEEP = xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TKEEP;
 
-assign img_out_TDATA = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDATA;
+assign img_out_TLAST = xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TLAST;
 
-assign img_out_TDEST = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TDEST;
+assign img_out_TSTRB = xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TSTRB;
 
-assign img_out_TID = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TID;
+assign img_out_TUSER = xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TUSER;
 
-assign img_out_TKEEP = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TKEEP;
+assign img_out_TVALID = xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_img_out_TVALID;
 
-assign img_out_TLAST = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TLAST;
+assign start_for_AXIvideo2xfMat_patch_32_9_128_128_1_0_U0_din = 1'b1;
 
-assign img_out_TSTRB = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TSTRB;
+assign start_for_colorthresholding_patch_9_0_3_128_128_1_0_0_U0_din = 1'b1;
 
-assign img_out_TUSER = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TUSER;
+assign start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_din = 1'b1;
 
-assign img_out_TVALID = xfMat2AXIvideo_8_0_128_128_1_U0_img_out_TVALID;
+assign xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_continue = 1'b1;
 
-assign start_for_colorthresholding_9_0_3_128_128_1_U0_din = 1'b1;
-
-assign xfMat2AXIvideo_8_0_128_128_1_U0_ap_continue = 1'b1;
-
-assign xfMat2AXIvideo_8_0_128_128_1_U0_ap_start = (threshold_out_rows_channel_empty_n & threshold_out_cols_channel_empty_n);
+assign xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_ap_start = start_for_xfMat2AXIvideo_patch_8_0_128_128_1_0_U0_empty_n;
 
 endmodule //threshold_cv

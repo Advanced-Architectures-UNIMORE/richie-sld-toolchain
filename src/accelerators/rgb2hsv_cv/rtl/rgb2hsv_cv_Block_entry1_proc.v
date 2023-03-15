@@ -11,16 +11,35 @@ module rgb2hsv_cv_Block_entry1_proc (
         ap_clk,
         ap_rst,
         ap_start,
+        start_full_n,
         ap_done,
         ap_continue,
         ap_idle,
         ap_ready,
+        start_out,
+        start_write,
         rows,
         cols,
-        ap_return_0,
-        ap_return_1,
-        ap_return_2,
-        ap_return_3
+        rgb2hsv_out_rows_din,
+        rgb2hsv_out_rows_num_data_valid,
+        rgb2hsv_out_rows_fifo_cap,
+        rgb2hsv_out_rows_full_n,
+        rgb2hsv_out_rows_write,
+        rgb2hsv_out_cols_din,
+        rgb2hsv_out_cols_num_data_valid,
+        rgb2hsv_out_cols_fifo_cap,
+        rgb2hsv_out_cols_full_n,
+        rgb2hsv_out_cols_write,
+        rgb2hsv_in_rows_c9_din,
+        rgb2hsv_in_rows_c9_num_data_valid,
+        rgb2hsv_in_rows_c9_fifo_cap,
+        rgb2hsv_in_rows_c9_full_n,
+        rgb2hsv_in_rows_c9_write,
+        rgb2hsv_in_cols_c10_din,
+        rgb2hsv_in_cols_c10_num_data_valid,
+        rgb2hsv_in_cols_c10_fifo_cap,
+        rgb2hsv_in_cols_c10_full_n,
+        rgb2hsv_in_cols_c10_write
 );
 
 parameter    ap_ST_fsm_state1 = 1'd1;
@@ -28,45 +47,64 @@ parameter    ap_ST_fsm_state1 = 1'd1;
 input   ap_clk;
 input   ap_rst;
 input   ap_start;
+input   start_full_n;
 output   ap_done;
 input   ap_continue;
 output   ap_idle;
 output   ap_ready;
+output   start_out;
+output   start_write;
 input  [31:0] rows;
 input  [31:0] cols;
-output  [31:0] ap_return_0;
-output  [31:0] ap_return_1;
-output  [31:0] ap_return_2;
-output  [31:0] ap_return_3;
+output  [31:0] rgb2hsv_out_rows_din;
+input  [1:0] rgb2hsv_out_rows_num_data_valid;
+input  [1:0] rgb2hsv_out_rows_fifo_cap;
+input   rgb2hsv_out_rows_full_n;
+output   rgb2hsv_out_rows_write;
+output  [31:0] rgb2hsv_out_cols_din;
+input  [1:0] rgb2hsv_out_cols_num_data_valid;
+input  [1:0] rgb2hsv_out_cols_fifo_cap;
+input   rgb2hsv_out_cols_full_n;
+output   rgb2hsv_out_cols_write;
+output  [31:0] rgb2hsv_in_rows_c9_din;
+input  [1:0] rgb2hsv_in_rows_c9_num_data_valid;
+input  [1:0] rgb2hsv_in_rows_c9_fifo_cap;
+input   rgb2hsv_in_rows_c9_full_n;
+output   rgb2hsv_in_rows_c9_write;
+output  [31:0] rgb2hsv_in_cols_c10_din;
+input  [1:0] rgb2hsv_in_cols_c10_num_data_valid;
+input  [1:0] rgb2hsv_in_cols_c10_fifo_cap;
+input   rgb2hsv_in_cols_c10_full_n;
+output   rgb2hsv_in_cols_c10_write;
 
 reg ap_done;
 reg ap_idle;
-reg ap_ready;
-reg[31:0] ap_return_0;
-reg[31:0] ap_return_1;
-reg[31:0] ap_return_2;
-reg[31:0] ap_return_3;
+reg start_write;
+reg rgb2hsv_out_rows_write;
+reg rgb2hsv_out_cols_write;
+reg rgb2hsv_in_rows_c9_write;
+reg rgb2hsv_in_cols_c10_write;
 
+reg    real_start;
+reg    start_once_reg;
 reg    ap_done_reg;
 (* fsm_encoding = "none" *) reg   [0:0] ap_CS_fsm;
 wire    ap_CS_fsm_state1;
+reg    internal_ap_ready;
+reg    rgb2hsv_out_rows_blk_n;
+reg    rgb2hsv_out_cols_blk_n;
+reg    rgb2hsv_in_rows_c9_blk_n;
+reg    rgb2hsv_in_cols_c10_blk_n;
 reg    ap_block_state1;
-reg   [31:0] ap_return_0_preg;
-reg   [31:0] ap_return_1_preg;
-reg   [31:0] ap_return_2_preg;
-reg   [31:0] ap_return_3_preg;
 reg   [0:0] ap_NS_fsm;
 reg    ap_ST_fsm_state1_blk;
 wire    ap_ce_reg;
 
 // power-on initialization
 initial begin
+#0 start_once_reg = 1'b0;
 #0 ap_done_reg = 1'b0;
 #0 ap_CS_fsm = 1'd1;
-#0 ap_return_0_preg = 32'd0;
-#0 ap_return_1_preg = 32'd0;
-#0 ap_return_2_preg = 32'd0;
-#0 ap_return_3_preg = 32'd0;
 end
 
 always @ (posedge ap_clk) begin
@@ -83,7 +121,7 @@ always @ (posedge ap_clk) begin
     end else begin
         if ((ap_continue == 1'b1)) begin
             ap_done_reg <= 1'b0;
-        end else if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        end else if ((~((real_start == 1'b0) | (rgb2hsv_in_cols_c10_full_n == 1'b0) | (rgb2hsv_in_rows_c9_full_n == 1'b0) | (rgb2hsv_out_cols_full_n == 1'b0) | (rgb2hsv_out_rows_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
             ap_done_reg <= 1'b1;
         end
     end
@@ -91,46 +129,18 @@ end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        ap_return_0_preg <= 32'd0;
+        start_once_reg <= 1'b0;
     end else begin
-        if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-            ap_return_0_preg <= rows;
-        end
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if (ap_rst == 1'b1) begin
-        ap_return_1_preg <= 32'd0;
-    end else begin
-        if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-            ap_return_1_preg <= cols;
-        end
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if (ap_rst == 1'b1) begin
-        ap_return_2_preg <= 32'd0;
-    end else begin
-        if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-            ap_return_2_preg <= rows;
-        end
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if (ap_rst == 1'b1) begin
-        ap_return_3_preg <= 32'd0;
-    end else begin
-        if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-            ap_return_3_preg <= cols;
+        if (((real_start == 1'b1) & (internal_ap_ready == 1'b0))) begin
+            start_once_reg <= 1'b1;
+        end else if ((internal_ap_ready == 1'b1)) begin
+            start_once_reg <= 1'b0;
         end
     end
 end
 
 always @ (*) begin
-    if (((ap_start == 1'b0) | (ap_done_reg == 1'b1))) begin
+    if (((real_start == 1'b0) | (rgb2hsv_in_cols_c10_full_n == 1'b0) | (rgb2hsv_in_rows_c9_full_n == 1'b0) | (rgb2hsv_out_cols_full_n == 1'b0) | (rgb2hsv_out_rows_full_n == 1'b0) | (ap_done_reg == 1'b1))) begin
         ap_ST_fsm_state1_blk = 1'b1;
     end else begin
         ap_ST_fsm_state1_blk = 1'b0;
@@ -138,7 +148,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+    if ((~((real_start == 1'b0) | (rgb2hsv_in_cols_c10_full_n == 1'b0) | (rgb2hsv_in_rows_c9_full_n == 1'b0) | (rgb2hsv_out_cols_full_n == 1'b0) | (rgb2hsv_out_rows_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
         ap_done = 1'b1;
     end else begin
         ap_done = ap_done_reg;
@@ -146,7 +156,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((ap_start == 1'b0) & (1'b1 == ap_CS_fsm_state1))) begin
+    if (((real_start == 1'b0) & (1'b1 == ap_CS_fsm_state1))) begin
         ap_idle = 1'b1;
     end else begin
         ap_idle = 1'b0;
@@ -154,42 +164,90 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        ap_ready = 1'b1;
+    if ((~((real_start == 1'b0) | (rgb2hsv_in_cols_c10_full_n == 1'b0) | (rgb2hsv_in_rows_c9_full_n == 1'b0) | (rgb2hsv_out_cols_full_n == 1'b0) | (rgb2hsv_out_rows_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        internal_ap_ready = 1'b1;
     end else begin
-        ap_ready = 1'b0;
+        internal_ap_ready = 1'b0;
     end
 end
 
 always @ (*) begin
-    if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        ap_return_0 = rows;
+    if (((start_full_n == 1'b0) & (start_once_reg == 1'b0))) begin
+        real_start = 1'b0;
     end else begin
-        ap_return_0 = ap_return_0_preg;
+        real_start = ap_start;
     end
 end
 
 always @ (*) begin
-    if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        ap_return_1 = cols;
+    if ((~((real_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        rgb2hsv_in_cols_c10_blk_n = rgb2hsv_in_cols_c10_full_n;
     end else begin
-        ap_return_1 = ap_return_1_preg;
+        rgb2hsv_in_cols_c10_blk_n = 1'b1;
     end
 end
 
 always @ (*) begin
-    if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        ap_return_2 = rows;
+    if ((~((real_start == 1'b0) | (rgb2hsv_in_cols_c10_full_n == 1'b0) | (rgb2hsv_in_rows_c9_full_n == 1'b0) | (rgb2hsv_out_cols_full_n == 1'b0) | (rgb2hsv_out_rows_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        rgb2hsv_in_cols_c10_write = 1'b1;
     end else begin
-        ap_return_2 = ap_return_2_preg;
+        rgb2hsv_in_cols_c10_write = 1'b0;
     end
 end
 
 always @ (*) begin
-    if ((~((ap_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
-        ap_return_3 = cols;
+    if ((~((real_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        rgb2hsv_in_rows_c9_blk_n = rgb2hsv_in_rows_c9_full_n;
     end else begin
-        ap_return_3 = ap_return_3_preg;
+        rgb2hsv_in_rows_c9_blk_n = 1'b1;
+    end
+end
+
+always @ (*) begin
+    if ((~((real_start == 1'b0) | (rgb2hsv_in_cols_c10_full_n == 1'b0) | (rgb2hsv_in_rows_c9_full_n == 1'b0) | (rgb2hsv_out_cols_full_n == 1'b0) | (rgb2hsv_out_rows_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        rgb2hsv_in_rows_c9_write = 1'b1;
+    end else begin
+        rgb2hsv_in_rows_c9_write = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((~((real_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        rgb2hsv_out_cols_blk_n = rgb2hsv_out_cols_full_n;
+    end else begin
+        rgb2hsv_out_cols_blk_n = 1'b1;
+    end
+end
+
+always @ (*) begin
+    if ((~((real_start == 1'b0) | (rgb2hsv_in_cols_c10_full_n == 1'b0) | (rgb2hsv_in_rows_c9_full_n == 1'b0) | (rgb2hsv_out_cols_full_n == 1'b0) | (rgb2hsv_out_rows_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        rgb2hsv_out_cols_write = 1'b1;
+    end else begin
+        rgb2hsv_out_cols_write = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((~((real_start == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        rgb2hsv_out_rows_blk_n = rgb2hsv_out_rows_full_n;
+    end else begin
+        rgb2hsv_out_rows_blk_n = 1'b1;
+    end
+end
+
+always @ (*) begin
+    if ((~((real_start == 1'b0) | (rgb2hsv_in_cols_c10_full_n == 1'b0) | (rgb2hsv_in_rows_c9_full_n == 1'b0) | (rgb2hsv_out_cols_full_n == 1'b0) | (rgb2hsv_out_rows_full_n == 1'b0) | (ap_done_reg == 1'b1)) & (1'b1 == ap_CS_fsm_state1))) begin
+        rgb2hsv_out_rows_write = 1'b1;
+    end else begin
+        rgb2hsv_out_rows_write = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if (((real_start == 1'b1) & (start_once_reg == 1'b0))) begin
+        start_write = 1'b1;
+    end else begin
+        start_write = 1'b0;
     end
 end
 
@@ -207,7 +265,19 @@ end
 assign ap_CS_fsm_state1 = ap_CS_fsm[32'd0];
 
 always @ (*) begin
-    ap_block_state1 = ((ap_start == 1'b0) | (ap_done_reg == 1'b1));
+    ap_block_state1 = ((real_start == 1'b0) | (rgb2hsv_in_cols_c10_full_n == 1'b0) | (rgb2hsv_in_rows_c9_full_n == 1'b0) | (rgb2hsv_out_cols_full_n == 1'b0) | (rgb2hsv_out_rows_full_n == 1'b0) | (ap_done_reg == 1'b1));
 end
+
+assign ap_ready = internal_ap_ready;
+
+assign rgb2hsv_in_cols_c10_din = cols;
+
+assign rgb2hsv_in_rows_c9_din = rows;
+
+assign rgb2hsv_out_cols_din = cols;
+
+assign rgb2hsv_out_rows_din = rows;
+
+assign start_out = real_start;
 
 endmodule //rgb2hsv_cv_Block_entry1_proc
