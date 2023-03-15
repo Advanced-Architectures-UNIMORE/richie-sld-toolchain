@@ -46,9 +46,9 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'color_detect_monolithic'
+        self.name                               = 'color_detect_2stg_2acc_2cl_16l1p'
         self.board                              = 'zcu102'
-        self.l2                                 = [ 1 , 8*1024*1024]
+        self.l2                                 = [ 1 , 512*1024]
         return self
 
     '''
@@ -63,6 +63,31 @@ class ov_specs:
     def cluster_0(self):
         self.core                               = [ 'riscy', 8 ]
         self.l1                                 = [ 16 , 128*1024]
-        self.lic                                = [ [ 'color_detect' , 'hwpe']]
+        self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
+                                                    [ 'threshold_cv' , 'hwpe']]
+        self.hci                                = [ ]
+        return self
+
+    def cluster_1(self):
+        self.core                               = [ 'riscy', 8 ]
+        self.l1                                 = [ 16 , 128*1024]
+        self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
+                                                    [ 'threshold_cv' , 'hwpe']]
+        self.hci                                = [ ]
+        return self
+
+    def cluster_2(self):
+        self.core                               = [ 'riscy', 8 ]
+        self.l1                                 = [ 16 , 128*1024]
+        self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
+                                                    [ 'threshold_cv' , 'hwpe']]
+        self.hci                                = [ ]
+        return self
+
+    def cluster_3(self):
+        self.core                               = [ 'riscy', 8 ]
+        self.l1                                 = [ 16 , 128*1024]
+        self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
+                                                    [ 'threshold_cv' , 'hwpe']]
         self.hci                                = [ ]
         return self

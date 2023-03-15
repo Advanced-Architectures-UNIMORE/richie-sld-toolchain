@@ -46,7 +46,7 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'color_detect_monolithic'
+        self.name                               = 'color_detect_rgb2hsv_x6'
         self.board                              = 'zcu102'
         self.l2                                 = [ 1 , 8*1024*1024]
         return self
@@ -62,7 +62,12 @@ class ov_specs:
 
     def cluster_0(self):
         self.core                               = [ 'riscy', 8 ]
-        self.l1                                 = [ 16 , 128*1024]
-        self.lic                                = [ [ 'color_detect' , 'hwpe']]
+        self.l1                                 = [ 4 , 128*1024]
+        self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
+                                                    [ 'threshold_cv' , 'hwpe'],
+                                                    [ 'erode_cv' , 'hwpe'],
+                                                    [ 'rgb2hsv_cv' , 'hwpe'],
+                                                    [ 'rgb2hsv_cv' , 'hwpe'],
+                                                    [ 'rgb2hsv_cv' , 'hwpe']]
         self.hci                                = [ ]
         return self
