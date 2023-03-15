@@ -73,13 +73,13 @@
 
   /* Control signals */
 
-  ctrl_kernel_adapter_${target}_t ctrl_k_ad;
+  ctrl_kernel_adapter_${target}_t ctrl_adapter;
 
-  assign ctrl_k_ad.start = ctrl_i.start;
+  assign ctrl_adapter.start = ctrl_i.start;
 
   % if is_hls_stream is True:
     % for i in range (n_sink):
-  assign ctrl_k_ad.packet_size_${stream_in[i]} = ctrl_i.packet_size_${stream_in[i]};
+  assign ctrl_adapter.packet_size_${stream_in[i]} = ctrl_i.packet_size_${stream_in[i]};
     % endfor
   % endif
 
@@ -89,15 +89,15 @@
 
   /* Flag signals */
 
-  flags_kernel_adapter_${target}_t flags_k_ad;
+  flags_kernel_adapter_${target}_t flags_adapter;
 
-  assign flags_o.done = flags_k_ad.done;
+  assign flags_o.done = flags_adapter.done;
 
   always_ff @(posedge clk_i or negedge rst_ni)
   begin: fsm_ready
     if(~rst_ni)
       flags_o.ready = 1'b0;
-    else if(~(flags_k_ad.ready | flags_k_ad.idle))
+    else if(~(flags_adapter.ready | flags_adapter.idle))
       flags_o.ready = 1'b0;
     else
       flags_o.ready = 1'b1;

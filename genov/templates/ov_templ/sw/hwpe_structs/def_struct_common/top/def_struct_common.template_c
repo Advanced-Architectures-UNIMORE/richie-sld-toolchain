@@ -15,7 +15,8 @@
 
 <%
   # Wrapper dependencies 
-  list_acc = extra_param_0
+  list_acc_types = extra_param_0
+  list_acc_integrated = extra_param_1
 %>
 
 /* =====================================================================
@@ -37,25 +38,30 @@
 
 #include <hero-target.h>
 
-/* Definition - Tags */
+/* Definition - Type ID */
 
 <%
-    acc = list_acc[0]
+    acc = list_acc_types[0]
 %>
 \
-enum accelerator_tag { \
-% for i in range(len(list_acc)-1):
+% for i in range(len(list_acc_types)):
     <%
-        acc = list_acc[i]
+        acc = list_acc_types[i]
     %>
-    ${acc.upper()}, \
+#define ${acc.upper()} ${i} \
 % endfor
 
-    ${list_acc[len(list_acc)-1].upper()}
-};
+
+/* Definition - Connection ID */
+
+<%
+    acc = list_acc_integrated[0]
+%>
+\
 
 /* Definition - Types */
 
+typedef struct hwpe_id                      hwpe_id;
 typedef struct hwpe_l1_ptr_struct           hwpe_l1_ptr_struct;
 typedef struct hwpe_dma_struct              hwpe_dma_struct;
 typedef struct hwpe_addr_gen_struct         hwpe_addr_gen_struct;
@@ -66,6 +72,12 @@ typedef struct hwpe_engine_struct           hwpe_engine_struct;
 typedef struct hwpe_fsm_struct              hwpe_fsm_struct;
 
 /* Definition - Structs */
+
+struct hwpe_id {
+    int type;
+    int cid;
+    int aid;
+};
 
 struct hwpe_l1_ptr_struct {
     DEVICE_PTR ptr;

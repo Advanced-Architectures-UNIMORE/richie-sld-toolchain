@@ -177,12 +177,12 @@
       cnt_${stream_out[j]} = 32'b0;
   % if design_type is 'hls':
     % if is_hls_stream is True:
-  else if( flags_k_ad.last[${j}] & flags_k_ad.done ) // TO-DO: Test with multiple outputs! Might break...
+  else if( flags_adapter.last[${j}] & flags_adapter.done ) // TO-DO: Test with multiple outputs! Might break...
     % else:
-  else if( track_${stream_out[j]}_AND & flags_k_ad.done )
+  else if( track_${stream_out[j]}_AND & flags_adapter.done )
     % endif
   % else:
-  else if( track_${stream_out[j]}_AND & flags_k_ad.done )
+  else if( track_${stream_out[j]}_AND & flags_adapter.done )
   % endif
       cnt_${stream_out[j]} = cnt_${stream_out[j]} + 1;
     else
@@ -202,12 +202,12 @@
       cnt_${stream_out[j]} = 32'b0;
   % if design_type is 'hls':
     % if is_hls_stream is True:
-    else if( flags_k_ad.last[${j}] & flags_k_ad.done ) // TO-DO: Test with multiple outputs! Might break...
+    else if( flags_adapter.last[${j}] & flags_adapter.done ) // TO-DO: Test with multiple outputs! Might break...
     % else:
-    else if( track_${stream_out[j]}_q & flags_k_ad.done )
+    else if( track_${stream_out[j]}_q & flags_adapter.done )
     % endif
   % else:
-    else if( track_${stream_out[j]}_q & flags_k_ad.done )
+    else if( track_${stream_out[j]}_q & flags_adapter.done )
   % endif
       cnt_${stream_out[j]} = cnt_${stream_out[j]} + 1;
     else

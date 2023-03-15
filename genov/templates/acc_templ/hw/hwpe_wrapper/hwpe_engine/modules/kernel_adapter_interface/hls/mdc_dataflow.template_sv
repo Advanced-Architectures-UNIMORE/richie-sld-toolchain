@@ -34,7 +34,7 @@
 <%def name="mdc_dataflow_kernel_adapter_ctrl()">\
 
     // Control signals
-    .ctrl_i      ( ctrl_k_ad            ),
+    .ctrl_i      ( ctrl_adapter            ),
 
 </%def>
 
@@ -49,6 +49,6 @@
 <%def name="mdc_dataflow_kernel_adapter_flags()">\
 
     // Flag signals
-    .flags_o       ( flags_k_ad             )
+    .flags_o       ( flags_adapter             )
 
 </%def>

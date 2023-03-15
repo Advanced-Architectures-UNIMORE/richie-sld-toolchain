@@ -65,8 +65,7 @@ struct ${cl_lic_acc_names[accelerator_id]}_ctrl_struct {
 
 struct ${cl_lic_acc_names[accelerator_id]}_wrapper_struct {
 
-    int id;
-    int tag;
+    hwpe_id id;
 
 % for i in range (acc_wr_n_sink):
     ${cl_lic_acc_names[accelerator_id]}_stream_struct ${acc_wr_stream_in[i]};

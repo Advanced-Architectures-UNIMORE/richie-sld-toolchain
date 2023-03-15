@@ -28,20 +28,19 @@
 # HWPE controller - Top
 %>
 
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {top} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {ctrl} -group {top} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/*}
+
+<%
+# HWPE controller - Slave
+%>
+
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {ctrl} -group {slave} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/*}
 
 <%
 # Slave port of HWPE controller exposed on the peripheral interconnect
 %>
 
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {slave_periph_port} -label {add} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/cfg/add}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {slave_periph_port} -label {wen} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/cfg/wen}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {slave_periph_port} -label {be} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/cfg/be}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {slave_periph_port} -label {data} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/cfg/data}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {slave_periph_port} -label {id} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/cfg/id}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {slave_periph_port} -label {r_data} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/cfg/r_data}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {slave_periph_port} -label {r_valid} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/cfg/r_valid}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {slave_periph_port} -label {r_id} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/cfg/r_id}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {ctrl} -group {slave_periph_port} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/cfg/*}
 
 </%def>
 
@@ -54,23 +53,7 @@ add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_regio
 %>
 
 <%def name="vsim_waves_hwpe_ctrl_regfile()">\
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {regfile} -label {clear_i} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/i_regfile/clear_i}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {regfile} -label {in} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/i_regfile/regfile_in_i}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {regfile} -label {out} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/i_regfile/regfile_out_o}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {regfile} -label {flags} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/i_regfile/flags_i}
-
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {regfile} -label {reg_file} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/i_regfile/reg_file}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {regfile} -label {regfile_mem} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/i_regfile/regfile_mem}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {regfile} -label {regfile_mem_mandatory} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/i_regfile/regfile_mem_mandatory}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {regfile} -label {regfile_mem_generic} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/i_regfile/regfile_mem_generic}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {regfile} -label {regfile_mem_dout} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/i_regfile/regfile_mem_dout}
-
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {regfile} -label {clear_i} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/i_regfile/regfile_latch_mem}
-
-% for i in range (custom_reg_num):
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {regfile} -group {${target}_static_regs} -label {${custom_reg_name[i]}} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/static_reg_${custom_reg_name[i]}}
-% endfor
-
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {ctrl} -group {regfile} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_slave/i_regfile/*}
 </%def>
 
 <%
@@ -83,6 +66,6 @@ add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_regio
 
 <%def name="vsim_waves_hwpe_ctrl_uloop()">\
 
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_ctrl} -group {uloop} -group {top} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_uloop/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {ctrl} -group {uloop} -group {top} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_ctrl/i_uloop/*}
 
 </%def>

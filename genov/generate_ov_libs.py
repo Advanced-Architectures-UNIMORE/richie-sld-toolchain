@@ -288,7 +288,8 @@ gen_ov_libs_comps(
     Generate design components ~ Application-specific HWPE structs
 ''' 
 
-list_generated_acc_structs = []
+list_acc_types = []
+list_acc_integrated = []
 
 for cl_offset in range(ov_design_params.n_clusters):
 
@@ -302,9 +303,11 @@ for cl_offset in range(ov_design_params.n_clusters):
 
         target_acc = cl_lic_acc_names[accelerator_id]
 
-        if target_acc not in list_generated_acc_structs:
+        list_acc_integrated.append(target_acc)
 
-            list_generated_acc_structs.append(target_acc)
+        if target_acc not in list_acc_types:
+
+            list_acc_types.append(target_acc)
 
             acc_specs = import_acc_dev_module(target_acc)
 
@@ -343,7 +346,7 @@ gen_ov_libs_comps(
     ['sw', 'def_struct_hwpe_common', ['sw', 'header']],
     emitter.ov_gen_hwpe_structs,
     0,
-    [list_generated_acc_structs, None, None]
+    [list_acc_types, list_acc_integrated, None]
 )
 
 '''

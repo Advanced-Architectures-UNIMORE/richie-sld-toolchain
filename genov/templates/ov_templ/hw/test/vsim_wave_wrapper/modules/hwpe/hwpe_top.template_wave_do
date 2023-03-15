@@ -24,6 +24,6 @@
 
 <%def name="vsim_waves_hwpe_top()">\
 
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {LIC_acc_region} -group {wrapper[${extra_param_1}]} -group {hwpe_top} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {top} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/*}
 
 </%def>

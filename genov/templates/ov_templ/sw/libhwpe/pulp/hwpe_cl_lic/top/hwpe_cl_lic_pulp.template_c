@@ -56,11 +56,14 @@
 
 void arov_cl${cl_id}_lic${accelerator_id}_init(${cl_lic_acc_names[accelerator_id]}_wrapper_struct *wrapper) {
     
-    // Set wrapper index
-    wrapper->id   = ${accelerator_id};
-
-    // Set wrapper type
-    wrapper->tag   = ${cl_lic_acc_names[accelerator_id].upper()};
+    // Set type ID -- Accelerator nature
+    wrapper->id.type   = ${cl_lic_acc_names[accelerator_id].upper()};
+    
+    // Set cluster ID -- About the cluster where the accelerator is integrated
+    wrapper->id.cid    = ${cl_id};
+    
+    // Set accelerator ID -- About the position of the accelerator in the LIC/HCI accelerator region
+    wrapper->id.aid    = ${accelerator_id};
 };
 
 /* Activation */
