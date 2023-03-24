@@ -39,6 +39,7 @@
 <%def name="xil_hls_stream_kernel_ctrl()">\
 
   // Pilot global controls
+  % for j in range (n_source):
   always_comb
   begin: pilot_start
     if(~rst_ni) begin
@@ -50,13 +51,14 @@
     else if(flags_o.done) begin
       start_stream = '0;
     end
-    else if ((img_out.valid) & (img_out.ready)) begin
+    else if ((${stream_out[j]}_o.valid) & (${stream_out[j]}_o.ready)) begin
       start_stream = start_stream;
     end
     else begin
       start_stream = start_stream;
     end
   end
+  % endfor
 
   // Pilot input streaming controls
   % for i in range (n_sink):
@@ -94,7 +96,7 @@
     else if(${stream_in[i]}_i_TLAST) begin
       cnt_last_${stream_in[i]} = '0;
     end
-    else if ((${stream_in[i]}.valid) & (${stream_in[i]}.ready)) begin
+    else if ((${stream_in[i]}_i.valid) & (${stream_in[i]}_i.ready)) begin
       cnt_last_${stream_in[i]} = cnt_last_${stream_in[i]} + 1;
     end
     else begin
@@ -118,7 +120,7 @@
     else if(ctrl_i.start) begin
       cnt_last_${stream_out[j]} = '0;
     end
-    else if ((${stream_out[j]}.valid) & (${stream_out[j]}.ready)) begin
+    else if ((${stream_out[j]}_o.valid) & (${stream_out[j]}_o.ready)) begin
       cnt_last_${stream_out[j]} = cnt_last_${stream_out[j]} + 1;
     end
     else begin
