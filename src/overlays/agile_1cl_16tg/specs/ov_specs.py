@@ -55,6 +55,7 @@ class ov_specs:
         Clusters
 
         - 'core' ~ [ core_name, n_cores ]
+        - 'dma' ~ [ n_dma, max_n_reqs, max_n_txns, n_dma_streams, max_burst_size ]
         - 'l1' ~ [ n_banks, size (Bytes) ]
         - 'lic' ~ [ acc_name , wrapper_protocol ]
         - 'hci' ~ [ acc_name , wrapper_protocol ]
