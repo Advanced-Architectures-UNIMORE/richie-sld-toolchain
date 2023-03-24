@@ -46,7 +46,7 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'color_detect_6stg_6acc_4l1p'
+        self.name                               = 'color_detect_6stg_6acc_1cl_16l1p_1l2p'
         self.board                              = 'zcu102'
         self.l2                                 = [ 1 , 8*1024*1024]
         return self
@@ -55,6 +55,7 @@ class ov_specs:
         Clusters
 
         - 'core' ~ [ core_name, n_cores ]
+        - 'dma' ~ [ n_dma, max_n_reqs, max_n_txns, n_dma_streams, max_burst_size ]
         - 'l1' ~ [ n_banks, size (Bytes) ]
         - 'lic' ~ [ acc_name , wrapper_protocol ]
         - 'hci' ~ [ acc_name , wrapper_protocol ]
@@ -62,7 +63,23 @@ class ov_specs:
 
     def cluster_0(self):
         self.core                               = [ 'riscy', 8 ]
-        self.l1                                 = [ 4 , 128*1024]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
+        self.dma                                = [ 4, 16, 8, 1, 2048]
+        self.l1                                 = [ 16 , 128*1024]
+        self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
+                                                    [ 'threshold_cv' , 'hwpe'],
+                                                    [ 'erode_cv' , 'hwpe'],
+                                                    [ 'dilate_cv' , 'hwpe'],
+                                                    [ 'dilate_cv' , 'hwpe'],
+                                                    [ 'erode_cv' , 'hwpe']]
+        self.hci                                = [ ]
+        return self
+
+    def cluster_1(self):
+        self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
+        self.dma                                = [ 4, 16, 8, 1, 2048]
+        self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],
                                                     [ 'erode_cv' , 'hwpe'],

@@ -62,6 +62,7 @@ class ov_specs:
 
     def cluster_0(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],
@@ -72,6 +73,7 @@ class ov_specs:
 
     def cluster_1(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],
@@ -82,6 +84,7 @@ class ov_specs:
 
     def cluster_2(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],
@@ -92,6 +95,7 @@ class ov_specs:
 
     def cluster_3(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],
@@ -102,6 +106,7 @@ class ov_specs:
 
     def cluster_4(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],
@@ -112,6 +117,7 @@ class ov_specs:
 
     def cluster_5(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],
@@ -122,6 +128,7 @@ class ov_specs:
 
     def cluster_6(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],
@@ -132,6 +139,7 @@ class ov_specs:
 
     def cluster_7(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],

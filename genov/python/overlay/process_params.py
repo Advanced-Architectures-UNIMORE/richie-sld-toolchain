@@ -77,6 +77,10 @@ class overlay_params_formatted:
         self.list_cl_cores = []
         for cl_target in cl_list:
             self.list_cl_cores.append(format_cl_core_params(cl_target().core))
+        # DMA
+        self.list_cl_dma = []
+        for cl_target in cl_list:
+            self.list_cl_dma.append(format_cl_dma_params(cl_target().dma))
         # L1 data memory
         self.list_cl_l1 = []
         for cl_target in cl_list:
@@ -282,6 +286,24 @@ def format_cl_core_params(cl_target_core):
     core_name           = cl_target_core[0]
     n_cores             = cl_target_core[1]
     return core_name, n_cores
+
+'''
+  =====================================================================
+  Title:        format_cl_dma_params
+  Type:         Function
+  Description:  Target a specific cluster and extract and format DMA 
+                design parameters. The output content is formatted in 
+                a suitable way for template to be easily rendered.
+  =====================================================================
+'''
+
+def format_cl_dma_params(cl_target_dma):
+    n_dma               = cl_target_dma[0]
+    max_n_reqs          = cl_target_dma[1]
+    max_n_txns          = cl_target_dma[2]
+    n_dma_streams       = cl_target_dma[3]
+    max_burst_size      = cl_target_dma[4]
+    return n_dma, max_n_reqs, max_n_txns, n_dma_streams, max_burst_size
 
 '''
   =====================================================================

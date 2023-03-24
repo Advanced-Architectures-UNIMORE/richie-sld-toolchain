@@ -46,7 +46,7 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'color_detect_6stg_6acc_1cl_16l1p'
+        self.name                               = 'color_detect_6stg_6acc_2cl_16l1p_1l2p'
         self.board                              = 'zcu102'
         self.l2                                 = [ 1 , 8*1024*1024]
         return self
@@ -62,6 +62,7 @@ class ov_specs:
 
     def cluster_0(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],
@@ -74,6 +75,33 @@ class ov_specs:
 
     def cluster_1(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
+        self.l1                                 = [ 16 , 128*1024]
+        self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
+                                                    [ 'threshold_cv' , 'hwpe'],
+                                                    [ 'erode_cv' , 'hwpe'],
+                                                    [ 'dilate_cv' , 'hwpe'],
+                                                    [ 'dilate_cv' , 'hwpe'],
+                                                    [ 'erode_cv' , 'hwpe']]
+        self.hci                                = [ ]
+        return self
+
+    def cluster_2(self):
+        self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
+        self.l1                                 = [ 16 , 128*1024]
+        self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
+                                                    [ 'threshold_cv' , 'hwpe'],
+                                                    [ 'erode_cv' , 'hwpe'],
+                                                    [ 'dilate_cv' , 'hwpe'],
+                                                    [ 'dilate_cv' , 'hwpe'],
+                                                    [ 'erode_cv' , 'hwpe']]
+        self.hci                                = [ ]
+        return self
+
+    def cluster_3(self):
+        self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'rgb2hsv_cv' , 'hwpe'],
                                                     [ 'threshold_cv' , 'hwpe'],

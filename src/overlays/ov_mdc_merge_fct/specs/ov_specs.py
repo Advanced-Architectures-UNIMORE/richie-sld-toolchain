@@ -62,6 +62,7 @@ class ov_specs:
 
     def cluster_0(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ ['multi_dataflow_fir_64_128_conv_mdc' , 'hwpe'],
                                                     ['multi_dataflow_mac_mul_mmult_opt_mdc' , 'hwpe'],

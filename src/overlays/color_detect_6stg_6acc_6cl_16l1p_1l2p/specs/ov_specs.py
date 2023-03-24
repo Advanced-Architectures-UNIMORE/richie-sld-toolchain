@@ -46,9 +46,9 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'color_detect_6stg_6acc_6cl_16l1p_6l2p'
+        self.name                               = 'color_detect_6stg_6acc_6cl_16l1p_1l2p'
         self.board                              = 'zcu102'
-        self.l2                                 = [ 16 , 8*1024*1024]
+        self.l2                                 = [ 1 , 8*1024*1024]
         return self
 
     '''

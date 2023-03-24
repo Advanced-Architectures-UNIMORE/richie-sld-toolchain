@@ -55,12 +55,14 @@ package automatic pulp_cluster_${cl_id}_cfg_pkg;
     %>
 
     // -- DMA
-    localparam int unsigned DMA_STREAMS = 1;
-    localparam int unsigned DMA_MAX_BURST_SIZE = 2048; // [B], must be a power of 2
-
-    // Maximum number of transactions the DMA can have in flight
-    localparam int unsigned DMA_MAX_N_TXNS = N_CORES;
-    localparam int unsigned N_DMAS = 4; // larger values seem to break the cluster
+    localparam int unsigned N_DMAS = ${n_dma}; // Default: 4 
+                                            // Larger values seem to break the cluster
+    localparam int unsigned DMA_FIFO_DEPTH_REQ = ${cl_dma_max_n_reqs}; 
+                                            // Maximum number of requests the DMA can handle in flight
+    localparam int unsigned DMA_MAX_N_TXNS = ${cl_dma_max_n_txns}; // Default: N_CORES 
+                                            // Maximum number of transactions the DMA can have in flight
+    localparam int unsigned DMA_STREAMS = ${cl_dma_n_dma_streams}; // Default: 1
+    localparam int unsigned DMA_MAX_BURST_SIZE = ${cl_dma_max_burst_size}; // Default: 2048 [B], must be a power of 2
 
     <%
         # Definition of parameters for memory hierarchy

@@ -229,7 +229,8 @@ module pulp_cluster_ooc (
     .L1_AMO_PRESENT           (pulp_cluster_${cl_id}_cfg_pkg::L1_AMO_PRESENT),
     // DMA Parameters
     .NB_OUTSND_BURSTS         (pulp_cluster_${cl_id}_cfg_pkg::DMA_MAX_N_TXNS),
-    .NB_DMA_STREAMS           (pulp_cluster_${cl_id}_cfg_pkg::DMA_STREAMS   ),
+    .NB_DMA_STREAMS           (pulp_cluster_${cl_id}_cfg_pkg::DMA_STREAMS),
+    .FIFO_DEPTH_DMA_REQ       (pulp_cluster_${cl_id}_cfg_pkg::DMA_FIFO_DEPTH_REQ),
     // peripheral and periph interconnect parameters
     .NB_SPERIPHS              (pulp_cluster_${cl_id}_cfg_pkg::N_SPERIPHS),
     .NB_SPERIPHS_HWPE         (pulp_cluster_${cl_id}_cfg_pkg::N_SPERIPHS_HWPE)

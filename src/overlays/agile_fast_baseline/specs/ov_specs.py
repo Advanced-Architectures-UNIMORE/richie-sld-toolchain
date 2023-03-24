@@ -62,6 +62,7 @@ class ov_specs:
 
     def cluster_0(self):
         self.core                               = [ 'riscy', 8 ]
+        self.dma                                = [ 4, 32, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
         self.lic                                = [ [ 'fast_corner_detect' , 'hwpe']]
         self.hci                                = [ ]

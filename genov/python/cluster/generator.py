@@ -51,6 +51,12 @@ class Generator:
             # cluster cores
             cl_core_name                    = design_params.list_cl_cores[cl_id][0],
             cl_n_cores                      = design_params.list_cl_cores[cl_id][1],
+            # dma
+            n_dma                           = design_params.list_cl_dma[cl_id][0],
+            cl_dma_max_n_reqs               = design_params.list_cl_dma[cl_id][1],
+            cl_dma_max_n_txns               = design_params.list_cl_dma[cl_id][2],
+            cl_dma_n_dma_streams            = design_params.list_cl_dma[cl_id][3],
+            cl_dma_max_burst_size           = design_params.list_cl_dma[cl_id][4],
             # cluster data memory
             cl_n_l1_banks                   = design_params.list_cl_l1[cl_id][0],
             cl_l1_size                      = design_params.list_cl_l1[cl_id][1],
