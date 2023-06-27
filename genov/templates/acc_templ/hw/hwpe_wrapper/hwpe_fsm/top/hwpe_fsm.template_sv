@@ -83,8 +83,14 @@ module ${target}_fsm (
     ctrl_engine_o.clear      = '1; // Clear counters
     ctrl_engine_o.enable     = '1; // Enable execution
     ctrl_engine_o.start      = '0; // Trigger execution
+
+    % if design_type is 'hls':
+      % if is_hls_stream is True:
 ${engine_init_packet_size()}
-${engine_init_cnt_limit()}
+      % endif
+    % endif
+
+  ${engine_init_cnt_limit()}
 
     // Slave
     ctrl_slave_o.done = '0;

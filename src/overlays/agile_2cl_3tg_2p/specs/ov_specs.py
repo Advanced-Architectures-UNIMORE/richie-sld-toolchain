@@ -46,9 +46,9 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'agile_6cl_1tg'
+        self.name                               = 'agile_2cl_3tg_2p'
         self.board                              = 'zcu102'
-        self.l2                                 = [ 1 , 128*1024*16]
+        self.l2                                 = [ 2 , 128*1024*16]
         return self
 
     '''
@@ -65,46 +65,19 @@ class ov_specs:
         self.core                               = [ 'riscy', 8 ]
         self.dma                                = [ 4, 32, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
-        self.lic                                = [ [ 'traffic_gen' , 'hwpe']]
+        self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
+                                                    [ 'traffic_gen' , 'hwpe'],
+                                                    [ 'traffic_gen' , 'hwpe']]
         self.hci                                = [ ]
         return self
 
     def cluster_1(self):
+        self.cl_offset                          = 1
         self.core                               = [ 'riscy', 8 ]
         self.dma                                = [ 4, 32, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
-        self.lic                                = [ [ 'traffic_gen' , 'hwpe']]
-        self.hci                                = [ ]
-        return self
-
-    def cluster_2(self):
-        self.core                               = [ 'riscy', 8 ]
-        self.dma                                = [ 4, 32, 8, 1, 2048]
-        self.l1                                 = [ 16 , 128*1024]
-        self.lic                                = [ [ 'traffic_gen' , 'hwpe']]
-        self.hci                                = [ ]
-        return self
-
-    def cluster_3(self):
-        self.core                               = [ 'riscy', 8 ]
-        self.dma                                = [ 4, 32, 8, 1, 2048]
-        self.l1                                 = [ 16 , 128*1024]
-        self.lic                                = [ [ 'traffic_gen' , 'hwpe']]
-        self.hci                                = [ ]
-        return self
-
-    def cluster_4(self):
-        self.core                               = [ 'riscy', 8 ]
-        self.dma                                = [ 4, 32, 8, 1, 2048]
-        self.l1                                 = [ 16 , 128*1024]
-        self.lic                                = [ [ 'traffic_gen' , 'hwpe']]
-        self.hci                                = [ ]
-        return self
-
-    def cluster_5(self):
-        self.core                               = [ 'riscy', 8 ]
-        self.dma                                = [ 4, 32, 8, 1, 2048]
-        self.l1                                 = [ 16 , 128*1024]
-        self.lic                                = [ [ 'traffic_gen' , 'hwpe']]
+        self.lic                                = [ [ 'traffic_gen' , 'hwpe'],
+                                                    [ 'traffic_gen' , 'hwpe'],
+                                                    [ 'traffic_gen' , 'hwpe']]
         self.hci                                = [ ]
         return self
