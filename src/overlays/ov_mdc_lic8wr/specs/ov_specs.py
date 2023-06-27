@@ -46,7 +46,7 @@ class ov_specs:
     '''
 
     def soc(self):
-        self.name                               = 'ov_mdc_merge_fct'
+        self.name                               = 'ov_mdc_lic8wr'
         self.board                              = 'zcu102'
         self.l2                                 = [ 1 , 256*1024]
         return self
@@ -65,8 +65,13 @@ class ov_specs:
         self.core                               = [ 'riscy', 2 ]
         self.dma                                = [ 4, 16, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
-        self.lic                                = [ ['multi_dataflow_fir_64_128_conv_mdc' , 'hwpe'],
-                                                    ['multi_dataflow_mac_mul_mmult_opt_mdc' , 'hwpe'],
-                                                    ['multi_dataflow_sobel_roberts_mdc' , 'hwpe']]
+        self.lic                                = [ ['multi_dataflow_conv_mdc' , 'hwpe'],
+                                                    ['multi_dataflow_fir_64_mdc' , 'hwpe'],
+                                                    ['multi_dataflow_fir_128_mdc' , 'hwpe'],
+                                                    ['multi_dataflow_sobel_mdc' , 'hwpe'],
+                                                    ['multi_dataflow_roberts_mdc' , 'hwpe'],
+                                                    ['multi_dataflow_mmult_opt_mdc' , 'hwpe'],
+                                                    ['multi_dataflow_mac_mdc' , 'hwpe'],
+                                                    ['multi_dataflow_mul_mdc' , 'hwpe']]
         self.hci                                = [ ]
         return self
