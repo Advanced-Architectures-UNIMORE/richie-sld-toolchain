@@ -6,13 +6,13 @@
 
 <%
 # This module has template definitions to map ctrl_i
-# and flags_o to local logic variables. 
+# and flags_o to local logic variables.
 #
-# Version 0 is is no longer used (kept as backup). 
+# Version 0 is is no longer used (kept as backup).
 #
 # The reason why these have been avoided is to simplify the
 # agile instantiation of different type of kernel adapters.
-# For example, the control/flag interface of PULP accelerators 
+# For example, the control/flag interface of PULP accelerators
 # and HLS-compiled kernels is different. While the former
 # is typically driven using the struct, the latter uses
 # separated ports for each signal.
@@ -51,22 +51,22 @@
 </%def>
 
 <%
-# Version 1 re-defines the control and flag structs on the 
+# Version 1 re-defines the control and flag structs on the
 # basis of the kernel interface that is adopted.
 #
-# The struct ctrl_i and flags_o are directly instantiated 
-# on the kernel interface to drive control and flags in 
-# between the latter and the wrapper FSM. The struct are 
+# The struct ctrl_i and flags_o are directly instantiated
+# on the kernel interface to drive control and flags in
+# between the latter and the wrapper FSM. The struct are
 # defined in the SystemVerilog package of the wrapper:
 #
 # - ctrl_kernel_adapter_t
 # - flags_kernel_adapter_t
 #
-# The re-definition is needed to flexibly pilot the FSM 
+# The re-definition is needed to flexibly pilot the FSM
 # ready signal. For example, in case of an HLS kernel, both
-# the 'ready' and 'idle' flags will be used to pilot the FSM 
-# 'ready' signal. At the same time, another methodology might 
-# implement a slightly different interface with no 'idle'.  
+# the 'ready' and 'idle' flags will be used to pilot the FSM
+# 'ready' signal. At the same time, another methodology might
+# implement a slightly different interface with no 'idle'.
 %>
 
 <%def name="map_engine_ctrl_v1_hls()">\
@@ -77,7 +77,7 @@
 
   assign ctrl_adapter.start = ctrl_i.start;
 
-  % if is_hls_stream is True:
+  % if is_hls_stream == True:
     % for i in range (n_sink):
   assign ctrl_adapter.packet_size_${stream_in[i]} = ctrl_i.packet_size_${stream_in[i]};
     % endfor

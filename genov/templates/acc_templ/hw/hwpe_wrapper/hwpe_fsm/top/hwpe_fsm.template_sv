@@ -15,7 +15,7 @@
  * HWPE specialization tool: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
  *
  * Module: ${target}_fsm.sv
- * 
+ *
  */
 
 import ${target}_package::*;
@@ -52,7 +52,7 @@ module ${target}_fsm (
 
   state_fsm_${target}_t curr_state, next_state;
 
-  // State computation 
+  // State computation
   always_ff @(posedge clk_i or negedge rst_ni)
   begin : main_fsm_seq
     if(~rst_ni) begin
@@ -84,8 +84,8 @@ module ${target}_fsm (
     ctrl_engine_o.enable     = '1; // Enable execution
     ctrl_engine_o.start      = '0; // Trigger execution
 
-    % if design_type is 'hls':
-      % if is_hls_stream is True:
+    % if design_type == 'hls':
+      % if is_hls_stream == True:
 ${engine_init_packet_size()}
       % endif
     % endif
@@ -100,7 +100,7 @@ ${engine_init_packet_size()}
     // Custom registers
       % for i in range (custom_reg_num):
     ctrl_engine_o.${custom_reg_name[i]}    = ctrl_i.${custom_reg_name[i]};
-      % endfor 
+      % endfor
     % endif
 
     // Real finite-state machine
@@ -123,10 +123,10 @@ ${engine_init_packet_size()}
 
       FSM_START: begin
         // Update the indeces, then load the first feature
-        if( 
-          
-          ${streamer_check_ready_flags()} 
-        
+        if(
+
+          ${streamer_check_ready_flags()}
+
         ) begin
 
           next_state  = FSM_COMPUTE;
@@ -145,10 +145,10 @@ ${engine_init_packet_size()}
 
       FSM_COMPUTE: begin
         ctrl_engine_o.clear  = 1'b0;
-        if( 
-          
-          ${engine_check_cnt_flags_v0()} 
-        
+        if(
+
+          ${engine_check_cnt_flags_v0()}
+
         ) begin
           next_state = FSM_TERMINATE;
         end
@@ -167,20 +167,20 @@ ${engine_init_packet_size()}
         else if(flags_ucode_i.done) begin
           next_state = FSM_TERMINATE;
         end
-        else if( 
-          
-          ${streamer_check_ready_flags()} 
-        
+        else if(
+
+          ${streamer_check_ready_flags()}
+
         ) begin
           next_state = FSM_COMPUTE;
 
           ctrl_engine_o.start  = 1'b1;
           ctrl_engine_o.clear  = 1'b0;
           ctrl_engine_o.enable = 1'b1;
-          
+
           // Request data streaming from/to TCDM
           ${streamer_issue_req_start()}
-        
+
         end
         else begin
           next_state = FSM_WAIT;
@@ -192,16 +192,16 @@ ${engine_init_packet_size()}
         ctrl_engine_o.clear  = 1'b0;
         ctrl_engine_o.enable = 1'b0;
         ctrl_ucode_o.enable  = 1'b0;
-        if( 
-          
-          ${streamer_check_ready_flags()} 
-        
+        if(
+
+          ${streamer_check_ready_flags()}
+
         ) begin
 
           next_state = FSM_COMPUTE;
           ctrl_engine_o.start = 1'b1;
           ctrl_engine_o.enable = 1'b1;
-          
+
           // Request data streaming from/to TCDM
           ${streamer_issue_req_start()}
         end
@@ -211,12 +211,12 @@ ${engine_init_packet_size()}
         // wait for the flags to be ok then go back to idle
         ctrl_engine_o.clear  = 1'b0;
         ctrl_engine_o.enable = 1'b0;
-        if( 
-          
-          ${streamer_check_ready_flags()} 
-        
+        if(
+
+          ${streamer_check_ready_flags()}
+
         ) begin
-          
+
           next_state = FSM_IDLE;
           ctrl_slave_o.done = 1'b1;
         end

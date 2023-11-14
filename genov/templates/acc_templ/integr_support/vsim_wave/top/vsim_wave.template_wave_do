@@ -22,7 +22,7 @@
 # =====================================================================
 %>
 
-${vsim_waves_ov_acc_intf()}        
+${vsim_waves_ov_acc_intf()}
 
 <%
 ###############
@@ -30,7 +30,7 @@ ${vsim_waves_ov_acc_intf()}
 ###############
 %>
 
-${vsim_waves_hwpe_top()} 
+${vsim_waves_hwpe_top()}
 
 <%
 #################
@@ -46,11 +46,11 @@ ${vsim_waves_hwpe_engine()}
 #########################
 %>
 
-% if is_ap_ctrl_hs is True:
+% if is_ap_ctrl_hs == True:
 ${vsim_waves_hwpe_kernel_adapter_xil_ap_ctrl_hs()}
 % endif
 
-% if is_mdc_dataflow is True:
+% if is_mdc_dataflow == True:
 ${vsim_waves_hwpe_kernel_adapter_mdc_dataflow()}
 % endif
 
@@ -60,7 +60,7 @@ ${vsim_waves_hwpe_kernel_adapter_mdc_dataflow()}
 #####################
 %>
 
-% if design_type is 'hls':
+% if design_type == 'hls':
 ${vsim_waves_hwpe_kernel_HLS()}
 % endif
 

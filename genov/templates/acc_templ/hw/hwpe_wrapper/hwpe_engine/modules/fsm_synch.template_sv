@@ -6,11 +6,11 @@
 
 <%
 # To track the handshakes of the parallel output streams, and-ing them and
-# count the latter signals is a way of reducing the overall number of FF 
+# count the latter signals is a way of reducing the overall number of FF
 # required to track the engine activity. Moreover, the trackers are 1-bit
 # so they scale well with parallelized interfaces.
 
-# Thus, the trackers are connected to the parallel streams, then the counters 
+# Thus, the trackers are connected to the parallel streams, then the counters
 # are used for the different categories of stream_out.
 %>
 
@@ -23,8 +23,8 @@
 <%def name="out_track_decl()">\
 
 <%
-# A tracker is basically a boolean to sense when an 
-# handshake of VALID and READY occurs on a certain 
+# A tracker is basically a boolean to sense when an
+# handshake of VALID and READY occurs on a certain
 # streaming interface.
 %>
 
@@ -55,17 +55,17 @@
 <%def name="out_track_impl_DtypeFF()">\
 
 <%
-# The implementation of such trackers has been done using a 
+# The implementation of such trackers has been done using a
 # delay logic (combinatorial+sequential) since handshake
 # occurs before the generation of a 'done' signal in HLS
-# accelerators. To count the number of output data, we need 
+# accelerators. To count the number of output data, we need
 # both the information about the handshake and the 'done' (or
 # end-of-computation) of the accelerator to prevent undesired
 # behaviors. The tracker becomes also useful to scale the control
-# of such streaming interface since operating on a single bit 
+# of such streaming interface since operating on a single bit
 # (instead of e.g. 16/32 bits as a counter might do) saves area.
-# In case of a parallelized interface, these trackers are AND-ed 
-# and the resulting boolean will command the countin on the ouput 
+# In case of a parallelized interface, these trackers are AND-ed
+# and the resulting boolean will command the countin on the ouput
 # counter. This solution should not impact performance as the latter
 # would be dependent on the most congested port anyway.
 %>
@@ -83,7 +83,7 @@
   begin: ${stream_out[j]}_${k}_track_q
     if(~rst_ni | ctrl_i.clear) begin
       track_${stream_out[j]}_${k}_d = '0;
-    end 
+    end
     else if(${stream_out[j]}_${k}_o.valid & ${stream_out[j]}_${k}_o.ready) begin
       track_${stream_out[j]}_${k}_d = '1;
     end
@@ -117,7 +117,7 @@
   begin: ${stream_out[j]}_track_q
     if(~rst_ni | ctrl_i.clear) begin
       track_${stream_out[j]}_d = '0;
-    end 
+    end
     else if(${stream_out[j]}_o.valid & ${stream_out[j]}_o.ready) begin
       track_${stream_out[j]}_d = '1;
     end
@@ -140,7 +140,7 @@
   end
 
     % endif
-  % endfor 
+  % endfor
 
 </%def>
 
@@ -152,7 +152,7 @@
 
 <%def name="cnt_out_decl()">\
 
-  // Declaration of counters 
+  // Declaration of counters
 
   % for j in range (n_source):
   logic unsigned [($clog2(${TARGET}_CNT_LEN)+1):0] cnt_${stream_out[j]};
@@ -175,8 +175,8 @@
   begin: ${stream_out[j]}_cnt
     if((~rst_ni) | ctrl_i.clear)
       cnt_${stream_out[j]} = 32'b0;
-  % if design_type is 'hls':
-    % if is_hls_stream is True:
+  % if design_type == 'hls':
+    % if is_hls_stream == True:
   else if( flags_adapter.last[${j}] & flags_adapter.done ) // TO-DO: Test with multiple outputs! Might break...
     % else:
   else if( track_${stream_out[j]}_AND & flags_adapter.done )
@@ -200,8 +200,8 @@
   begin: ${stream_out[j]}_cnt
     if((~rst_ni) | ctrl_i.clear)
       cnt_${stream_out[j]} = 32'b0;
-  % if design_type is 'hls':
-    % if is_hls_stream is True:
+  % if design_type == 'hls':
+    % if is_hls_stream == True:
     else if( flags_adapter.last[${j}] & flags_adapter.done ) // TO-DO: Test with multiple outputs! Might break...
     % else:
     else if( track_${stream_out[j]}_q & flags_adapter.done )
@@ -214,7 +214,7 @@
       cnt_${stream_out[j]} = cnt_${stream_out[j]};
   end
     % endif
-  % endfor 
+  % endfor
 
 </%def>
 

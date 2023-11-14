@@ -24,11 +24,11 @@
 
 <%def name="vsim_waves_hw_accelerator()">\
 
-% if (is_ap_ctrl_hs is True) or (is_hls_stream is True):
+% if (is_ap_ctrl_hs == True) or (is_hls_stream == True):
 add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {accelerator} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/i_${target}/*}
 % endif
 
-% if is_mdc_dataflow is True:
+% if is_mdc_dataflow == True:
 add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {accelerator} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/i_${target}_reconf_datapath_top/reconf_dpath/*}
 % endif
 
@@ -44,11 +44,11 @@ add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators}
 
 <%def name="vsim_waves_accelerator_kernel_adapter()">\
 
-% if (is_ap_ctrl_hs is True) or (is_hls_stream is True):
+% if (is_ap_ctrl_hs == True) or (is_hls_stream == True):
 add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {adapter} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/*}
 % endif
 
-% if is_mdc_dataflow is True:
+% if is_mdc_dataflow == True:
 add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {adapter} {/overlay_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/*}
 % endif
 

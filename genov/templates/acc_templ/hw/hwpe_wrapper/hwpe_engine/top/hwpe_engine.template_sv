@@ -15,7 +15,7 @@
  * HWPE specialization tool: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
  *
  * Module: ${target}_engine.sv
- * 
+ *
  */
 
 import ${target}_package::*;
@@ -35,22 +35,22 @@ module ${target}_engine (\
 );
 
   <%
-  # Re-map control and flags in case the kernel interface 
+  # Re-map control and flags in case the kernel interface
   # is built exploting specific design methodologies.
   %>
 
-  % if design_type is 'hls':
+  % if design_type == 'hls':
   ${map_engine_ctrl_v1_hls()}
   ${map_engine_flags_v1_hls()}
   % endif
 
   <%
-  # Instantiate blocks to count the outputs and feedback 
+  # Instantiate blocks to count the outputs and feedback
   # the FSM unit about the state of engine operations.
   %>
 
   /* Count outputs */
-  
+
   ${out_track_decl()}
   ${cnt_out_decl()}
 
@@ -60,7 +60,7 @@ module ${target}_engine (\
   ${cnt_out_assign_to_fsm()}
 
   <%
-  # Instantiate kernel adapter. This layer is to 
+  # Instantiate kernel adapter. This layer is to
   # flexibly target different type of kernels that
   # may be designed with HDL, HLS, etc.
   %>
@@ -70,14 +70,14 @@ module ${target}_engine (\
   ${target}_kernel_adapter i_${target}_adapter (
 
     // Global signals
-    .clk_i           ( clk_i            ), 
+    .clk_i           ( clk_i            ),
     .rst_ni          ( rst_ni           ),
-    .test_mode_i     ( test_mode_i      ), 
+    .test_mode_i     ( test_mode_i      ),
 
     <%
     # Data streams
     %>
-    
+
     ${streaming_kernel_adapter_intf()}
 
     <%
@@ -86,7 +86,7 @@ module ${target}_engine (\
     ################################################
     %>
 
-    % if design_type is 'hdl':
+    % if design_type == 'hdl':
     ${pulp_std_kernel_adapter_ctrl()}
     ${pulp_std_kernel_adapter_flags()}
     % endif
@@ -97,8 +97,8 @@ module ${target}_engine (\
     #####################################################################
     %>
 
-    % if design_type is 'hls':
-      % if is_ap_ctrl_hs is True:
+    % if design_type == 'hls':
+      % if is_ap_ctrl_hs == True:
     ${xil_ap_ctrl_hs_kernel_adapter_custom_regs()}
     ${xil_ap_ctrl_hs_kernel_adapter_ctrl()}
     ${xil_ap_ctrl_hs_kernel_adapter_flags()}
@@ -111,8 +111,8 @@ module ${target}_engine (\
     ################################################
     %>
 
-    % if design_type is 'hls':
-      % if is_mdc_dataflow is True:
+    % if design_type == 'hls':
+      % if is_mdc_dataflow == True:
     ${mdc_dataflow_kernel_adapter_custom_regs()}
     ${mdc_dataflow_kernel_adapter_ctrl()}
     ${mdc_dataflow_kernel_adapter_flags()}
@@ -125,8 +125,8 @@ module ${target}_engine (\
     ###########################################################
     %>
 
-    % if design_type is 'hls':
-      % if is_hls_stream is True:
+    % if design_type == 'hls':
+      % if is_hls_stream == True:
     ${xil_hls_stream_kernel_adapter_custom_regs()}
     ${xil_hls_stream_kernel_adapter_ctrl()}
     ${xil_hls_stream_kernel_adapter_flags()}
@@ -135,7 +135,7 @@ module ${target}_engine (\
 
   );
 
-  % if is_hls_stream is False: 
+  % if is_hls_stream == False:
   // At the moment output strobe is always '1
   // All bytes of output streams are written
   // to TCDM
@@ -149,7 +149,7 @@ module ${target}_engine (\
       % else:
     ${stream_out[j]}_o.strb = '1;
       % endif
-    % endfor 
+    % endfor
   end
   % endif
 

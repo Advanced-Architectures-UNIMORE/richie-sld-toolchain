@@ -21,7 +21,7 @@
     % else:
   hwpe_stream_intf_stream.sink ${stream_in[i]}_i,
     % endif
-  % endfor 
+  % endfor
 
   // Source ports
   % for j in range (n_source):
@@ -32,7 +32,7 @@
     % else:
   hwpe_stream_intf_stream.source ${stream_out[j]}_o,
     % endif
-  % endfor 
+  % endfor
 
 </%def>
 
@@ -53,7 +53,7 @@
     % else:
     .${stream_in[i]}_i ( ${stream_in[i]}_i  ),
     % endif
-  % endfor 
+  % endfor
 \
   % for j in range (n_source):
     % if (is_parallel_out[j]):
@@ -63,6 +63,6 @@
     % else:
     .${stream_out[j]}_o ( ${stream_out[j]}_o  ),
     % endif
-  % endfor 
+  % endfor
 \
 </%def>
