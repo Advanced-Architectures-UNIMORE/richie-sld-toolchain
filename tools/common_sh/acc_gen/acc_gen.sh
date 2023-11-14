@@ -117,37 +117,6 @@ fetch_acc_specs()
 }
 
 # =====================================================================
-# Title:        optimize_ov_specs
-# Description:  This shell function invokes the 'ov_gen.mk' and the
-#               recipe 'ov_gen_opt' to optimize the overlay specifications
-#               with application-specific kernel informations.
-# =====================================================================
-
-optimize_ov_specs()
-{
-    echo -e ""
-    echo "# ================================ #"
-    echo "# Optimizing overlay specification #"
-    echo "# ================================ #"
-    echo -e ""
-
-    cd $dir_root
-
-    if [ -f $dir_root/genov/state_optimizer.obj ]; then
-        rm $dir_root/genov/state_optimizer.obj
-    fi
-
-    # for (( c=0; c<=$n_acc-1; c++ ))
-    # do  
-    #     echo "[sh] >> Optimizing overlay specification with infomation about target #$c -> ${acc_targets[$c]}"
-    #     make --silent ov_gen_opt TARGET_ACC=${acc_targets[$c]} OFFSET_ACC=$c N_ACC=$n_acc
-    # done
-
-    # echo "[sh] >> Optimizing overlay specification with infomation about target #$c -> ${acc_targets[$c]}"
-    make --silent ov_gen_opt
-}
-
-# =====================================================================
 # Title:        check_acc_out
 # Description:  This shell function invokes the 'acc_gen.mk' recipes to
 #               check whether current target has already undertaken the 
@@ -229,14 +198,11 @@ if [ -f ${CONFIG_FILE} ]; then
         # Fetch accelerator specifications
         fetch_acc_specs
 
-        # # Optimize overlay specification
-        # optimize_ov_specs
-
         # Generate accelerator wrappers
         gen_acc_configs
 
     fi
-    
+
 else
     echo "[sh] >> No accelerator configuration found in $dir_ov_dev"
 fi

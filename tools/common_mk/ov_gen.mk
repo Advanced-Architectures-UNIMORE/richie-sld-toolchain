@@ -27,10 +27,6 @@ ov_gen_run:
 		${PY_VENV} \
 		${OUT_OV_GEN}
 
-ov_gen_opt:
-	@bash ${SCRIPTS_OV_GEN}/$@.sh \
-		${PY_VENV}
-
 ov_gen_fetch_specs:
 	@bash ${SCRIPTS_OV_GEN}/$@.sh \
 		${SRC_OV} \
