@@ -1,1 +1,0 @@
-gcc  -g -O3 -std=c99 -O3 -DNDEBUG  -rdynamic CMakeFiles/ref_app.dir/src/main.c.o  -o ref_app  -L/home/gbellocchi/workspace_pulp/collab_mdc/genov/genov/verif/hwpe-tb/sw/inc/ref_sw/build -Wl,-rpath,/home/gbellocchi/workspace_pulp/collab_mdc/genov/genov/verif/hwpe-tb/sw/inc/ref_sw/build libLibsModule.a -lpthread 
