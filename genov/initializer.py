@@ -1,16 +1,34 @@
 '''
- =====================================================================
- Project:      Accelerator-Rich Overlay Generator (AROG)
- Title:        initalizer.py
- Description:  Preliminary operation to let the generation process proceed
-               with all the required information about the input specifications.
+    =====================================================================
 
- Date:         7.12.2021
- ===================================================================== */
+    Copyright (C) 2021 University of Modena and Reggio Emilia
 
- Copyright (C) 2021 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Initialize Generation
+
+    Description:    Preliminary operation to initialize the generation flow
+                    with the required information about the input specifications.
+
+    Date:           7.6.2021
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -43,14 +61,14 @@ ov_specs = ov_specs()
 # Create file
 f = open(acc_cfg_file, "w")
 
-# Extract information from overlay specification 
+# Extract information from overlay specification
 
 [target_acc, n_acc] = get_acc_info(ov_specs)
 
 # - Number of accelerators
 f.write("N_ACC=" + str(n_acc) + "\n")
 
-# - Accelerator targets 
+# - Accelerator targets
 i = 0
 for t in target_acc:
     f.write("TARGET_ACC_" + str(i) + "=" + t + "\n")

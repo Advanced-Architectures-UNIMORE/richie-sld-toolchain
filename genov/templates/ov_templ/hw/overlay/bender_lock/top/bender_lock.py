@@ -1,25 +1,33 @@
 '''
- =====================================================================
- Project:       Bender lock
- Title:         bender_lock.py
- Description:   Bender is a dependency management tool for hardware 
-                design projects. It provides a way to define dependencies 
-                among IPs, execute unit tests, and verify that the source 
-                files are valid input for various simulation and synthesis 
-                tools. 
-                Reproducible builds can be maintained by means of keeping a  
-                lock file. The latter tracks the exact git hash a dependency 
-                has been resolved to. This allows the source code of a package 
-                to be reliable reconstructed after the fact.
-                For more information about it:
-                    - https://github.com/fabianschuiki/bender
+    =====================================================================
 
- Date:          29.12.2021
- ===================================================================== */
+    Copyright (C) 2021 ETH Zurich, University of Modena and Reggio Emilia
 
- Copyright (C) 2021 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Template
+
+    Description:    This object simply returns a template.
+
+    Date:           29.12.2021
+
+    Author:         Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 

@@ -1,17 +1,33 @@
 /* =====================================================================
- * Project:      Traffic generator
- * Title:        traffic_gen.sv
- * Description:  Top module of traffic generator.
+ * Copyright (C) 2022 ETH Zurich, University of Modena and Reggio Emilia
  *
- * $Date:        16.2.2022
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * =====================================================================
+ *
+ * Project:       GenOv
+ *
+ * Title:         Traffic Generator
+ *
+ * Description:   Hardware traffic generator meant to be integrated inside
+ *                PULP-based cluster to emulate the behavior of an HWPE-based
+ *                accelerator.
+ *
+ * Date:          16.2.2022
+ *
+ * Author:        Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
  *
  * ===================================================================== */
-/*
- * Copyright (C) 2022 University of Modena and Reggio Emilia.
- *
- * Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
- *
- */
 
 module traffic_gen #(
   parameter int unsigned WORD_WIDTH = 32
@@ -43,7 +59,7 @@ module traffic_gen #(
   output logic                                      ap_idle,
   output logic                                      ap_ready
 
-  // input  ctrl_engine_t                              ctrl_i, 
+  // input  ctrl_engine_t                              ctrl_i,
   // output flags_engine_t                             flags_o
 );
 
@@ -74,7 +90,7 @@ module traffic_gen #(
   ////////////////////////////////////////////////////////////////////////////////////////////
 
   // Check if t_ck_idle is null or not
-  always_comb 
+  always_comb
   begin
     local_n_reqs = n_total_reqs;
     local_t_reqs = t_ck_reqs;
@@ -154,7 +170,7 @@ module traffic_gen #(
   end
 
   // Drive last idle signal
-  always_comb 
+  always_comb
   begin
     if(ap_start && (read_r_cnt>0) && (read_r_cnt == local_n_reqs) && ~last_r_idle && ~acc_done) begin
       issue_last_idle = '1;
@@ -164,7 +180,7 @@ module traffic_gen #(
     end
   end
 
-  always_comb 
+  always_comb
   begin
     if(issue_last_idle) begin
       last_idle = '1;
@@ -198,7 +214,7 @@ module traffic_gen #(
   // Idle timer
   PWM_timer #(
       .WORD_WIDTH (WORD_WIDTH)
-  ) i_idle_timer (   
+  ) i_idle_timer (
       .clk        ( ap_clk                  ),
       .rstn       ( ap_rst_n                ),
       .restart    ( stream_idle | last_idle ),
@@ -240,7 +256,7 @@ module traffic_gen #(
   always_ff @(posedge ap_clk or negedge ap_rst_n)
   begin
     if(~ap_rst_n) begin // reset counter
-      write_r_cnt <= '0; 
+      write_r_cnt <= '0;
     end
     else if(r_acc_done) begin // reset counter
       write_r_cnt <= '0;
@@ -305,7 +321,7 @@ module traffic_gen #(
   ////////////////////////////////////////////////////////////////////////////////////////////
 
   // Drive done signal
-  always_comb 
+  always_comb
   begin
     if((read_r_cnt>0) && (read_r_cnt == local_n_reqs)) begin
       if (((local_t_idle==0) | (local_t_idle==1)) && (last_r_idle>0)) begin
@@ -364,7 +380,7 @@ module traffic_gen #(
 
   always_comb
   begin
-    r_reqs_TREADY = ap_start & ~(stream_r_idle | last_r_idle); 
+    r_reqs_TREADY = ap_start & ~(stream_r_idle | last_r_idle);
   end
 
   // < DRIVE OUTPUT WRITES >
@@ -372,7 +388,7 @@ module traffic_gen #(
   always_comb
   begin
     w_reqs_TDATA  = r_out;
-    w_reqs_TVALID = (r_out_valid) | '0; 
+    w_reqs_TVALID = (r_out_valid) | '0;
   end
 
   ////////////////////////////////////////////////////////////////////////////////////////////
@@ -388,7 +404,7 @@ module traffic_gen #(
       @(posedge ap_clk)
       ($past(r_reqs_TVALID) & ~($past(r_reqs_TVALID) & $past(r_reqs_TREADY))) |-> (r_reqs_TDATA == $past(r_reqs_TDATA));
     endproperty;
-    
+
     property r_reqs_valid_deassert_rule;
       @(posedge ap_clk)
       ($past(r_reqs_TVALID) & ~r_reqs_TVALID) |-> $past(r_reqs_TVALID) & $past(r_reqs_TREADY);
@@ -410,7 +426,7 @@ module traffic_gen #(
       @(posedge ap_clk)
       ($past(w_reqs_TVALID) & ~($past(w_reqs_TVALID) & $past(w_reqs_TREADY))) |-> (w_reqs_TDATA == $past(w_reqs_TDATA));
     endproperty;
-    
+
     property w_reqs_valid_deassert_rule;
       @(posedge ap_clk)
       ($past(w_reqs_TVALID) & ~w_reqs_TVALID) |-> $past(w_reqs_TVALID) & $past(w_reqs_TREADY);

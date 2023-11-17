@@ -1,15 +1,30 @@
 # =====================================================================
-# Project:      Scripts - Overlay environment
-# Title:        ov_deploy.sh
-# Description:  Deploy components to generate overlay.
 #
-# $Date:        23.11.2021
+# Copyright (C) 2021 University of Modena and Reggio Emilia
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 # =====================================================================
 #
-# Copyright (C) 2021 University of Modena and Reggio Emilia.
+# Project:      GenOv
 #
-# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+# Name: 		Deploy accelerator-rich SoC
+#
+# Description:  Prepare generated platform components for exporting.
+#
+# Date:        	23.11.2021
+#
+# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
@@ -24,9 +39,9 @@ THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 source $THIS_DIR/../common.sh
 
 echo -e ""
-echo -e "# ============================================= #"
-echo -e "# Deployment of generated overlay configuration #"
-echo -e "# ============================================= #\n"
+echo -e "# ================================================ #"
+echo -e "# Deployment of the generated accelerator-rich SoC #"
+echo -e "# ================================================ #\n"
 
 # define src and dst
 src=$dir_out_ov
@@ -43,7 +58,7 @@ if [ -d "$dir_ov_cfg" ]; then
 			yes ) 	echo -e ""
 					break;;
 			no ) 	error_exit "[sh] >> Erroneous path. Aborting.";;
-			help ) 	echo -e "\n[sh] >> Content of destination path:\n" 
+			help ) 	echo -e "\n[sh] >> Content of destination path:\n"
 					ls -1 $dst
 					echo -e "\n[sh] >> Is it a correct path?";;
 		esac
@@ -53,14 +68,14 @@ else
 	error_exit "[sh] >> No destination path has been found. Be sure to properly setup your environment."
 fi
 
-# Add generated overlay configuration to overlay design environment
+# Add generated platform configuration to platform design environment
 if [ ! -d "$src" ]; then
-    error_exit "[sh] >> Overlay configuration not found."
+    error_exit "[sh] >> Platform configuration not found."
 elif [ ! -d "$dst" ]; then
 	echo "[sh] >> Exporting generated files."
     cp -rf $src $dst
 else
-	echo "[sh] >> Overlay configuration already exists. Overwriting previously generated files."
+	echo "[sh] >> Platform configuration already exists. Overwriting previously generated files."
 	rm -rf $dst
     cp -rf $src $dst
 fi

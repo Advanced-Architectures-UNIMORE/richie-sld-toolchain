@@ -1,16 +1,36 @@
 '''
- =====================================================================
- Project:       FAST corner detection
- Title:         acc_specs.py
- Description:   Specification file to guide the generation of HW/SW
-	            components for hardware wrappers.
+    =====================================================================
 
- Date:          2.2.2023
- ===================================================================== */
+    Copyright (C) 2023 University of Modena and Reggio Emilia
 
- Copyright (C) 2023 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Accelerator specification file
+
+    Description:    Specification file to guide the generation of HW/SW
+                    components for accelerator interfaces.
+
+    Accelerator:    FAST Corner Detection (Vitis HLS)
+
+    Date:           8.2.2023
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -27,11 +47,11 @@ class acc_specs:
     '''
         Wrapper information
 
-        - 'is_third_party' ~ Default value is False. If the wrapper is provided by 
-        third-parties and thus not need to be generated, this variable can be set 
+        - 'is_third_party' ~ Default value is False. If the wrapper is provided by
+        third-parties and thus not need to be generated, this variable can be set
         to True. Under this event, the third-party wrapper can be inserted under
         rtl/ and will then be copied in the outer repository.
-        
+
     '''
 
     def wrapper(self):
@@ -43,7 +63,7 @@ class acc_specs:
     '''
 
     def author(self):
-        self.author                             = 'Gianluca Bellocchi'    
+        self.author                             = 'Gianluca Bellocchi'
         self.email                              = '<gianluca.bellocchi@unimore.it>'
         return self
 
@@ -52,13 +72,13 @@ class acc_specs:
 
         - 'target' ~ Acceleration kernel. This the target of the hardware wrapper generator.
 
-        - 'design_type' ~ Design methodology employed to construct the acceleration kernel. 
+        - 'design_type' ~ Design methodology employed to construct the acceleration kernel.
         Handcrafted HDL (set 'hdl') and HLS-compiled (set 'hls') methods are supported.
 
-        - 'intf_protocol' ~ Selection of interface between acceleration kernel and wrapper. Set 
+        - 'intf_protocol' ~ Selection of interface between acceleration kernel and wrapper. Set
         the desired interface as 'True', while leaving the others set to 'False'. Now the proposed
         methodology supports:
-            
+
             > 'ap_ctrl_hs' - Xilinx ap_ctrl_hs (refer to UG902)
             > 'mdc_dataflow' - MDC dataflow
             > 'hls_stream' - Xilinx hls::stream object (refer to AMBA 4 AXI4-Stream Protocol)
@@ -93,7 +113,7 @@ class acc_specs:
     '''
 
     def regfile(self):
-        self.std_reg_num                        = 4       
+        self.std_reg_num                        = 4
         self.custom_reg                         = [ [ 'threshold' , 'int32_t' , 32 , 1 ] ,
                                                     [ 'rows' , 'int32_t' , 32 , 1 ],
                                                     [ 'cols' , 'int32_t' , 32 , 1 ] ]

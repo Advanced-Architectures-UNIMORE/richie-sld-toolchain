@@ -1,15 +1,34 @@
 '''
- =====================================================================
- Project:      Accelerator-Rich Overlay Generator
- Title:        process_params.py
- Description:  Processing overlay design parameters.
+    =====================================================================
 
- Date:         8.1.2022
- ===================================================================== */
+    Copyright (C) 2022 University of Modena and Reggio Emilia
 
- Copyright (C) 2021 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Processing Input Specifications
+
+    Description:    Specifications are pre-processed, so as to ease the rendering
+                    phase by formatting values, and so on.
+
+    Date:           8.1.2022
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -53,17 +72,17 @@ class overlay_params_formatted:
         self.target_fpga_board                  = soc_specs().board
         self.target_fpga_soc                    = get_target_soc(soc_specs().board)
         self.l2                                 = soc_specs().l2
-        self.aw                                 = 64 
+        self.aw                                 = 64
         self.dw                                 = 128
-        self.iw                                 = 3 + clog2(self.n_clusters+1) 
+        self.iw                                 = 3 + clog2(self.n_clusters+1)
         self.uw                                 = 4
         self.aw_pl2ps                           = 49
-        self.iw_pl2ps                           = 5 
+        self.iw_pl2ps                           = 5
         self.uw_pl2ps                           = 1
-        self.aw_ps2pl                           = 40 
-        self.iw_ps2pl                           = 17 
+        self.aw_ps2pl                           = 40
+        self.iw_ps2pl                           = 17
         self.uw_ps2pl                           = 16
-        self.aw_lite                            = 32 
+        self.aw_lite                            = 32
         self.dw_lite                            = 32
         return self
 
@@ -276,8 +295,8 @@ def get_acc_targets(overlay_params):
   =====================================================================
   Title:        format_cl_core_params
   Type:         Function
-  Description:  Target a specific cluster and extract and format core 
-                design parameters. The output content is formatted in 
+  Description:  Target a specific cluster and extract and format core
+                design parameters. The output content is formatted in
                 a suitable way for template to be easily rendered.
   =====================================================================
 '''
@@ -291,8 +310,8 @@ def format_cl_core_params(cl_target_core):
   =====================================================================
   Title:        format_cl_dma_params
   Type:         Function
-  Description:  Target a specific cluster and extract and format DMA 
-                design parameters. The output content is formatted in 
+  Description:  Target a specific cluster and extract and format DMA
+                design parameters. The output content is formatted in
                 a suitable way for template to be easily rendered.
   =====================================================================
 '''
@@ -309,8 +328,8 @@ def format_cl_dma_params(cl_target_dma):
   =====================================================================
   Title:        format_cl_l1_params
   Type:         Function
-  Description:  Target a specific L1 setup and extract and format L1 
-                design parameters. The output content is formatted in a 
+  Description:  Target a specific L1 setup and extract and format L1
+                design parameters. The output content is formatted in a
                 suitable way for template to be easily rendered.
   =====================================================================
 '''
@@ -324,9 +343,9 @@ def format_cl_l1_params(cl_target_l1):
   =====================================================================
   Title:        format_cl_acc_params
   Type:         Function
-  Description:  Target a specific cluster interconnection and extract 
-                and format accelerator design parameters. The output 
-                content is formatted in a suitable way for template to 
+  Description:  Target a specific cluster interconnection and extract
+                and format accelerator design parameters. The output
+                content is formatted in a suitable way for template to
                 be easily rendered.
   =====================================================================
 '''
@@ -378,7 +397,7 @@ def print_ov_log(overlay_params, verbose=False):
     print("\n# ====================================== #")
     print("# Generation of Accelerator-Rich Overlay #")
     print("# ====================================== #")
-    
+
     if(verbose is True):
 
         print("\n")
@@ -399,7 +418,7 @@ def print_ov_test_log(overlay_params, verbose=False):
     print("\n# ========================================== #")
     print("# Generation of System-Level Simulation Test #")
     print("# ========================================== #")
-    
+
     if(verbose is True):
 
         print("\n")

@@ -1,6 +1,37 @@
-########################################################
-## Gianluca Bellocchi <gianluca.bellocchi@unimore.it> ##
-########################################################
+'''
+    =====================================================================
+
+    Copyright (C) 2022 University of Modena and Reggio Emilia
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Platform Emitter
+
+    Description:    The emitter class is responsible of creating the ouput
+                    environment, to assemble the associated repository, as
+                    well as its file components.
+
+    Date:           9.2.2022
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
+
+'''
 
 #!/usr/bin/env python3
 
@@ -19,10 +50,7 @@ import os
 '''
 
 class EmitOv:
-    """
-    The emitter class is responsible of creating the ouput environment,
-    to assemble the associated repository, as well as its file components.
-    """
+
     def __init__(self, design_params, dir_out_ov):
 
         '''
@@ -77,18 +105,18 @@ class EmitOv:
         self.ov_gen_test_hwpe_lib           = self.ov_gen_test + '/sw/inc/hwpe_lib'
 
     """
-    The 'out_gen' method is in charge of physically setting up the output 
-    repository moving generated files to their target positions. The term 
+    The 'out_gen' method is in charge of physically setting up the output
+    repository moving generated files to their target positions. The term
     'gen' is used to denote files that are the targets of the rendering phase.
     The input arguments are:
 
-    - 'out_target' ~ Generated design component. Typically an output string from 
+    - 'out_target' ~ Generated design component. Typically an output string from
     a generator item.
 
-    - 'filename' ~ Name of generated design component. Typically an output string from 
+    - 'filename' ~ Name of generated design component. Typically an output string from
     an emitter item.
 
-    - 'filedir' ~ Target directory. Either a custom string or one of those defined 
+    - 'filedir' ~ Target directory. Either a custom string or one of those defined
     in the emitter constructor.
     """
     def out_gen(self, out_target, filename, filedir):
@@ -123,30 +151,30 @@ class EmitOv:
     - Item 0 = Device type ~ the first list item aims at defining the type of the device
     the generated component is devoted to (HWPE? Overlay? QuestaSim? Bender?). Each device
     has its rules about filename construction, so a particular filename constructor is needed
-    in most of cases. Thus, this input parameter changes the way the file_name is constructed. 
+    in most of cases. Thus, this input parameter changes the way the file_name is constructed.
     For more information, take a look at the method 'construct_file_name' and the python
     dictionary that is used to choose the proper constructor.
 
     - Item 1 = Design name ~ this item defines the the name of the generated design item in the
     filename. Thus, this defines the use the generated file is used for.
 
-    - Item 2 = Design type ~ this item is a sub-list that is employed to solve the choice of the 
-    proper file extension. For more information about how file extensions are retrieved, see 
-    method 'get_dict_file_ext'. The latter defines two nested dictionaries to associate the 
+    - Item 2 = Design type ~ this item is a sub-list that is employed to solve the choice of the
+    proper file extension. For more information about how file extensions are retrieved, see
+    method 'get_dict_file_ext'. The latter defines two nested dictionaries to associate the
     design type information with a proper file extension.
     """
     def get_file_name(self, target):
         # #
-        self.device_type = target[0] 
-        self.design_name = target[1] 
-        self.design_type = target[2] 
+        self.device_type = target[0]
+        self.design_name = target[1]
+        self.design_type = target[2]
         # get file extension
         self.file_ext = self.get_dict_file_ext()
         # construct file name
         return self.construct_file_name()
 
     '''
-    Defines a dictionary that associates the supported device types (HWPE, overlay, etc.) 
+    Defines a dictionary that associates the supported device types (HWPE, overlay, etc.)
     with a particular file_name constructor.
     '''
     def construct_file_name(self):
@@ -201,7 +229,7 @@ class EmitOv:
     def get_dict_file_ext(self):
         # dictionary for file extensions
         dict_file_ext = {
-            'hw'                : { "sv": ".sv", "v": ".v" } , 
+            'hw'                : { "sv": ".sv", "v": ".v" } ,
             'integr_support'    : { "yml": ".yml", "lock": ".lock", "vsim_wave": ".wave.do", "mk": "" } ,
             'sw'                : { "archi": ".h", "hal": ".h", "tb": ".c", "app": ".c", "API": ".c", "header": ".h" }
         }

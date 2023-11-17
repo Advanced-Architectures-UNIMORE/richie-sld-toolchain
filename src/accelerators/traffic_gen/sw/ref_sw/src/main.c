@@ -7,7 +7,7 @@
  * $Date:        14.11.2021
  * ===================================================================== */
 /*
- * Copyright (C) 2021 University of Modena and Reggio Emilia..
+ * Copyright (C) 2021 ETH Zurich, University of Modena and Reggio Emilia..
  *
  * Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
  *

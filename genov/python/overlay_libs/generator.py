@@ -1,15 +1,37 @@
 '''
- =====================================================================
- Project:      Accelerator-Rich Overlay Generator
- Title:        generator.py
- Description:  Generator of cluster components.
+    =====================================================================
 
- Date:         8.1.2022
- ===================================================================== */
+    Copyright (C) 2022 University of Modena and Reggio Emilia
 
- Copyright (C) 2021 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Platform Library Generator
+
+    Description:    More information about the Mako rendering operation
+                    can be found at:
+
+                        ==> https://docs.makotemplates.org/en/latest/usage.html#mako.template.Template.render
+
+
+    Date:           8.1.2022
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -18,22 +40,19 @@
 from mako.template import Template
 import re
 
-'''
-    Cluster generator
-'''
-
 class Generator:
+
     '''
         The generator class is the main responsible for rendering
         the collected templates using the input user specification.
-         
+
         During the rendering phase. design parameters are read and fed to the Python rendering
-        core to process the input templates. This is possible exploiting the 'render' method of 
+        core to process the input templates. This is possible exploiting the 'render' method of
         the 'Template' class defined in the Mako python package.
 
         The rendered output is a string.
     '''
-        
+
     def render(self, ov_design_params, acc_design_params, template, cl_id=0, extra_params=[]):
         # prepare input template
         target = Template(template)
@@ -83,7 +102,7 @@ class Generator:
             acc_wr_is_mdc_dataflow          = acc_design_params.is_mdc_dataflow,
             acc_wr_is_hls_stream            = acc_design_params.is_hls_stream,
             # streaming
-            acc_wr_n_sink                   = acc_design_params.n_sink, 
+            acc_wr_n_sink                   = acc_design_params.n_sink,
             acc_wr_n_source                 = acc_design_params.n_source,
             acc_wr_stream_in                = acc_design_params.stream_in,
             acc_wr_stream_out               = acc_design_params.stream_out,
@@ -95,10 +114,10 @@ class Generator:
             acc_wr_out_parallelism_factor   = acc_design_params.out_parallelism_factor,
             # regfile
             acc_wr_std_reg_num              = acc_design_params.std_reg_num,
-            acc_wr_custom_reg_name          = acc_design_params.custom_reg_name, 
+            acc_wr_custom_reg_name          = acc_design_params.custom_reg_name,
             acc_wr_custom_reg_dtype         = acc_design_params.custom_reg_dtype,
             acc_wr_custom_reg_dim           = acc_design_params.custom_reg_dim,
-            acc_wr_custom_reg_isport        = acc_design_params.custom_reg_isport, 
+            acc_wr_custom_reg_isport        = acc_design_params.custom_reg_isport,
             acc_wr_custom_reg_num           = acc_design_params.custom_reg_num,
             # addressgen
             acc_wr_addr_gen_in_isprogr      = acc_design_params.addr_gen_in_isprogr,
@@ -119,7 +138,7 @@ class Generator:
         # Compile a regex to trim trailing whitespaces on lines
         # and multiple consecutive new lines.
         re_trailws = re.compile(r'[ \t\r]+$', re.MULTILINE)
-        string = re.sub(r'\n\s*\n', '\n\n', string) 
+        string = re.sub(r'\n\s*\n', '\n\n', string)
         string = re_trailws.sub("", string)
         return string
 

@@ -1,17 +1,41 @@
 '''
- =====================================================================
- Project:      Accelerator-Rich Overlay Generator (AROG)
- Title:        optimizer.py
- Description:  The Optimizer class is invoked during generation of application-specific
-               accelerators to extract system-level optimization parameters from 
-               the kernel specifications. 
+    =====================================================================
 
- Date:         7.12.2021
- ===================================================================== */
+    Copyright (C) 2021 University of Modena and Reggio Emilia
 
- Copyright (C) 2021 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Collector
+
+    Description:    The Optimizer class is responsible of deriving system-level
+                    optimization parameters on the basis of the accelerator
+                    kernel specifications. This process is transparent to the
+                    user that defines the accelerator and overlay specifications
+                    themselves. At the end, derived system-level parameters are
+                    added up to the user-defined ones.
+
+                    The '__init__' method imports the input specification parameters
+                    from its parent class 'ov_specs'.
+
+    Date:           23.11.2021
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -34,16 +58,6 @@ from dev.ov_dev.specs.ov_specs import ov_specs
 
 class Optimizer(ov_specs):
 
-    """
-        The Optimizer class is responsible of deriving system-level optimization
-        parameters on the basis of the accelerator kernel specifications. This
-        process is transparent to the user that defines the accelerator and overlay
-        specifications themselves. At the end, derived system-level parameters are
-        added up to the user-defined ones.
-
-        The '__init__' method imports the input specification parameters from its
-        parent class 'ov_specs'.
-    """
     def __init__(self):
         super().__init__()
 
@@ -69,7 +83,7 @@ class Optimizer(ov_specs):
     '''
         Obtain user-defined system-level specification concerning the target accelerator kernel.
 
-        - 'acc_target' ~ Name of target accelerator kernel. 
+        - 'acc_target' ~ Name of target accelerator kernel.
     '''
 
     def get_acc_specs_method(self, acc_target):
@@ -95,7 +109,7 @@ class Optimizer(ov_specs):
     def calc_data_ports(self, standalone_acc_specs):
 
         # get list of sink/source data ports
-        n_sink = standalone_acc_specs.n_sink                  
+        n_sink = standalone_acc_specs.n_sink
         n_source = standalone_acc_specs.n_source
 
         # calculate number of required data ports
@@ -192,11 +206,11 @@ class Optimizer(ov_specs):
             This is achieved with lists where element offsets are associated
             to different clusters.
         '''
-        # interconnect type 
+        # interconnect type
         self.cl_interco = []
-        # overall number of accelerator data ports 
+        # overall number of accelerator data ports
         self.cl_n_data_ports = []
-        # names associated with single clustered accelerators 
+        # names associated with single clustered accelerators
         self.cl_acc_names = []
         # communication protocols of clustered accelerators
         self.cl_acc_protocols = []
@@ -232,7 +246,7 @@ def get_opt_cluster_params(filename):
     ==========================================
 
     # File where to save optimizer state.
- 
+
 file_opt = 'state_optimizer.obj'
 
     # Initialize or resume optimization from checkpoint.

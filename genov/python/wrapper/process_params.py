@@ -1,15 +1,34 @@
 '''
- =====================================================================
- Project:      Accelerator-Rich Overlay Generator
- Title:        process_params.py
- Description:  Processing of cluster design parameters.
+    =====================================================================
 
- Date:         8.1.2022
- ===================================================================== */
+    Copyright (C) 2022 University of Modena and Reggio Emilia
 
- Copyright (C) 2021 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Processing Input Specifications
+
+    Description:    Specifications are pre-processed, so as to ease the rendering
+                    phase by formatting values, and so on.
+
+    Date:           8.1.2022
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -17,8 +36,8 @@
   =====================================================================
   Title:        wrapper_params_formetted
   Type:         Class
-  Description:  Format accelerator wrapper design parameters. The output 
-                content is formatted in a suitable way for template to be 
+  Description:  Format accelerator wrapper design parameters. The output
+                content is formatted in a suitable way for template to be
                 easilyrendered.
   =====================================================================
 '''
@@ -66,7 +85,7 @@ class wrapper_params_formatted:
         Format streaming interface information
     '''
 
-    def format_wrapper_streaming(self, acc_specs):    
+    def format_wrapper_streaming(self, acc_specs):
         self.n_sink                             = len(acc_specs().list_sink_stream)
         self.n_source                           = len(acc_specs().list_source_stream)
         self.stream_in                          = [item[0] for item in acc_specs().list_sink_stream]
@@ -85,7 +104,7 @@ class wrapper_params_formatted:
         Format custom register file information
     '''
 
-    def format_wrapper_regfile(self, acc_specs):    
+    def format_wrapper_regfile(self, acc_specs):
         self.std_reg_num                        = acc_specs().std_reg_num
         self.custom_reg_name                    = [item[0] for item in acc_specs().custom_reg]
         self.custom_reg_dtype                   = [item[1] for item in acc_specs().custom_reg]
@@ -142,7 +161,7 @@ def print_wrapper_log(wrapper_target, verbose=False):
         '''
 
         print("\n\tInput data streams:")
-        
+
         # scan sink ports
         for s in range(wrapper_target.n_sink):
             print("\t\tPort name:", wrapper_target.stream_in[s])

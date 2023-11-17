@@ -1,15 +1,30 @@
 # =====================================================================
-# Project:      Scripts - Generation environment
-# Title:        ov_gen.sh
-# Description:  Generate accelerator-rich overlay.
 #
-# $Date:        22.12.2021
+# Copyright (C) 2021 University of Modena and Reggio Emilia
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 # =====================================================================
 #
-# Copyright (C) 2021 University of Modena and Reggio Emilia.
+# Project:      GenOv
 #
-# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+# Name: 		Platform generation
+#
+# Description:  Generate accelerator-rich SoC.
+#
+# Date:        	22.12.2021
+#
+# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
@@ -47,19 +62,19 @@ init_generation()
 # Title:        fetch_ov_specs
 # Description:  This shell function invokes the 'ov_gen.mk' recipes to
 #               fetch the target from the overlay library and mirror
-#               it in a runtime device environment. The latter is meant 
-#               to hold a high-level description of the output acc-rich 
-#               overlay system together with the acceleration kernel 
-#               targets. Mirroring also permits avoiding breaking the 
-#               accelerator and overlay libraries.
+#               it in a runtime device environment. The latter is meant
+#               to hold a high-level description of the output acc-rich
+#               SoC together with the acceleration kernel targets.
+#               Mirroring also permits avoiding breaking the accelerator
+#               and overlay libraries.
 # =====================================================================
 
 fetch_ov_specs()
 {
     echo -e ""
-    echo "# ==================================== #"
-    echo "# Retrieving overlay design parameters #" 
-    echo "# ==================================== #"
+    echo "# ================================ #"
+    echo "# Retrieving SoC design parameters #"
+    echo "# ================================ #"
     echo -e ""
 
     # Fetch accelerator specifications
@@ -69,9 +84,9 @@ fetch_ov_specs()
 # =====================================================================
 # Title:        gen_acc_wrappers
 # Description:  This shell function invokes the 'acc_gen.mk' recipes to
-#               generate accelerator wrappers compliant with the overlay 
-#               infrastructure. Furthermore, the procedure derives design 
-#               parameters to optimize the generated accelerator-rich overlay 
+#               generate accelerator wrappers compliant with the overlay
+#               infrastructure. Furthermore, the procedure derives design
+#               parameters to optimize the generated accelerator-rich overlay
 #               on the basis of the application needs.
 # =====================================================================
 
@@ -85,15 +100,15 @@ gen_acc_wrappers()
 # =====================================================================
 # Title:        gen_overlay
 # Description:  This shell function invokes the 'ov_gen.mk' recipes to
-#               generate accelerator wrappers compliant with the overlay 
-#               infrastructure. Furthermore, the procedure derives design 
-#               parameters to optimize the generated accelerator-rich overlay 
+#               generate accelerator wrappers compliant with the overlay
+#               infrastructure. Furthermore, the procedure derives design
+#               parameters to optimize the generated accelerator-rich overlay
 #               on the basis of the application needs.
 # =====================================================================
 
 gen_overlay()
 {
-    # Generate target overlay
+    # Generate target accelerator-rich SoC
     cd $dir_root
     make --silent ov_gen_run
 }
@@ -107,7 +122,7 @@ get_static_comps()
 {
     echo -e ""
     echo "# ================================== #"
-    echo "# Retrieving static HW/SW components #" 
+    echo "# Retrieving static HW/SW components #"
     echo "# ================================== #"
     echo -e ""
 
@@ -132,20 +147,20 @@ readonly dir_ov_dev=$dir_devs/ov_dev
 # Activate environment
 source $dir_py_venv/bin/activate
 
-# ================================= #
-# Generate accelerator-rich overlay #
-# ================================= #
+# ============================= #
+# Generate accelerator-rich SoC #
+# ============================= #
 
 # Initialize generation
 init_generation
 
-# Fetch overlay specifications
+# Retrieve platform specifications
 fetch_ov_specs
 
 # Generate accelerator wrappers
 gen_acc_wrappers
 
-# Generate overlay
+# Generate accelerator-rich SoC
 gen_overlay
 
 # Retrieve static components

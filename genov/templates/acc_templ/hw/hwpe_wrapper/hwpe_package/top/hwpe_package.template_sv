@@ -1,5 +1,39 @@
+<%
+'''
+    =====================================================================
+
+    Copyright (C) 2021 University of Modena and Reggio Emilia
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Template
+
+    Description:    HWPE package.
+
+    Date:           11.6.2021
+
+    Author: 		    Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
+
+'''
+%>
+
 /*
- * HWPE: Francesco Conti <fconti@iis.ee.ethz.ch>
  *
  * Copyright (C) 2018 ETH Zurich, University of Bologna
  * Copyright and related rights are licensed under the Solderpad Hardware
@@ -11,11 +45,12 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * HWPE author: Francesco Conti <fconti@iis.ee.ethz.ch>
- * HWPE specialization tool: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+ * Author: Francesco Conti <fconti@iis.ee.ethz.ch>
+ *
+ * GenOv integration: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
  *
  * Module: ${target}_package.sv
- * 
+ *
  */
 
 import hwpe_stream_package::*;
@@ -34,22 +69,22 @@ package ${target}_package;
 
 <%
     # Top offset - HWPE register file
-    # Employed to start calculating the offset value pertaining to 
+    # Employed to start calculating the offset value pertaining to
     # a certain class of registers (standard, TCDM, and so on).
-    
+
 addr_top = 0
 
     # Current offset - HWPE register file
-    # Employed to calculate the offset value to assign to a register 
+    # Employed to calculate the offset value to assign to a register
     # pertaining to a certain class (standard, TCDM, and so on).
-    
+
 addr_current = addr_top
 
-    # HWPE parameters 
-    # At the moment, these are TCDM, standard, custom and address generator 
-    # registers. Their ordering has to match their counterpart in archi_hwpe 
-    # header file. The latter comprises the offsets of the physical memory 
-    # mapping of the HWPE registers. HWPE parameters are collected under the 
+    # HWPE parameters
+    # At the moment, these are TCDM, standard, custom and address generator
+    # registers. Their ordering has to match their counterpart in archi_hwpe
+    # header file. The latter comprises the offsets of the physical memory
+    # mapping of the HWPE registers. HWPE parameters are collected under the
     # 'ctrl_regfile_t' typedef defined in 'hwpe_ctrl'.
 %>
 
@@ -58,7 +93,7 @@ addr_current = addr_top
   ## TCDM registers - Master port offset declaration ##
   #####################################################
   %>
-  
+
   ${tcdm_master_regs(addr_current)}
 
   <%
@@ -79,13 +114,13 @@ addr_current = addr_top
     # 1. a part of standard registers do not change with a variable number of IO streams.
     # 2. "cnt_limit" registers are always one per source stream (input), so they account for n_source items.
     # 3. in case of an hls::stream interface, then one register per source stream is added to specify the packet dimension (refer to AMBA® 4 AXI4-Stream Protocol).
-    
-    addr_top += (std_reg_num -1) + n_source 
-    
+
+    addr_top += (std_reg_num -1) + n_source
+
     if (is_hls_stream is True):
       addr_top += n_source
     endif
-  
+
     addr_current = addr_top
   %>
 
@@ -118,7 +153,7 @@ addr_current = addr_top
     num_regs_per_port = 9
 
     # In case interface partitioning is employed, additional
-    # parameters are added up to define the partitioned ports 
+    # parameters are added up to define the partitioned ports
     # offset and the data step. The latter is otherwise hardwired.
 
     num_regs_per_port_parallel = 10
@@ -152,7 +187,7 @@ addr_current = addr_top
     num_regs_per_port = 9
 
     # In case interface partitioning is employed, additional
-    # parameters are added up to define the partitioned ports 
+    # parameters are added up to define the partitioned ports
     # offset and the data step. The latter is otherwise hardwired.
 
     num_regs_per_port_parallel = 10
@@ -214,9 +249,9 @@ addr_current = addr_top
     // Custom registers
       % for i in range (custom_reg_num):
     logic unsigned [${custom_reg_dim[i]}-1:0] ${custom_reg_name[i]};
-      % endfor 
+      % endfor
     % endif
-  } ctrl_engine_${target}_t; 
+  } ctrl_engine_${target}_t;
 
   typedef struct packed {
 
@@ -245,7 +280,7 @@ addr_current = addr_top
     logic unsigned [23:0] packet_size_${stream_in[i]};
       % endfor
     % endif
-  } ctrl_kernel_adapter_${target}_t; 
+  } ctrl_kernel_adapter_${target}_t;
 
   typedef struct packed {
     logic done;
@@ -255,7 +290,7 @@ addr_current = addr_top
     logic [${n_sink}-1:0] last;
     % endif
 
-    
+
   } flags_kernel_adapter_${target}_t;
 
   <%
@@ -274,7 +309,7 @@ addr_current = addr_top
       % else:
     hwpe_stream_package::ctrl_sourcesink_t ${stream_in[i]}_source_ctrl;
       % endif
-    % endfor 
+    % endfor
 
     % for j in range (n_source):
       % if (is_parallel_out[j]):
@@ -284,7 +319,7 @@ addr_current = addr_top
       % else:
     hwpe_stream_package::ctrl_sourcesink_t ${stream_out[j]}_sink_ctrl;
       % endif
-    % endfor 
+    % endfor
 
   } ctrl_streamer_${target}_t;
 
@@ -298,7 +333,7 @@ addr_current = addr_top
       % else:
     hwpe_stream_package::flags_sourcesink_t ${stream_in[i]}_source_flags;
       % endif
-    % endfor 
+    % endfor
 
     % for j in range (n_source):
       % if (is_parallel_out[j]):
@@ -308,7 +343,7 @@ addr_current = addr_top
       % else:
     hwpe_stream_package::flags_sourcesink_t ${stream_out[j]}_sink_flags;
       % endif
-    % endfor 
+    % endfor
 
   } flags_streamer_${target}_t;
 
@@ -324,26 +359,26 @@ addr_current = addr_top
       % if (addr_gen_in_isprogr[i]):
         % if (is_parallel_in[i]):
     // Input stream - ${stream_in[i]} (unrolled, programmable)
-    logic unsigned [31:0] ${stream_in[i]}_trans_size;  
-    logic unsigned [31:0] ${stream_in[i]}_port_offset; 
-    logic unsigned [15:0] ${stream_in[i]}_line_stride; 
-    logic unsigned [15:0] ${stream_in[i]}_line_length; 
-    logic unsigned [15:0] ${stream_in[i]}_feat_stride; 
-    logic unsigned [15:0] ${stream_in[i]}_feat_length; 
-    logic unsigned [15:0] ${stream_in[i]}_feat_roll;        
-    logic unsigned [15:0] ${stream_in[i]}_step;  
-    logic unsigned ${stream_in[i]}_loop_outer;  
+    logic unsigned [31:0] ${stream_in[i]}_trans_size;
+    logic unsigned [31:0] ${stream_in[i]}_port_offset;
+    logic unsigned [15:0] ${stream_in[i]}_line_stride;
+    logic unsigned [15:0] ${stream_in[i]}_line_length;
+    logic unsigned [15:0] ${stream_in[i]}_feat_stride;
+    logic unsigned [15:0] ${stream_in[i]}_feat_length;
+    logic unsigned [15:0] ${stream_in[i]}_feat_roll;
+    logic unsigned [15:0] ${stream_in[i]}_step;
+    logic unsigned ${stream_in[i]}_loop_outer;
     logic unsigned ${stream_in[i]}_realign_type;
       % else:
     // Input stream - ${stream_in[i]} (programmable)
-    logic unsigned [31:0] ${stream_in[i]}_trans_size;  
-    logic unsigned [15:0] ${stream_in[i]}_line_stride; 
-    logic unsigned [15:0] ${stream_in[i]}_line_length; 
-    logic unsigned [15:0] ${stream_in[i]}_feat_stride; 
-    logic unsigned [15:0] ${stream_in[i]}_feat_length; 
-    logic unsigned [15:0] ${stream_in[i]}_feat_roll;   
+    logic unsigned [31:0] ${stream_in[i]}_trans_size;
+    logic unsigned [15:0] ${stream_in[i]}_line_stride;
+    logic unsigned [15:0] ${stream_in[i]}_line_length;
+    logic unsigned [15:0] ${stream_in[i]}_feat_stride;
+    logic unsigned [15:0] ${stream_in[i]}_feat_length;
+    logic unsigned [15:0] ${stream_in[i]}_feat_roll;
     logic unsigned [15:0] ${stream_in[i]}_step;
-    logic unsigned ${stream_in[i]}_loop_outer;  
+    logic unsigned ${stream_in[i]}_loop_outer;
     logic unsigned ${stream_in[i]}_realign_type;
         % endif
       % endif
@@ -353,26 +388,26 @@ addr_current = addr_top
       % if (addr_gen_out_isprogr[j]):
         % if (is_parallel_out[j]):
     // Output stream - ${stream_out[j]} (unrolled, programmable)
-    logic unsigned [31:0] ${stream_out[j]}_trans_size;  
+    logic unsigned [31:0] ${stream_out[j]}_trans_size;
     logic unsigned [31:0] ${stream_out[j]}_port_offset;
-    logic unsigned [15:0] ${stream_out[j]}_line_stride; 
-    logic unsigned [15:0] ${stream_out[j]}_line_length; 
-    logic unsigned [15:0] ${stream_out[j]}_feat_stride; 
-    logic unsigned [15:0] ${stream_out[j]}_feat_length; 
-    logic unsigned [15:0] ${stream_out[j]}_feat_roll;   
-    logic unsigned [15:0] ${stream_out[j]}_step;        
-    logic unsigned ${stream_out[j]}_loop_outer;  
+    logic unsigned [15:0] ${stream_out[j]}_line_stride;
+    logic unsigned [15:0] ${stream_out[j]}_line_length;
+    logic unsigned [15:0] ${stream_out[j]}_feat_stride;
+    logic unsigned [15:0] ${stream_out[j]}_feat_length;
+    logic unsigned [15:0] ${stream_out[j]}_feat_roll;
+    logic unsigned [15:0] ${stream_out[j]}_step;
+    logic unsigned ${stream_out[j]}_loop_outer;
     logic unsigned ${stream_out[j]}_realign_type;
       % else:
     // Output stream - ${stream_out[j]} (programmable)
-    logic unsigned [31:0] ${stream_out[j]}_trans_size;  
-    logic unsigned [15:0] ${stream_out[j]}_line_stride; 
-    logic unsigned [15:0] ${stream_out[j]}_line_length; 
-    logic unsigned [15:0] ${stream_out[j]}_feat_stride; 
-    logic unsigned [15:0] ${stream_out[j]}_feat_length; 
-    logic unsigned [15:0] ${stream_out[j]}_feat_roll; 
-    logic unsigned [15:0] ${stream_out[j]}_step;   
-    logic unsigned ${stream_out[j]}_loop_outer;  
+    logic unsigned [31:0] ${stream_out[j]}_trans_size;
+    logic unsigned [15:0] ${stream_out[j]}_line_stride;
+    logic unsigned [15:0] ${stream_out[j]}_line_length;
+    logic unsigned [15:0] ${stream_out[j]}_feat_stride;
+    logic unsigned [15:0] ${stream_out[j]}_feat_length;
+    logic unsigned [15:0] ${stream_out[j]}_feat_roll;
+    logic unsigned [15:0] ${stream_out[j]}_step;
+    logic unsigned ${stream_out[j]}_loop_outer;
     logic unsigned ${stream_out[j]}_realign_type;
         % endif
       % endif
@@ -393,7 +428,7 @@ addr_current = addr_top
     // Custom registers
       % for i in range (custom_reg_num):
     logic unsigned [${custom_reg_dim[i]}-1:0] ${custom_reg_name[i]};
-      % endfor 
+      % endfor
     % endif
 
   } ctrl_fsm_${target}_t;

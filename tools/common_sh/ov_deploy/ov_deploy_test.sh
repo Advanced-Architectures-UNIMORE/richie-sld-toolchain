@@ -1,15 +1,30 @@
 # =====================================================================
-# Project:      Scripts - Overlay environment
-# Title:        secure_paths.sh
-# Description:  Check environment to prevent unwanted errors.
 #
-# $Date:        23.11.2021
+# Copyright (C) 2021 University of Modena and Reggio Emilia
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 # =====================================================================
 #
-# Copyright (C) 2021 University of Modena and Reggio Emilia.
+# Project:      GenOv
 #
-# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+# Name: 		Environment test
+#
+# Description:  Check environment to prevent unwanted errors.
+#
+# Date:        	23.11.2021
+#
+# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
@@ -60,7 +75,7 @@ if [ -d "$OVERLAY_CFG" ]; then
 			yes ) 	echo -e ""
 					break;;
 			no ) 	error_exit "[sh] >> Erroneous path for system-level integration! Aborting.";;
-			help ) 	echo -e "\n[sh] >> Content of $OVERLAY_CFG:\n" 
+			help ) 	echo -e "\n[sh] >> Content of $OVERLAY_CFG:\n"
 					ls -1 $OVERLAY_CFG
 					echo -e "\n[sh] >> Is it a correct path?";;
 		esac
@@ -91,7 +106,7 @@ if [ -d "$OVERLAY_DEPS" ]; then
 			yes ) 	echo -e ""
 					break;;
 			no ) 	error_exit "[sh] >> Erroneous path for system-level integration! Aborting.";;
-			help ) 	echo -e "\n[sh] >> Content of $OVERLAY_DEPS:\n" 
+			help ) 	echo -e "\n[sh] >> Content of $OVERLAY_DEPS:\n"
 					ls -1 $OVERLAY_DEPS
 					echo -e "\n[sh] >> Is it a correct path?";;
 		esac
@@ -122,7 +137,7 @@ if [ -d "$OVERLAY_TEST" ]; then
 			yes ) 	echo -e ""
 					break;;
 			no ) 	error_exit "[sh] >> Erroneous path for system-level integration! Aborting.";;
-			help ) 	echo -e "\n[sh] >> Content of $OVERLAY_TEST:\n" 
+			help ) 	echo -e "\n[sh] >> Content of $OVERLAY_TEST:\n"
 					ls -1 $OVERLAY_TEST
 					echo -e "\n[sh] >> Is it a correct path?";;
 		esac

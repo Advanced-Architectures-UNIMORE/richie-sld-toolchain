@@ -1,15 +1,65 @@
 '''
- =====================================================================
- Project:      Accelerator-Rich Overlay Generator
- Title:        generate_ov_libs.py
- Description:  Generation of accelerator-rich overlay libraries.
+    =====================================================================
 
- Date:         13.7.2022
- ===================================================================== */
+    Copyright (C) 2022 University of Modena and Reggio Emilia
 
- Copyright (C) 2022 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Platform Library Generation
+
+    Description:    This script specializes and generates a subsystem of the
+                    accelerator-rich SoC, given the platform and accelerator
+                    specification files which are provided as an entry point
+                    by the user.
+
+                    About the generation flow:
+
+                    - Generated components are obtained through the rendering of
+                    their associated templates. These are imported by the script
+                    as Python modules and can be found under:
+
+                        ==> 'genov/genov/templates'
+
+                    - Specifications are pre-processed, so as to ease the rendering
+                    phase by formatting values, and so on. This is accomplished by
+                    the scripts under:
+
+                        ==> 'genov/genov/python/SOMETHING-TO-RENDER/process_params.py'
+
+                    - The rendering phase requires a generator which is invoked by the
+                    current script via the 'gen_*_comps' function. The definition of
+                    both the generator and function are found under:
+
+                        ==> 'genov/genov/python/SOMETHING-TO-RENDER/generator.py'
+
+                    - After generation, the specialized components are assembled all
+                    together into an output environment which resembles the top hierarchy
+                    of the accelerator-rich SoC and which holds the same name specified
+                    in the platform specification file. In order to create this
+                    environment, GenOv instantiates an emitter object which definition
+                    is found under:
+
+                        ==> 'genov/genov/python'
+
+    Date:           13.7.2022
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -53,7 +103,7 @@ dir_out_ov = sys.argv[1]
 
 '''
     Retrieve overlay design parameters
-''' 
+'''
 ov_specs = ov_specs
 
 '''
@@ -63,7 +113,7 @@ ov_design_params = overlay_params_formatted(ov_specs)
 
 '''
     Print overlay log
-''' 
+'''
 print_ov_libs_log(ov_design_params)
 
 '''
@@ -73,7 +123,7 @@ emitter = EmitOv(ov_specs, dir_out_ov)
 
 '''
     Instantiate templates
-''' 
+'''
 libhwpe = LibHwpe()
 libarov = LibArov()
 hwpe_structs = HwpeStructs()
@@ -84,7 +134,7 @@ hwpe_archi_hal = hwpe_archi_hal()
     =====================================================================
     Component:      Software libraries - LibHWPE
 
-    Description:    Generation of libraries and correlated components 
+    Description:    Generation of libraries and correlated components
                     to abstract and simplify the control of HWPE-based
                     hardware accelerators.
     ===================================================================== */
@@ -114,15 +164,15 @@ for cl_offset in range(ov_design_params.n_clusters):
         '''
 
         lib_path = emitter.ov_gen_libhwpe + '/hwpe_cl' + str(cl_offset) + '_lic' + str(accelerator_id)
-        
-        os.mkdir(lib_path) 
-        os.mkdir(lib_path + '/host') 
-        os.mkdir(lib_path + '/inc') 
-        os.mkdir(lib_path + '/pulp') 
+
+        os.mkdir(lib_path)
+        os.mkdir(lib_path + '/host')
+        os.mkdir(lib_path + '/inc')
+        os.mkdir(lib_path + '/pulp')
 
         '''
             Generate design components ~ LibHWPE (Host APIs)
-        ''' 
+        '''
 
         hwpe_name = 'hwpe_cl' + str(cl_offset) + '_lic' + str(accelerator_id)
 
@@ -183,7 +233,7 @@ for cl_offset in range(ov_design_params.n_clusters):
 
         '''
             Generate archi and hal for HWPE
-        ''' 
+        '''
 
         gen_acc_comps(
             hwpe_archi_hal.archi_hwpe(),
@@ -207,7 +257,7 @@ for cl_offset in range(ov_design_params.n_clusters):
     =====================================================================
     Component:      Software libraries - LibAROV
 
-    Description:    Generation of libraries and correlated components 
+    Description:    Generation of libraries and correlated components
                     to abstract and simplify the accelerator-rich
                     system control.
     ===================================================================== */
@@ -219,13 +269,13 @@ for cl_offset in range(ov_design_params.n_clusters):
 
 lib_path = emitter.ov_gen_libarov_target
 
-os.mkdir(lib_path + '/host') 
-os.mkdir(lib_path + '/inc') 
-os.mkdir(lib_path + '/pulp') 
+os.mkdir(lib_path + '/host')
+os.mkdir(lib_path + '/inc')
+os.mkdir(lib_path + '/pulp')
 
 '''
     Generate design components ~ LibAROV (Host APIs)
-''' 
+'''
 
 gen_ov_libs_comps(
     libarov.ArovTargetHost(),
@@ -286,7 +336,7 @@ gen_ov_libs_comps(
 
 '''
     Generate design components ~ Application-specific HWPE structs
-''' 
+'''
 
 list_acc_types = []
 list_acc_integrated = []
@@ -319,7 +369,7 @@ for cl_offset in range(ov_design_params.n_clusters):
 
             '''
                 Generate design components ~ LibHWPE (Host APIs)
-            ''' 
+            '''
 
             hwpe_name = acc_design_params.target
 
@@ -336,7 +386,7 @@ for cl_offset in range(ov_design_params.n_clusters):
 
 '''
     Generate design components ~ Common HWPE structs
-''' 
+'''
 
 gen_ov_libs_comps(
     hwpe_structs.DefStructCommon(),
@@ -359,7 +409,7 @@ gen_ov_libs_comps(
 
 '''
     Generate design components ~ Performance evaluation
-''' 
+'''
 
 gen_ov_libs_comps(
     soc_structs.DefStructPerfEval(),

@@ -1,15 +1,30 @@
 # =====================================================================
-# Project:      Scripts - Generation environment
-# Title:        acc_gen_out_env.sh
-# Description:  Create output environment for generated accelerator wrapper.
 #
-# $Date:        23.11.2021
+# Copyright (C) 2021 University of Modena and Reggio Emilia
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 # =====================================================================
 #
-# Copyright (C) 2021 University of Modena and Reggio Emilia.
+# Project:      GenOv
 #
-# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+# Name: 		Accelerator output environment
+#
+# Description: 	Create output environment for generated accelerator interface.
+#
+# Date:        	23.11.2021
+#
+# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
@@ -74,13 +89,8 @@ if [ ! -d "$dir_out_target_acc" ]; then
     fi
 
     # ============================================================================= #
-    # Retrieve RTL of acceleration kernel 
-    #
-    # - Description -
-    # This piece of hardware is compliant with the hardware-mapped application that has 
-    # to be integrated in the overlay. It is necessary for it to be described as RTL, but 
-    # to derive the latter the proposed design methodology is flexible. To this end, the 
-    # user can exploit both HLS-compiled and hand-crafted HDL modules.
+    # Retrieve RTL of the accelerator datapath, meaning the
+    # hardware-mapped  application which is accelerated in hardware.
     # ============================================================================= #
 
     echo -e "[sh] >> Retrieving RTL of <$target_acc> kernel"
@@ -93,21 +103,17 @@ if [ ! -d "$dir_out_target_acc" ]; then
     fi
 
     # ============================================================================= #
-    # Retrieve reference software-mapped application and stimuli/golden results generator
-    #
-    # - Description -
-    # The 'ref_sw' is an user-defined software-mapped version of the application kernel
-    # that the user expects to deploy as an hardware accelerator inside the overlay.
-    # This is used to generate input stimuli and ouput golden results to validate the 
-    # generated hardware acceleration wrapper. Generate stimuli and golden results will
-    # be automatically moved in a "stim" sub-directory. More information is to be found
-    # in the documentation pertaining to verification (in 'doc/how-to/verif.md').
+    # Retrieve reference software application and stimuli/golden results generator.
+    # These components are user-defined, but examples might be taken from existing
+    # projects. The former is a reference software implementation of the accelerator
+    # datapath functionality, while the latter generates input stimuli and ouput
+    # golden results to validate the generated accelerator interface and datapath.
     # ============================================================================= #
 
     # Copy TB generator for input stimuli and golden results (standalone test)
-    dest=$dir_test_standalone/sw/inc 
+    dest=$dir_test_standalone/sw/inc
     if [ -d "$dest" ]; then
-        
+
         src=$dir_dev_target_acc/sw/ref_sw
         if [ -d "$src" ]; then
             echo -e "[sh] >> Retrieving stimuli and golden results generator (standalone test)"
@@ -115,7 +121,7 @@ if [ ! -d "$dir_out_target_acc" ]; then
         else
             echo "[sh] >> Generator for stimuli and golden results not found (standalone test)"
         fi
-        
+
         src=$dir_dev_target_acc/sw/stim
         if [ -d "$src" ]; then
             if [ ! -z "$(ls -A $src)" ]; then
@@ -130,9 +136,9 @@ if [ ! -d "$dir_out_target_acc" ]; then
     fi
 
     # Copy TB generator for input stimuli and golden results (system test)
-    dest=$dir_test_wrapper_lib/$target_acc 
+    dest=$dir_test_wrapper_lib/$target_acc
     if [ -d "$dest" ]; then
-        
+
         src=$dir_dev_target_acc/sw/ref_sw
         if [ -d "$src" ]; then
             echo -e "[sh] >> Retrieving stimuli and golden results generator (system test)"
@@ -140,7 +146,7 @@ if [ ! -d "$dir_out_target_acc" ]; then
         else
             echo "[sh] >> Generator for stimuli and golden results not found (system test)"
         fi
-        
+
         src=$dir_dev_target_acc/sw/stim
         if [ -d "$src" ]; then
             if [ ! -z "$(ls -A $src)" ]; then
@@ -155,12 +161,9 @@ if [ ! -d "$dir_out_target_acc" ]; then
     fi
 
     # ============================================================================= #
-    # Retrieve static software components 
-    #
-    # - Description -
-    # Move static software files to their target positions. The term 'static' is used 
-    # to denote files that are not targets of the rendering phase, but are either 
-    # defined within the repository, or cloned as external sources. 
+    # Retrieve static software components. The term 'static' is used
+    # to denote files that are not targets of the rendering phase, but are either
+    # defined within the repository, or cloned as external sources.
     # ============================================================================= #
 
     echo -e "[sh] >> Retrieving static software components"
@@ -172,5 +175,5 @@ if [ ! -d "$dir_out_target_acc" ]; then
     else
         error_exit "[sh] >> Directory not found -> $dest"
     fi
-    
+
 fi

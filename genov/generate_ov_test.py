@@ -1,15 +1,65 @@
 '''
- =====================================================================
- Project:      Accelerator-Rich Overlay Generator
- Title:        generate_ov_test.py
- Description:  Generation of accelerator-rich overlay test components.
+    =====================================================================
 
- Date:         13.1.2022
- ===================================================================== */
+    Copyright (C) 2022 ETH Zurich, University of Modena and Reggio Emilia
 
- Copyright (C) 2021 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Platform Tests Generation
+
+    Description:    This script specializes and generates a subsystem of the
+                    accelerator-rich SoC, given the platform and accelerator
+                    specification files which are provided as an entry point
+                    by the user.
+
+                    About the generation flow:
+
+                    - Generated components are obtained through the rendering of
+                    their associated templates. These are imported by the script
+                    as Python modules and can be found under:
+
+                        ==> 'genov/genov/templates'
+
+                    - Specifications are pre-processed, so as to ease the rendering
+                    phase by formatting values, and so on. This is accomplished by
+                    the scripts under:
+
+                        ==> 'genov/genov/python/SOMETHING-TO-RENDER/process_params.py'
+
+                    - The rendering phase requires a generator which is invoked by the
+                    current script via the 'gen_*_comps' function. The definition of
+                    both the generator and function are found under:
+
+                        ==> 'genov/genov/python/SOMETHING-TO-RENDER/generator.py'
+
+                    - After generation, the specialized components are assembled all
+                    together into an output environment which resembles the top hierarchy
+                    of the accelerator-rich SoC and which holds the same name specified
+                    in the platform specification file. In order to create this
+                    environment, GenOv instantiates an emitter object which definition
+                    is found under:
+
+                        ==> 'genov/genov/python'
+
+    Date:           13.1.2022
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -49,7 +99,7 @@ dir_out_ov = sys.argv[1]
 
 '''
     Retrieve overlay design parameters
-''' 
+'''
 ov_specs = ov_specs
 
 '''
@@ -59,7 +109,7 @@ ov_design_params = overlay_params_formatted(ov_specs)
 
 '''
     Print overlay test log
-''' 
+'''
 print_ov_test_log(ov_design_params)
 
 '''
@@ -69,7 +119,7 @@ emitter = EmitOv(ov_specs, dir_out_ov)
 
 '''
     Instantiate overlay template item
-''' 
+'''
 test = Test()
 
 '''
@@ -87,7 +137,7 @@ test = Test()
     (generated accelerator), a RISC-V processor and some
     dummy memories to implement instruction, stack and data
     memories.
-''' 
+'''
 gen_ov_test_comps(
     test.OverlayTestbenchHw(),
     ov_design_params,
@@ -108,7 +158,7 @@ gen_ov_test_comps(
 '''
     Generate design components ~ Archi
     Retrieve memory-mapped hardware accelerator registers.
-''' 
+'''
 # gen_comps(
 #     hwpe_ov_tb_sw.archi_hwpe(),
 #     ['sw', 'archi_hwpe', ['sw', 'archi']],
@@ -117,10 +167,10 @@ gen_ov_test_comps(
 
 '''
     Generate design components ~ Hardware abstraction layer (HAL)
-    Retrieve Hardware Abstraction Layer with functions that permit 
-    to create an interaction between the RISC-V processor and the 
+    Retrieve Hardware Abstraction Layer with functions that permit
+    to create an interaction between the RISC-V processor and the
     hardware accelerator.
-''' 
+'''
 # gen_comps(
 #     hwpe_ov_tb_sw.hal_hwpe(),
 #     ['sw', 'hal_hwpe', ['sw', 'hal']],
@@ -128,12 +178,12 @@ gen_ov_test_comps(
 # )
 
 '''
-    Generate design components ~ Software testbench 
-    Retrieve software testbench to assess HWPE functionality. This 
-    is a pure baremetal test running on the riscv proxy core comprised 
-    in the overlay system. This tb can be used as a starting point for 
+    Generate design components ~ Software testbench
+    Retrieve software testbench to assess HWPE functionality. This
+    is a pure baremetal test running on the riscv proxy core comprised
+    in the overlay system. This tb can be used as a starting point for
     additional platform testing.
-''' 
+'''
 # gen_comps(
 #     hwpe_ov_tb_sw.tb_hwpe(),
 #     ['sw', 'tb_hwpe', ['sw', 'tb']],
@@ -151,7 +201,7 @@ gen_ov_test_comps(
 
 '''
     Generate design components ~ QuestaSim waves
-''' 
+'''
 gen_ov_test_comps(
     test.VsimWaveSoc(),
     ov_design_params,
@@ -164,7 +214,7 @@ for cluster_id in range(ov_design_params.n_clusters):
 
     '''
         Generate design components ~ QuestaSim waves
-    ''' 
+    '''
     gen_ov_test_comps(
         test.VsimWaveCluster(),
         ov_design_params,
@@ -193,7 +243,7 @@ for cluster_id in range(ov_design_params.n_clusters):
 
         '''
             Generate design components ~ QuestaSim waves
-        ''' 
+        '''
 
         hwpe_name = 'hwpe_cl' + str(cluster_id) + '_lic' + str(accelerator_id)
 
@@ -208,7 +258,7 @@ for cluster_id in range(ov_design_params.n_clusters):
 
 '''
     Generate design components ~ QuestaSim waves
-''' 
+'''
 gen_ov_test_comps(
     test.VsimWaveExperimentView(),
     ov_design_params,

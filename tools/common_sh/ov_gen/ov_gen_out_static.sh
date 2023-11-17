@@ -1,15 +1,30 @@
 # =====================================================================
-# Project:      Scripts - Generation environment
-# Title:        ov_gen_out_static.sh
-# Description:  Retrieve static components (not generated).
 #
-# $Date:        15.7.2022
+# Copyright (C) 2021 University of Modena and Reggio Emilia
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 # =====================================================================
 #
-# Copyright (C) 2022 University of Modena and Reggio Emilia.
+# Project:      GenOv
 #
-# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+# Name: 		Retrieve static components
+#
+# Description: 	Retrieve static components, thus that are not generated.
+#
+# Date:        	23.11.2021
+#
+# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
@@ -27,12 +42,9 @@ source $THIS_DIR/../common.sh
 if [ -d "$dir_out_ov" ]; then
 
     # ============================================================================= #
-    # Retrieve static hardware components 
-    #
-    # - Description -
-    # Move static hardware files to their target positions. The term 'static' is used 
-    # to denote files that are not targets of the rendering phase, but are either 
-    # defined within the repository, or cloned as external sources. 
+    # Retrieve static hardware files. The term 'static' is used
+    # to denote files that are not targets of the rendering phase, but are either
+    # defined within the repository, or cloned as external sources.
     # ============================================================================= #
 
     echo -e "[sh] >> Retrieving static SoC components"
@@ -46,12 +58,9 @@ if [ -d "$dir_out_ov" ]; then
     fi
 
     # ============================================================================= #
-    # Retrieve static software components 
-    #
-    # - Description -
-    # Move static software files to their target positions. The term 'static' is used 
-    # to denote files that are not targets of the rendering phase, but are either 
-    # defined within the repository, or cloned as external sources. 
+    # Retrieve static software files. The term 'static' is used
+    # to denote files that are not targets of the rendering phase, but are either
+    # defined within the repository, or cloned as external sources.
     # ============================================================================= #
 
     echo -e "[sh] >> Retrieving static SW test components"
@@ -72,7 +81,7 @@ if [ -d "$dir_out_ov" ]; then
     if [ -d "$dst" ]; then
         cp -rf $dir_static/static_libs/Makefile $dst
         cp -rf $dir_static/static_libs/libarov-target/Makefile $dst/libarov-target
-        for d in $dst/libhwpe/hwpe_*; do cp -f $dir_static/static_libs/libhwpe/Makefile $d; done        
+        for d in $dst/libhwpe/hwpe_*; do cp -f $dir_static/static_libs/libhwpe/Makefile $d; done
     else
         error_exit "[sh] >> Directory not found -> $dst"
     fi

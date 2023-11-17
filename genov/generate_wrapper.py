@@ -1,15 +1,65 @@
 '''
- =====================================================================
- Project:      Accelerator-Rich Overlay Generator (AROG)
- Title:        generate_wrapper.py
- Description:  Generator of accelerator wrapper.
+    =====================================================================
 
- Date:         23.11.2021
- ===================================================================== */
+    Copyright (C) 2021 University of Modena and Reggio Emilia
 
- Copyright (C) 2021 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Accelerator Interface Generation
+
+    Description:    This script specializes and generates a subsystem of the
+                    accelerator-rich SoC, given the platform and accelerator
+                    specification files which are provided as an entry point
+                    by the user.
+
+                    About the generation flow:
+
+                    - Generated components are obtained through the rendering of
+                    their associated templates. These are imported by the script
+                    as Python modules and can be found under:
+
+                        ==> 'genov/genov/templates'
+
+                    - Specifications are pre-processed, so as to ease the rendering
+                    phase by formatting values, and so on. This is accomplished by
+                    the scripts under:
+
+                        ==> 'genov/genov/python/SOMETHING-TO-RENDER/process_params.py'
+
+                    - The rendering phase requires a generator which is invoked by the
+                    current script via the 'gen_*_comps' function. The definition of
+                    both the generator and function are found under:
+
+                        ==> 'genov/genov/python/SOMETHING-TO-RENDER/generator.py'
+
+                    - After generation, the specialized components are assembled all
+                    together into an output environment which resembles the top hierarchy
+                    of the accelerator-rich SoC and which holds the same name specified
+                    in the platform specification file. In order to create this
+                    environment, GenOv instantiates an emitter object which definition
+                    is found under:
+
+                        ==> 'genov/genov/python'
+
+    Date:           23.11.2021
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -65,7 +115,7 @@ emitter = EmitWrapper(design_params, dir_out_acc)
 
 '''
     Print wrapper log
-''' 
+'''
 
 print_wrapper_log(design_params)
 
@@ -80,9 +130,9 @@ if design_params.is_third_party is False:
         =====================================================================
         Component:      Hardware wrapper (HWPE-based)
 
-        Description:    Generation of components for hardware wrapper. The 
-                        latter is an interface for application-specific 
-                        accelerators that want to interface to the overlay 
+        Description:    Generation of components for hardware wrapper. The
+                        latter is an interface for application-specific
+                        accelerators that want to interface to the overlay
                         system.
         ===================================================================== */
     '''
@@ -197,12 +247,12 @@ if design_params.is_third_party is False:
 
     '''
         Instantiate integration support item
-    ''' 
+    '''
     integr_support = integr_support()
 
     '''
         Generate design components ~ Bender
-    ''' 
+    '''
     gen_acc_comps(
         integr_support.bender(),
         design_params,
@@ -213,7 +263,7 @@ if design_params.is_third_party is False:
 
     '''
         Generate design components ~ List of IP modules
-    ''' 
+    '''
     gen_acc_comps(
         integr_support.src_files(),
         design_params,
@@ -224,7 +274,7 @@ if design_params.is_third_party is False:
 
     '''
         Generate design components ~ List of IP dependencies
-    ''' 
+    '''
     gen_acc_comps(
         integr_support.ips_list(),
         design_params,
@@ -239,9 +289,9 @@ else:
         =====================================================================
         Component:      Hardware wrapper (HWPE-based)
 
-        Description:    Generation of components for hardware wrapper. The 
-                        latter is an interface for application-specific 
-                        accelerators that want to interface to the overlay 
+        Description:    Generation of components for hardware wrapper. The
+                        latter is an interface for application-specific
+                        accelerators that want to interface to the overlay
                         system.
         ===================================================================== */
     '''

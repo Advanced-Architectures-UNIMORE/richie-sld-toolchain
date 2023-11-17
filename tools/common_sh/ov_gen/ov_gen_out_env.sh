@@ -1,15 +1,30 @@
 # =====================================================================
-# Project:      Scripts - Generation environment
-# Title:        ov_gen_out_env.sh
-# Description:  Create output environment for generated overlay configuration.
 #
-# $Date:        23.11.2021
+# Copyright (C) 2021 University of Modena and Reggio Emilia
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 # =====================================================================
 #
-# Copyright (C) 2021 University of Modena and Reggio Emilia.
+# Project:      GenOv
 #
-# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+# Name: 		Platform output environment
+#
+# Description: 	Create output environment for generated accelerator-rich SoC.
+#
+# Date:        	23.11.2021
+#
+# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
@@ -73,7 +88,7 @@ if [ ! -d "$dir_out_ov" ]; then
 
     # Software runtime
     mkdir -p $dir_out_ov/test/sw
-    mkdir -p $dir_out_ov/test/sw/inc 
+    mkdir -p $dir_out_ov/test/sw/inc
     mkdir -p $dir_out_ov/test/sw/inc/wrappers
-    
+
 fi

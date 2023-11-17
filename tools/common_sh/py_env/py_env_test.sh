@@ -1,15 +1,30 @@
 # =====================================================================
-# Project:      Scripts - Python virtual environment
-# Title:        secure_paths.sh
-# Description:  Check environment to prevent unwanted errors.
 #
-# $Date:        23.11.2021
+# Copyright (C) 2021 University of Modena and Reggio Emilia
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 # =====================================================================
 #
-# Copyright (C) 2021 University of Modena and Reggio Emilia.
+# Project:      GenOv
 #
-# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+# Name: 		    Venv test
+#
+# Description:  Check Venv to prevent unwanted errors.
+#
+# Date:        	23.11.2021
+#
+# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
@@ -43,13 +58,13 @@ if [ -d "$dir_py_venv" ]; then
         yes )   echo -e "\n"
 					      break;;
         no )    error_exit "[sh] >> Erroneous path for python virtual environment! Aborting.";;
-        help )  echo -e "\n>> Content of $dir_py_venv:\n" 
+        help )  echo -e "\n>> Content of $dir_py_venv:\n"
                 ls -1 $dir_py_venv
                 echo -e "\n>> Is it a correct path?";;
     esac
   done
 else
-  # Take action if it does not exist. 
+  # Take action if it does not exist.
   error_exit "[sh] >> No py-venv path has been found. Be sure to initialize it with 'make init_venv'."
 fi
 

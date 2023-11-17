@@ -1,0 +1,137 @@
+
+/*
+ *
+ * Authors:     Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+ *
+ */
+
+// Standard libs
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdint.h>
+
+// System
+#include <hero-target.h>
+
+// HWPE
+#include "inc/${target}/hwpe_lib/archi_hwpe.h"
+#include "inc/${target}/hwpe_lib/hal_hwpe.h"
+
+// Event unit
+#include "inc/eu_lib/archi_eu_v3.h"
+#include "inc/eu_lib/hal_eu_v3.h"
+
+${include_t_libs()}
+
+/* - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / - / */
+
+/*
+ *
+ *     HWPE SW test.
+ *
+ */
+
+int main() {
+
+  printf("Software test application - DUT: ${target}\n");
+
+  <%
+  #############################
+  ## Declare test parameters ##
+  #############################
+  %>
+
+  ${decl_t_params()}
+
+  <%
+  ##############################################
+  ## Address generator parameters declaration ##
+  ##############################################
+  %>
+  
+  ${hwpe_addressgen_in_memcpy_acc_mem()}
+  ${hwpe_addressgen_out_memcpy_acc_mem()}
+
+  <%
+  ###############################
+  ## Test stimuli - Allocation ##
+  ###############################
+  %>
+  
+  printf("Allocation and initialization of L1 stimuli\n");
+
+  ${allocate_t_stims()}
+
+  <%
+  ###################################
+  ## Test stimuli - Initialization ##
+  ###################################
+  %>
+
+  ${init_t_stims()}
+
+  <%
+  ######################
+  ## HWPE programming ##
+  ######################
+  %>
+
+  ${hwpe_init()}
+  ${hwpe_fsm_progr()}
+  ${hwpe_addressgen_progr()}
+  ${hwpe_tcdm_progr()}
+  ${hwpe_custom_regs_progr()}
+
+  <%
+  ####################
+  ## HWPE execution ##
+  ####################
+  %>
+
+  ${hwpe_exec()}
+  ${hwpe_eu_progr()}
+
+  <%
+  #######################
+  ## HWPE deactivation ##
+  #######################
+  %>
+
+  ${hwpe_disable()}
+
+  <%
+  #################
+  ## Error check ##
+  #################
+  %>
+
+  // // /* Error check on L2. */
+  // printf("Results check");
+
+  // for (i = 0; i < stripe_height; i++){
+  //   for (j = 0; j < stripe_height; j++){
+  //     if(y_l1[i*stripe_height+j] != y_golden[i*stripe_height+j]){ 
+  //       printf("[%d]    L1 - y_test:    %d \n",  i*stripe_height+j, y_l1[i*stripe_height+j]);
+  //       printf("[%d]    L1 - y_golden:  %d\n\n", i*stripe_height+j, y_golden[i*stripe_height+j]);
+  //       errors++;
+  //     }
+  //   }
+  // }
+
+  
+% for j in range (n_source):
+  // error check on ${stream_out[j]}
+  for(i=0; i<${stream_out[j]}_height; i++){
+    for(j=0; j<${stream_out[j]}_width; j++){
+    
+      ${stream_out_dtype[j]} dut_val = ${stream_out[j]}_dut_l1[i*${stream_out[j]}_width+j];
+      ${stream_out_dtype[j]} ref_val = ${stream_out[j]}_ref_l1[i*${stream_out[j]}_width+j];
+      if(dut_val != ref_val) errors++;
+    }
+  }
+  printf("${stream_out[j]} - errors : %d\n", errors);
+% endfor
+
+  return errors;
+}

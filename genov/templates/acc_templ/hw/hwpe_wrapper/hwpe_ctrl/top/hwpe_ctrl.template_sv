@@ -1,6 +1,39 @@
+<%
+'''
+    =====================================================================
+
+    Copyright (C) 2021 University of Modena and Reggio Emilia
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Template
+
+    Description:    HWPE controller.
+
+    Date:           11.6.2021
+
+    Author: 	      Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
+
+'''  
+%>
+
 /*
- * HWPE: Francesco Conti <fconti@iis.ee.ethz.ch>
- *
  * Copyright (C) 2018 ETH Zurich, University of Bologna
  * Copyright and related rights are licensed under the Solderpad Hardware
  * License, Version 0.51 (the "License"); you may not use this file except in
@@ -11,11 +44,12 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * HWPE author: Francesco Conti <fconti@iis.ee.ethz.ch>
- * HWPE specialization tool: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+ * Author: Francesco Conti <fconti@iis.ee.ethz.ch>
+ *
+ * GenOv integration: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
  *
  * Module: ${target}_ctrl.sv
- * 
+ *
  */
 
 import ${target}_package::*;
@@ -87,7 +121,7 @@ module ${target}_ctrl
       % endif
     % endif
   % endfor
-  
+
   % for j in range (n_source):
     % if (addr_gen_out_isprogr[j]):
   // Controls - ${stream_out[j]}
@@ -211,10 +245,10 @@ module ${target}_ctrl
   // Custom registers
     % for i in range (custom_reg_num):
   assign static_reg_${custom_reg_name[i]} = reg_file.hwpe_params[${target.upper()}_REG_${custom_reg_name[i].upper()}];
-    % endfor 
+    % endfor
   % endif
 
-  
+
   /* Microcode processor */
   generate
     if(UCODE_HARDWIRED != 0) begin
@@ -226,7 +260,7 @@ module ${target}_ctrl
       assign ucode_flat = reg_file.generic_params[6:0];
     end
   endgenerate
-  assign ucode = { 
+  assign ucode = {
     // loops & bytecode
     ucode_flat,
     // ranges
@@ -323,7 +357,7 @@ module ${target}_ctrl
     fsm_ctrl.packet_size_${stream_in[i]}            = static_reg_packet_size_${stream_in[i]};
       % endfor
     % endif
-    
+
     % for j in range (n_source):
     fsm_ctrl.cnt_limit_${stream_out[j]}             = static_reg_cnt_limit_${stream_out[j]};
     % endfor

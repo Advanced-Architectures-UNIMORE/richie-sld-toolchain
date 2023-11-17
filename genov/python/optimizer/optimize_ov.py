@@ -1,21 +1,39 @@
 '''
- =====================================================================
- Project:      Accelerator-Rich Overlay Generator (AROG)
- Title:        optimize_ov.py
- Description:  This routine is invoked during generation of application-specific
-               accelerators to extract system-level optimization parameters from 
-               the kernel specifications. The derived parameters are iteratively 
-               saved into an "Optimizer" class (defined in optimizer.py) that gets 
-               saved (see use of package "pickle") and re-invoked at each routine 
-               invocation. Once allkernels are investigated, the overlay specification 
-               class is updated with the derived parameters. 
+    =====================================================================
 
- Date:         7.12.2021
- ===================================================================== */
+    Copyright (C) 2021 University of Modena and Reggio Emilia
 
- Copyright (C) 2021 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Import Input Specifications
+
+    Description:    This routine is invoked during generation of application-specific
+                    accelerators to extract system-level optimization parameters from
+                    the kernel specifications. The derived parameters are iteratively
+                    saved into an "Optimizer" class (defined in optimizer.py) that gets
+                    saved (see use of package "pickle") and re-invoked at each routine
+                    invocation. Once allkernels are investigated, the overlay specification
+                    class is updated with the derived parameters.
+
+    Date:           7.12.2021
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -58,7 +76,7 @@ def get_checkpoint(filename):
             obj_opt = pickle.load(inp)
 
     else:
-        
+
         '''
             Invoke optimizer for the first time.
         '''
@@ -75,7 +93,7 @@ def get_checkpoint(filename):
 '''
 
 def save_checkpoint(filename, obj_opt):
-    
+
     '''
         Save optimizer state.
     '''
@@ -104,7 +122,7 @@ acc_number = os.environ['N_ACC']
 '''
     File where to save optimizer state.
 '''
- 
+
 filename = 'state_optimizer.obj'
 
 '''
@@ -163,4 +181,3 @@ if obj_optimizer.offset is (int(acc_number)-1):
     print("\n[py] >> END OF OPTIMIZATION")
     print("\n[py] >> Optimizer has derived the following system specifications:")
     obj_optimizer.log()
-    

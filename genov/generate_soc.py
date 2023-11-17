@@ -1,15 +1,65 @@
 '''
- =====================================================================
- Project:      Accelerator-Rich Overlay Generator
- Title:        generate_soc.py
- Description:  Generation of SoC components.
+    =====================================================================
 
- Date:         23.11.2021
- ===================================================================== */
+    Copyright (C) 2021 ETH Zurich, University of Modena and Reggio Emilia
 
- Copyright (C) 2021 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          SoC Generation
+
+    Description:    This script specializes and generates a subsystem of the
+                    accelerator-rich SoC, given the platform and accelerator
+                    specification files which are provided as an entry point
+                    by the user.
+
+                    About the generation flow:
+
+                    - Generated components are obtained through the rendering of
+                    their associated templates. These are imported by the script
+                    as Python modules and can be found under:
+
+                        ==> 'genov/genov/templates'
+
+                    - Specifications are pre-processed, so as to ease the rendering
+                    phase by formatting values, and so on. This is accomplished by
+                    the scripts under:
+
+                        ==> 'genov/genov/python/SOMETHING-TO-RENDER/process_params.py'
+
+                    - The rendering phase requires a generator which is invoked by the
+                    current script via the 'gen_*_comps' function. The definition of
+                    both the generator and function are found under:
+
+                        ==> 'genov/genov/python/SOMETHING-TO-RENDER/generator.py'
+
+                    - After generation, the specialized components are assembled all
+                    together into an output environment which resembles the top hierarchy
+                    of the accelerator-rich SoC and which holds the same name specified
+                    in the platform specification file. In order to create this
+                    environment, GenOv instantiates an emitter object which definition
+                    is found under:
+
+                        ==> 'genov/genov/python'
+
+    Date:           23.11.2021
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -46,7 +96,7 @@ dir_out_ov = sys.argv[1]
 
 '''
     Retrieve overlay design parameters
-''' 
+'''
 ov_specs = ov_specs
 
 '''
@@ -56,7 +106,7 @@ design_params = overlay_params_formatted(ov_specs)
 
 '''
     Print SoC log
-''' 
+'''
 print_soc_log(design_params)
 
 '''
@@ -66,20 +116,20 @@ emitter = EmitOv(ov_specs, dir_out_ov)
 
 '''
     Instantiate SoC template item
-''' 
+'''
 soc = Soc()
 
 '''
     =====================================================================
     Component:      System-on-Chip - Packages
 
-    Description:    Generation of hardware components for SoC. 
+    Description:    Generation of hardware components for SoC.
     ===================================================================== */
 '''
 
 '''
     Generate design components ~ SoC package
-''' 
+'''
 gen_soc_comps(
     soc.SocCfgPkg(),
     design_params,
@@ -92,13 +142,13 @@ gen_soc_comps(
     =====================================================================
     Component:      System-on-Chip - Hardware
 
-    Description:    Generation of hardware components for SoC. 
+    Description:    Generation of hardware components for SoC.
     ===================================================================== */
 '''
 
 '''
     Generate design components ~ HERO AXI mailbox
-''' 
+'''
 gen_soc_comps(
     soc.HeroAxiMailbox(),
     design_params,
@@ -109,7 +159,7 @@ gen_soc_comps(
 
 '''
     Generate design components ~ L2 memory
-''' 
+'''
 gen_soc_comps(
     soc.L2Mem(),
     design_params,
@@ -120,7 +170,7 @@ gen_soc_comps(
 
 '''
     Generate design components ~ PULP
-''' 
+'''
 gen_soc_comps(
     soc.Pulp(),
     design_params,
@@ -131,7 +181,7 @@ gen_soc_comps(
 
 '''
     Generate design components ~ SoC bus
-''' 
+'''
 gen_soc_comps(
     soc.SocBus(),
     design_params,
@@ -142,7 +192,7 @@ gen_soc_comps(
 
 '''
     Generate design components ~ SoC control registers
-''' 
+'''
 gen_soc_comps(
     soc.SocCtrlRegs(),
     design_params,
@@ -153,7 +203,7 @@ gen_soc_comps(
 
 '''
     Generate design components ~ SoC peripherals
-''' 
+'''
 gen_soc_comps(
     soc.SocPeripherals(),
     design_params,
@@ -166,13 +216,13 @@ gen_soc_comps(
     =====================================================================
     Component:      System-on-Chip - Hardware (OOC)
 
-    Description:    Generation of hardware OOC components for SoC. 
+    Description:    Generation of hardware OOC components for SoC.
     ===================================================================== */
 '''
 
 '''
     Generate design components ~ DMA wrapper OOC
-''' 
+'''
 gen_soc_comps(
     soc.DmacWrapOOC(),
     design_params,
@@ -183,7 +233,7 @@ gen_soc_comps(
 
 '''
     Generate design components ~ PULP OOC
-''' 
+'''
 gen_soc_comps(
     soc.PulpOoc(),
     design_params,
@@ -196,7 +246,7 @@ for cl_offset in range(design_params.n_clusters):
 
     '''
         Generate design components ~ PULP cluster OOC
-    ''' 
+    '''
     gen_soc_comps(
         soc.PulpClusterOOC(),
         design_params,
@@ -217,7 +267,7 @@ for cl_offset in range(design_params.n_clusters):
 
 '''
     Generate design components ~ Bender
-''' 
+'''
 gen_soc_comps(
     soc.Bender(),
     design_params,

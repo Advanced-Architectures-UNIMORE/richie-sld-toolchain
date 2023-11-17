@@ -1,16 +1,36 @@
 '''
- =====================================================================
- Project:       GenOv
- Title:         ov_specs.py
- Description:   Specification file to guide the generation of HW/SW
-	            components for accelerator-rich overlays.
+    =====================================================================
 
- Date:          17.2.2022
- ===================================================================== */
+    Copyright (C) 2022 University of Modena and Reggio Emilia
 
- Copyright (C) 2022 University of Modena and Reggio Emilia.
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
 
- Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Platform specification file
+
+    Description:    Specification file to guide the generation of a
+                    specialized and optimized accelerator-rich SoC.
+
+    Platform:       Multi-Cluster Integration of Traffic Generators
+
+    Date:           20.4.2022
+
+    Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
 
 '''
 
@@ -29,16 +49,16 @@ class ov_specs:
     '''
 
     def author(self):
-        self.author                             = 'Gianluca Bellocchi'    
+        self.author                             = 'Gianluca Bellocchi'
         self.email                              = '<gianluca.bellocchi@unimore.it>'
         return self
 
     '''
         SoC
-        
+
         - 'name' ~ Name of this specific SoC instance
-        - 'board' ~ Available boards: 
-            >> "zcu102" 
+        - 'board' ~ Available boards:
+            >> "zcu102"
             >> "zcu104"
             >> "ultra96_v2"
             >> "kv260"

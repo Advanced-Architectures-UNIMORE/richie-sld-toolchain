@@ -1,44 +1,41 @@
 # =====================================================================
-# Project:      Makefile
-# Title:        Makefile
-# Description: 	Root Makefile. 
 #
-#				Recipes are read from sub-mk-files to:
+# Copyright (C) 2021 University of Modena and Reggio Emilia
 #
-#					>> Set up the tool environment;
-#					>> Generate accelerator HW/SW components;
-#					>> Generate overlay HW/SW components;
-#					>> Guide system-level integration.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# $Date:        23.11.2021
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
-# =====================================================================
-#
-# Copyright (C) 2021 University of Modena and Reggio Emilia.
-#
-# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 # =====================================================================
-
-ROOT 			:= $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
-REPO 			:= genov
-
-# =====================================================================
-# Description:  Choose a target overlay configuration to be generated.
 #
-# Source: 		Specification files are kept under genov/src/overlays.
+# Project:     	GenOv
 #
-# Extensions	To add new versions, create a new configuration, insert
-#				among the sources and target it using this Makefile. 
-#				Configuration examples have been included to guide the 
-#				user through this.
+# Name: 		Makefile
+#
+# Description: 	Recipes are defined under tools/common_mk, so as to accomplish:
+#
+#					>> Set up of the tool environment;
+#					>> Generation of the accelerator interfaces;
+#					>> Specialization and generation of the accelerator-rich SoC.
+#
+# Date:        	23.11.2021
+#
+# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+#
 # =====================================================================
 
-TARGET_OV		:= agile_1cl_16tg
+ROOT := $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+REPO := genov
 
-# =====================================================================
-# Description:  Basic recipes and inclusion of sub-mk-files.
-# =====================================================================
+TARGET_OV := agile_1cl_16tg
 
 -include tools/common_mk/*.mk
 
