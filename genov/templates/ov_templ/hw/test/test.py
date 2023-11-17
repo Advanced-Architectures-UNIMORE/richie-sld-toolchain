@@ -35,15 +35,6 @@ class Test:
             temp_modules = [],
             path_common = self.path_common
         ).top()
-
-    # def OverlayTestbenchSw(self):
-    #     print("\n[py] >> Overlay ~ Software testbench")
-    #     return OverlayTestbenchHw(
-    #         temp_type = 'templates/ov_templ/hw/test/overlay_tb_sw/',
-    #         temp_top = 'overlay_tb_sw.template_sv',
-    #         temp_modules = [],
-    #         path_common = self.path_common
-    #     ).top()
     
     def VsimWaveCluster(self):
         print("\n[py] >> Overlay ~ QuestaSim waves (Cluster)")
