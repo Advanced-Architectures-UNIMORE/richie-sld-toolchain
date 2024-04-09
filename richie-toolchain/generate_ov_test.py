@@ -90,7 +90,7 @@ from dev.ov_dev.specs.ov_specs import ov_specs
 '''
     Import overlay test templates
 '''
-from templates.ov_templ.hw.test.test import Test
+from templates.platforms.hw.test.test import Test
 
 '''
     Read input arguments

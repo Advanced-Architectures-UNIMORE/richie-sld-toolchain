@@ -87,7 +87,7 @@ from dev.ov_dev.specs.ov_specs import ov_specs
 '''
     Import SoC templates
 '''
-from templates.ov_templ.hw.soc.soc import Soc
+from templates.platforms.hw.soc.soc import Soc
 
 '''
     Read input arguments

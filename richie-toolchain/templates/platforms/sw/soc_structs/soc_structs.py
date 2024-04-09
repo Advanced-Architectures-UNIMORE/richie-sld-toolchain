@@ -19,7 +19,7 @@
 
     Project:        Richie Toolchain
 
-    Title:          Accelerator structs
+    Title:          SoC structs
 
     Description:    This class collects the templates which comply with 
                     a subsystem of the Accelerator-Rich HeSoC.
@@ -47,27 +47,17 @@
 
 #!/usr/bin/env python3
 
-from templates.ov_templ.sw.hwpe_structs.def_struct_common.top.def_struct_common import DefStructCommon
-from templates.ov_templ.sw.hwpe_structs.def_struct_hwpe.top.def_struct_hwpe import DefStructHwpe
+from templates.platforms.sw.soc_structs.def_struct_perf_eval.top.def_struct_perf_eval import DefStructPerfEval
 
-class HwpeStructs:
+class SocStructs:
     def __init__(self):
-        self.path_common = 'templates/ov_templ/sw/common/'
+        self.path_common = 'templates/platforms/sw/common/'
 
-    def DefStructCommon(self):
-        print("\n[py] >> HWPE structs ~ Common")
-        return DefStructCommon(
-            temp_type = 'templates/ov_templ/sw/hwpe_structs/def_struct_common/',
-            temp_top = 'def_struct_common.template_c',
-            temp_modules = [],
-            path_common = self.path_common
-        ).top()
-
-    def DefStructHwpe(self, name):
-        print("\n[py] >> HWPE structs ~ %s" % name)
-        return DefStructHwpe(
-            temp_type = 'templates/ov_templ/sw/hwpe_structs/def_struct_hwpe/',
-            temp_top = 'def_struct_hwpe.template_c',
+    def DefStructPerfEval(self):
+        print("\n[py] >> SoC structs ~ Performance profiling")
+        return DefStructPerfEval(
+            temp_type = 'templates/platforms/sw/soc_structs/def_struct_perf_eval/',
+            temp_top = 'def_struct_perf_eval.template_c',
             temp_modules = [],
             path_common = self.path_common
         ).top()

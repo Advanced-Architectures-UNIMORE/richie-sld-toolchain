@@ -88,7 +88,7 @@ from dev.ov_dev.specs.ov_specs import ov_specs
 '''
     Import overlay templates
 '''
-from templates.ov_templ.hw.overlay.overlay import Overlay
+from templates.platforms.hw.overlay.overlay import Overlay
 
 '''
     Read input arguments

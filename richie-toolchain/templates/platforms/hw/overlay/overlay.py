@@ -1,7 +1,7 @@
 '''
     =====================================================================
 
-    Copyright (C) 2022 University of Modena and Reggio Emilia
+    Copyright (C) 2021 ETH Zurich, University of Modena and Reggio Emilia
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 
     Project:        Richie Toolchain
 
-    Title:          SoC structs
+    Title:          Overlay
 
     Description:    This class collects the templates which comply with 
                     a subsystem of the Accelerator-Rich HeSoC.
@@ -37,7 +37,7 @@
 
                         ==> 'richie-toolchain/richie-toolchain/python/SOMETHING-TO-RENDER/generator.py'
 
-    Date:           15.7.2022
+    Date:           29.12.2021
 
     Author:         Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 
@@ -47,17 +47,37 @@
 
 #!/usr/bin/env python3
 
-from templates.ov_templ.sw.soc_structs.def_struct_perf_eval.top.def_struct_perf_eval import DefStructPerfEval
+from templates.platforms.hw.overlay.bender.top.bender import Bender
+from templates.platforms.hw.overlay.bender_lock.top.bender_lock import BenderLock
+from templates.platforms.hw.overlay.pulp_ip.top.pulp_ip import PulpIp
 
-class SocStructs:
+class Overlay:
     def __init__(self):
-        self.path_common = 'templates/ov_templ/sw/common/'
+        self.path_common = 'templates/platforms/hw/common/'
 
-    def DefStructPerfEval(self):
-        print("\n[py] >> SoC structs ~ Performance profiling")
-        return DefStructPerfEval(
-            temp_type = 'templates/ov_templ/sw/soc_structs/def_struct_perf_eval/',
-            temp_top = 'def_struct_perf_eval.template_c',
+    def Bender(self):
+        print("\n[py] >> Overlay ~ Bender")
+        return Bender(
+            temp_type = 'templates/platforms/hw/overlay/bender/',
+            temp_top = 'bender.template_yml',
             temp_modules = [],
+            path_common = self.path_common
+        ).top()
+
+    def BenderLock(self):
+        print("\n[py] >> Overlay ~ Bender lock")
+        return BenderLock(
+            temp_type = 'templates/platforms/hw/overlay/bender_lock/',
+            temp_top = 'bender_lock.template_yml',
+            temp_modules = [],
+            path_common = self.path_common
+        ).top()
+
+    def PulpIp(self):
+        print("\n[py] >> Overlay ~ PULP IP")
+        return PulpIp(
+            temp_type = 'templates/platforms/hw/overlay/pulp_ip/',
+            temp_top = 'pulp_ip.template_sv',
+            temp_modules = ['functions.template_sv'],
             path_common = self.path_common
         ).top()

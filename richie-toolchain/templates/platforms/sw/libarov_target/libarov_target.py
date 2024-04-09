@@ -19,7 +19,7 @@
 
     Project:        Richie Toolchain
 
-    Title:          LibHWPE
+    Title:          LibAROV
 
     Description:    This class collects the templates which comply with 
                     a subsystem of the Accelerator-Rich HeSoC.
@@ -47,57 +47,57 @@
 
 #!/usr/bin/env python3
 
-from templates.ov_templ.sw.libhwpe.host.hwpe_cl_lic.top.hwpe_cl_lic_host import HwpeClLicHost
-from templates.ov_templ.sw.libhwpe.host.makefile.top.makefile_host import MakefileHost
-from templates.ov_templ.sw.libhwpe.pulp.hwpe_cl_lic.top.hwpe_cl_lic_pulp import HwpeClLicPulp
-from templates.ov_templ.sw.libhwpe.pulp.makefile.top.makefile_pulp import MakefilePulp
-from templates.ov_templ.sw.libhwpe.inc.hwpe_cl_lic.top.hwpe_cl_lic_header import HwpeClLicHeader
+from templates.platforms.sw.libarov_target.host.arov_target.top.arov_target_host import ArovTargetHost
+from templates.platforms.sw.libarov_target.host.makefile.top.makefile_host import MakefileHost
+from templates.platforms.sw.libarov_target.pulp.arov_target.top.arov_target_pulp import ArovTargetPulp
+from templates.platforms.sw.libarov_target.pulp.makefile.top.makefile_pulp import MakefilePulp
+from templates.platforms.sw.libarov_target.inc.arov_target.top.arov_target_header import ArovTargetHeader
 
-class LibHwpe:
+class LibArov:
     def __init__(self):
-        self.path_common = 'templates/ov_templ/sw/common/'
+        self.path_common = 'templates/platforms/sw/common/'
 
-    def HwpeClLicHost(self, name):
-        print("\n[py] >> LibHWPE ~ %s (Host APIs)" % name)
-        return HwpeClLicHost(
-            temp_type = 'templates/ov_templ/sw/libhwpe/host/hwpe_cl_lic/',
-            temp_top = 'hwpe_cl_lic_host.template_c',
-            temp_modules = [],
+    def ArovTargetHost(self):
+        print("\n[py] >> LibAROV ~ Host APIs")
+        return ArovTargetHost(
+            temp_type = 'templates/platforms/sw/libarov_target/host/arov_target/',
+            temp_top = 'arov_target_host.template_c',
+            temp_modules = ['arov_api_host.template_c'],
             path_common = self.path_common
         ).top()
 
-    def MakefileHost(self, name):
-        print("\n[py] >> LibHWPE ~ %s (Host Makefile)" % name)
+    def MakefileHost(self):
+        print("\n[py] >> LibAROV ~ Host Makefile")
         return MakefileHost(
-            temp_type = 'templates/ov_templ/sw/libhwpe/host/makefile/',
+            temp_type = 'templates/platforms/sw/libarov_target/host/makefile/',
             temp_top = 'makefile_host.template_mk',
             temp_modules = [],
             path_common = self.path_common
         ).top()
 
-    def HwpeClLicPulp(self, name):
-        print("\n[py] >> LibHWPE ~ %s (PULP APIs)" % name)
-        return HwpeClLicPulp(
-            temp_type = 'templates/ov_templ/sw/libhwpe/pulp/hwpe_cl_lic/',
-            temp_top = 'hwpe_cl_lic_pulp.template_c',
-            temp_modules = [],
+    def ArovTargetPulp(self):
+        print("\n[py] >> LibAROV ~ PULP APIs")
+        return ArovTargetPulp(
+            temp_type = 'templates/platforms/sw/libarov_target/pulp/arov_target/',
+            temp_top = 'arov_target_pulp.template_c',
+            temp_modules = ['arov_api_pulp.template_c'],
             path_common = self.path_common
         ).top()
 
-    def MakefilePulp(self, name):
-        print("\n[py] >> LibHWPE ~ %s (PULP Makefile)" % name)
+    def MakefilePulp(self):
+        print("\n[py] >> LibAROV ~ PULP Makefile")
         return MakefilePulp(
-            temp_type = 'templates/ov_templ/sw/libhwpe/pulp/makefile/',
+            temp_type = 'templates/platforms/sw/libarov_target/pulp/makefile/',
             temp_top = 'makefile_pulp.template_mk',
             temp_modules = [],
             path_common = self.path_common
         ).top()
 
-    def HwpeClLicHeader(self, name):
-        print("\n[py] >> LibHWPE ~ %s (Header)" % name)
-        return HwpeClLicHeader(
-            temp_type = 'templates/ov_templ/sw/libhwpe/inc/hwpe_cl_lic/',
-            temp_top = 'hwpe_cl_lic_header.template_c',
-            temp_modules = [],
+    def ArovTargetHeader(self):
+        print("\n[py] >> LibAROV ~ Header")
+        return ArovTargetHeader(
+            temp_type = 'templates/platforms/sw/libarov_target/inc/arov_target/',
+            temp_top = 'arov_target_header.template_c',
+            temp_modules = ['arov_api_pulp_inline.template_c'],
             path_common = self.path_common
         ).top()

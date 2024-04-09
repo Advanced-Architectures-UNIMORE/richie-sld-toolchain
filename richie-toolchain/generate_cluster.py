@@ -88,7 +88,7 @@ from dev.ov_dev.specs.ov_specs import ov_specs
 '''
     Import cluster templates
 '''
-from templates.ov_templ.hw.cluster.cluster import Cluster
+from templates.platforms.hw.cluster.cluster import Cluster
 
 '''
     Read input arguments

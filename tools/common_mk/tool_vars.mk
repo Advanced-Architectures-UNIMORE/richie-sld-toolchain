@@ -71,7 +71,7 @@ TEMPL_ACC_HW_DIR			:= ${TEMPL_ACC}/hw
 TEMPL_ACC_SW_DIR			:= ${TEMPL_ACC}/sw
 TEMPL_ACC_HW_MNGT_DIR	:= ${TEMPL_ACC}/integr_support
 
-TEMPL_OV							:= ${TEMPL}/ov_templ
+TEMPL_OV							:= ${TEMPL}/platforms
 TEMPL_OV_HW_DIR				:= ${TEMPL_OV}/hw
 
 # Static modules

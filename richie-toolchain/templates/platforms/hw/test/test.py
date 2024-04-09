@@ -47,20 +47,20 @@
 
 #!/usr/bin/env python3
 
-from templates.ov_templ.hw.test.overlay_tb_hw.top.overlay_tb_hw import OverlayTestbenchHw
-from templates.ov_templ.hw.test.vsim_wave_cluster.top.vsim_wave_cluster import VsimWaveCluster
-from templates.ov_templ.hw.test.vsim_wave_wrapper.top.vsim_wave_wrapper import VsimWaveWrapper
-from templates.ov_templ.hw.test.vsim_wave_experiment_view.top.vsim_wave_experiment_view import VsimWaveExperimentView
-from templates.ov_templ.hw.test.vsim_wave_soc.top.vsim_wave_soc import VsimWaveSoc
+from templates.platforms.hw.test.overlay_tb_hw.top.overlay_tb_hw import OverlayTestbenchHw
+from templates.platforms.hw.test.vsim_wave_cluster.top.vsim_wave_cluster import VsimWaveCluster
+from templates.platforms.hw.test.vsim_wave_wrapper.top.vsim_wave_wrapper import VsimWaveWrapper
+from templates.platforms.hw.test.vsim_wave_experiment_view.top.vsim_wave_experiment_view import VsimWaveExperimentView
+from templates.platforms.hw.test.vsim_wave_soc.top.vsim_wave_soc import VsimWaveSoc
 
 class Test:
     def __init__(self):
-        self.path_common = 'templates/ov_templ/hw/common/'
+        self.path_common = 'templates/platforms/hw/common/'
 
     def OverlayTestbenchHw(self):
         print("\n[py] >> Overlay ~ Hardware testbench")
         return OverlayTestbenchHw(
-            temp_type = 'templates/ov_templ/hw/test/overlay_tb_hw/',
+            temp_type = 'templates/platforms/hw/test/overlay_tb_hw/',
             temp_top = 'overlay_tb_hw.template_sv',
             temp_modules = [],
             path_common = self.path_common
@@ -69,7 +69,7 @@ class Test:
     def VsimWaveCluster(self):
         print("\n[py] >> Overlay ~ QuestaSim waves (Cluster)")
         return VsimWaveCluster(
-            temp_type = 'templates/ov_templ/hw/test/vsim_wave_cluster/',
+            temp_type = 'templates/platforms/hw/test/vsim_wave_cluster/',
             temp_top = 'vsim_wave_cluster.template_wave_do',
             temp_modules = ['cluster.template_wave_do',
                             'riscv_core.template_wave_do',
@@ -81,7 +81,7 @@ class Test:
     def VsimWaveWrapper(self):
         print("\n[py] >> Overlay ~ QuestaSim waves (Wrapper)")
         return VsimWaveWrapper(
-            temp_type = 'templates/ov_templ/hw/test/vsim_wave_wrapper/',
+            temp_type = 'templates/platforms/hw/test/vsim_wave_wrapper/',
             temp_top = 'vsim_wave_wrapper.template_wave_do',
             temp_modules = ['hwpe/hwpe_ctrl.template_wave_do', 
                             'hwpe/hwpe_engine.template_wave_do', 
@@ -97,7 +97,7 @@ class Test:
     def VsimWaveSoc(self):
         print("\n[py] >> Overlay ~ QuestaSim waves (SoC)")
         return VsimWaveSoc(
-            temp_type = 'templates/ov_templ/hw/test/vsim_wave_soc/',
+            temp_type = 'templates/platforms/hw/test/vsim_wave_soc/',
             temp_top = 'vsim_wave_soc.template_wave_do',
             temp_modules = ['pulp_cluster_inputs.template_wave_do',
                             'pulp_cluster_outputs.template_wave_do',
@@ -109,7 +109,7 @@ class Test:
     def VsimWaveExperimentView(self):
         print("\n[py] >> Overlay ~ QuestaSim waves (Experiment)")
         return VsimWaveSoc(
-            temp_type = 'templates/ov_templ/hw/test/vsim_wave_experiment_view/',
+            temp_type = 'templates/platforms/hw/test/vsim_wave_experiment_view/',
             temp_top = 'vsim_wave_experiment_view.template_wave_do',
             temp_modules = ['group_by_device.template_wave_do',
                             'group_by_cluster.template_wave_do'

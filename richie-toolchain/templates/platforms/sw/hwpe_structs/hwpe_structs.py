@@ -1,7 +1,7 @@
 '''
     =====================================================================
 
-    Copyright (C) 2021 ETH Zurich, University of Modena and Reggio Emilia
+    Copyright (C) 2022 University of Modena and Reggio Emilia
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 
     Project:        Richie Toolchain
 
-    Title:          Overlay
+    Title:          Accelerator structs
 
     Description:    This class collects the templates which comply with 
                     a subsystem of the Accelerator-Rich HeSoC.
@@ -37,7 +37,7 @@
 
                         ==> 'richie-toolchain/richie-toolchain/python/SOMETHING-TO-RENDER/generator.py'
 
-    Date:           29.12.2021
+    Date:           15.7.2022
 
     Author:         Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 
@@ -47,37 +47,27 @@
 
 #!/usr/bin/env python3
 
-from templates.ov_templ.hw.overlay.bender.top.bender import Bender
-from templates.ov_templ.hw.overlay.bender_lock.top.bender_lock import BenderLock
-from templates.ov_templ.hw.overlay.pulp_ip.top.pulp_ip import PulpIp
+from templates.platforms.sw.hwpe_structs.def_struct_common.top.def_struct_common import DefStructCommon
+from templates.platforms.sw.hwpe_structs.def_struct_hwpe.top.def_struct_hwpe import DefStructHwpe
 
-class Overlay:
+class HwpeStructs:
     def __init__(self):
-        self.path_common = 'templates/ov_templ/hw/common/'
+        self.path_common = 'templates/platforms/sw/common/'
 
-    def Bender(self):
-        print("\n[py] >> Overlay ~ Bender")
-        return Bender(
-            temp_type = 'templates/ov_templ/hw/overlay/bender/',
-            temp_top = 'bender.template_yml',
+    def DefStructCommon(self):
+        print("\n[py] >> HWPE structs ~ Common")
+        return DefStructCommon(
+            temp_type = 'templates/platforms/sw/hwpe_structs/def_struct_common/',
+            temp_top = 'def_struct_common.template_c',
             temp_modules = [],
             path_common = self.path_common
         ).top()
 
-    def BenderLock(self):
-        print("\n[py] >> Overlay ~ Bender lock")
-        return BenderLock(
-            temp_type = 'templates/ov_templ/hw/overlay/bender_lock/',
-            temp_top = 'bender_lock.template_yml',
+    def DefStructHwpe(self, name):
+        print("\n[py] >> HWPE structs ~ %s" % name)
+        return DefStructHwpe(
+            temp_type = 'templates/platforms/sw/hwpe_structs/def_struct_hwpe/',
+            temp_top = 'def_struct_hwpe.template_c',
             temp_modules = [],
-            path_common = self.path_common
-        ).top()
-
-    def PulpIp(self):
-        print("\n[py] >> Overlay ~ PULP IP")
-        return PulpIp(
-            temp_type = 'templates/ov_templ/hw/overlay/pulp_ip/',
-            temp_top = 'pulp_ip.template_sv',
-            temp_modules = ['functions.template_sv'],
             path_common = self.path_common
         ).top()
