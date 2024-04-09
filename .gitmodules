@@ -1,13 +1,3 @@
-
-[submodule "genacc/static/static_rtl/hwpe-ctrl"]
-	path = genacc/static/static_rtl/hwpe-ctrl
-	url = git@github.com:gbellocchi/hwpe-ctrl.git
-[submodule "genacc/static/static_rtl/hwpe-stream"]
-	path = genacc/static/static_rtl/hwpe-stream
-	url = git@github.com:gbellocchi/hwpe-stream.git
-[submodule "genacc/verif/hwpe-tb"]
-	path = genacc/verif/hwpe-tb
+[submodule "genov/verif/hwpe-tb"]
+	path = genov/verif/hwpe-tb
 	url = git@github.com:gbellocchi/hwpe-tb.git
-[submodule "genacc/output/git-deploy/hwpe-gen-app"]
-	path = genacc/output/git-deploy/hwpe-gen-app
-	url = git@iis-git.ee.ethz.ch:gianluca.bellocchi/hwpe-gen-app.git

@@ -1,32 +1,48 @@
 # =====================================================================
-# Project:      Makefile
-# Title:        Makefile
-# Description: 	Root Makefile. 
 #
-#				It reads recipes from sub-mk files to:
+# Copyright (C) 2021 University of Modena and Reggio Emilia
 #
-#					>> Set up the tool environment;
-#					>> Generate accelerator HW/SW components;
-#					>> Guide system-level integration.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# $Date:        23.11.2021
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
-# =====================================================================
-#
-# Copyright (C) 2021 University of Modena and Reggio Emilia.
-#
-# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 # =====================================================================
+#
+# Project:     	GenOv
+#
+# Name: 		Makefile
+#
+# Description: 	Recipes are defined under tools/common_mk, so as to accomplish:
+#
+#					>> Set up of the tool environment;
+#					>> Generation of the accelerator interfaces;
+#					>> Specialization and generation of the accelerator-rich SoC.
+#
+# Date:        	23.11.2021
+#
+# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+#
+# =====================================================================
 
-ROOT 					:= $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
-REPO 					:= genacc
+ROOT := $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+REPO := genov
 
-# Choose target on those available in the application library (e.g. mmul_parallel)
-
-HWPE_TARGET				:= fir_mdc
+TARGET_OV := agile_1cl_16tg
 
 -include tools/common_mk/*.mk
 
-.PHONY: all
-all: clean_gen run_gen
+.PHONY: all clean
+
+all: ov_gen
+
+init: ov_gen_init
+
+clean: ov_gen_clean acc_gen_clean

@@ -1,156 +1,201 @@
-
-# Accelerator Wrapper Generator (GenAcc)
+# GenOv: Generation of Accelerator-Rich SoCs
 
 ## Introduction
 ### Description
-The HWPE Wrapper Generator Tool consists of a set of Python packages, System Verilog templates and a Makefile that permit to speed up the integration and deployment of hardware accelerators in PULP-based systems [1]. To learn more about HWPE, take a look at [2] and [3].
+**GenOv** is a set of Python-based tools that automate and streamline the design, testing and implementation of *Accelerator-Rich Systems-on-Chip (SoCs)* leveraging clusters of *application-specific accelerators* and [RISC-V](https://riscv.org/) processors.
 
-The integration of custom accelerators is simplified by the definition of a communication/control interface in the form of a wrapper to the acceleration logic that can be instantiated multiple times within a PULP-based cluster. A wrapper encapsulates the functionality of a HWPE streamer and controller modules. Since these modules have dependencies on the specific accelerator (engine) implementation, it is necessary to distinguish between their static and variable RTL components. Once the user has defined key properties of its accelerator design, the specialization of the wrapper is simplified via template instantiation.
+The SoC architecture is based on the [Parallel Ultra Low Power (PULP) Platform](https://pulp-platform.org/index.html), an open-source research and development platform targeting highly parallel architectures for ultra-low-power processing.
 
-Given a set of initial design rules, the designer is equipped with a high-level language (HLL) interface to allow for wrapper specialization. This tool does not mandate any specific methodology to design the engine of accelerators. Both HLS tools or manually optimized HDL code are supported. An automated flow permits to integrate the acceleration logic within the wrapper, which is in turn integrated with the PULP system for validation.
+Both system and accelerator components are generated starting from a high-level description and making use of diverse *accelerator design flows*.
 
 ## Getting Started
 
 ### Clone the Repository
-We recommed the toolchain to be cloned in the hardware subdirectory of the PULP-based Overlay subsystem, as most of its functionalities will directly interact with that system portion.
-
+GenOv can be be cloned using the following command:
 ```
-git clone https://git.hipert.unimore.it/comp4drones/HERO/hwpe-wrapper-gen-tool.git
-```
-
-### Overlay Environment
-
-We recommend to set the following environment variable to the top directory of your HERO ecosystem:
-
-```
-export HERO_OV_HOME_DIR=<your_path> (typically something like $HOME/workspace_user/hero)
+git clone https://github.com/gbellocchi/genov.git
 ```
 
-Most of the specialization flow is handled locally to the tool subdirectory. At a certain point the user may decide to export and integrate the generated hardware/software components to the overlay system. This process is fully automated and no-error-prone as far as the tool knows how to securely interface to the overlay.
-
-Thus, it is recommended to set the following environment variable to the location of the overlay hardware subsystem.
-
-```
-export HERO_OV_HW_EXPORT=<your_path> (typically something like $HERO_HOME_DIR/hardware)
-```
-
-This location should at least comprise the following directories that are going to be targeted in the integration phase:
-
--  `src/` - This location comprises SystemVerilog source files to parametrize the PULP-based overlay system.
--  `deps/` - This location comprises SystemVerilog dependencies. Basically, the overlay IPs (RISC-V core, DMA, memory, etc.).
--  `test/` - This location comprises a SystemVerilog testbench to simulate the hardware behavior.
-
-### External Sources
-The tool uses Git submodules that have to be initialized. To pull the required Git submodules, run:
-
-```
-make init_gen
-```
+### The Richie Environment
+Be sure that `HERO_OV_HW_EXPORT` is set to the root of Richie (e.g. `/home/user-name/workspace_user/richie`).
 
 ### Python Virtual Environment
-To manage the project's dependencies a Python virtual environment is employed. To initialize it and download the required packages (see 'requirements.txt'), run:
+GenOv leverages a Python virtual environment in order to manage the tool dependencies. 
+The required packages are listed inside `requirements.txt`.
+To create the environment and install the required packages, simply run:
 
 ```
-make init_py_env
+make py_env_init
 ```
 
-This command manages the installation of the required Python packages, including the Mako template library [6] that is employed for the templating operation.
-
-In case of an update of the package requirements, it is possible to 'activate' the virtual environment, install the package and subsequently run:
+If new packages are added, the environment can be updated with the command:
 
 ```
-make update_reqs_py_venv
+make py_env_update_reqs
 ```
 
-## Accelerator Integration Methodology
+### External Sources
+GenOv makes use of Git submodules which can be pulled with the following command:
 
-### Engine Design
-The methodology currently supports wrapping of custom acceleration engines that exhibit the following features:
+```
+make ov_gen_init
+```
 
- 1. **Streaming accelerators** - This class of accelerators permit to take advantage of the strong decoupling in designing the wrapper and the accelerator engine.
- 2. **Defined data access pattern** - The user must be able to describe the data access pattern of each set of input/output TCDM masters. This has to be easily describable in a for-loop fashion, as reported in the listing below. To this end, the user can take advantage of address generators to map local memory accesses to data streams. More information concerning the address generator and the mapping of its parameters to the specific data access pattern of the accelerator are to be found in [3].
+## System-Level Design
+The generation flow initiates from high-level descriptions, which are described below.
 
-```python
-int word_addr=0, line_addr=0, feat_addr=0;
-int trans_idx=0;
-while(trans_idx < trans_size) {
-	if(!enable)
-		continue;
-	for(int feat_idx=0; feat_idx<feat_roll; feat_idx++) { // feature loop
-		for(int line_idx=0; line_idx<feat_length; line_idx++) { // line loop
-			for(int word_idx=0; word_idx<line_length; word_idx++) { // word loop
-				gen_addr = base_addr + feat_addr + line_addr + word_idx * STEP;
-			}
-			line_addr += line_stride; 
-		}
-		if((loop_outer) && (feat_idx == feat_roll-1)) {
-			feat_addr += feat_stride;
-			feat_idx = 0;
-			}
-		else if ((!loop_outer) && (feat_idx < feat_roll-1)){
-			feat_addr += feat_stride;
-		}
-		else if ((!loop_outer) && (feat_idx == feat_roll-1)){
-			feat_addr = 0;
-			feat_idx = 0;
-		}
-	}
+GenOv streamlines the system-level design of accelerator-rich SoCs with the:
+1) Support of various *accelerator design flows* in order to accomodate a wide range of users and application needs. This phase accomodates the design of the accelerator datapath, meaning the HW implementation of the accelerated functionality (e.g. FFT, MatMul, etc.).
+2) Generation of the *accelerator interfaces* to facilitate the integration inside the accelerator-rich SoC. These include HW interfaces for data communication and control, as well as SW libraries.
+3) Generation of a specialized and optimized *accelerator-rich SoC*.
+
+### Accelerator Design
+GenOv supports various *accelerator design flows*, including:
+
+- High-Level Synthesis ([Vitis HLS](https://www.xilinx.com/products/design-tools/vitis/vitis-hls.html))
+- [Coarse-Grain Reconfigurable (CGR) Hardware Accelerators](https://mdc-suite.github.io/)
+- Manual RTL Design ([PULP-based HWPE Accelerators](https://hwpe-doc.readthedocs.io/en/latest/index.html))
+
+The IP interface is expected to attain the following requirements:
+
+- Adopt a *streaming-based interface* for data communication, e.g. the AMBA® 4 AXI4-Stream Protocol.
+- Adopt *simple data ports* or wires for control parameters, thus with no associated I/O protocol and handshaking signal.
+
+### Definition of the Accelerator Interfaces
+This phase mandates the user to provide an *accelerator specification file* describing the characteristics of the accelerator interface.
+
+Specifications must be collected in the accelerator library (`src/accelerators/`), where are also provided preliminary examples. The best practice is to create a new library element (directory) comprising the following sections:
+
+1.  `specs/` - This location contains the Python specification file `acc_specs.py`. The latter embodies the required information to specialize the interface between the accelerator wrapper and the integrated engine, as well as additional features.
+2.  `rtl/` - This location contains the RTL components of the devised accelerator.
+3.  `sw/` - This location comprises optional SW components for the testing phase, which will be included in the final project.
+
+### Specialization of the Accelerator-Rich SoC
+Similarly, this phase mandates a *platform specification file* with the SoC characteristics.
+
+This must be collected in the platform library (`src/overlays/`), including the following sections:
+
+1.  `specs/` - The Python specification file is named `ov_specs.py`. This specification tells the tool how to perform the system-level integration of application-specific accelerators, as well as how to specialize platform resources.
+
+## Generation of the Accelerator-Rich SoC
+
+### The Generation Flow
+GenOv adopts a design automation approach, which can be defined as *template-based*.
+Basically:
+1) **Platform** and **accelerator specification files** consist of *user-defined parameters*, which are meant to specialize the SoC components;
+2) **Templates** consist of marked-up text, which can be potentially *rendered* into various output formats, e.g. HW/SW components, scripts, documentation, etc.
+3) The **generation flow** provides parameters to a *rendering engine*, which parses and renders the templates of GenOv. In particular, the latter leverages the [Mako Template Library](https://www.makotemplates.org/).
+4) The result consists of a **full-fledged accelerator-rich SoC**, including both *HW/SW components* and ready-to-go *simulation* and *synthesis scripts*.
+
+### How to Run
+The generation flow is triggered with a `make clean all`. 
+
+Additionally, add the following arguments:
+
+- **TARGET_OV**: This is to specify the target platform to generate. For example,  `make clean all TARGET_OV=my-SoC` is run to generate the target `my-SoC` under `src/overlays/my-SoC/specs`.
+
+The generated components will then be available under `output`.
+
+## License
+GenOv is being made available under permissive open source licenses:
+- **Source files**, **tool scripts** and **templates** are released under the `Apache 2.0 license` ([Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)).
+- **Generated components** are differently released depending on their specific nature:
+	- *Hardware* is released under the `Solderpad 0.51 license` ([SHL-0.51](http://solderpad.org/licenses/SHL-0.51)).
+ 	- *Software* and *other formats* are released under the `Apache 2.0 license` ([Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)).
+
+## Publications
+
+If you use GenOv in your work, you can cite us:
+
+<details>
+<summary><b>A RISC-V-based FPGA overlay to simplify embedded accelerator deployment</b></summary>
+<p>
+
+```
+@inproceedings{bellocchi2021risc,
+  title={A risc-v-based fpga overlay to simplify embedded accelerator deployment},
+  author={Bellocchi, Gianluca and Capotondi, Alessandro and Conti, Francesco and Marongiu, Andrea},
+  booktitle={2021 24th Euromicro Conference on Digital System Design (DSD)},
+  pages={9--17},
+  year={2021},
+  organization={IEEE}
 }
 ```
 
+</p>
+</details>
 
-#### Accelerator Library
+Other work which can be found in or contributed to this repository:
 
-User-defined engine specifications are to be inserted in the accelerator library (`acc_lib`). There exist exemplary library items to guide the user in the phase of integration of new wrapper specifications.
-To extend the content of the library, the best practice is to create a new library folder comprising the following sections:
-
-1.  `specs/` - This location contains the Python specification file `hwpe_specs.py`. The latter embodies the required information to specialize the interface between the accelerator wrapper and the integrated engine, as well as additional features.
-2.  `rtl/` - This location contains the RTL components of the engine the user wants to wrap. To this end, the flow does not mandate any specific design methodology for the target accelerator engines.
-3.  `sw/` - This location contains additional software components for the testing phase.
-  
-An `__init__.py` is always required to properly propagate information from the accelerator library throughout the template library. The content of the former has to be interpretable and accessible by Python as part of the tool package.
-
-
-### Wrapper Specialization
-Once the accelerator library has been updated, return back to the top folder. Here is a Makefile comprising all the recipes that are necessary to manage the specialization environment and export HW/SW products to the overlay system.
-
-The first required step is to open the Makefile and modify the value of the macro `HWPE_TARGET` specifying the name of the accelerator the user wants to wrap. This has to match the name of an accelerator library component. As an example:
+<details>
+<summary><b>XNOR neural engine: A hardware accelerator IP for 21.6-fJ/op binary neural network inference</b></summary>
+<p>
 
 ```
-HWPE_TARGET = mmult_parallel
+@article{conti2018xnor,
+  title={XNOR neural engine: A hardware accelerator IP for 21.6-fJ/op binary neural network inference},
+  author={Conti, Francesco and Schiavone, Pasquale Davide and Benini, Luca},
+  journal={IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems},
+  volume={37},
+  number={11},
+  pages={2940--2951},
+  year={2018},
+  publisher={IEEE}
+}
 ```
 
-Subsequently, to specialize the wrapper is required to just run `make`.
-  
-This way, the Python template libraries will process the SystemVerilog wrapper templates on the basis of the information the input Python specification file has been compiled with. This permits the wrapping of the specified accelerator engine design. The generated files are exported to the `output` folder.
+</p>
+</details>
 
-### System-Level Optimization
-System-level optimization is enabled by propagating intra-process optimization knobs across the overlay infrastructure. The latter is possible since the tool renders SystemVerilog templates too. These templates deal with the different architectural blocks composing the overlay infrastructure, e.g. the accelerator interconnect, memory, DMA. Automated parametrization of this set of components is possible by exploiting the information comprised in the input Python specification file.
-
-### System-Level Integration
-To export the generated HW/SW to the overlay ecosystem run:
+<details>
+<summary><b>HERO: An open-source research platform for HW/SW exploration of heterogeneous manycore systems</b></summary>
+<p>
 
 ```
-make overlay_integration
+@inproceedings{kurth2018hero,
+  title={HERO: An open-source research platform for HW/SW exploration of heterogeneous manycore systems},
+  author={Kurth, Andreas and Capotondi, Alessandro and Vogel, Pirmin and Benini, Luca and Marongiu, Andrea},
+  booktitle={Proceedings of the 2nd Workshop on AutotuniNg and aDaptivity AppRoaches for Energy efficient HPC Systems},
+  pages={1--6},
+  year={2018}
+}
 ```
 
-### Runtime Accelerator Control
-The overlay and the wrapper feed the accelerator datapath exploiting **data tiling**. Complex control routines, data management policies and accelerator programming are all managed in software taking advantage of the overlay proxy core.
+</p>
+</details>
 
-## References
-1) "A RISC-V-based FPGA Overlay to Simplify Embedded Accelerator Deployment" - G. Bellocchi et al. (2021)
-2) "XNOR Neural Engine: A Hardware Accelerator IP for 21.6-fJ/op Binary Neural Network Inference" - F. Conti et al. (2018)
-3) Hardware Processing Engines Documentation: https://hwpe-doc.readthedocs.io/en/latest/index.html
+<details>
+<summary><b>PULP: A parallel ultra low power platform for next generation IoT applications</b></summary>
+<p>
+
+```
+@inproceedings{rossi2015pulp,
+  title={PULP: A parallel ultra low power platform for next generation IoT applications},
+  author={Rossi, Davide and Conti, Francesco and Marongiu, Andrea and Pullini, Antonio and Loi, Igor and Gautschi, Michael and Tagliavini, Giuseppe and Capotondi, Alessandro and Flatresse, Philippe and Benini, Luca},
+  booktitle={2015 IEEE Hot Chips 27 Symposium (HCS)},
+  pages={1--39},
+  year={2015},
+  organization={IEEE Computer Society}
+}
+```
+
+</p>
+</details>
   
 ## Useful Repositories
-1) Hardware Processing Engine - Streamer: https://github.com/pulp-platform/hwpe-stream
-2) Hardware Processing Engine - Controller: https://github.com/pulp-platform/hwpe-ctrl
-3) Hardware Processing Engine - MAC engine example: https://github.com/pulp-platform/hwpe-mac-engine
-4) Hardware Processing Engine - Standalone testbench: https://github.com/pulp-platform/hwpe-tb
-5) PULP platform - https://github.com/pulp-platform
-6) Mako Templates for Python - https://www.makotemplates.org/
+
+### AMD-Xilinx Open Hardware Competition 2023
+GenOv has been proposed in the 2023 edition of the AMD-Xilinx Open Hardware Competition. 
+```
+Spoiler...
+																																												...We have not won! :-) 
+```
+Yet, we have released a [tutorial](https://github.com/gbellocchi/xil_open_hw_23) to help you familiarize yourself with our work.
+
+### The HWPE Accelerator Interface
+The [PULP platform](https://github.com/pulp-platform) repository includes the components of the *Hardware Processing Engine* (*HWPE*) accelerator interface that GenOv leverages: [Streamer](https://github.com/pulp-platform/hwpe-stream) and [Controller](https://github.com/pulp-platform/hwpe-ctrl).
+
+An example design of a [HWPE-based MAC accelerator](https://github.com/pulp-platform/hwpe-mac-engine) - as well as its [testbench](https://github.com/pulp-platform/hwpe-tb) - are available as well. Both can be adopted as starting points to better understand the *design principles* and *functionalities* of the HWPE interface.
 
 ## Contacts
-**Gianluca Bellocchi**
-* Position: Researcher at University of Modena and Reggio Emilia 
-* E-mail: <gianluca.bellocchi@unimore.it>
+- **Gianluca Bellocchi** <gianluca.bellocchi@unimore.it>

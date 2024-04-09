@@ -1,72 +1,90 @@
 # =====================================================================
-# Project:      Makefile
-# Title:        tool_vars.mk
-# Description: 	Makefile variables shared by all recipes.
 #
-# $Date:        23.11.2021
+# Copyright (C) 2021 University of Modena and Reggio Emilia
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 # =====================================================================
 #
-# Copyright (C) 2021 University of Modena and Reggio Emilia.
+# Project:      GenOv
 #
-# Author: Gianluca Bellocchi, University of Modena and Reggio Emilia.
+# Name: 		Makefile variables
+#
+# Description: 	List of Makefile variables shared by other Makefiles.
+#
+# Date:        	23.11.2021
+#
+# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
-GENACC_ROOT				:= ${ROOT}/genacc
+GEN_ROOT							:= ${ROOT}/genov
 
-# Templates
+# Sources
 
-TEMPLATES 				:= ${GENACC_ROOT}/templates
-HW_DIR					:= ${TEMPLATES}/hw
-HW_MNGT_DIR				:= ${TEMPLATES}/integr_support
-SW_DIR					:= ${TEMPLATES}/sw
-
-# Engine
-
-ENG_DEV 				:= ${GENACC_ROOT}/engine_dev
-ENG_DEV_RTL 			:= ${ENG_DEV}/rtl
-
-# Static modules
-
-STATIC 					:= ${GENACC_ROOT}/static
-STATIC_RTL_DIR 			:= ${STATIC}/static_rtl
-STATIC_STREAM			:= ${STATIC_RTL_DIR}/hwpe-stream
-STATIC_CTRL 			:= ${STATIC_RTL_DIR}/hwpe-ctrl
-
-# Verification
-
-VERIF 					:= ${GENACC_ROOT}/verif
-VERIF_HWPE 				:= ${VERIF}/hwpe-tb
-
-# Output content
-
-OUT_DIR 				:= ${GENACC_ROOT}/output
-OUT_HW_DIR 				:= ${OUT_DIR}/hw
-OUT_SW_DIR 				:= ${OUT_DIR}/sw
-OUT_INTEGR_SUPPORT		:= ${OUT_DIR}/integr_support
-
-# Tools
-
-TOOLS_DIR				:= ${ROOT}/tools
+SRC_DIR 							:= ${ROOT}/src
+SRC_ACC 							:= ${SRC_DIR}/accelerators
+SRC_OV 								:= ${SRC_DIR}/overlays
 
 # Scripts
 
-SCRIPTS_DIR				:= ${TOOLS_DIR}/common_sh
-SCRIPTS_GEN				:= ${SCRIPTS_DIR}/gen
-SCRIPTS_VERIF			:= ${SCRIPTS_DIR}/verif
-SCRIPTS_PY_ENV			:= ${SCRIPTS_DIR}/py-env
-SCRIPTS_OV_DEPLOY		:= ${SCRIPTS_DIR}/ov-deploy
-SCRIPTS_GIT_DEPLOY		:= ${SCRIPTS_DIR}/git-deploy
+SCRIPTS_DIR						:= ${ROOT}/tools/common_sh
+SCRIPTS_ACC_GEN				:= ${SCRIPTS_DIR}/acc_gen
+SCRIPTS_ACC_VERIF			:= ${SCRIPTS_DIR}/acc_verif
+SCRIPTS_OV_GEN				:= ${SCRIPTS_DIR}/ov_gen
+SCRIPTS_OV_DEPLOY			:= ${SCRIPTS_DIR}/ov_deploy
+SCRIPTS_PY_ENV				:= ${SCRIPTS_DIR}/py_env
 
 # Python virtual environment
-PY_VENV 				:= ${REPO}_py_env
-PY_ENV_DIR				:= ${ROOT}/${PY_VENV}
+
+PY_VENV 							:= local_py_env
+PY_VENV_DIR						:= ${ROOT}/${PY_VENV}
+
+# Output content
+
+OUT_DIR 							:= ${ROOT}/output
+OUT_OV_GEN						:= ${OUT_DIR}/${TARGET_OV}
+OUT_ACC_GEN						:= ${OUT_OV_GEN}/wrappers
+
+# Device (extracted from source)
+
+DEV_DIR 							:= ${GEN_ROOT}/dev
+DEV_ACC_DIR 					:= ${DEV_DIR}/acc_dev
+DEV_OV_DIR 						:= ${DEV_DIR}/ov_dev
+
+# Templates
+
+TEMPL 								:= ${GEN_ROOT}/templates
+
+TEMPL_ACC							:= ${TEMPL}/acc_templ
+TEMPL_ACC_HW_DIR			:= ${TEMPL_ACC}/hw
+TEMPL_ACC_SW_DIR			:= ${TEMPL_ACC}/sw
+TEMPL_ACC_HW_MNGT_DIR	:= ${TEMPL_ACC}/integr_support
+
+TEMPL_OV							:= ${TEMPL}/ov_templ
+TEMPL_OV_HW_DIR				:= ${TEMPL_OV}/hw
+
+# Static modules
+
+STATIC 								:= ${GEN_ROOT}/static
+
+# Verification
+
+VERIF_ACC 						:= ${GEN_ROOT}/verif/hwpe-tb
 
 # System-level integration
 
-OVERLAY_HW_REPO			:= ${HERO_OV_HW_EXPORT}
-OVERLAY_SRC				:= ${HERO_OV_HW_EXPORT}/src
-OVERLAY_DEPS			:= ${HERO_OV_HW_EXPORT}/deps
-OVERLAY_TEST			:= ${HERO_OV_HW_EXPORT}/test
-OVERLAY_CLUSTER			:= ${OVERLAY_DEPS}/overlay_cluster/rtl
+OVERLAY_CFG						:= ${HERO_OV_HW_EXPORT}/ov_cfg
+OVERLAY_DEPS					:= ${HERO_OV_HW_EXPORT}/deps
+OVERLAY_TEST					:= ${HERO_OV_HW_EXPORT}/test
+OVERLAY_CLUSTER				:= ${OVERLAY_DEPS}/overlay_cluster/rtl

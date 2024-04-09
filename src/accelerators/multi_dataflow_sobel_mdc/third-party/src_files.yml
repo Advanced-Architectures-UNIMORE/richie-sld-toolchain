@@ -1,0 +1,37 @@
+genovApps:
+  incdirs : [
+    rtl
+  ]
+  files: [
+
+    rtl/acc_kernel/data_types.vhd,
+    rtl/acc_kernel/caph.vhd,
+    rtl/acc_kernel/edgeDetectionOk_globals.vhd,
+    rtl/acc_kernel/abs_sum_act.vhd,
+    rtl/acc_kernel/delay_act.vhd,
+    rtl/acc_kernel/fifo_big.vhd,
+    rtl/acc_kernel/fifo_small.vhd,
+    rtl/acc_kernel/line_buffer_act.vhd,
+    rtl/acc_kernel/remove_2x2_act.vhd,
+    rtl/acc_kernel/remove_3x3_act.vhd,
+    rtl/acc_kernel/roberts_x_act.vhd,
+    rtl/acc_kernel/roberts_y_act.vhd,
+    rtl/acc_kernel/sobel_x_act.vhd,
+    rtl/acc_kernel/sobel_y_act.vhd,
+    rtl/acc_kernel/thr_act.vhd,
+    rtl/acc_kernel/multi_dataflow_sobel_mdc.v,
+    rtl/acc_kernel/interface_wrapper.sv,
+    rtl/multi_dataflow_sobel_mdc_package.sv,
+    rtl/multi_dataflow_sobel_mdc_fsm.sv,
+    rtl/multi_dataflow_sobel_mdc_ctrl.sv,
+    rtl/multi_dataflow_sobel_mdc_streamer.sv,
+    rtl/multi_dataflow_sobel_mdc_reconf_datapath_top.sv,
+    rtl/multi_dataflow_sobel_mdc_kernel_adapter.sv,
+    rtl/multi_dataflow_sobel_mdc_engine.sv,
+    rtl/multi_dataflow_sobel_mdc_top.sv,
+    wrap/multi_dataflow_sobel_mdc_top_wrapper.sv,
+  ]
+  vlog_opts : [
+    "-L hwpe_ctrl_lib",
+    "-L hwpe_stream_lib"
+  ]

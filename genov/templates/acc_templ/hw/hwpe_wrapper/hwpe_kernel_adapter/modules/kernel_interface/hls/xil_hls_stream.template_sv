@@ -1,0 +1,364 @@
+<%
+'''
+    =====================================================================
+
+    Copyright (C) 2021 University of Modena and Reggio Emilia
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+    =====================================================================
+
+    Project:        GenOv
+
+    Title:          Template
+
+    Description:    HWPE kernel adapter.
+
+    Date:           11.6.2021
+
+    Author: 	      Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+
+    =====================================================================
+
+'''  
+%>
+
+<%
+##################################################
+## Kernel interface - Xilinx hls::stream object ##
+##################################################
+%>
+
+<%
+########################################
+## Kernel interface - Kernel controls ##
+########################################
+%>
+
+<%def name="xil_hls_stream_kernel_ctrl_def()">\
+
+  // Global controls
+  logic start_stream; 
+
+  // Input stream controls
+  % for i in range (n_sink):
+  logic [${n_bytes_in[i]}-1:0] ${stream_in[i]}_i_TKEEP;
+  logic ${stream_in[i]}_i_TUSER;
+  logic ${stream_in[i]}_i_TLAST;
+  logic ${stream_in[i]}_i_TID;
+  logic ${stream_in[i]}_i_TDEST;
+  % endfor
+
+  // Input data packet transaction counter
+  % for i in range (n_sink):
+  logic unsigned [31:0] cnt_last_${stream_in[i]};
+  % endfor
+
+  // Output transaction counter
+  % for j in range (n_source):
+  logic unsigned [31:0] cnt_last_${stream_out[j]};
+  % endfor
+
+</%def>
+
+<%def name="xil_hls_stream_kernel_ctrl()">\
+
+  // Pilot global controls
+  % for j in range (n_source):
+  always_comb
+  begin: pilot_start
+    if(~rst_ni) begin
+      start_stream = '0;
+    end
+    else if(ctrl_i.start) begin
+      start_stream = '1;
+    end
+    else if(flags_o.done) begin
+      start_stream = '0;
+    end
+    else if ((${stream_out[j]}_o.valid) & (${stream_out[j]}_o.ready)) begin
+      start_stream = start_stream;
+    end
+    else begin
+      start_stream = start_stream;
+    end
+  end
+  % endfor
+
+  // Pilot input streaming controls
+  % for i in range (n_sink):
+  assign ${stream_in[i]}_i_TKEEP = '1;
+  assign ${stream_in[i]}_i_TID   = '0;
+  assign ${stream_in[i]}_i_TDEST = '0;
+
+  always_ff @(posedge clk_i or negedge rst_ni)
+  begin: gen_user_${stream_in[i]}
+    if(~rst_ni) begin
+      ${stream_in[i]}_i_TUSER = '0;
+    end
+    else if(ctrl_i.start) begin
+      ${stream_in[i]}_i_TUSER = '1;
+    end
+    else if ((${stream_in[i]}_i.valid) & (${stream_in[i]}_i.ready)) begin
+      ${stream_in[i]}_i_TUSER = '0;
+    end
+    else begin
+      ${stream_in[i]}_i_TUSER = ${stream_in[i]}_i_TUSER;
+    end
+  end
+  % endfor 
+
+  // Count input data packet transactions
+  % for i in range (n_sink):
+  always_ff @(posedge clk_i or negedge rst_ni)
+  begin: adapter_cnt_${stream_in[i]}_tx
+    if(~rst_ni) begin
+      cnt_last_${stream_in[i]} = '0;
+    end
+    else if(ctrl_i.start) begin
+      cnt_last_${stream_in[i]} = '0;
+    end
+    else if(${stream_in[i]}_i_TLAST) begin
+      cnt_last_${stream_in[i]} = '0;
+    end
+    else if ((${stream_in[i]}_i.valid) & (${stream_in[i]}_i.ready)) begin
+      cnt_last_${stream_in[i]} = cnt_last_${stream_in[i]} + 1;
+    end
+    else begin
+      cnt_last_${stream_in[i]} = cnt_last_${stream_in[i]};
+    end
+  end
+  % endfor   
+
+  // Generate input last signal (for data packets)
+  % for i in range (n_sink):
+  assign ${stream_in[i]}_i_TLAST = (cnt_last_${stream_in[i]}==ctrl_i.packet_size_${stream_in[i]}) ? 1 : 0;
+  % endfor  
+
+  // Count output transactions
+  % for j in range (n_source):
+  always_ff @(posedge clk_i or negedge rst_ni)
+  begin: adapter_cnt_${stream_out[j]}_tx
+    if(~rst_ni) begin
+      cnt_last_${stream_out[j]} = '0;
+    end
+    else if(ctrl_i.start) begin
+      cnt_last_${stream_out[j]} = '0;
+    end
+    else if ((${stream_out[j]}_o.valid) & (${stream_out[j]}_o.ready)) begin
+      cnt_last_${stream_out[j]} = cnt_last_${stream_out[j]} + 1;
+    end
+    else begin
+      cnt_last_${stream_out[j]} = cnt_last_${stream_out[j]};
+    end
+  end
+  % endfor 
+
+</%def>
+
+<%
+################################################
+## Kernel interface - Generate stream strobes ##
+################################################
+%>
+
+<%def name="xil_hls_stream_stream_strobes_def()">\
+
+  // Input strobes
+  % for i in range (n_sink):
+  logic [${n_bytes_in[i]}-1:0] ${stream_in[i]}_i_TSTRB;
+  % endfor
+
+  // Output strobes
+  % for j in range (n_source):
+  logic [${n_bytes_out[j]}-1:0] ${stream_out[j]}_o_TSTRB;
+  % endfor
+
+</%def>
+
+<%def name="xil_hls_stream_stream_strobes()">\
+
+  // Assign input strobes
+  % for i in range (n_sink):
+  assign ${stream_in[i]}_i_TSTRB = '0;
+  % endfor
+
+  // Get output strobes
+  % for j in range (n_source):
+  assign ${stream_out[j]}_o.strb = '1;
+  % endfor
+
+</%def>
+
+<%
+#####################################
+## Kernel interface - Kernel flags ##
+#####################################
+%>
+
+<%def name="xil_hls_stream_kernel_flags_def()">\
+
+  // Output stream flags
+  % for j in range (n_source):
+  logic [${n_bytes_out[j]}-1:0] ${stream_out[j]}_o_TKEEP;
+  logic ${stream_out[j]}_o_TUSER;
+  logic ${stream_out[j]}_o_TLAST;
+  logic ${stream_out[j]}_o_TID;
+  logic ${stream_out[j]}_o_TDEST;
+  % endfor
+
+</%def>
+
+<%def name="xil_hls_stream_kernel_flags()">\
+
+  // Get output last signal (for data packets)
+  % for j in range (n_source):
+  assign flags_o.last[${j}] = ${stream_out[j]}_o_TLAST;
+  % endfor
+
+</%def>
+
+<%
+############################################################
+## Kernel interface - Xilinx hls::stream kernel interface ##
+############################################################
+%>
+
+<%def name="xil_hls_stream_kernel_intf()">\
+
+  /* ${target} kernel interface */
+
+  ${target} i_${target} (
+    // Global signals
+    .ap_clk       ( clk_i            ),
+    .ap_rst_n     ( rst_ni           ),
+
+    // Sink ports
+    % for i in range (n_sink):
+    .${stream_in[i]}_TDATA  ( ${stream_in[i]}_data_kernel ),
+    .${stream_in[i]}_TVALID ( ${stream_in[i]}_i.valid ),
+    .${stream_in[i]}_TREADY ( ${stream_in[i]}_i.ready ),
+
+    .${stream_in[i]}_TKEEP  ( ${stream_in[i]}_i_TKEEP ),
+    .${stream_in[i]}_TSTRB  ( ${stream_in[i]}_i_TSTRB ),
+    .${stream_in[i]}_TUSER  ( ${stream_in[i]}_i_TUSER ),
+    .${stream_in[i]}_TLAST  ( ${stream_in[i]}_i_TLAST ),
+    .${stream_in[i]}_TID    ( ${stream_in[i]}_i_TID   ),
+    .${stream_in[i]}_TDEST  ( ${stream_in[i]}_i_TDEST ),
+    % endfor  
+
+    // Source ports
+    % for j in range (n_source):
+    .${stream_out[j]}_TDATA  ( ${stream_out[j]}_data_kernel ),
+    .${stream_out[j]}_TVALID ( ${stream_out[j]}_o.valid ),
+    .${stream_out[j]}_TREADY ( ${stream_out[j]}_o.ready ),
+    
+    .${stream_out[j]}_TKEEP  ( ${stream_out[j]}_o_TKEEP ),
+    .${stream_out[j]}_TSTRB  ( ${stream_out[j]}_o_TSTRB ),
+    .${stream_out[j]}_TUSER  ( ${stream_out[j]}_o_TUSER ),
+    .${stream_out[j]}_TLAST  ( ${stream_out[j]}_o_TLAST ),
+    .${stream_out[j]}_TID    ( ${stream_out[j]}_o_TID   ),
+    .${stream_out[j]}_TDEST  ( ${stream_out[j]}_o_TDEST ),
+    % endfor
+
+    % if custom_reg_num>0:
+    // Kernel parameters
+      % for i in range (custom_reg_num):
+        % if custom_reg_isport[i]:
+    .${custom_reg_name[i]}        ( ${custom_reg_name[i]} ),
+        % endif
+      % endfor
+    % endif 
+
+    // Control signals
+    .ap_start      ( start_stream             ),
+    .ap_done       ( flags_o.done             ),
+    .ap_idle       ( flags_o.idle             ),
+    .ap_ready      ( flags_o.ready            )
+  );
+</%def>
+
+<%
+#######################################################
+## Kernel interface - Match data width of IO streams ##
+#######################################################
+%>
+
+<%def name="xil_hls_stream_stream_dwidth_match_def()">\
+
+  // Input data - Data width adaptation
+  % for i in range (n_sink):
+  logic [${stream_in_dwidth[i]}-1:0] ${stream_in[i]}_data_kernel;
+  % endfor
+
+  // Output data - Data width adaptation
+  % for j in range (n_source):
+  logic [${stream_out_dwidth[j]}-1:0] ${stream_out[j]}_data_kernel;
+  % endfor
+
+</%def>
+
+<%def name="xil_hls_stream_stream_dwidth_match()">\
+
+  // Adapat input data interface (from system) to kernel data interface
+  % for i in range (n_sink):
+    % if stream_in_dwidth[i]>pulp_dwidth:
+
+      <%
+        diff_dwidth = stream_in_dwidth[i] - pulp_dwidth
+      %>
+\
+  assign ${stream_in[i]}_data_kernel = {${diff_dwidth}'b0, ${stream_in[i]}_i.data}; 
+
+    % elif stream_in_dwidth[i]<pulp_dwidth:
+
+      <%
+        diff_dwidth = pulp_dwidth - stream_in_dwidth[i]
+      %>
+\
+  // TO-DO: Not supported yet
+  assign ${stream_in[i]}_data_kernel = ${stream_in[i]}_i.data; 
+
+    % elif stream_in_dwidth[i]==pulp_dwidth:
+\
+  assign ${stream_in[i]}_data_kernel = ${stream_in[i]}_i.data; 
+  
+    % endif
+  % endfor
+
+  // Adapat kernel data interface to output data interface (to system)
+  % for j in range (n_source):
+    % if stream_out_dwidth[j]>pulp_dwidth:
+
+      <%
+        diff_dwidth = stream_out_dwidth[j] - pulp_dwidth
+      %>
+\
+  // TO-DO: Not supported yet
+  assign ${stream_out[j]}_o.data = ${stream_out[j]}_data_kernel; 
+
+    % elif stream_out_dwidth[j]<pulp_dwidth:
+
+      <%
+        diff_dwidth = pulp_dwidth - stream_out_dwidth[j]
+      %>
+\
+  assign ${stream_out[j]}_o.data = {${diff_dwidth}'b0, ${stream_out[j]}_data_kernel}; 
+
+    % elif stream_out_dwidth[j]==pulp_dwidth:
+\
+  assign ${stream_out[j]}_o.data = ${stream_out[j]}_data_kernel; 
+  
+    % endif
+  % endfor
+</%def>
