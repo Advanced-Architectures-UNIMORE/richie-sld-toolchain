@@ -16,11 +16,11 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
-# Name: 		Generation of the accelerator-rich SoC
+# Name: 		Generation of the Accelerator-Rich HeSoC
 #
-# Description: 	Recipes to specialize and optimize accelerator-rich SoC.
+# Description: 	Recipes to specialize and optimize Accelerator-Rich HeSoC.
 #
 # Date:        	23.11.2021
 #

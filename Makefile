@@ -16,24 +16,24 @@
 #
 # =====================================================================
 #
-# Project:     	GenOv
+# Project:     	Richie Toolchain
 #
-# Name: 		Makefile
+# Name: 				Makefile
 #
 # Description: 	Recipes are defined under tools/common_mk, so as to accomplish:
 #
-#					>> Set up of the tool environment;
-#					>> Generation of the accelerator interfaces;
-#					>> Specialization and generation of the accelerator-rich SoC.
+#									>> Set up of the tool environment;
+#									>> Generation of the accelerator interfaces;
+#									>> Specialization and generation of the Accelerator-Rich HeSoC.
 #
 # Date:        	23.11.2021
 #
-# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
 ROOT := $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
-REPO := genov
+REPO := richie-toolchain
 
 TARGET_OV := agile_1cl_16tg
 

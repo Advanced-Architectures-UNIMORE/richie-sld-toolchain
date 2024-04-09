@@ -16,12 +16,12 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Platform library
 #
 # Description: 	Recipes to extract platform specification files to
-#				specialize and optimize the target accelerator-rich SoC.
+#				specialize and optimize the target Accelerator-Rich HeSoC.
 #
 # Date:        	24.11.2021
 #

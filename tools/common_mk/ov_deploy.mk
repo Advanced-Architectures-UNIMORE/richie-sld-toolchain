@@ -16,11 +16,11 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Platform deployment
 #
-# Description: 	Recipes to guide the Git deployment of the accelerator-rich SoC.
+# Description: 	Recipes to guide the Git deployment of the Accelerator-Rich HeSoC.
 #
 # Date:        	23.11.2021
 #

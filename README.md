@@ -19,22 +19,24 @@ git clone https://github.com/gbellocchi/richie-toolchain.git
 ```
 
 ### The Richie Environment
-Be sure that `HERO_OV_HW_EXPORT` is set to the root of Richie (e.g. `/home/user-name/workspace_user/richie`).
+Be sure that `RICHIE_HW_EXPORT` is set to the root of the Richie hardware subsystem (e.g. `/home/user-name/workspace_user/richie/hw`).
 
 ### Python Virtual Environment
-The toolchain leverages a Python virtual environment in order to manage the tool dependencies.
-The toolchain has been tested with `Python 3.8.10`, so we recommend to stick with this version.
+The toolchain leverages a Python virtual environment in order to manage the tool dependencies.  The toolchain has been tested with `Python 3.8.10`, so we recommend to stick with this version.
+
 To create the environment and install the required packages (listed inside `requirements.txt`), simply run:
 
 ```
 make py_env_init
 ```
+Then, the environment can be activated by `source richie-py-env/bin/activate`.
 
-If new packages are added, the environment can be updated with the command:
+If new packages are added, the environment can be updated with the following command:
 
 ```
 make py_env_update_reqs
 ```
+Note that the `py_env_init` command should be run again to install newly added packages and/or update old ones.
 
 ### External Sources
 External Git submodules can be pulled with the following command:

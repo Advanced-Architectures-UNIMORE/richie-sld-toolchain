@@ -16,7 +16,7 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Set up accelerator test
 #

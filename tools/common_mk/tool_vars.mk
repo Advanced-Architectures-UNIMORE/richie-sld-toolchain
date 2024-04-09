@@ -16,7 +16,7 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Makefile variables
 #
@@ -28,7 +28,7 @@
 #
 # =====================================================================
 
-GEN_ROOT							:= ${ROOT}/genov
+GEN_ROOT							:= ${ROOT}/richie-toolchain
 
 # Sources
 
@@ -47,7 +47,7 @@ SCRIPTS_PY_ENV				:= ${SCRIPTS_DIR}/py_env
 
 # Python virtual environment
 
-PY_VENV 							:= local_py_env
+PY_VENV 							:= richie-py-env
 PY_VENV_DIR						:= ${ROOT}/${PY_VENV}
 
 # Output content
@@ -84,7 +84,8 @@ VERIF_ACC 						:= ${GEN_ROOT}/verif/hwpe-tb
 
 # System-level integration
 
-OVERLAY_CFG						:= ${HERO_OV_HW_EXPORT}/ov_cfg
-OVERLAY_DEPS					:= ${HERO_OV_HW_EXPORT}/deps
-OVERLAY_TEST					:= ${HERO_OV_HW_EXPORT}/test
+OVERLAY_CFG						:= ${RICHIE_HW_EXPORT}/ov_cfg
+OVERLAY_DEPS					:= ${RICHIE_HW_EXPORT}/deps
+OVERLAY_TEST					:= ${RICHIE_HW_EXPORT}/test
+OVERLAY_ACCEL					:= ${RICHIE_HW_EXPORT}/accelerators
 OVERLAY_CLUSTER				:= ${OVERLAY_DEPS}/overlay_cluster/rtl

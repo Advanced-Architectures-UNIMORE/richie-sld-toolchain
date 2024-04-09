@@ -16,7 +16,7 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		List accelerator datapath components
 #

@@ -16,11 +16,11 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Platform output environment
 #
-# Description: 	Create output environment for generated accelerator-rich SoC.
+# Description: 	Create output environment for generated Accelerator-Rich HeSoC.
 #
 # Date:        	23.11.2021
 #

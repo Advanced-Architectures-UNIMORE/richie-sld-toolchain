@@ -16,7 +16,7 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Launch platform generation
 #
@@ -38,7 +38,7 @@ readonly dir_out_ov=$3
 source $dir_py_venv/bin/activate
 
 # Launch python generators
-cd genov
+cd richie-toolchain
 python generate_ov.py $dir_out_ov
 python generate_ov_libs.py $dir_out_ov
 python generate_ov_test.py $dir_out_ov

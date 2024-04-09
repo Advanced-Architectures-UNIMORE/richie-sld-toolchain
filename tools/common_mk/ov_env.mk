@@ -16,7 +16,7 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Environment testing
 #
@@ -34,6 +34,6 @@ ifndef ENV_IS_CHECKED
 endif
 
 check_ov_env:
-ifndef HERO_OV_HW_EXPORT
-	$(error HERO_OV_HW_EXPORT is undefined)
+ifndef RICHIE_HW_EXPORT
+	$(error RICHIE_HW_EXPORT is undefined)
 endif

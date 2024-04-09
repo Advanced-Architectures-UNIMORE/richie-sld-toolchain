@@ -16,12 +16,12 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 				Python Venv requirements
 #
 # Description: 	Definition of shell variables and functions which are
-#               shared by other GenOv scripts.
+#               shared by other scripts.
 #
 # Date:        	23.11.2021
 #

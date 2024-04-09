@@ -16,11 +16,11 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Platform generation
 #
-# Description:  Generate accelerator-rich SoC.
+# Description:  Generate Accelerator-Rich HeSoC.
 #
 # Date:        	22.12.2021
 #
@@ -108,7 +108,7 @@ gen_acc_wrappers()
 
 gen_overlay()
 {
-    # Generate target accelerator-rich SoC
+    # Generate target Accelerator-Rich HeSoC
     cd $dir_root
     make --silent ov_gen_run
 }
@@ -148,7 +148,7 @@ readonly dir_ov_dev=$dir_devs/ov_dev
 source $dir_py_venv/bin/activate
 
 # ============================= #
-# Generate accelerator-rich SoC #
+# Generate Accelerator-Rich HeSoC #
 # ============================= #
 
 # Initialize generation
@@ -160,7 +160,7 @@ fetch_ov_specs
 # Generate accelerator wrappers
 gen_acc_wrappers
 
-# Generate accelerator-rich SoC
+# Generate Accelerator-Rich HeSoC
 gen_overlay
 
 # Retrieve static components

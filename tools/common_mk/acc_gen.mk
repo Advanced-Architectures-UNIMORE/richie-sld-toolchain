@@ -16,7 +16,7 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Accelerator generation
 #
@@ -34,7 +34,8 @@ acc_gen:
 		${DEV_DIR} \
 		${PY_VENV_DIR} \
 		${SRC_ACC} \
-		${OUT_ACC_GEN}
+		${OUT_ACC_GEN} \
+		${OVERLAY_ACCEL}
 
 acc_gen_run:
 	@bash ${SCRIPTS_ACC_GEN}/$@.sh \

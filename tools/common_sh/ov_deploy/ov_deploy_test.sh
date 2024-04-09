@@ -16,7 +16,7 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Environment test
 #
@@ -50,7 +50,7 @@ echo -e "| Environment variables. |"
 echo -e "|------------------------|\n"
 
 check_env_var HERO_HOME_DIR $HERO_HOME_DIR
-check_env_var HERO_OV_HW_EXPORT $HERO_OV_HW_EXPORT
+check_env_var RICHIE_HW_EXPORT $RICHIE_HW_EXPORT
 
 echo -e ""
 
@@ -82,7 +82,7 @@ if [ -d "$OVERLAY_CFG" ]; then
 	done
 else
 	# Take action if it does not exist. #
-	error_exit "[sh] >> No src/ directory has been found. Be sure to properly setup your $HERO_OV_HW_EXPORT environment."
+	error_exit "[sh] >> No src/ directory has been found. Be sure to properly setup your $RICHIE_HW_EXPORT environment."
 fi
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
@@ -113,7 +113,7 @@ if [ -d "$OVERLAY_DEPS" ]; then
 	done
 else
 	# Take action if it does not exist. #
-	error_exit "[sh] >> No deps/ directory has been found. Be sure to properly setup your $HERO_OV_HW_EXPORT environment."
+	error_exit "[sh] >> No deps/ directory has been found. Be sure to properly setup your $RICHIE_HW_EXPORT environment."
 fi
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
@@ -144,7 +144,7 @@ if [ -d "$OVERLAY_TEST" ]; then
 	done
 else
 	# Take action if it does not exist. #
-	error_exit "[sh] >> No test/ directory has been found. Be sure to properly setup your $HERO_OV_HW_EXPORT environment."
+	error_exit "[sh] >> No test/ directory has been found. Be sure to properly setup your $RICHIE_HW_EXPORT environment."
 fi
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #

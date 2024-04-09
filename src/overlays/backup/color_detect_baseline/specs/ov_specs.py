@@ -1,6 +1,6 @@
 '''
  =====================================================================
- Project:       GenOv
+ Project:       Richie Toolchain
  Title:         ov_specs.py
  Description:   Specification file to guide the generation of HW/SW
 	            components for accelerator-rich overlays.

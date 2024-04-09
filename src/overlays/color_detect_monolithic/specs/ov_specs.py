@@ -17,12 +17,12 @@
 
     =====================================================================
 
-    Project:        GenOv
+    Project:        Richie Toolchain
 
     Title:          Platform specification file
 
     Description:    Specification file to guide the generation of a
-                    specialized and optimized accelerator-rich SoC.
+                    specialized and optimized Accelerator-Rich HeSoC.
 
     Platform:       Multi-Cluster Integration of Color Detection Pipeline
 

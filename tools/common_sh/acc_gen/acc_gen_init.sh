@@ -16,7 +16,7 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Initialize accelerator generation
 #
@@ -37,7 +37,7 @@ readonly dir_py_venv=$1
 source $dir_py_venv/bin/activate
 
 # Run optimizer
-cd genov && python initializer.py
+cd richie-toolchain && python initializer.py
 
 # Deactivate environment
 deactivate

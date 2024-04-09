@@ -17,7 +17,7 @@
 
     =====================================================================
 
-    Project:        GenOv
+    Project:        Richie Toolchain
 
     Title:          Accelerator specification file
 

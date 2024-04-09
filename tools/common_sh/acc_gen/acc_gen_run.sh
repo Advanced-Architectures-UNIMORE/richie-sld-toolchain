@@ -16,7 +16,7 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
 # Name: 		Launch accelerator interface generation
 #
@@ -38,7 +38,7 @@ readonly dir_out_acc=$3
 source $dir_py_venv/bin/activate
 
 # Launch python generator
-cd genov
+cd richie-toolchain
 python generate_wrapper.py $dir_out_acc
 python generate_wrapper_test.py $dir_out_acc
 

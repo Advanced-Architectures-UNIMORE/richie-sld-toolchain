@@ -16,9 +16,9 @@
 #
 # =====================================================================
 #
-# Project:      GenOv
+# Project:      Richie Toolchain
 #
-# Name: 		Deploy accelerator-rich SoC
+# Name: 		Deploy Accelerator-Rich HeSoC
 #
 # Description:  Prepare generated platform components for exporting.
 #
@@ -40,7 +40,7 @@ source $THIS_DIR/../common.sh
 
 echo -e ""
 echo -e "# ================================================ #"
-echo -e "# Deployment of the generated accelerator-rich SoC #"
+echo -e "# Deployment of the generated Accelerator-Rich HeSoC #"
 echo -e "# ================================================ #\n"
 
 # define src and dst
