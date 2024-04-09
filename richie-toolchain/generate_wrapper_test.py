@@ -84,14 +84,14 @@ from python.wrapper.emitter import EmitWrapper
 '''
     Import accelerator wrapper templates (integration support)
 '''
-from templates.acc_templ.integr_support.integr_support import integr_support
+from templates.accelerators.integr_support.integr_support import integr_support
 
 '''
     Import accelerator wrapper templates (TB)
 '''
-from templates.acc_templ.hw.hwpe_standalone_tb.hwpe_standalone_tb import hwpe_standalone_tb as hwpe_standalone_tb_hw
-from templates.acc_templ.sw.hwpe_standalone_tb.hwpe_standalone_tb import hwpe_standalone_tb as hwpe_standalone_tb_sw
-from templates.acc_templ.sw.hwpe_system_tb.hwpe_system_tb import hwpe_system_tb as hwpe_system_tb_sw
+from templates.accelerators.hw.hwpe_standalone_tb.hwpe_standalone_tb import hwpe_standalone_tb as hwpe_standalone_tb_hw
+from templates.accelerators.sw.hwpe_standalone_tb.hwpe_standalone_tb import hwpe_standalone_tb as hwpe_standalone_tb_sw
+from templates.accelerators.sw.hwpe_system_tb.hwpe_system_tb import hwpe_system_tb as hwpe_system_tb_sw
 
 '''
     Read input arguments

@@ -94,7 +94,7 @@ from templates.ov_templ.sw.libhwpe.libhwpe import LibHwpe
 from templates.ov_templ.sw.libarov_target.libarov_target import LibArov
 from templates.ov_templ.sw.hwpe_structs.hwpe_structs import HwpeStructs
 from templates.ov_templ.sw.soc_structs.soc_structs import SocStructs
-from templates.acc_templ.sw.hwpe_system_tb.hwpe_system_tb import hwpe_system_tb as hwpe_archi_hal
+from templates.accelerators.sw.hwpe_system_tb.hwpe_system_tb import hwpe_system_tb as hwpe_archi_hal
 
 '''
     Read input arguments

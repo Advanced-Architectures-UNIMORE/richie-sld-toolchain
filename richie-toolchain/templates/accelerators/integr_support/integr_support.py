@@ -47,9 +47,9 @@
 
 #!/usr/bin/env python3
 
-from templates.acc_templ.integr_support.bender.top.bender import bender
-from templates.acc_templ.integr_support.ips_list.top.ips_list import ips_list
-from templates.acc_templ.integr_support.src_files.top.src_files import src_files
+from templates.accelerators.integr_support.bender.top.bender import bender
+from templates.accelerators.integr_support.ips_list.top.ips_list import ips_list
+from templates.accelerators.integr_support.src_files.top.src_files import src_files
 
 class integr_support:
     def __init__(self):
@@ -58,7 +58,7 @@ class integr_support:
     def bender(self):
         print("\n[py] >> Integration support ~ bender")
         return bender(
-            temp_type = 'templates/acc_templ/integr_support/bender/',
+            temp_type = 'templates/accelerators/integr_support/bender/',
             temp_top = 'bender.template_yml',
             temp_modules = [],
             path_common = self.path_common
@@ -67,7 +67,7 @@ class integr_support:
     def src_files(self):
         print("\n[py] >> Integration support ~ src_files")
         return src_files(
-            temp_type = 'templates/acc_templ/integr_support/src_files/',
+            temp_type = 'templates/accelerators/integr_support/src_files/',
             temp_top = 'src_files.template_yml',
             temp_modules = [],
             path_common = self.path_common
@@ -76,7 +76,7 @@ class integr_support:
     def ips_list(self):
         print("\n[py] >> Integration support ~ ips_list")
         return ips_list(
-            temp_type = 'templates/acc_templ/integr_support/ips_list/',
+            temp_type = 'templates/accelerators/integr_support/ips_list/',
             temp_top = 'ips_list.template_yml',
             temp_modules = [],
             path_common = self.path_common
@@ -85,7 +85,7 @@ class integr_support:
     def vsim_wave(self):
         print("\n[py] >> Integration support ~ vsim_wave")
         return ips_list(
-            temp_type = 'templates/acc_templ/integr_support/vsim_wave/',
+            temp_type = 'templates/accelerators/integr_support/vsim_wave/',
             temp_top = 'vsim_wave.template_wave_do',
             temp_modules = ['hwpe_ctrl.template_wave_do', 
                             'hwpe_engine.template_wave_do', 

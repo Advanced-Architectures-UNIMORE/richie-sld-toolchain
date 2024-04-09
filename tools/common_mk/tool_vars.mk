@@ -66,7 +66,7 @@ DEV_OV_DIR 						:= ${DEV_DIR}/ov_dev
 
 TEMPL 								:= ${GEN_ROOT}/templates
 
-TEMPL_ACC							:= ${TEMPL}/acc_templ
+TEMPL_ACC							:= ${TEMPL}/accelerators
 TEMPL_ACC_HW_DIR			:= ${TEMPL_ACC}/hw
 TEMPL_ACC_SW_DIR			:= ${TEMPL_ACC}/sw
 TEMPL_ACC_HW_MNGT_DIR	:= ${TEMPL_ACC}/integr_support

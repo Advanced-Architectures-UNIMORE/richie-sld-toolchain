@@ -47,18 +47,18 @@
 
 #!/usr/bin/env python3
 
-from templates.acc_templ.sw.hwpe_standalone_tb.archi_hwpe.top.archi_hwpe import archi_hwpe
-from templates.acc_templ.sw.hwpe_standalone_tb.hal_hwpe.top.hal_hwpe import hal_hwpe
-from templates.acc_templ.sw.hwpe_standalone_tb.tb_hwpe.top.tb_hwpe import tb_hwpe
+from templates.accelerators.sw.hwpe_standalone_tb.archi_hwpe.top.archi_hwpe import archi_hwpe
+from templates.accelerators.sw.hwpe_standalone_tb.hal_hwpe.top.hal_hwpe import hal_hwpe
+from templates.accelerators.sw.hwpe_standalone_tb.tb_hwpe.top.tb_hwpe import tb_hwpe
 
 class hwpe_standalone_tb:
     def __init__(self):
-        self.path_common = 'templates/acc_templ/sw/common/'
+        self.path_common = 'templates/accelerators/sw/common/'
 
     def archi_hwpe(self):
         print("\n[py] >> HWPE standalone test ~ archi")
         return archi_hwpe(
-            temp_type = 'templates/acc_templ/sw/hwpe_standalone_tb/archi_hwpe/',
+            temp_type = 'templates/accelerators/sw/hwpe_standalone_tb/archi_hwpe/',
             temp_top = 'archi_hwpe.template_c',
             temp_modules = ['addressgen_archi.template_c', 
                             'custom_archi.template_c'  , 
@@ -72,7 +72,7 @@ class hwpe_standalone_tb:
     def hal_hwpe(self):
         print("\n[py] >> HWPE standalone test ~ hal")
         return hal_hwpe(
-            temp_type = 'templates/acc_templ/sw/hwpe_standalone_tb/hal_hwpe/',
+            temp_type = 'templates/accelerators/sw/hwpe_standalone_tb/hal_hwpe/',
             temp_top = 'hal_hwpe.template_c',
             temp_modules = [],
             path_common = self.path_common
@@ -81,7 +81,7 @@ class hwpe_standalone_tb:
     def tb_hwpe(self):
         print("\n[py] >> HWPE standalone test ~ SW testbench")
         return tb_hwpe(
-            temp_type = 'templates/acc_templ/sw/hwpe_standalone_tb/tb_hwpe/',
+            temp_type = 'templates/accelerators/sw/hwpe_standalone_tb/tb_hwpe/',
             temp_top = 'tb_hwpe.template_c',
             temp_modules = ['hwpe/hwpe_addressgen_decl.template_c',
                             'hwpe/hwpe_exec.template_c',

@@ -84,12 +84,12 @@ from python.wrapper.emitter import EmitWrapper
 '''
     Import accelerator wrapper templates (HW)
 '''
-from templates.acc_templ.hw.hwpe_wrapper.hwpe_wrapper import hwpe_wrapper
+from templates.accelerators.hw.hwpe_wrapper.hwpe_wrapper import hwpe_wrapper
 
 '''
     Import accelerator wrapper templates (integration support)
 '''
-from templates.acc_templ.integr_support.integr_support import integr_support
+from templates.accelerators.integr_support.integr_support import integr_support
 
 '''
     Read input arguments

@@ -120,7 +120,7 @@ class Generator:
     """
 
     def get_kernel_list(self, design_params):
-        # filename = 'templates/acc_templ/integr_support/rtl_list/engine_list.log'
+        # filename = 'templates/accelerators/integr_support/rtl_list/engine_list.log'
         filename = 'dev/acc_dev/' + design_params.target + '/kernel_list.log'
         l = []
         with open(filename, 'r') as f:
