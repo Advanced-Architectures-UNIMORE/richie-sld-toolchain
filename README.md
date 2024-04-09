@@ -1,28 +1,30 @@
-# GenOv: Generation of Accelerator-Rich SoCs
+# The Richie Toolchain
 
 ## Introduction
 ### Description
-**GenOv** is a set of Python-based tools that automate and streamline the design, testing and implementation of *Accelerator-Rich Systems-on-Chip (SoCs)* leveraging clusters of *application-specific accelerators* and [RISC-V](https://riscv.org/) processors.
+The **Richie Toolchain** is a System-Level Design (SLD) Toolchain that automates and simplifies the HW/SW assembling and specialization of *Accelerator-Rich Heterogeneous Systems-on-Chip (HeSoCs)*. The Toolchain comprises a set of Python-based tools, which enables the seamless and rapid composition of accelerators into full-fledged platforms.
 
-The SoC architecture is based on the [Parallel Ultra Low Power (PULP) Platform](https://pulp-platform.org/index.html), an open-source research and development platform targeting highly parallel architectures for ultra-low-power processing.
+Accelerator-Rich HeSoCs are generated from a high-level description. Besides, the Toolchain supports different flavors of high-level *accelerator design flows*, e.g. based on High-Level Synthesis (HLS).
 
-Both system and accelerator components are generated starting from a high-level description and making use of diverse *accelerator design flows*.
+Generated HeSoCs are based on the [Parallel Ultra Low Power (PULP) Platform](https://pulp-platform.org/index.html), an open-source research and development platform targeting highly parallel architectures for ultra-low-power processing based on the RISC-V Instruction Set Architecture (ISA).
+
+The *Richie Toolchain* was formerly reknown as *GenOv*.
 
 ## Getting Started
 
 ### Clone the Repository
-GenOv can be be cloned using the following command:
+To clone the repository, use the following command:
 ```
-git clone https://github.com/gbellocchi/genov.git
+git clone https://github.com/gbellocchi/richie-toolchain.git
 ```
 
 ### The Richie Environment
 Be sure that `HERO_OV_HW_EXPORT` is set to the root of Richie (e.g. `/home/user-name/workspace_user/richie`).
 
 ### Python Virtual Environment
-GenOv leverages a Python virtual environment in order to manage the tool dependencies. 
-The required packages are listed inside `requirements.txt`.
-To create the environment and install the required packages, simply run:
+The toolchain leverages a Python virtual environment in order to manage the tool dependencies.
+The toolchain has been tested with `Python 3.8.10`, so we recommend to stick with this version.
+To create the environment and install the required packages (listed inside `requirements.txt`), simply run:
 
 ```
 make py_env_init
@@ -35,7 +37,7 @@ make py_env_update_reqs
 ```
 
 ### External Sources
-GenOv makes use of Git submodules which can be pulled with the following command:
+External Git submodules can be pulled with the following command:
 
 ```
 make ov_gen_init
@@ -44,13 +46,13 @@ make ov_gen_init
 ## System-Level Design
 The generation flow initiates from high-level descriptions, which are described below.
 
-GenOv streamlines the system-level design of accelerator-rich SoCs with the:
+The *Richie Toolchain* facilitates the SLD phases of Accelerator-Rich HeSoCs with the:
 1) Support of various *accelerator design flows* in order to accomodate a wide range of users and application needs. This phase accomodates the design of the accelerator datapath, meaning the HW implementation of the accelerated functionality (e.g. FFT, MatMul, etc.).
-2) Generation of the *accelerator interfaces* to facilitate the integration inside the accelerator-rich SoC. These include HW interfaces for data communication and control, as well as SW libraries.
-3) Generation of a specialized and optimized *accelerator-rich SoC*.
+2) Generation of the *accelerator interfaces* to facilitate the integration inside the Accelerator-Rich HeSoC. These include HW interfaces for data communication and control, as well as SW libraries.
+3) Generation of a specialized and optimized *Accelerator-Rich HeSoC*.
 
 ### Accelerator Design
-GenOv supports various *accelerator design flows*, including:
+Various *accelerator design flows* are supported, including:
 
 - High-Level Synthesis ([Vitis HLS](https://www.xilinx.com/products/design-tools/vitis/vitis-hls.html))
 - [Coarse-Grain Reconfigurable (CGR) Hardware Accelerators](https://mdc-suite.github.io/)
@@ -70,42 +72,41 @@ Specifications must be collected in the accelerator library (`src/accelerators/`
 2.  `rtl/` - This location contains the RTL components of the devised accelerator.
 3.  `sw/` - This location comprises optional SW components for the testing phase, which will be included in the final project.
 
-### Specialization of the Accelerator-Rich SoC
-Similarly, this phase mandates a *platform specification file* with the SoC characteristics.
+### Specialization of the Accelerator-Rich HeSoC
+Similarly, this phase mandates a *platform specification file* with the HeSoC characteristics.
 
 This must be collected in the platform library (`src/overlays/`), including the following sections:
 
 1.  `specs/` - The Python specification file is named `ov_specs.py`. This specification tells the tool how to perform the system-level integration of application-specific accelerators, as well as how to specialize platform resources.
 
-## Generation of the Accelerator-Rich SoC
+## Generation of the Accelerator-Rich HeSoC
 
 ### The Generation Flow
-GenOv adopts a design automation approach, which can be defined as *template-based*.
+The *Richie Toolchain* adopts a design automation approach, which can be defined as *template-based*.
 Basically:
-1) **Platform** and **accelerator specification files** consist of *user-defined parameters*, which are meant to specialize the SoC components;
+1) **Platform** and **accelerator specification files** consist of *user-defined parameters*, which are meant to specialize the HeSoC components;
 2) **Templates** consist of marked-up text, which can be potentially *rendered* into various output formats, e.g. HW/SW components, scripts, documentation, etc.
-3) The **generation flow** provides parameters to a *rendering engine*, which parses and renders the templates of GenOv. In particular, the latter leverages the [Mako Template Library](https://www.makotemplates.org/).
-4) The result consists of a **full-fledged accelerator-rich SoC**, including both *HW/SW components* and ready-to-go *simulation* and *synthesis scripts*.
+3) The **generation flow** provides parameters to a *rendering engine*, which parses and renders the toolchain templates. In particular, the latter leverages the [Mako Template Library](https://www.makotemplates.org/).
+4) The result consists of a **full-fledged Accelerator-Rich HeSoC**, including both *HW/SW components* and ready-to-go *simulation* and *synthesis scripts*.
 
 ### How to Run
-The generation flow is triggered with a `make clean all`. 
+The generation flow is triggered with a `make clean all`.
 
 Additionally, add the following arguments:
 
-- **TARGET_OV**: This is to specify the target platform to generate. For example,  `make clean all TARGET_OV=my-SoC` is run to generate the target `my-SoC` under `src/overlays/my-SoC/specs`.
+- **TARGET_OV**: This is to specify the target platform to generate. For example,  `make clean all TARGET_OV=my-soc` is run to generate the target `my-soc` under `src/overlays/my-soc/specs`.
 
 The generated components will then be available under `output`.
 
 ## License
-GenOv is being made available under permissive open source licenses:
+The *Richie Toolchain* is released under permissive open source licenses:
 - **Source files**, **tool scripts** and **templates** are released under the `Apache 2.0 license` ([Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)).
 - **Generated components** are differently released depending on their specific nature:
 	- *Hardware* is released under the `Solderpad 0.51 license` ([SHL-0.51](http://solderpad.org/licenses/SHL-0.51)).
  	- *Software* and *other formats* are released under the `Apache 2.0 license` ([Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0)).
 
 ## Publications
-
-If you use GenOv in your work, you can cite us:
+If you use Richie in your work, you can cite us:
 
 <details>
 <summary><b>A RISC-V-based FPGA overlay to simplify embedded accelerator deployment</b></summary>
@@ -181,19 +182,19 @@ Other work which can be found in or contributed to this repository:
 
 </p>
 </details>
-  
+
 ## Useful Repositories
 
 ### AMD-Xilinx Open Hardware Competition 2023
-GenOv has been proposed in the 2023 edition of the AMD-Xilinx Open Hardware Competition. 
+*GenOv* - the former name of the *Richie toolchain* - was proposed in the 2023 edition of the AMD-Xilinx Open Hardware Competition.
 ```
 Spoiler...
-																																												...We have not won! :-) 
+																																												...We have not won! :-)
 ```
 Yet, we have released a [tutorial](https://github.com/gbellocchi/xil_open_hw_23) to help you familiarize yourself with our work.
 
 ### The HWPE Accelerator Interface
-The [PULP platform](https://github.com/pulp-platform) repository includes the components of the *Hardware Processing Engine* (*HWPE*) accelerator interface that GenOv leverages: [Streamer](https://github.com/pulp-platform/hwpe-stream) and [Controller](https://github.com/pulp-platform/hwpe-ctrl).
+The [PULP platform](https://github.com/pulp-platform) repository includes the components of the *Hardware Processing Engine* (*HWPE*) accelerator interface that Richie leverages: [Streamer](https://github.com/pulp-platform/hwpe-stream) and [Controller](https://github.com/pulp-platform/hwpe-ctrl).
 
 An example design of a [HWPE-based MAC accelerator](https://github.com/pulp-platform/hwpe-mac-engine) - as well as its [testbench](https://github.com/pulp-platform/hwpe-tb) - are available as well. Both can be adopted as starting points to better understand the *design principles* and *functionalities* of the HWPE interface.
 
