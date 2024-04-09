@@ -77,7 +77,7 @@ Specifications must be collected in the accelerator library (`src/accelerators/`
 ### Specialization of the Accelerator-Rich HeSoC
 Similarly, this phase mandates a *platform specification file* with the HeSoC characteristics.
 
-This must be collected in the platform library (`src/overlays/`), including the following sections:
+This must be collected in the platform library (`src/platforms/`), including the following sections:
 
 1.  `specs/` - The Python specification file is named `ov_specs.py`. This specification tells the tool how to perform the system-level integration of application-specific accelerators, as well as how to specialize platform resources.
 
@@ -96,7 +96,7 @@ The generation flow is triggered with a `make clean all`.
 
 Additionally, add the following arguments:
 
-- **TARGET_OV**: This is to specify the target platform to generate. For example,  `make clean all TARGET_OV=my-soc` is run to generate the target `my-soc` under `src/overlays/my-soc/specs`.
+- **TARGET_OV**: This is to specify the target platform to generate. For example,  `make clean all TARGET_OV=my-soc` is run to generate the target `my-soc` under `src/platforms/my-soc/specs`.
 
 The generated components will then be available under `output`.
 

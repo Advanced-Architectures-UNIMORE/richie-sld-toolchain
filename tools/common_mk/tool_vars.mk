@@ -34,7 +34,7 @@ GEN_ROOT							:= ${ROOT}/richie-toolchain
 
 SRC_DIR 							:= ${ROOT}/src
 SRC_ACC 							:= ${SRC_DIR}/accelerators
-SRC_OV 								:= ${SRC_DIR}/overlays
+SRC_OV 								:= ${SRC_DIR}/platforms
 
 # Scripts
 
