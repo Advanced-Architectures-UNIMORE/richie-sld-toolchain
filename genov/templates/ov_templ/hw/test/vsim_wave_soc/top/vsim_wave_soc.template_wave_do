@@ -30,7 +30,7 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 % for cluster_offset in range(n_clusters):
@@ -70,8 +70,7 @@ add wave -noupdate -group {overlay_tb} -group {I/O} /overlay_tb/rab_conf_resp
 # =====================================================================
 %>
 
-WaveRestoreCursors {{Cursor 11} {35680473 ps} 1} {W {35686614 ps} 1} {{Cursor 13} {35800671 ps} 1} {{Cursor 14} {16000 ps} 0}
-quietly wave cursor active 4
+quietly wave cursor active 1
 configure wave -namecolwidth 271
 configure wave -valuecolwidth 483
 configure wave -justifyvalue left
