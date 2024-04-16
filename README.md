@@ -1,13 +1,7 @@
 # The Richie Toolchain
-The *Richie Toolchain* is a System-Level Design (SLD) Toolchain that automates and simplifies the HW/SW assembling and specialization of *Accelerator-Rich Heterogeneous Systems-on-Chip (HeSoCs)*. The Toolchain comprises a set of Python-based tools, which enables the seamless and rapid composition of accelerators into full-fledged platforms.
-
-Accelerator-Rich HeSoCs are generated from a high-level description. Besides, the Toolchain supports different flavors of high-level *accelerator design flows*, e.g. based on High-Level Synthesis (HLS).
-
-Generated HeSoCs are based on the [Parallel Ultra Low Power (PULP) Platform](https://pulp-platform.org/index.html), an open-source research and development platform targeting highly parallel architectures for ultra-low-power processing based on the RISC-V Instruction Set Architecture (ISA).
-
-The *Richie Toolchain* was formerly reknown as *GenOv*.
-
-
+The *Richie Toolchain* is a System-Level Design (SLD) Toolchain that automates and simplifies the HW/SW assembling and specialization of *Accelerator-Rich Heterogeneous Systems-on-Chip (HeSoCs)*.
+The Toolchain comprises a set of Python-based tools, which enables the seamless and rapid composition of accelerators into full-fledged Accelerator-Rich HeSoCs, from a *high-level description*. Indeed, the Toolchain supports various *accelerator design flows*, e.g., leveraging High-Level Synthesis (HLS).
+Generated HeSoCs are based on the [Parallel Ultra Low Power (PULP) Platform](https://pulp-platform.org/index.html), an open-source research and development platform targeting highly parallel architectures for ultra-low-power processing based on the RISC-V Instruction Set Architecture (ISA). The *Richie Toolchain* was formerly named *GenOv*.
 
 ## Getting Started
 
@@ -22,14 +16,12 @@ Be sure that `RICHIE_HW` is set to the root of the Richie hardware subsystem (e.
 
 ### Python Virtual Environment
 The toolchain leverages a Python virtual environment in order to manage the tool dependencies.  The toolchain has been tested with `Python 3.8.10`, so we recommend to stick with this version.
-
 To create the environment and install the required packages (listed inside `requirements.txt`), simply run:
 
 ```
 make py_env_init
 ```
 Then, the environment can be activated by `source richie-py-env/bin/activate`.
-
 If new packages are added, the environment can be updated with the following command:
 
 ```
@@ -67,25 +59,24 @@ The IP interface is expected to attain the following requirements:
 
 ### System Integration
 This phase generates the accelerator interfaces which facilitate the integration inside the Accelerator-Rich HeSoC. These include HW interfaces for data communication and control, as well as SW drivers.
-
 The user is asked to provide an *accelerator specification file* describing the characteristics of the accelerator interface, as shown in the example below:
 
 ```python
     class accelerator_specs:
 
 		def engine(self):
-			self.name 			= Accelerator datapath
-			self.flow 			= HLS, RTL
-			self.protocol 		= HWPE
+			self.name = Accelerator datapath
+			self.flow = HLS, RTL
+			self.protocol = HWPE
 			return self
 
 		def streamer(self):
-			self.inputs 		= [[Name, DataType], ...]
-			self.outputs 		= [[Name, DataType], ...]
+			self.inputs = [[Name, DataType], ...]
+			self.outputs = [[Name, DataType], ...]
 			return self
 
 		def controller(self):
-			self.regs 			= [[Name, DataType], ...]
+			self.regs = [[Name, DataType], ...]
 			return self
 ```
 
@@ -95,23 +86,22 @@ Specifications are collected in the accelerator library (`src/accelerators/`), i
 
 ### System Optimization
 This phase specializes the platform parts to meet the requirements of the integrated workload, thus producing a specialized and optimized *Accelerator-Rich HeSoC*.
-
 Similarly, this phase mandates a *platform specification file* with the HeSoC characteristics,
 
 ```python
 class platform_specs:
 
 		def hesoc(self):
-			self.name 			= Accelerator-Rich HeSoC
-			self.target 		= FPGA fabric
-			self.l2_mem 		= [Number of ports, Size]
+			self.name = Accelerator-Rich HeSoC
+			self.target = FPGA fabric
+			self.l2_mem = [Number of ports, Size]
 			return self
 
 		def cluster_0(self):
-			self.acc 			= [Accelerator name, ...]
-			self.proxy 			= [IP, Number of cores, ...]
-			self.dma 			= [IP, Job queue size, ...]
-			self.l1_mem 		= [Number of ports, Size]
+			self.acc = [Accelerator name, ...]
+			self.proxy = [IP, Number of cores, ...]
+			self.dma = [IP, Job queue size, ...]
+			self.l1_mem = [Number of ports, Size]
 			return self
 
 		...
@@ -136,7 +126,6 @@ Basically:
 
 ### How to Run
 The generation flow is triggered with a `make clean all`.
-
 Additionally, add the following arguments:
 
 - **PLATFORM_NAME**: This is to specify the target platform to generate. For example,  `make clean all PLATFORM_NAME=richie_example` is run to generate the target `richie_example` under `src/platforms/richie_example/specs`.
@@ -240,7 +229,6 @@ Yet, we have released a [tutorial](https://github.com/gbellocchi/xil_open_hw_23)
 
 ### The HWPE Accelerator Interface
 The [PULP platform](https://github.com/pulp-platform) repository includes the components of the *Hardware Processing Engine* (*HWPE*) accelerator interface that Richie leverages: [Streamer](https://github.com/pulp-platform/hwpe-stream) and [Controller](https://github.com/pulp-platform/hwpe-ctrl).
-
 An example design of a [HWPE-based MAC accelerator](https://github.com/pulp-platform/hwpe-mac-engine) - as well as its [testbench](https://github.com/pulp-platform/hwpe-tb) - are available as well. Both can be adopted as starting points to better understand the *design principles* and *functionalities* of the HWPE interface.
 
 ## Contacts

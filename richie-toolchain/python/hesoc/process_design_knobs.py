@@ -1,7 +1,7 @@
 '''
     =====================================================================
 
-    Copyright (C) 2022 University of Modena and Reggio Emilia
+    Copyright (C) 2022 ETH Zurich, University of Modena and Reggio Emilia
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -21,10 +21,11 @@
 
     Title:          Processing Input Specifications
 
-    Description:    Specifications are pre-processed, so as to ease the rendering
-                    phase by formatting values, and so on.
+    Description:    Platform Design Knobs are formatted to streamline
+                    the subsequent rendering phase, where a specialized
+                    Accelerator-Rich HeSoC is generated.
 
-    Date:           13.7.2022
+    Date:           8.1.2022
 
     Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 
@@ -42,14 +43,13 @@
 
 def print_generation_log(design_knobs, verbose=False):
 
-    print("\n# ============================================= #")
-    print("# Generation of System-Level Software Libraries #")
-    print("# ============================================= #")
+    print("\n# ============================== #")
+    print("# Generation of HeSoC components #")
+    print("# ============================== #")
 
     if(verbose is True):
 
-        print("\n")
-        print("[py] >> User-defined Richie library specification:")
+      print("\n")
+      print("[py] >> User-defined HeSoC specification:")
 
-        print("\n\tSoC name:", design_knobs.hesoc_name)
-
+      print("\n\tHeSoC name:", design_knobs.hesoc_name)

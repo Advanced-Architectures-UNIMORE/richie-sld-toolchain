@@ -38,7 +38,7 @@
                     phase by formatting values, and so on. This is accomplished by
                     the scripts under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/process_params.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/process_design_knobs.py'
 
                     - The rendering phase requires a generator which is invoked by the
                     current script via the 'gen_*_comps' function. The definition of
@@ -70,9 +70,9 @@ import sys
 '''
     Import custom functions
 '''
-from python.richie.process_params import PlatformDesignKnobsFormatted
-from python.richie.process_params import get_acc_targets
-from python.richie.process_params import print_generation_log
+from python.richie.process_design_knobs import PlatformDesignKnobsFormatted
+from python.richie.process_design_knobs import get_acc_targets
+from python.richie.process_design_knobs import print_generation_log
 from python.richie.generator import generation as generate_richie
 
 '''

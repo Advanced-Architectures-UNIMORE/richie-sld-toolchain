@@ -21,8 +21,9 @@
 
     Title:          Processing Input Specifications
 
-    Description:    Specifications are pre-processed, so as to ease the rendering
-                    phase by formatting values, and so on.
+    Description:    Platform Design Knobs are formatted to streamline
+                    the subsequent rendering phase, where a specialized
+                    Accelerator-Rich HeSoC is generated.
 
     Date:           8.1.2022
 
@@ -32,8 +33,8 @@
 
 '''
 
-from python.accelerator.import_params import import_accelerator_dev_module
-from python.accelerator.process_params import AcceleratorDesignKnobsFormatted
+from python.accelerator.import_design_knobs import import_accelerator_design_knobs
+from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
 
 import math
 
@@ -41,8 +42,8 @@ import math
   =====================================================================
   Title:        PlatformDesignKnobsFormatted
   Type:         Class
-  Description:  Format design knobs. The output content is formatted
-                in a suitable way for template to be easily rendered.
+  Description:  Format the platform design knobs to streamline the
+                subsequent rendering phase.
   =====================================================================
 '''
 
@@ -362,7 +363,7 @@ def format_cl_acc_params(cl_target_interco):
         # retrieve accelerator communication protocol
         acc_protocols.append(acc[1])
         # retrieve number of accelerator data ports
-        accelerator_specs = import_accelerator_dev_module(acc_names[-1])
+        accelerator_specs = import_accelerator_design_knobs(acc_names[-1])
         # format accelerator wrapper design knobs
         wrapper_params = AcceleratorDesignKnobsFormatted(accelerator_specs.AcceleratorSpecs)
         # extract data ports

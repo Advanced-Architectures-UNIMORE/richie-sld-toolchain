@@ -19,10 +19,11 @@
 
     Project:        Richie Toolchain
 
-    Title:          Processing Input Specifications
+    Title:          Processing Accelerator Design Knobs
 
-    Description:    Specifications are pre-processed, so as to ease the rendering
-                    phase by formatting values, and so on.
+    Description:    Accelerator Design Knobs are formatted to streamline
+                    the subsequent rendering phase, where a specialized
+                    HW/SW accelerator interface is generated.
 
     Date:           8.1.2022
 
@@ -34,11 +35,11 @@
 
 '''
   =====================================================================
-  Title:        wrapper_params_formetted
+  Title:        AcceleratorDesignKnobsFormatted
   Type:         Class
-  Description:  Format accelerator wrapper design knobs. The output
-                content is formatted in a suitable way for template to be
-                easilyrendered.
+  Description:  Format the design knobs of the accelerator interface.
+                The output content is formatted to streamline the
+                subsequent rendering phase.
   =====================================================================
 '''
 

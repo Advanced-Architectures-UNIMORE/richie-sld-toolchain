@@ -19,10 +19,10 @@
 
     Project:        Richie Toolchain
 
-    Title:          Import Input Specifications
+    Title:          Import Accelerator Design Knobs
 
-    Description:    Importing input specifications of the interfaces
-                    concerning the instantiated accelerators.
+    Description:    Import the specification comprising the necessary design
+                    knobs to generate a specialized HW/SW accelerator interface.
 
     Date:           8.1.2022
 
@@ -36,13 +36,13 @@ from importlib import import_module
 
 '''
   =====================================================================
-  Title:        import_accelerator_dev_module
+  Title:        import_accelerator_design_knobs
   Type:         Function
-  Description:  Import accelerator module by string.
+  Description:  Import accelerator design knobs for the generator.
   =====================================================================
 '''
 
-def import_accelerator_dev_module(target_acc):
+def import_accelerator_design_knobs(target_acc):
     module_name = "dev.accelerator_dev." + target_acc + ".specs.accelerator_specs"
     accelerator_specs = import_module(module_name)
     return accelerator_specs

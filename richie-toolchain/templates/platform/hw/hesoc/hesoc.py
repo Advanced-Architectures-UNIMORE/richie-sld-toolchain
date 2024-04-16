@@ -104,7 +104,7 @@ class Hesoc:
         return Pulp(
             temp_type = 'templates/platform/hw/hesoc/pulp/',
             temp_top = 'pulp.sv.mako',
-            temp_modules = ['process_params.sv.mako'],
+            temp_modules = ['define_pulp_parameters.sv.mako'],
             path_common = self.path_common
         ).top()
 

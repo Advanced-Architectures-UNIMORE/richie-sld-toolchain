@@ -38,7 +38,7 @@
                     phase by formatting values, and so on. This is accomplished by
                     the scripts under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/process_params.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/process_design_knobs.py'
 
                     - The rendering phase requires a generator which is invoked by the
                     current script via the 'gen_*_comps' function. The definition of
@@ -70,13 +70,13 @@ import sys, os
 '''
     Import custom functions
 '''
-from python.richie.process_params import PlatformDesignKnobsFormatted
+from python.richie.process_design_knobs import PlatformDesignKnobsFormatted
 from python.richie_libs.generator import generation as generate_richie_libs
-from python.richie_libs.process_params import print_generation_log
+from python.richie_libs.process_design_knobs import print_generation_log
 
-from python.accelerator.process_params import AcceleratorDesignKnobsFormatted
+from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
 from python.accelerator.generator import generation as generate_accelerator_intf
-from python.accelerator.import_params import import_accelerator_dev_module
+from python.accelerator.import_design_knobs import import_accelerator_design_knobs
 
 '''
     Import emitter
@@ -152,7 +152,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
         '''
 
         target_acc = cl_lic_acc_names[accelerator_id]
-        accelerator_specs = import_accelerator_dev_module(target_acc)
+        accelerator_specs = import_accelerator_design_knobs(target_acc)
 
         '''
             Format wrapper design knobs
@@ -360,7 +360,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
 
             list_acc_types.append(target_acc)
 
-            accelerator_specs = import_accelerator_dev_module(target_acc)
+            accelerator_specs = import_accelerator_design_knobs(target_acc)
 
             '''
                 Format wrapper design knobs

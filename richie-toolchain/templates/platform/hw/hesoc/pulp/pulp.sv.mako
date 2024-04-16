@@ -623,7 +623,7 @@ module pulp import pulp_pkg::*; #(
   assign rab_from_host_multi_irq_o = 1'b0;
   assign rab_from_host_prot_irq_o = 1'b0;
 
-  ${def_param_max_txns()}
+  ${def_localparam_max_txns()}
 
   axi_tlb #(
     .AxiSlvPortAddrWidth  (AXI_AW),

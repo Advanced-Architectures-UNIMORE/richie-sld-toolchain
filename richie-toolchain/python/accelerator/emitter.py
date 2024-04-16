@@ -46,7 +46,7 @@ import os
 '''
     Import custom functions
 '''
-from python.accelerator.process_params import AcceleratorDesignKnobsFormatted
+from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
 
 class AcceleratorEmitter:
 

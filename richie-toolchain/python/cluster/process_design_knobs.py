@@ -21,8 +21,9 @@
 
     Title:          Processing Input Specifications
 
-    Description:    Specifications are pre-processed, so as to ease the rendering
-                    phase by formatting values, and so on.
+    Description:    Platform Design Knobs are formatted to streamline
+                    the subsequent rendering phase, where a specialized
+                    Accelerator-Rich HeSoC is generated.
 
     Date:           8.1.2022
 
@@ -33,8 +34,7 @@
 '''
 
 # import python functions
-from python.accelerator.import_params import import_accelerator_dev_module
-from python.accelerator.process_params import AcceleratorDesignKnobsFormatted
+from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
 
 '''
   =====================================================================

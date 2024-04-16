@@ -30,37 +30,37 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
 # =====================================================================
-# Title:        def_param_max_txns_per_cluster
+# Title:        def_localparam_max_txns
 # Type:         Template API
 # Description:  Definition of maximum number of transactions per cluster.
 #
 # =====================================================================
 %>
 
-<%def name="def_param_max_txns()">\
+<%def name="def_localparam_max_txns()">\
   % for i in range(n_clusters):
   localparam int unsigned MAX_TXNS_CLUSTER_${i} = pulp_cluster_${i}_cfg_pkg::N_CORES + pulp_cluster_${i}_cfg_pkg::DMA_MAX_N_TXNS;
-  % endfor  
-  localparam int unsigned MAX_TXNS_OVERALL = N_CLUSTERS * (${inst_param_max_txns_per_cluster()});
+  % endfor
+  localparam int unsigned MAX_TXNS_OVERALL = N_CLUSTERS * (${inst_localparam_max_txns_per_cluster()});
 </%def>
 
 <%
 # =====================================================================
-# Title:        inst_param_max_txns_per_cluster
+# Title:        inst_localparam_max_txns_per_cluster
 # Type:         Template API
 # Description:  Sum and instantiate maximum number of transactions per
 #               cluster.
 # =====================================================================
 %>
 
-<%def name="inst_param_max_txns_per_cluster()">\
+<%def name="inst_localparam_max_txns_per_cluster()">\
 % for i in range(n_clusters-1):
 MAX_TXNS_CLUSTER_${i} + \
-% endfor 
+% endfor
 MAX_TXNS_CLUSTER_${n_clusters-1}\
 </%def>
