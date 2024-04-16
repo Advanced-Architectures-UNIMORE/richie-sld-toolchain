@@ -18,7 +18,7 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Environment setup
+# Name: 				Environment setup
 #
 # Description: 	Recipes to set up Python Venv.
 #

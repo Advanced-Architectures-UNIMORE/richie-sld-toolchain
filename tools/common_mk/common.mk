@@ -18,7 +18,7 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Common shell components
+# Name: 				Common shell components
 #
 # Description: 	Recipes to invoke shell functions or scripts.
 #

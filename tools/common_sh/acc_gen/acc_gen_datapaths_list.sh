@@ -18,10 +18,10 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		List accelerator datapath components
+# Name: 		    List accelerator datapath components
 #
-# Description: 	Retrieve list of RTL modules that implement the accelerator
-#               datapath.
+# Description: 	Retrieve list of RTL modules that implement the datapath of the
+#               application-specific accelerator.
 #
 # Date:        	23.11.2021
 #
@@ -31,7 +31,7 @@
 
 #!/bin/bash
 
-readonly dir_acc_dev=$1
+readonly dir_accelerator_dev=$1
 readonly target_acc=$2
 
-ls ${dir_acc_dev}/${target_acc}/rtl >> ${dir_acc_dev}/${target_acc}/kernel_list.log
+ls ${dir_accelerator_dev}/${target_acc}/rtl >> ${dir_accelerator_dev}/${target_acc}/kernel_list.log

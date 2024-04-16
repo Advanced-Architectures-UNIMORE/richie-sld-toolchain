@@ -18,9 +18,9 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Environment testing
+# Name: 		    Clean output environment
 #
-# Description: 	Recipes to test the environment.
+# Description:  Clean output environment from generated components.
 #
 # Date:        	23.11.2021
 #
@@ -28,12 +28,17 @@
 #
 # =====================================================================
 
-test_ov_env: check_ov_env
-ifndef ENV_IS_CHECKED
-	@bash ${SCRIPTS_OV_DEPLOY}/secure_paths.sh ${OVERLAY_SRC} ${OVERLAY_DEPS} ${OVERLAY_TEST}
-endif
+#!/bin/bash
 
-check_ov_env:
-ifndef RICHIE_HW_EXPORT
-	$(error RICHIE_HW_EXPORT is undefined)
-endif
+readonly dir_platform_dev="$1"
+readonly dir_py_venv="$2"
+readonly dir_out_richie="$3"
+
+# Cleaning repo
+rm -rf ${dir_platform_dev}
+mkdir -p ${dir_platform_dev}
+find . -type d -name '__pycache__' -not -path "${dir_py_venv}" -exec rm -rf {} +
+find . -name "*.pyc" -type f -delete
+
+# Cleaning generated platform variant
+rm -rf ${dir_out_richie}

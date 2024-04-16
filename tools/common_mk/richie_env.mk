@@ -18,9 +18,9 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Platform deployment
+# Name: 				Environment testing
 #
-# Description: 	Recipes to guide the Git deployment of the Accelerator-Rich HeSoC.
+# Description: 	Recipes to test the environment.
 #
 # Date:        	23.11.2021
 #
@@ -28,10 +28,12 @@
 #
 # =====================================================================
 
-ov_deploy: ov_deploy_cfg
+test_richie_env: check_richie_env
+ifndef ENV_IS_CHECKED
+	@bash ${SCRIPTS_RICHIE_EXPORT}/secure_paths.sh ${OVERLAY_SRC} ${RICHIE_HW_DEPS} ${RICHIE_HW_TEST}
+endif
 
-ov_deploy_cfg:
-	@bash ${SCRIPTS_OV_DEPLOY}/$@.sh ${OUT_OV_GEN} ${OVERLAY_CFG} ${TARGET_OV}
-
-ov_deploy_test: common_sh
-	@bash ${SCRIPTS_OV_DEPLOY}/$@.sh ${OVERLAY_CFG} ${OVERLAY_DEPS} ${OVERLAY_TEST}
+check_richie_env:
+ifndef RICHIE_HW
+	$(error RICHIE_HW is undefined)
+endif

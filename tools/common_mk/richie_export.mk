@@ -18,18 +18,20 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Initialize generation environment
+# Name: 				Platform export to Richie HW subsytem
 #
-# Description:  Initialize generation environment.
+# Description: 	Recipes to guide the export of the generated Accelerator-Rich HeSoC.
 #
-# Date:        	22.12.2021
+# Date:        	23.11.2021
 #
 # Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
-#!/bin/bash
+richie_export: richie_export_cfg
 
-# Cloning git submodules
-echo -e "[sh] >> Retrieving external sources"
-git submodule update --init --recursive
+richie_export_cfg:
+	@bash ${SCRIPTS_RICHIE_EXPORT}/$@.sh ${OUT_RICHIE_GEN} ${RICHIE_HW_SRC} ${TARGET_PLATFORM}
+
+richie_export_test: common_sh
+	@bash ${SCRIPTS_RICHIE_EXPORT}/$@.sh ${RICHIE_HW_SRC} ${RICHIE_HW_DEPS} ${RICHIE_HW_TEST}

@@ -18,26 +18,26 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Environment test
+# Name: 		    Environment test
 #
 # Description:  Check environment to prevent unwanted errors.
 #
 # Date:        	23.11.2021
 #
-# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 		  Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
 #!/bin/bash
 
-echo -e "[sh] >> Checking overlay environment.\n"
+echo -e "[sh] >> Checking the Richie environment.\n"
 
 THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 source $THIS_DIR/../common.sh
 
-readonly OVERLAY_CFG=$1
-readonly OVERLAY_DEPS=$2
-readonly OVERLAY_TEST=$3
+readonly RICHIE_HW_SRC=$1
+readonly RICHIE_HW_DEPS=$2
+readonly RICHIE_HW_TEST=$3
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
 
@@ -49,107 +49,107 @@ echo -e "|------------------------|"
 echo -e "| Environment variables. |"
 echo -e "|------------------------|\n"
 
-check_env_var HERO_HOME_DIR $HERO_HOME_DIR
-check_env_var RICHIE_HW_EXPORT $RICHIE_HW_EXPORT
+check_env_var RICHIE_HOME_DIR $RICHIE_HOME_DIR
+check_env_var RICHIE_HW $RICHIE_HW
 
 echo -e ""
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
 
-# ----------------------------- #
-#  Check if OVERLAY_CFG exists  #
-# ----------------------------- #
+# ------------------------------- #
+#  Check if RICHIE_HW_SRC exists  #
+# ------------------------------- #
 
-echo -e "|--------------------------------|"
-echo -e "| OVERLAY - SOURCE CONFIGURATION |"
-echo -e "|--------------------------------|\n"
+echo -e "|-----------------------------------|"
+echo -e "| RICHIE - SOURCE PLATFORM VARIANTS |"
+echo -e "|-----------------------------------|\n"
 
-if [ -d "$OVERLAY_CFG" ]; then
+if [ -d "$RICHIE_HW_SRC" ]; then
 	# Take action if it exists. #
-	echo -e "[sh] >> A ov_cfg/ directory has been found -> $OVERLAY_CFG"
-	echo -e "[sh] >> This location should comprise SystemVerilog source files to parametrize the accelerator-rich overlay system."
+	echo -e "[sh] >> A src/ directory has been found -> $RICHIE_HW_SRC"
+	echo -e "[sh] >> This location should comprise the toolchain-generated source files to specialize the Richie platform."
 	echo -e "\n[sh] >> Is it a correct path? [ans=1,2,3]"
 
 	select yn in "yes" "no" "help"; do
 		case $yn in
 			yes ) 	echo -e ""
 					break;;
-			no ) 	error_exit "[sh] >> Erroneous path for system-level integration! Aborting.";;
-			help ) 	echo -e "\n[sh] >> Content of $OVERLAY_CFG:\n"
-					ls -1 $OVERLAY_CFG
+			no ) 	error_exit "[sh] >> Erroneous path! Aborting.";;
+			help ) 	echo -e "\n[sh] >> Content of $RICHIE_HW_SRC:\n"
+					ls -1 $RICHIE_HW_SRC
 					echo -e "\n[sh] >> Is it a correct path?";;
 		esac
 	done
 else
 	# Take action if it does not exist. #
-	error_exit "[sh] >> No src/ directory has been found. Be sure to properly setup your $RICHIE_HW_EXPORT environment."
+	error_exit "[sh] >> No src/ directory has been found. Be sure to properly setup your $RICHIE_HW environment."
 fi
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
 
-# ------------------------------ #
-#  Check if OVERLAY_DEPS exists  #
-# ------------------------------ #
+# -------------------------------- #
+#  Check if RICHIE_HW_DEPS exists  #
+# -------------------------------- #
 
-echo -e "|----------------------------|"
-echo -e "| OVERLAY - RTL DEPENDENCIES |"
-echo -e "|----------------------------|\n"
+echo -e "|---------------------------|"
+echo -e "| RICHIE - RTL DEPENDENCIES |"
+echo -e "|---------------------------|\n"
 
-if [ -d "$OVERLAY_DEPS" ]; then
+if [ -d "$RICHIE_HW_DEPS" ]; then
 	# Take action if it exists. #
-	echo -e "[sh] >> A deps/ directory has been found -> $OVERLAY_DEPS"
-	echo -e "[sh] >> This location should comprise SystemVerilog dependencies. Basically, the overlay IPs (RISC-V core, DMA, HWPE accelerators, etc.)."
+	echo -e "[sh] >> A deps/ directory has been found -> $RICHIE_HW_DEPS"
+	echo -e "[sh] >> This location should comprise RTL dependencies, e.g. processors, DMA, interconnection, etc.)."
 	echo -e "\n[sh] >> Is it a correct path? [ans=1,2,3]"
 
 	select yn in "yes" "no" "help"; do
 		case $yn in
 			yes ) 	echo -e ""
 					break;;
-			no ) 	error_exit "[sh] >> Erroneous path for system-level integration! Aborting.";;
-			help ) 	echo -e "\n[sh] >> Content of $OVERLAY_DEPS:\n"
-					ls -1 $OVERLAY_DEPS
+			no ) 	error_exit "[sh] >> Erroneous! Aborting.";;
+			help ) 	echo -e "\n[sh] >> Content of $RICHIE_HW_DEPS:\n"
+					ls -1 $RICHIE_HW_DEPS
 					echo -e "\n[sh] >> Is it a correct path?";;
 		esac
 	done
 else
 	# Take action if it does not exist. #
-	error_exit "[sh] >> No deps/ directory has been found. Be sure to properly setup your $RICHIE_HW_EXPORT environment."
+	error_exit "[sh] >> No deps/ directory has been found. Be sure to properly setup your $RICHIE_HW environment."
 fi
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
 
-# ------------------------------ #
-#  Check if OVERLAY_TEST exists  #
-# ------------------------------ #
+# -------------------------------- #
+#  Check if RICHIE_HW_TEST exists  #
+# -------------------------------- #
 
-echo -e "|--------------------------|"
-echo -e "| OVERLAY - RTL TEST SUITE |"
-echo -e "|--------------------------|\n"
+echo -e "|-------------------------|"
+echo -e "| RICHIE - RTL TEST SUITE |"
+echo -e "|-------------------------|\n"
 
-if [ -d "$OVERLAY_TEST" ]; then
+if [ -d "$RICHIE_HW_TEST" ]; then
 	# Take action if it exists. #
-	echo -e "[sh] >> A test/ directory has been found -> $OVERLAY_TEST"
-	echo -e "[sh] >> This location comprises a SystemVerilog testbench to simulate the hardware behavior."
+	echo -e "[sh] >> A vsim/ directory has been found -> $RICHIE_HW_TEST"
+	echo -e "[sh] >> This location comprises a RTL simulation environment to verify the HW/SW behavior of the generated platform."
 	echo -e "\n[sh] >> Is it a correct path? [ans=1,2,3]"
 
 	select yn in "yes" "no" "help"; do
 		case $yn in
 			yes ) 	echo -e ""
 					break;;
-			no ) 	error_exit "[sh] >> Erroneous path for system-level integration! Aborting.";;
-			help ) 	echo -e "\n[sh] >> Content of $OVERLAY_TEST:\n"
-					ls -1 $OVERLAY_TEST
+			no ) 	error_exit "[sh] >> Erroneous path! Aborting.";;
+			help ) 	echo -e "\n[sh] >> Content of $RICHIE_HW_TEST:\n"
+					ls -1 $RICHIE_HW_TEST
 					echo -e "\n[sh] >> Is it a correct path?";;
 		esac
 	done
 else
 	# Take action if it does not exist. #
-	error_exit "[sh] >> No test/ directory has been found. Be sure to properly setup your $RICHIE_HW_EXPORT environment."
+	error_exit "[sh] >> No test/ directory has been found. Be sure to properly setup your $RICHIE_HW environment."
 fi
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
 
-echo -e "[sh] >> Completed checking the overlay hardware environment."
+echo -e "[sh] >> Check test completed."
 
 # ----------------------------- #
 #  Completed environment check  #

@@ -39,8 +39,8 @@ source $dir_py_venv/bin/activate
 
 # Launch python generator
 cd richie-toolchain
-python generate_wrapper.py $dir_out_acc
-python generate_wrapper_test.py $dir_out_acc
+python generate_hwpe_accelerator.py $dir_out_acc
+python generate_hwpe_accelerator_test.py $dir_out_acc
 
 # Deactivate environment
 deactivate

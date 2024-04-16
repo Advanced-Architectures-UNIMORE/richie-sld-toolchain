@@ -18,11 +18,11 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Clean output environment
+# Name: 		    Initialize generation environment
 #
-# Description:  Clean output environment from generated components.
+# Description:  Initialize generation environment.
 #
-# Date:        	23.11.2021
+# Date:        	22.12.2021
 #
 # Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
@@ -30,15 +30,6 @@
 
 #!/bin/bash
 
-readonly dir_ov_dev="$1"
-readonly dir_py_venv="$2"
-readonly dir_out_ov="$3"
-
-# Cleaning repo
-rm -rf ${dir_ov_dev}
-mkdir ${dir_ov_dev}
-find . -type d -name '__pycache__' -not -path "${dir_py_venv}" -exec rm -rf {} +
-find . -name "*.pyc" -type f -delete
-
-# Cleaning generated overlay
-rm -rf ${dir_out_ov}
+# Cloning git submodules
+echo -e "[sh] >> Retrieving external sources"
+git submodule update --init --recursive

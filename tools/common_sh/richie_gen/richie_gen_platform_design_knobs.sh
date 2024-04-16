@@ -18,9 +18,9 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Retrieve platform specification
+# Name: 		    Retrieve platform specification
 #
-# Description:  Retrieve platform specification file with the SoC characteristics.
+# Description:  Retrieve platform specification file with the HeSoC characteristics.
 #
 # Date:        	22.12.2021
 #
@@ -30,8 +30,8 @@
 
 #!/bin/bash
 
-readonly dir_ov_src=$1
+readonly dir_richie_src=$1
 readonly dir_dev=$2
-readonly ov_target=$3
+readonly target_platform=$3
 
-cd ${dir_ov_src} && make -s clean all DEV_DIR=${dir_dev} TARGET_OV=${ov_target}
+cd ${dir_richie_src} && make -s clean all DEV_DIR=${dir_dev} TARGET_PLATFORM=${target_platform}

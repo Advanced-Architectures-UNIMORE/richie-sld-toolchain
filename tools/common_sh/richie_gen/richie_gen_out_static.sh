@@ -18,28 +18,27 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Retrieve static components
+# Name: 		    Retrieve static components
 #
 # Description: 	Retrieve static components, thus that are not generated.
 #
 # Date:        	23.11.2021
 #
-# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 		  Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
 #!/bin/bash
 
 # Read Makefile arguments
-readonly target_ov=$1
-readonly dir_dev_ov=$2
-readonly dir_out_ov=$3
-readonly dir_static=$4
+readonly dir_dev_richie=$1
+readonly dir_out_richie=$2
+readonly dir_static=$3
 
 THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 source $THIS_DIR/../common.sh
 
-if [ -d "$dir_out_ov" ]; then
+if [ -d "$dir_out_richie" ]; then
 
     # ============================================================================= #
     # Retrieve static hardware files. The term 'static' is used
@@ -47,10 +46,10 @@ if [ -d "$dir_out_ov" ]; then
     # defined within the repository, or cloned as external sources.
     # ============================================================================= #
 
-    echo -e "[sh] >> Retrieving static SoC components"
+    echo -e "[sh] >> Retrieving static HeSoC components"
 
     # Copy static system IPs
-    dst=$dir_out_ov/soc/rtl
+    dst=$dir_out_richie/hesoc/rtl
     if [ -d "$dst" ]; then
         cp -rf $dir_static/static_rtl/apb $dst
     else
@@ -66,21 +65,21 @@ if [ -d "$dir_out_ov" ]; then
     echo -e "[sh] >> Retrieving static SW test components"
 
     # Copy TB generator for compilation support files for software TB
-    dst=$dir_out_ov/test/sw
+    dst=$dir_out_richie/test/sw
     if [ -d "$dst" ]; then
-        cp -rf $dir_static/static_tb/overlay/Makefile $dst
-        cp -rf $dir_static/static_tb/overlay/inc/* $dst/inc
+        cp -rf $dir_static/static_tb/richie/Makefile $dst
+        cp -rf $dir_static/static_tb/richie/inc/* $dst/inc
     else
         error_exit "[sh] >> Directory not found -> $dst"
     fi
 
     echo -e "[sh] >> Retrieving static SW libs components"
 
-    # Copy compilation Makefiles for libhwpe and libarov-target
-    dst=$dir_out_ov/libs
+    # Copy compilation Makefiles for libhwpe and librichie-target
+    dst=$dir_out_richie/libs
     if [ -d "$dst" ]; then
         cp -rf $dir_static/static_libs/Makefile $dst
-        cp -rf $dir_static/static_libs/libarov-target/Makefile $dst/libarov-target
+        cp -rf $dir_static/static_libs/librichie-target/Makefile $dst/librichie-target
         for d in $dst/libhwpe/hwpe_*; do cp -f $dir_static/static_libs/libhwpe/Makefile $d; done
     else
         error_exit "[sh] >> Directory not found -> $dst"

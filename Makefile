@@ -32,17 +32,17 @@
 #
 # =====================================================================
 
-ROOT := $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+RICHIE_TOOLCHAIN_ROOT := $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 REPO := richie-toolchain
 
-TARGET_OV := agile_1cl_16tg
+TARGET_PLATFORM := richie_example
 
 -include tools/common_mk/*.mk
 
 .PHONY: all clean
 
-all: ov_gen
+all: richie_gen
 
-init: ov_gen_init
+init: richie_gen_init
 
-clean: ov_gen_clean acc_gen_clean
+clean: richie_gen_clean acc_gen_clean

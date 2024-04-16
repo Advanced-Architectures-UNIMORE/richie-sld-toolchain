@@ -18,7 +18,7 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Platform output environment
+# Name: 		    Platform output environment
 #
 # Description: 	Create output environment for generated Accelerator-Rich HeSoC.
 #
@@ -31,64 +31,64 @@
 #!/bin/bash
 
 # Read Makefile arguments
-readonly target_ov=$1
-readonly dir_dev_ov=$2
-readonly dir_out_ov=$3
+readonly target_platform=$1
+readonly dir_dev_richie=$2
+readonly dir_out_richie=$3
 readonly dir_static=$4
 
 THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 source $THIS_DIR/../common.sh
 
-if [ ! -d "$dir_out_ov" ]; then
-    echo -e "[sh] >> Creating directory for target overlay configuration <$target_ov>"
+if [ ! -d "$dir_out_richie" ]; then
+    echo -e "[sh] >> Creating directory for the target platform variant <$target_platform>"
 
-    mkdir -p $dir_out_ov
+    mkdir -p $dir_out_richie
 
-    echo -e "\n\t- Location -> $dir_out_ov\n"
+    echo -e "\n\t- Location -> $dir_out_richie\n"
 
     # ========================================= #
     # Create directories for generated hardware #
     # ========================================= #
 
-    mkdir -p $dir_out_ov/ip
+    mkdir -p $dir_out_richie/ip
 
-    mkdir -p $dir_out_ov/soc
-    mkdir -p $dir_out_ov/soc/packages
-    mkdir -p $dir_out_ov/soc/rtl
-    mkdir -p $dir_out_ov/soc/rtl/out-of-context
+    mkdir -p $dir_out_richie/hesoc
+    mkdir -p $dir_out_richie/hesoc/packages
+    mkdir -p $dir_out_richie/hesoc/rtl
+    mkdir -p $dir_out_richie/hesoc/rtl/out-of-context
 
-    mkdir -p $dir_out_ov/cluster
-    mkdir -p $dir_out_ov/cluster/packages
-    mkdir -p $dir_out_ov/cluster/rtl
+    mkdir -p $dir_out_richie/cluster
+    mkdir -p $dir_out_richie/cluster/packages
+    mkdir -p $dir_out_richie/cluster/rtl
 
     # ========================================= #
     # Create directories for software libraries #
     # ========================================= #
 
-    mkdir -p $dir_out_ov/libs
+    mkdir -p $dir_out_richie/libs
 
     # LibHWPE
-    mkdir -p $dir_out_ov/libs/libhwpe
+    mkdir -p $dir_out_richie/libs/libhwpe
 
-    # LibAROV
-    mkdir -p $dir_out_ov/libs/libarov-target
+    # LibRICHIE
+    mkdir -p $dir_out_richie/libs/librichie-target
 
     # Default structs
-    mkdir -p $dir_out_ov/libs/hwpe_structs
-    mkdir -p $dir_out_ov/libs/soc_structs
+    mkdir -p $dir_out_richie/libs/hwpe_structs
+    mkdir -p $dir_out_richie/libs/hesoc_structs
 
     # ========================================== #
     # Create directories for test and validation #
     # ========================================== #
 
-    mkdir -p $dir_out_ov/test
+    mkdir -p $dir_out_richie/test
 
     # Simulation
-    mkdir -p $dir_out_ov/test/waves
+    mkdir -p $dir_out_richie/test/waves
 
     # Software runtime
-    mkdir -p $dir_out_ov/test/sw
-    mkdir -p $dir_out_ov/test/sw/inc
-    mkdir -p $dir_out_ov/test/sw/inc/wrappers
+    mkdir -p $dir_out_richie/test/sw
+    mkdir -p $dir_out_richie/test/sw/inc
+    mkdir -p $dir_out_richie/test/sw/inc/wrappers
 
 fi

@@ -18,7 +18,7 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Accelerator verification
+# Name: 				Accelerator verification
 #
 # Description: 	Recipes to guide the verification of the accelerator interface.
 #

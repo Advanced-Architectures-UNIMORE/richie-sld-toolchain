@@ -18,7 +18,7 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Deploy Accelerator-Rich HeSoC
+# Name: 		    Export generated Accelerator-Rich HeSoC to the Richie HW subsystem.
 #
 # Description:  Prepare generated platform components for exporting.
 #
@@ -31,24 +31,24 @@
 #!/bin/bash
 
 # Read Makefile arguments
-readonly dir_out_ov=$1
-readonly dir_ov_cfg=$2
-readonly target_ov=$3
+readonly dir_out_richie=$1
+readonly dir_hw_src=$2
+readonly target_platform=$3
 
 THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 source $THIS_DIR/../common.sh
 
 echo -e ""
-echo -e "# ================================================ #"
-echo -e "# Deployment of the generated Accelerator-Rich HeSoC #"
-echo -e "# ================================================ #\n"
+echo -e "# ============================================== #"
+echo -e "# Exporting the generated Accelerator-Rich HeSoC #"
+echo -e "# ============================================== #\n"
 
 # define src and dst
-src=$dir_out_ov
-dst="$dir_ov_cfg/$target_ov"
+src=$dir_out_richie
+dst="$dir_hw_src/$target_platform"
 
-# Check dir_ov_cfg
-if [ -d "$dir_ov_cfg" ]; then
+# Check hardware source directory where the platform variants are kept
+if [ -d "$dir_hw_src" ]; then
 	# Take action if it exists. #
 	echo -e "[sh] >> Destination path has been found -> $dst"
 	echo -e "\n[sh] >> Is it a correct path? [ans=1,2,3]"

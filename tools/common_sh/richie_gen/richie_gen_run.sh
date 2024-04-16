@@ -18,9 +18,9 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Generation of the Accelerator-Rich HeSoC
+# Name: 		    Launch platform generation
 #
-# Description: 	Recipes to specialize and optimize Accelerator-Rich HeSoC.
+# Description: 	Launch Python scripts which renders platform components.
 #
 # Date:        	23.11.2021
 #
@@ -28,45 +28,21 @@
 #
 # =====================================================================
 
-ov_gen:
-	@bash ${SCRIPTS_OV_GEN}/$@.sh \
-		${ROOT} \
-		${DEV_DIR} \
-		${PY_VENV_DIR} \
-		${SRC_OV} \
-		${OUT_OV_GEN}
-ov_gen_run:
-	@bash ${SCRIPTS_OV_GEN}/$@.sh \
-		${TARGET_OV} \
-		${PY_VENV} \
-		${OUT_OV_GEN}
+#!/bin/bash
 
-ov_gen_fetch_specs:
-	@bash ${SCRIPTS_OV_GEN}/$@.sh \
-		${SRC_OV} \
-		${DEV_DIR} \
-		${TARGET_OV}
+readonly dir_py_venv=$1
+readonly dir_out_richie=$2
 
-ov_gen_out_env:
-	@bash ${SCRIPTS_OV_GEN}/$@.sh \
-		${TARGET_OV} \
-		${DEV_DIR} \
-		${OUT_OV_GEN} \
-		${STATIC}
+# Activate environment
+source $dir_py_venv/bin/activate
 
-ov_gen_out_static:
-	@bash ${SCRIPTS_OV_GEN}/$@.sh \
-		${TARGET_OV} \
-		${DEV_DIR} \
-		${OUT_OV_GEN} \
-		${STATIC}
+# Launch python generators
+cd richie-toolchain
+python generate_richie.py $dir_out_richie
+python generate_richie_libs.py $dir_out_richie
+python generate_richie_test.py $dir_out_richie
+python generate_hesoc.py $dir_out_richie
+python generate_cluster.py $dir_out_richie
 
-ov_gen_init:
-	@bash ${SCRIPTS_OV_GEN}/$@.sh \
-		${PY_VENV}
-
-ov_gen_clean: check_ov_env
-	@bash ${SCRIPTS_OV_GEN}/$@.sh \
-		${DEV_DIR}/ov_dev \
-		${PY_VENV_DIR} \
-		${OUT_OV_GEN}
+# Deactivate environment
+deactivate

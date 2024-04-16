@@ -30,14 +30,14 @@
 
 #!/bin/bash
 
-readonly dir_acc_dev="$1"
+readonly dir_accelerator_dev="$1"
 readonly dir_py_venv="$2"
 readonly dir_templ_acc="$3"
 readonly dir_out_acc="$4"
 
 # Cleaning repo
-rm -rf ${dir_acc_dev}
-mkdir ${dir_acc_dev}
+rm -rf ${dir_accelerator_dev}
+mkdir ${dir_accelerator_dev}
 find . -type d -name '__pycache__' -not -path "${dir_py_venv}" -exec rm -rf {} +
 find . -name "*.pyc" -type f -delete
 rm -rf ${dir_templ_acc}/integr_support/rtl_list/*.log

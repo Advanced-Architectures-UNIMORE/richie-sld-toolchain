@@ -18,7 +18,7 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Accelerator generation
+# Name: 				Accelerator generation
 #
 # Description: 	Recipes to guide the generation of the accelerator interface.
 #
@@ -30,12 +30,12 @@
 
 acc_gen:
 	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
-		${ROOT} \
+		${RICHIE_TOOLCHAIN_ROOT} \
 		${DEV_DIR} \
 		${PY_VENV_DIR} \
 		${SRC_ACC} \
 		${OUT_ACC_GEN} \
-		${OVERLAY_ACCEL}
+		${RICHIE_HW_ACCEL}
 
 acc_gen_run:
 	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
@@ -46,7 +46,7 @@ acc_gen_run:
 acc_gen_out_env:
 	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
 		${TARGET_ACC} \
-		${DEV_DIR}/acc_dev \
+		${DEV_DIR}/accelerator_dev \
 		${OUT_ACC_GEN} \
 		${STATIC}
 
@@ -54,15 +54,14 @@ acc_gen_init:
 	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
 		${PY_VENV}
 
-acc_gen_kernel_list:
+acc_gen_datapaths_list:
 	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
-		${DEV_DIR}/acc_dev \
+		${DEV_DIR}/accelerator_dev \
 		${TARGET_ACC}
 
-
-acc_gen_clean: check_ov_env
+acc_gen_clean: check_richie_env
 	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
-		${DEV_DIR}/acc_dev \
+		${DEV_DIR}/accelerator_dev \
 		${PY_VENV_DIR} \
 		${TEMPL_ACC} \
 		${OUT_ACC_GEN}

@@ -18,7 +18,7 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Platform generation
+# Name: 		    Platform generation
 #
 # Description:  Generate Accelerator-Rich HeSoC.
 #
@@ -46,71 +46,64 @@ source $THIS_DIR/../common.sh
 init_generation()
 {
     echo -e ""
-    echo "# ========================================= #"
-    echo "# Initializating overlay design environment #"
-    echo "# ========================================= #"
+    echo "# =============================================== #"
+    echo "# Initializating the Richie Toolchain environment #"
+    echo "# =============================================== #"
     echo -e ""
 
     cd $dir_root
 
-    make --silent ov_gen_clean
-    # make --silent ov_gen_init
-    make --silent ov_gen_out_env
+    make --silent richie_gen_clean
+    # make --silent richie_gen_init
+    make --silent richie_gen_out_env
 }
 
 # =====================================================================
-# Title:        fetch_ov_specs
-# Description:  This shell function invokes the 'ov_gen.mk' recipes to
-#               fetch the target from the overlay library and mirror
-#               it in a runtime device environment. The latter is meant
-#               to hold a high-level description of the output acc-rich
-#               SoC together with the acceleration kernel targets.
-#               Mirroring also permits avoiding breaking the accelerator
-#               and overlay libraries.
+# Title:        get_platform_design_knobs
+# Description:  This shell function invokes the 'richie_gen.mk' recipes to
+#               retrieve the target platform specification and mirror
+#               it in a runtime device environment.
 # =====================================================================
 
-fetch_ov_specs()
+get_platform_design_knobs()
 {
     echo -e ""
     echo "# ================================ #"
-    echo "# Retrieving SoC design parameters #"
+    echo "# Retrieving platform design knobs #"
     echo "# ================================ #"
     echo -e ""
 
-    # Fetch accelerator specifications
-    make --silent ov_gen_fetch_specs
+    # Retrieve platform design knobs
+    make --silent richie_gen_platform_design_knobs
 }
 
 # =====================================================================
 # Title:        gen_acc_wrappers
 # Description:  This shell function invokes the 'acc_gen.mk' recipes to
-#               generate accelerator wrappers compliant with the overlay
-#               infrastructure. Furthermore, the procedure derives design
-#               parameters to optimize the generated accelerator-rich overlay
-#               on the basis of the application needs.
+#               generate accelerator wrappers compliant with the platform
+#               infrastructure. Besides, the procedure derives the design
+#               knobs to specialize the platform components.
 # =====================================================================
 
 gen_acc_wrappers()
 {
-    # Cleaning generated overlay
+    # Cleaning generated platform
     cd $dir_root
     make --silent acc_gen
 }
 
 # =====================================================================
-# Title:        gen_overlay
-# Description:  This shell function invokes the 'ov_gen.mk' recipes to
-#               generate accelerator wrappers compliant with the overlay
-#               infrastructure. Furthermore, the procedure derives design
-#               parameters to optimize the generated accelerator-rich overlay
-#               on the basis of the application needs.
+# Title:        gen_richie
+# Description:  This shell function invokes the 'richie_gen.mk' recipes to
+#               generate the Richie HeSoC. Besides, the procedure derives
+#               the design knobs to specialize the platform components.
 # =====================================================================
 
-gen_overlay()
+gen_richie()
 {
     # Generate target Accelerator-Rich HeSoC
     cd $dir_root
-    make --silent ov_gen_run
+    make --silent richie_gen_run
 }
 
 # =====================================================================
@@ -128,7 +121,7 @@ get_static_comps()
 
     # Retrieve static components
     cd $dir_root
-    make --silent ov_gen_out_static
+    make --silent richie_gen_out_static
 }
 
 # ======= #
@@ -139,10 +132,10 @@ get_static_comps()
 readonly dir_root=$1
 readonly dir_devs=$2
 readonly dir_py_venv=$3
-readonly dir_ov_src=$4
-readonly dir_ov_out=$5
+readonly dir_richie_src=$4
+readonly dir_richie_out=$5
 
-readonly dir_ov_dev=$dir_devs/ov_dev
+readonly dir_platform_dev=$dir_devs/platform_dev
 
 # Activate environment
 source $dir_py_venv/bin/activate
@@ -155,13 +148,13 @@ source $dir_py_venv/bin/activate
 init_generation
 
 # Retrieve platform specifications
-fetch_ov_specs
+get_platform_design_knobs
 
 # Generate accelerator wrappers
 gen_acc_wrappers
 
 # Generate Accelerator-Rich HeSoC
-gen_overlay
+gen_richie
 
 # Retrieve static components
 get_static_comps
