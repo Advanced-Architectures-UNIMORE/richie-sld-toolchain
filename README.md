@@ -1,11 +1,13 @@
 # The Richie Toolchain
-The **Richie Toolchain** is a System-Level Design (SLD) Toolchain that automates and simplifies the HW/SW assembling and specialization of *Accelerator-Rich Heterogeneous Systems-on-Chip (HeSoCs)*. The Toolchain comprises a set of Python-based tools, which enables the seamless and rapid composition of accelerators into full-fledged platforms.
+The *Richie Toolchain* is a System-Level Design (SLD) Toolchain that automates and simplifies the HW/SW assembling and specialization of *Accelerator-Rich Heterogeneous Systems-on-Chip (HeSoCs)*. The Toolchain comprises a set of Python-based tools, which enables the seamless and rapid composition of accelerators into full-fledged platforms.
 
 Accelerator-Rich HeSoCs are generated from a high-level description. Besides, the Toolchain supports different flavors of high-level *accelerator design flows*, e.g. based on High-Level Synthesis (HLS).
 
 Generated HeSoCs are based on the [Parallel Ultra Low Power (PULP) Platform](https://pulp-platform.org/index.html), an open-source research and development platform targeting highly parallel architectures for ultra-low-power processing based on the RISC-V Instruction Set Architecture (ISA).
 
 The *Richie Toolchain* was formerly reknown as *GenOv*.
+
+
 
 ## Getting Started
 
@@ -43,15 +45,16 @@ make richie_gen_init
 ```
 
 ## System-Level Design
-The generation flow initiates from high-level descriptions, which are described below.
+The *Richie Toolchain* facilitates three SLD phases concerning the assembling of Accelerator-Rich HeSoCs: (i) **accelerator design**; (ii) **system integration**; (iii) **system optimization**.
 
-The *Richie Toolchain* facilitates the SLD phases of Accelerator-Rich HeSoCs with the:
-1) Support of various *accelerator design flows* in order to accomodate a wide range of users and application needs. This phase accomodates the design of the accelerator datapath, meaning the HW implementation of the accelerated functionality (e.g. FFT, MatMul, etc.).
-2) Generation of the *accelerator interfaces* to facilitate the integration inside the Accelerator-Rich HeSoC. These include HW interfaces for data communication and control, as well as SW libraries.
-3) Generation of a specialized and optimized *Accelerator-Rich HeSoC*.
+<div  align="center">
+<img  src="img/richie_toolchain_logo.png"  alt="Logo"  width="700">
+
+*The Richie Toolchain Architecture*
+</div>
 
 ### Accelerator Design
-Various *accelerator design flows* are supported, including:
+This phase produces the accelerator datapaths. The *Richie Toolchain* supports various design flows to accomodate a wide range of users and application needs, including:
 
 - High-Level Synthesis ([Vitis HLS](https://www.xilinx.com/products/design-tools/vitis/vitis-hls.html))
 - [Coarse-Grain Reconfigurable (CGR) Hardware Accelerators](https://mdc-suite.github.io/)
@@ -62,31 +65,74 @@ The IP interface is expected to attain the following requirements:
 - Adopt a *streaming-based interface* for data communication, e.g. the AMBA® 4 AXI4-Stream Protocol.
 - Adopt *simple data ports* or wires for control parameters, thus with no associated I/O protocol and handshaking signal.
 
-### Definition of the Accelerator Interfaces
-This phase mandates the user to provide an *accelerator specification file* describing the characteristics of the accelerator interface.
+### System Integration
+This phase generates the accelerator interfaces which facilitate the integration inside the Accelerator-Rich HeSoC. These include HW interfaces for data communication and control, as well as SW drivers.
 
-Specifications must be collected in the accelerator library (`src/accelerators/`), where are also provided preliminary examples. The best practice is to create a new library element (directory) comprising the following sections:
+The user is asked to provide an *accelerator specification file* describing the characteristics of the accelerator interface, as shown in the example below:
 
-1.  `specs/` - This location contains the Python specification file `accelerator_specs.py`. The latter embodies the required information to specialize the interface between the accelerator wrapper and the integrated engine, as well as additional features.
-2.  `rtl/` - This location contains the RTL components of the devised accelerator.
-3.  `sw/` - This location comprises optional SW components for the testing phase, which will be included in the final project.
+```python
+    class accelerator_specs:
 
-### Specialization of the Accelerator-Rich HeSoC
-Similarly, this phase mandates a *platform specification file* with the HeSoC characteristics.
+		def engine(self):
+			self.name 			= Accelerator datapath
+			self.flow 			= HLS, RTL
+			self.protocol 		= HWPE
+			return self
 
-This must be collected in the platform library (`src/platforms/`), including the following sections:
+		def streamer(self):
+			self.inputs 		= [[Name, DataType], ...]
+			self.outputs 		= [[Name, DataType], ...]
+			return self
 
-1.  `specs/` - The Python specification file is named `platform_specs.py`. This specification tells the tool how to perform the system-level integration of application-specific accelerators, as well as how to specialize platform resources.
+		def controller(self):
+			self.regs 			= [[Name, DataType], ...]
+			return self
+```
+
+Specifications are collected in the accelerator library (`src/accelerators/`), including the following sections:
+
+1.  `specs/` - This location contains the accelerator specification file `accelerator_specs.py`, which embodies the required information to specialize the HW/SW interface between the application-specific accelerators and the outer platform.
+
+### System Optimization
+This phase specializes the platform parts to meet the requirements of the integrated workload, thus producing a specialized and optimized *Accelerator-Rich HeSoC*.
+
+Similarly, this phase mandates a *platform specification file* with the HeSoC characteristics,
+
+```python
+class platform_specs:
+
+		def hesoc(self):
+			self.name 			= Accelerator-Rich HeSoC
+			self.target 		= FPGA fabric
+			self.l2_mem 		= [Number of ports, Size]
+			return self
+
+		def cluster_0(self):
+			self.acc 			= [Accelerator name, ...]
+			self.proxy 			= [IP, Number of cores, ...]
+			self.dma 			= [IP, Job queue size, ...]
+			self.l1_mem 		= [Number of ports, Size]
+			return self
+
+		...
+
+		def cluster_N(self)
+			...
+```
+
+Specifications are collected in the platform library (`src/platforms/`), including the following sections:
+
+1.  `specs/` - This location contains the platform specification file `platform_specs.py`, which guides the Richie Toolchain on how to specialize the Accelerator-Rich HeSoC.
 
 ## Generation of the Accelerator-Rich HeSoC
 
 ### The Generation Flow
 The *Richie Toolchain* adopts a design automation approach, which can be defined as *template-based*.
 Basically:
-1) **Platform** and **accelerator specification files** consist of *user-defined parameters*, which are meant to specialize the HeSoC components;
-2) **Templates** consist of marked-up text, which can be potentially *rendered* into various output formats, e.g. HW/SW components, scripts, documentation, etc.
-3) The **generation flow** provides parameters to a *rendering engine*, which parses and renders the toolchain templates. In particular, the latter leverages the [Mako Template Library](https://www.makotemplates.org/).
-4) The result consists of a **full-fledged Accelerator-Rich HeSoC**, including both *HW/SW components* and ready-to-go *simulation* and *synthesis scripts*.
+1) *Platform* and *accelerator specification files* consist of user-defined design knobs, which are meant to specialize the HeSoC components;
+2) *Templates* consist of marked-up text, which can be potentially *rendered* into various output formats, e.g. HW/SW components, scripts, documentation, etc.
+3) The *generation flow* provides parameters to a *rendering engine*, which parses and renders the toolchain templates. In particular, the latter leverages the [Mako Template Library](https://www.makotemplates.org/).
+4) The result consists of a *full-fledged Accelerator-Rich HeSoC*, including both HW/SW components and ready-to-go simulation and synthesis scripts.
 
 ### How to Run
 The generation flow is triggered with a `make clean all`.
