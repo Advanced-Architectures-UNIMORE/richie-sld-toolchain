@@ -21,7 +21,7 @@
 
     Title:          Collector
 
-    Description:    The collector class is responsible of collecting the
+    Description:    The Collector class is responsible of collecting the
                     template files from the template library for the generator.
 
                     Templates are divided in three categories:
@@ -85,7 +85,7 @@ from os.path import isfile, join
     ===============
 '''
 
-class collector:
+class Collector:
 
     def __init__(self, temp_type, temp_top, temp_modules, path_common):
         # input
@@ -108,7 +108,7 @@ class collector:
     """
     def get_path_t_top(self):
         # calculate path ~ template top
-        path_top            = [self.temp_type + 'top/' + self.temp_top]
+        path_top            = [self.temp_type + self.temp_top]
         return path_top
 
     """
@@ -118,7 +118,7 @@ class collector:
         # calculate path ~ template modules
         path_modules        = []
         for mods in self.temp_modules:
-            path_modules.append(self.temp_type + 'modules/' + mods)
+            path_modules.append(self.temp_type + mods)
         return path_modules
 
     """
@@ -132,7 +132,7 @@ class collector:
         try:
             for f in listdir(self.path_common):
                 if isfile(join(self.path_common, f)):
-                    if ".template_" in f:
+                    if ".mako" in f:
                         temp_common.append(f)
             # construct paths to common templates
             tmp = [path_common + t for t in temp_common]

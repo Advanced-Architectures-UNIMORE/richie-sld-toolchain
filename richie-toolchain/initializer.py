@@ -35,14 +35,14 @@
 #!/usr/bin/env python3
 
 '''
-    Import design parameters
+    Import design knobs
 '''
-from dev.ov_dev.specs.ov_specs import ov_specs
+from dev.platform_dev.specs.platform_specs import PlatformSpecs
 
 '''
     Import custom functions
 '''
-from python.overlay.process_params import get_acc_info
+from python.richie.process_params import get_acc_info
 
 '''
     Create accelerator configuration file. The latter is processed by shell script
@@ -50,20 +50,19 @@ from python.overlay.process_params import get_acc_info
     hardware wrappers for target acceleration kernels.
 '''
 
-acc_cfg_file = "dev/ov_dev/acc_config.cfg"
+acc_cfg_file = "dev/platform_dev/acc_config.cfg"
 
 print("[py] >> Creating accelerator configuration file to guide accelerator wrapper generation")
 print("\n\t- Location ->", acc_cfg_file, "\n")
 
-# Invoke overlay specifications
-ov_specs = ov_specs()
+# Retrieve platform specification
+platform_specs = PlatformSpecs()
 
 # Create file
 f = open(acc_cfg_file, "w")
 
-# Extract information from overlay specification
-
-[target_acc, n_acc] = get_acc_info(ov_specs)
+# Extract design knobs
+[target_acc, n_acc] = get_acc_info(platform_specs)
 
 # - Number of accelerators
 f.write("N_ACC=" + str(n_acc) + "\n")

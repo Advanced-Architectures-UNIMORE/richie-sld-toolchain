@@ -1,7 +1,4 @@
 # The Richie Toolchain
-
-## Introduction
-### Description
 The **Richie Toolchain** is a System-Level Design (SLD) Toolchain that automates and simplifies the HW/SW assembling and specialization of *Accelerator-Rich Heterogeneous Systems-on-Chip (HeSoCs)*. The Toolchain comprises a set of Python-based tools, which enables the seamless and rapid composition of accelerators into full-fledged platforms.
 
 Accelerator-Rich HeSoCs are generated from a high-level description. Besides, the Toolchain supports different flavors of high-level *accelerator design flows*, e.g. based on High-Level Synthesis (HLS).
@@ -19,7 +16,7 @@ git clone https://github.com/gbellocchi/richie-toolchain.git
 ```
 
 ### The Richie Environment
-Be sure that `RICHIE_HW_EXPORT` is set to the root of the Richie hardware subsystem (e.g. `/home/user-name/workspace_user/richie/hw`).
+Be sure that `RICHIE_HW` is set to the root of the Richie hardware subsystem (e.g. `/home/user-name/workspace_user/richie/hardware`).
 
 ### Python Virtual Environment
 The toolchain leverages a Python virtual environment in order to manage the tool dependencies.  The toolchain has been tested with `Python 3.8.10`, so we recommend to stick with this version.
@@ -42,7 +39,7 @@ Note that the `py_env_init` command should be run again to install newly added p
 External Git submodules can be pulled with the following command:
 
 ```
-make ov_gen_init
+make richie_gen_init
 ```
 
 ## System-Level Design
@@ -70,7 +67,7 @@ This phase mandates the user to provide an *accelerator specification file* desc
 
 Specifications must be collected in the accelerator library (`src/accelerators/`), where are also provided preliminary examples. The best practice is to create a new library element (directory) comprising the following sections:
 
-1.  `specs/` - This location contains the Python specification file `acc_specs.py`. The latter embodies the required information to specialize the interface between the accelerator wrapper and the integrated engine, as well as additional features.
+1.  `specs/` - This location contains the Python specification file `accelerator_specs.py`. The latter embodies the required information to specialize the interface between the accelerator wrapper and the integrated engine, as well as additional features.
 2.  `rtl/` - This location contains the RTL components of the devised accelerator.
 3.  `sw/` - This location comprises optional SW components for the testing phase, which will be included in the final project.
 
@@ -79,7 +76,7 @@ Similarly, this phase mandates a *platform specification file* with the HeSoC ch
 
 This must be collected in the platform library (`src/platforms/`), including the following sections:
 
-1.  `specs/` - The Python specification file is named `ov_specs.py`. This specification tells the tool how to perform the system-level integration of application-specific accelerators, as well as how to specialize platform resources.
+1.  `specs/` - The Python specification file is named `platform_specs.py`. This specification tells the tool how to perform the system-level integration of application-specific accelerators, as well as how to specialize platform resources.
 
 ## Generation of the Accelerator-Rich HeSoC
 
@@ -96,7 +93,7 @@ The generation flow is triggered with a `make clean all`.
 
 Additionally, add the following arguments:
 
-- **TARGET_OV**: This is to specify the target platform to generate. For example,  `make clean all TARGET_OV=my-soc` is run to generate the target `my-soc` under `src/platforms/my-soc/specs`.
+- **PLATFORM_NAME**: This is to specify the target platform to generate. For example,  `make clean all PLATFORM_NAME=richie_example` is run to generate the target `richie_example` under `src/platforms/richie_example/specs`.
 
 The generated components will then be available under `output`.
 

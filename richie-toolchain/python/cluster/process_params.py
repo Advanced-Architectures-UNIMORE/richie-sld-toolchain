@@ -33,18 +33,18 @@
 '''
 
 # import python functions
-from python.wrapper.import_params import import_acc_dev_module
-from python.wrapper.process_params import wrapper_params_formatted
+from python.accelerator.import_params import import_accelerator_dev_module
+from python.accelerator.process_params import AcceleratorDesignKnobsFormatted
 
 '''
   =====================================================================
-  Title:        print_cl_log
+  Title:        print_generation_log
   Type:         Function
-  Description:  Print cluster information.
+  Description:  Print generation log.
   =====================================================================
 '''
 
-def print_cl_log(overlay_params, cl_id=0, verbose=False):
+def print_generation_log(design_knobs, cl_id=0, verbose=False):
 
     print("\n# =========================== #")
     print("# Generation of Cluster n.", cl_id, " #")
@@ -56,13 +56,13 @@ def print_cl_log(overlay_params, cl_id=0, verbose=False):
       print("[py] >> User-defined cluster specification:")
 
       print("\n\tLIC interconnect:")
-      print("\t\tAccelerator names:",               overlay_params.list_cl_lic[cl_id][1])
-      print("\t\tAccelerator protocols:",           overlay_params.list_cl_lic[cl_id][2])
-      print("\t\tAccelerator data ports:",          overlay_params.list_cl_lic[cl_id][3])
-      print("\t\tAccelerator data ports (total):",  overlay_params.list_cl_lic[cl_id][0])
+      print("\t\tAccelerator names:",               design_knobs.list_cl_lic[cl_id][1])
+      print("\t\tAccelerator protocols:",           design_knobs.list_cl_lic[cl_id][2])
+      print("\t\tAccelerator data ports:",          design_knobs.list_cl_lic[cl_id][3])
+      print("\t\tAccelerator data ports (total):",  design_knobs.list_cl_lic[cl_id][0])
 
       print("\n\tHCI interconnect:")
-      print("\t\tAccelerator names:",               overlay_params.list_cl_hci[cl_id][1])
-      print("\t\tAccelerator protocols:",           overlay_params.list_cl_hci[cl_id][2])
-      print("\t\tAccelerator data ports:",          overlay_params.list_cl_hci[cl_id][3])
-      print("\t\tAccelerator data ports (total):",  overlay_params.list_cl_hci[cl_id][0])
+      print("\t\tAccelerator names:",               design_knobs.list_cl_hci[cl_id][1])
+      print("\t\tAccelerator protocols:",           design_knobs.list_cl_hci[cl_id][2])
+      print("\t\tAccelerator data ports:",          design_knobs.list_cl_hci[cl_id][3])
+      print("\t\tAccelerator data ports (total):",  design_knobs.list_cl_hci[cl_id][0])

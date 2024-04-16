@@ -26,10 +26,10 @@ ifndef PULP_SDK_HOME
 $(error PULP_SDK_HOME is not set)
 endif
 
-dirs = $(wildcard libhwpe/*) libarov-target
+dirs = $(wildcard libhwpe/*) librichie-target
 
-.PHONY: hwpe_structs soc_structs clean all
-all: hwpe_structs soc_structs
+.PHONY: hwpe_structs hesoc_structs clean all
+all: hwpe_structs hesoc_structs
 	@$(foreach dir,$(dirs), cd $(PWD)/$(dir) && make header build;)
 
 install_pulp:
@@ -41,10 +41,10 @@ install:
 build:
 	@$(foreach dir,$(dirs), cd $(PWD)/$(dir) && make $@;)
 
-header: hwpe_structs soc_structs
+header: hwpe_structs hesoc_structs
 	@$(foreach dir,$(dirs), cd $(PWD)/$(dir) && make $@;)
 
-soc_structs:
+hesoc_structs:
 	mkdir -p $(PULP_SDK_HOME)/install/include/common_structs
 	cp $@/*.h $(PULP_SDK_HOME)/install/include/common_structs
 
@@ -59,5 +59,5 @@ clean:
 clean_sdk:
 	rm -rf ${PULP_SDK_HOME}/install/include/common_structs
 	rm -rf ${PULP_SDK_HOME}/install/include/libhwpe
-	rm -rf ${PULP_SDK_HOME}/install/include/libarov-target
-	rm -rf ${PULP_SDK_HOME}/install/include/arov-target.h
+	rm -rf ${PULP_SDK_HOME}/install/include/librichie-target
+	rm -rf ${PULP_SDK_HOME}/install/include/richie-target.h
