@@ -31,8 +31,6 @@
 #
 # =====================================================================
 
-ROOT := $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
-
 .PHONY: all clean
 
 all: lib_info
@@ -43,7 +41,7 @@ all: lib_info
 lib_info:
 	@echo -e "[sh] >> Runtime accelerator device environment:\n"
 	@echo -e "\t- Location -> ${ACC_DEV_DIR}"
-	@echo -e "\t- Target device -> ${TARGET_ACC}\n"
+	@echo -e "\t- Target accelerator -> ${TARGET_ACC}\n"
 
 clean:
 	@echo "[sh] >> Cleaning runtime accelerator device environment"
