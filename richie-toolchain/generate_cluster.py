@@ -77,12 +77,12 @@ from python.richie.process_design_knobs import get_acc_targets
 '''
     Import generator
 '''
-from python.richie.generator import Generator
+from python.generator import Generator
 
 '''
     Import emitter
 '''
-from python.richie.emitter import EmitRichie
+from python.emitter import Emitter
 
 '''
     Import design knobs
@@ -112,7 +112,7 @@ platform_design_knobs = PlatformDesignKnobsFormatted(platform_specs)
 '''
     Instantiate emitter
 '''
-emitter = EmitRichie(platform_specs, dir_out_richie)
+emitter = Emitter(platform_specs, None, dir_out_richie, None)
 
 '''
     Instantiate templates
@@ -152,7 +152,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
         None,
         emitter,
         ['cl', str(cl_offset) + '_cfg_pkg', ['hw', 'sv']],
-        emitter.out_gen_cl_pkg,
+        emitter.out_platform_cl_pkg,
         cl_offset
     )
 
@@ -165,7 +165,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
         None,
         emitter,
         ['cl', str(cl_offset) + '_defines', ['hw', 'sv']],
-        emitter.out_gen_cl_pkg,
+        emitter.out_platform_cl_pkg,
         cl_offset
     )
 
@@ -187,7 +187,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
         None,
         emitter,
         ['cl', str(cl_offset) + '_lic_acc_region', ['hw', 'sv']],
-        emitter.out_gen_cl_rtl,
+        emitter.out_platform_cl_rtl,
         cl_offset
     )
 
@@ -200,7 +200,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
         None,
         emitter,
         ['cl', str(cl_offset) + '_periph_acc_intf', ['hw', 'sv']],
-        emitter.out_gen_cl_rtl,
+        emitter.out_platform_cl_rtl,
         cl_offset
     )
 
@@ -222,7 +222,7 @@ generator.render(
     None,
     emitter,
     ['integr_support', 'Bender', ['integr_support', 'yml']],
-    emitter.out_gen_cl,
+    emitter.out_platform_cl,
     0,
     [get_acc_targets(platform_design_knobs), None, None]
 )

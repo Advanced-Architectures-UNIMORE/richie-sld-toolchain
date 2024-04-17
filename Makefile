@@ -43,6 +43,8 @@ TARGET_PLATFORM := richie_example
 
 all: richie_gen
 
+export: richie_export
+
 init: richie_gen_init
 
 clean: richie_gen_clean acc_gen_clean

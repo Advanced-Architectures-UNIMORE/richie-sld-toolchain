@@ -78,12 +78,12 @@ from python.accelerator.import_design_knobs import import_accelerator_design_kno
 '''
     Import generator
 '''
-from python.richie.generator import Generator
+from python.generator import Generator
 
 '''
     Import emitter
 '''
-from python.accelerator.emitter import AcceleratorEmitter
+from python.emitter import Emitter
 
 '''
     Import templates
@@ -113,7 +113,7 @@ accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.Acc
 '''
     Instantiate emitter
 '''
-emitter = AcceleratorEmitter(accelerator_design_knobs, dir_out_acc)
+emitter = Emitter(None, accelerator_design_knobs, None, dir_out_acc)
 
 '''
     Print generation log
@@ -152,7 +152,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['tb', 'tb_hwpe', ['hw', 'sv']],
-    emitter.out_gen_standalone_test_hw
+    emitter.out_accelerator_standalone_test_hw
 )
 
 '''
@@ -179,7 +179,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['sw', 'archi_hwpe', ['sw', 'archi']],
-    emitter.out_gen_standalone_test_hwpe_lib
+    emitter.out_accelerator_standalone_test_hwpe_lib
 )
 
 '''
@@ -192,7 +192,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['sw', 'hal_hwpe', ['sw', 'hal']],
-    emitter.out_gen_standalone_test_hwpe_lib
+    emitter.out_accelerator_standalone_test_hwpe_lib
 )
 
 '''
@@ -206,7 +206,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['sw', 'tb_hwpe', ['sw', 'tb']],
-    emitter.out_gen_standalone_test_sw
+    emitter.out_accelerator_standalone_test_sw
 )
 
 '''
@@ -226,7 +226,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['integr_support', 'vsim_wave', ['integr_support', 'vsim_wave']],
-    emitter.out_hwpe
+    emitter.out_accelerator
 )
 
 '''
@@ -258,7 +258,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['sw', 'archi_hwpe', ['sw', 'archi']],
-    emitter.out_gen_system_test_hwpe_lib
+    emitter.out_accelerator_system_test_hwpe_lib
 )
 
 '''
@@ -271,7 +271,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['sw', 'hal_hwpe', ['sw', 'hal']],
-    emitter.out_gen_system_test_hwpe_lib
+    emitter.out_accelerator_system_test_hwpe_lib
 )
 
 '''
@@ -285,5 +285,5 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['sw', 'tb_hwpe', ['sw', 'tb']],
-    emitter.out_gen_system_test_hwpe_lib
+    emitter.out_accelerator_system_test_hwpe_lib
 )

@@ -70,9 +70,11 @@ class Generator:
 
     def retrieve_knobs(self, platform_design_knobs, accelerator_design_knobs, cluster_id=0, extra_params=[]):
 
-        # ------------------------ #
-        # HeSoC-level design knobs #
-        # ------------------------ #
+        '''
+            ========================
+            HeSoC-level design knobs
+            ========================
+        '''
 
         if platform_design_knobs is not None:
 
@@ -111,9 +113,11 @@ class Generator:
                 'n_clusters'                      : platform_design_knobs.n_clusters,
             })
 
-        # ----------------------- #
-        # Tile-level design knobs #
-        # ----------------------- #
+        '''
+            =======================
+            Tile-level design knobs
+            =======================
+        '''
 
         if platform_design_knobs is not None:
 
@@ -150,9 +154,11 @@ class Generator:
                 'cl_hci_acc_n_data_ports'         : platform_design_knobs.list_cl_hci[cluster_id][3],
             })
 
-        # ------------------------------ #
-        # Accelerator-level design knobs #
-        # ------------------------------ #
+        '''
+            ==============================
+            Accelerator-level design knobs
+            ==============================
+        '''
 
         if accelerator_design_knobs is not None:
 
@@ -201,9 +207,11 @@ class Generator:
                 'acc_wr_num_kernel_modules'         : len(self.get_datapath_modules_list(accelerator_design_knobs)),
             })
 
-        # ----------------------- #
-        # Additional design knobs #
-        # ----------------------- #
+        '''
+            =======================
+            Additional design knobs
+            =======================
+        '''
 
         self.template_knobs.update({
 

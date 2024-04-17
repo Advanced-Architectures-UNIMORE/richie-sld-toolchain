@@ -78,12 +78,12 @@ from python.accelerator.import_design_knobs import import_accelerator_design_kno
 '''
     Import generator
 '''
-from python.richie.generator import Generator
+from python.generator import Generator
 
 '''
     Import emitter
 '''
-from python.accelerator.emitter import AcceleratorEmitter
+from python.emitter import Emitter
 
 '''
     Import templates
@@ -110,7 +110,7 @@ accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.Acc
 '''
     Instantiate emitter
 '''
-emitter = AcceleratorEmitter(accelerator_design_knobs, dir_out_acc)
+emitter = Emitter(None, accelerator_design_knobs, None, dir_out_acc)
 
 '''
     Print generation log
@@ -150,7 +150,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['hwpe', 'cluster_intf', ['hw', 'sv']],
-        emitter.out_gen_wrap
+        emitter.out_accelerator_wrapper
     )
 
     '''
@@ -162,7 +162,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['hwpe', 'top_wrapper', ['hw', 'sv']],
-        emitter.out_gen_wrap
+        emitter.out_accelerator_wrapper
     )
 
     '''
@@ -174,7 +174,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['hwpe', 'top', ['hw', 'sv']],
-        emitter.out_gen_rtl
+        emitter.out_accelerator_rtl
     )
 
     '''
@@ -186,7 +186,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['hwpe', 'engine', ['hw', 'sv']],
-        emitter.out_gen_rtl
+        emitter.out_accelerator_rtl
     )
 
     '''
@@ -198,7 +198,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['hwpe', 'kernel_adapter', ['hw', 'sv']],
-        emitter.out_gen_rtl
+        emitter.out_accelerator_rtl
     )
 
     '''
@@ -210,7 +210,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['hwpe', 'streamer', ['hw', 'sv']],
-        emitter.out_gen_rtl
+        emitter.out_accelerator_rtl
     )
 
     '''
@@ -222,7 +222,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['hwpe', 'ctrl', ['hw', 'sv']],
-        emitter.out_gen_rtl
+        emitter.out_accelerator_rtl
     )
 
     '''
@@ -234,7 +234,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['hwpe', 'fsm', ['hw', 'sv']],
-        emitter.out_gen_rtl
+        emitter.out_accelerator_rtl
     )
 
     '''
@@ -246,7 +246,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['hwpe', 'package', ['hw', 'sv']],
-        emitter.out_gen_rtl
+        emitter.out_accelerator_rtl
     )
 
     '''
@@ -267,7 +267,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['integr_support', 'Bender', ['integr_support', 'yml']],
-        emitter.out_hwpe
+        emitter.out_accelerator
     )
 
     '''
@@ -279,7 +279,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['tb', 'src_files', ['integr_support', 'yml']],
-        emitter.out_hwpe
+        emitter.out_accelerator
     )
 
     '''
@@ -291,7 +291,7 @@ if accelerator_design_knobs.is_third_party is False:
         accelerator_design_knobs,
         emitter,
         ['tb', 'ips_list', ['integr_support', 'yml']],
-        emitter.out_hwpe
+        emitter.out_accelerator
     )
 
 else:
@@ -309,5 +309,5 @@ else:
         accelerator_design_knobs,
         emitter,
         ['hwpe', 'cluster_intf', ['hw', 'sv']],
-        emitter.out_gen_wrap
+        emitter.out_accelerator_wrapper
     )

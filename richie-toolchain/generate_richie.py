@@ -77,12 +77,12 @@ from python.richie.process_design_knobs import print_generation_log
 '''
     Import generator
 '''
-from python.richie.generator import Generator
+from python.generator import Generator
 
 '''
     Import emitter
 '''
-from python.richie.emitter import EmitRichie
+from python.emitter import Emitter
 
 '''
     Import design knobs
@@ -97,7 +97,7 @@ from templates.platform.hw.richie.richie import Richie
 '''
     Read input arguments
 '''
-dir_out = sys.argv[1]
+dir_out_richie = sys.argv[1]
 
 '''
     Retrieve platform specification
@@ -117,7 +117,7 @@ print_generation_log(platform_design_knobs)
 '''
     Instantiate emitter
 '''
-emitter = EmitRichie(platform_specs, dir_out)
+emitter = Emitter(platform_specs, None, dir_out_richie, None)
 
 '''
     Instantiate templates
@@ -147,7 +147,7 @@ generator.render(
     None,
     emitter,
     ['hesoc', 'pulp_t' + platform_design_knobs.target_fpga_hesoc, ['hw', 'v']],
-    emitter.out_gen_ip
+    emitter.out_platform_ip
 )
 
 '''
@@ -168,7 +168,7 @@ generator.render(
     None,
     emitter,
     ['integr_support', 'Bender', ['integr_support', 'yml']],
-    emitter.out
+    emitter.out_platform
 )
 
 generator.render(
@@ -177,7 +177,7 @@ generator.render(
     None,
     emitter,
     ['integr_support', 'Bender', ['integr_support', 'lock']],
-    emitter.out,
+    emitter.out_platform,
     0,
     [get_acc_targets(platform_design_knobs), None, None]
 )

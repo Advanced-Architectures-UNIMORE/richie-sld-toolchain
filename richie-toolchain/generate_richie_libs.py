@@ -79,12 +79,12 @@ from python.accelerator.import_design_knobs import import_accelerator_design_kno
 '''
     Import generator
 '''
-from python.richie.generator import Generator
+from python.generator import Generator
 
 '''
     Import emitter
 '''
-from python.richie.emitter import EmitRichie
+from python.emitter import Emitter
 
 '''
     Import design knobs
@@ -103,7 +103,7 @@ from templates.accelerator.sw.hwpe_system_hal.hwpe_system_hal import HwpeSystemH
 '''
     Read input arguments
 '''
-dir_out = sys.argv[1]
+dir_out_richie = sys.argv[1]
 
 '''
     Retrieve platform specification
@@ -123,7 +123,7 @@ print_generation_log(platform_design_knobs)
 '''
     Instantiate emitter
 '''
-emitter = EmitRichie(platform_specs, dir_out)
+emitter = Emitter(platform_specs, None, dir_out_richie, None)
 
 '''
     Instantiate templates
@@ -172,12 +172,12 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             Create libraries directory
         '''
 
-        lib_path = emitter.out_gen_libhwpe + '/hwpe_cl' + str(cl_offset) + '_lic' + str(accelerator_id)
+        platform_libhwpe_path = emitter.out_platform_libhwpe + '/hwpe_cl' + str(cl_offset) + '_lic' + str(accelerator_id)
 
-        os.mkdir(lib_path)
-        os.mkdir(lib_path + '/host')
-        os.mkdir(lib_path + '/inc')
-        os.mkdir(lib_path + '/pulp')
+        os.mkdir(platform_libhwpe_path)
+        os.mkdir(platform_libhwpe_path + '/host')
+        os.mkdir(platform_libhwpe_path + '/inc')
+        os.mkdir(platform_libhwpe_path + '/pulp')
 
         '''
             Generate design components ~ LibHWPE (Host APIs)
@@ -191,7 +191,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             accelerator_design_knobs,
             emitter,
             ['sw', hwpe_name, ['sw', 'API']],
-            lib_path + '/host',
+            platform_libhwpe_path + '/host',
             cl_offset,
             [accelerator_id, None, None]
         )
@@ -202,7 +202,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             accelerator_design_knobs,
             emitter,
             ['integr_support', 'Makefile', ['integr_support', 'mk']],
-            lib_path + '/host',
+            platform_libhwpe_path + '/host',
             cl_offset,
             [accelerator_id, None, None]
         )
@@ -213,7 +213,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             accelerator_design_knobs,
             emitter,
             ['sw', hwpe_name, ['sw', 'API']],
-            lib_path + '/pulp',
+            platform_libhwpe_path + '/pulp',
             cl_offset,
             [accelerator_id, None, None]
         )
@@ -224,7 +224,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             accelerator_design_knobs,
             emitter,
             ['integr_support', 'Makefile', ['integr_support', 'mk']],
-            lib_path + '/pulp',
+            platform_libhwpe_path + '/pulp',
             cl_offset,
             [accelerator_id, None, None]
         )
@@ -235,7 +235,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             accelerator_design_knobs,
             emitter,
             ['sw', hwpe_name, ['sw', 'header']],
-            lib_path + '/inc',
+            platform_libhwpe_path + '/inc',
             cl_offset,
             [accelerator_id, None, None]
         )
@@ -250,7 +250,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             accelerator_design_knobs,
             emitter,
             ['sw', 'archi_hwpe', ['sw', 'archi']],
-            lib_path + '/inc',
+            platform_libhwpe_path + '/inc',
             cl_offset,
             [cl_offset, accelerator_id, None]
         )
@@ -261,7 +261,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             accelerator_design_knobs,
             emitter,
             ['sw', 'hal_hwpe', ['sw', 'hal']],
-            lib_path + '/inc',
+            platform_libhwpe_path + '/inc',
             cl_offset,
             [cl_offset, accelerator_id, None]
         )
@@ -280,11 +280,11 @@ for cl_offset in range(platform_design_knobs.n_clusters):
     Create libraries directory
 '''
 
-lib_path = emitter.out_gen_librichie_target
+platform_librichie_path = emitter.out_platform_librichie_target
 
-os.mkdir(lib_path + '/host')
-os.mkdir(lib_path + '/inc')
-os.mkdir(lib_path + '/pulp')
+os.mkdir(platform_librichie_path + '/host')
+os.mkdir(platform_librichie_path + '/inc')
+os.mkdir(platform_librichie_path + '/pulp')
 
 '''
     Generate design components ~ LibRICHIE (Host APIs)
@@ -296,7 +296,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['sw', 'richie-target', ['sw', 'API']],
-    lib_path + '/host'
+    platform_librichie_path + '/host'
 )
 
 generator.render(
@@ -305,7 +305,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['integr_support', 'Makefile', ['integr_support', 'mk']],
-    lib_path + '/host'
+    platform_librichie_path + '/host'
 )
 
 generator.render(
@@ -314,7 +314,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['sw', 'richie-target', ['sw', 'API']],
-    lib_path + '/pulp',
+    platform_librichie_path + '/pulp',
     0,
     [platform_design_knobs.list_cl_lic, platform_design_knobs.list_cl_hci, None]
 )
@@ -325,7 +325,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['integr_support', 'Makefile', ['integr_support', 'mk']],
-    lib_path + '/pulp'
+    platform_librichie_path + '/pulp'
 )
 
 generator.render(
@@ -334,7 +334,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['sw', 'richie-target', ['sw', 'header']],
-    lib_path + '/inc',
+    platform_librichie_path + '/inc',
     0,
     [platform_design_knobs.list_cl_lic, platform_design_knobs.list_cl_hci, None]
 )
@@ -392,7 +392,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
                 accelerator_design_knobs,
                 emitter,
                 ['sw', "def_struct_hwpe_" + hwpe_name, ['sw', 'header']],
-                emitter.out_gen_hwpe_structs,
+                emitter.out_platform_hwpe_structs,
                 cl_offset,
                 [accelerator_id, None, None]
             )
@@ -407,7 +407,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['sw', 'def_struct_hwpe_common', ['sw', 'header']],
-    emitter.out_gen_hwpe_structs,
+    emitter.out_platform_hwpe_structs,
     0,
     [list_acc_types, list_acc_integrated, None]
 )
@@ -430,5 +430,5 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['sw', 'def_struct_hesoc_perf_eval', ['sw', 'header']],
-    emitter.out_gen_hesoc_structs
+    emitter.out_platform_hesoc_structs
 )

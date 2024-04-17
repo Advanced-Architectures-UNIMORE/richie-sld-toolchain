@@ -76,12 +76,12 @@ from python.hesoc.process_design_knobs import print_generation_log
 '''
     Import generator
 '''
-from python.richie.generator import Generator
+from python.generator import Generator
 
 '''
     Import emitter
 '''
-from python.richie.emitter import EmitRichie
+from python.emitter import Emitter
 
 '''
     Import design knobs
@@ -116,7 +116,7 @@ print_generation_log(platform_design_knobs)
 '''
     Instantiate emitter
 '''
-emitter = EmitRichie(platform_specs, dir_out_richie)
+emitter = Emitter(platform_specs, None, dir_out_richie, None)
 
 '''
     Instantiate templates
@@ -145,7 +145,7 @@ generator.render(
     None,
     emitter,
     ['hesoc', 'hesoc_cfg_pkg', ['hw', 'sv']],
-    emitter.out_gen_hesoc_pkg
+    emitter.out_platform_hesoc_pkg
 )
 
 '''
@@ -165,7 +165,7 @@ generator.render(
     None,
     emitter,
     ['hesoc', 'hero_axi_mailbox', ['hw', 'sv']],
-    emitter.out_gen_hesoc_rtl
+    emitter.out_platform_hesoc_rtl
 )
 
 '''
@@ -177,7 +177,7 @@ generator.render(
     None,
     emitter,
     ['hesoc', 'l2_mem', ['hw', 'sv']],
-    emitter.out_gen_hesoc_rtl
+    emitter.out_platform_hesoc_rtl
 )
 
 '''
@@ -189,7 +189,7 @@ generator.render(
     None,
     emitter,
     ['hesoc', 'pulp', ['hw', 'sv']],
-    emitter.out_gen_hesoc_rtl
+    emitter.out_platform_hesoc_rtl
 )
 
 '''
@@ -201,7 +201,7 @@ generator.render(
     None,
     emitter,
     ['hesoc', 'hesoc_interconnect', ['hw', 'sv']],
-    emitter.out_gen_hesoc_rtl
+    emitter.out_platform_hesoc_rtl
 )
 
 '''
@@ -213,7 +213,7 @@ generator.render(
     None,
     emitter,
     ['hesoc', 'hesoc_ctrl_regs', ['hw', 'sv']],
-    emitter.out_gen_hesoc_rtl
+    emitter.out_platform_hesoc_rtl
 )
 
 '''
@@ -225,7 +225,7 @@ generator.render(
     None,
     emitter,
     ['hesoc', 'hesoc_peripherals', ['hw', 'sv']],
-    emitter.out_gen_hesoc_rtl
+    emitter.out_platform_hesoc_rtl
 )
 
 '''
@@ -245,7 +245,7 @@ generator.render(
     None,
     emitter,
     ['hesoc', 'dmac_wrap_ooc', ['hw', 'sv']],
-    emitter.out_gen_hesoc_ooc
+    emitter.out_platform_hesoc_ooc
 )
 
 '''
@@ -257,7 +257,7 @@ generator.render(
     None,
     emitter,
     ['hesoc', 'pulp_ooc', ['hw', 'sv']],
-    emitter.out_gen_hesoc_ooc
+    emitter.out_platform_hesoc_ooc
 )
 
 for cl_offset in range(platform_design_knobs.n_clusters):
@@ -271,7 +271,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
         None,
         emitter,
         ['cl', str(cl_offset) + '_ooc', ['hw', 'sv']],
-        emitter.out_gen_hesoc_ooc,
+        emitter.out_platform_hesoc_ooc,
         cl_offset
     )
 
@@ -293,5 +293,5 @@ generator.render(
     None,
     emitter,
     ['integr_support', 'Bender', ['integr_support', 'yml']],
-    emitter.out_gen_hesoc
+    emitter.out_platform_hesoc
 )

@@ -79,12 +79,12 @@ from python.accelerator.import_design_knobs import import_accelerator_design_kno
 '''
     Import generator
 '''
-from python.richie.generator import Generator
+from python.generator import Generator
 
 '''
     Import emitter
 '''
-from python.richie.emitter import EmitRichie
+from python.emitter import Emitter
 
 '''
     Import design knobs
@@ -119,7 +119,7 @@ print_generation_log(platform_design_knobs)
 '''
     Instantiate emitter
 '''
-emitter = EmitRichie(platform_specs, dir_out_richie)
+emitter = Emitter(platform_specs, None, dir_out_richie, None)
 
 '''
     Instantiate templates
@@ -153,7 +153,7 @@ generator.render(
     None,
     emitter,
     ['tb', 'richie_tb', ['hw', 'sv']],
-    emitter.out_gen_test
+    emitter.out_platform_test
 )
 
 '''
@@ -174,7 +174,7 @@ generator.render(
     None,
     emitter,
     ['integr_support', 'vsim_wave_hesoc', ['integr_support', 'vsim_wave']],
-    emitter.out_gen_test_waves
+    emitter.out_platform_test_waves
 )
 
 for cluster_id in range(platform_design_knobs.n_clusters):
@@ -188,7 +188,7 @@ for cluster_id in range(platform_design_knobs.n_clusters):
         None,
         emitter,
         ['integr_support', 'vsim_wave_cluster_' + str(cluster_id), ['integr_support', 'vsim_wave']],
-        emitter.out_gen_test_waves,
+        emitter.out_platform_test_waves,
         cluster_id
     )
 
@@ -221,7 +221,7 @@ for cluster_id in range(platform_design_knobs.n_clusters):
             accelerator_design_knobs,
             emitter,
             ['integr_support', 'vsim_wave_' + hwpe_name, ['integr_support', 'vsim_wave']],
-            emitter.out_gen_test_waves,
+            emitter.out_platform_test_waves,
             cluster_id,
             [cluster_id, accelerator_id, None]
         )
@@ -235,7 +235,7 @@ generator.render(
     None,
     emitter,
     ['integr_support', 'vsim_wave_experiment_view', ['integr_support', 'vsim_wave']],
-    emitter.out_gen_test_waves,
+    emitter.out_platform_test_waves,
     0,
     [platform_design_knobs, None, None]
 )

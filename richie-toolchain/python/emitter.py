@@ -19,7 +19,7 @@
 
     Project:        Richie Toolchain
 
-    Title:          Platform Emitter
+    Title:          Emitter
 
     Description:    The emitter class is responsible of creating the ouput
                     environment, to assemble the associated repository, as
@@ -35,7 +35,9 @@
 
 #!/usr/bin/env python3
 
-# Packages
+'''
+    Import Python packages
+'''
 import numpy as np
 import sys
 import struct
@@ -44,19 +46,25 @@ from distutils.dir_util import copy_tree
 import os
 
 '''
+    Import custom functions
+'''
+from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
+
+'''
     =============
     Emitter class
     =============
 '''
 
-class EmitRichie:
+class Emitter:
 
-    def __init__(self, platform_design_knobs, dir_out):
+    def __init__(self, platform_design_knobs, accelerator_design_knobs, dir_out_platform, dir_out_accelerator):
 
         '''
             Design knobs
         '''
         self.platform_design_knobs          = platform_design_knobs
+        self.accelerator_design_knobs       = accelerator_design_knobs
 
         '''
             Output environment
@@ -64,7 +72,9 @@ class EmitRichie:
         self.out_dir                        = 'output'
 
         '''
+            =======================================
             Output environment ~ Generated platform
+            =======================================
 
             This set of parameters describe the output environment
             where the generated platform components are inserted. The
@@ -72,37 +82,72 @@ class EmitRichie:
             defined in the tool script "out_gen_out_env.sh".
         '''
 
-        self.out                                = dir_out
+        if platform_design_knobs is not None and dir_out_platform is not None:
 
-        # IP
-        self.out_gen_ip                         = self.out + '/ip'
+            self.out_platform                               = dir_out_platform
 
-        # HeSoC
-        self.out_gen_hesoc                      = self.out + '/hesoc'
-        self.out_gen_hesoc_pkg                  = self.out_gen_hesoc + '/packages'
-        self.out_gen_hesoc_rtl                  = self.out_gen_hesoc + '/rtl'
-        self.out_gen_hesoc_ooc                  = self.out_gen_hesoc_rtl + '/out-of-context'
+            # IP
+            self.out_platform_ip                            = self.out_platform + '/ip'
 
-        # Cluster
-        self.out_gen_cl                         = self.out + '/cluster'
-        self.out_gen_cl_pkg                     = self.out_gen_cl + '/packages'
-        self.out_gen_cl_rtl                     = self.out_gen_cl + '/rtl'
+            # HeSoC
+            self.out_platform_hesoc                         = self.out_platform + '/hesoc'
+            self.out_platform_hesoc_pkg                     = self.out_platform_hesoc + '/packages'
+            self.out_platform_hesoc_rtl                     = self.out_platform_hesoc + '/rtl'
+            self.out_platform_hesoc_ooc                     = self.out_platform_hesoc_rtl + '/out-of-context'
 
-        # Libs
-        self.out_gen_libs                       = self.out + '/libs'
-        self.out_gen_libhwpe                    = self.out_gen_libs + '/libhwpe'
-        self.out_gen_librichie_target           = self.out_gen_libs + '/librichie-target'
-        self.out_gen_hwpe_structs               = self.out_gen_libs + '/hwpe_structs'
-        self.out_gen_hesoc_structs              = self.out_gen_libs + '/hesoc_structs'
+            # Cluster
+            self.out_platform_cl                            = self.out_platform + '/cluster'
+            self.out_platform_cl_pkg                        = self.out_platform_cl + '/packages'
+            self.out_platform_cl_rtl                        = self.out_platform_cl + '/rtl'
 
-        # Test
-        self.out_gen_test                       = self.out + '/test'
-        self.out_gen_test_waves                 = self.out_gen_test + '/waves'
+            # Libs
+            self.out_platform_libs                          = self.out_platform + '/libs'
+            self.out_platform_libhwpe                       = self.out_platform_libs + '/libhwpe'
+            self.out_platform_librichie_target              = self.out_platform_libs + '/librichie-target'
+            self.out_platform_hwpe_structs                  = self.out_platform_libs + '/hwpe_structs'
+            self.out_platform_hesoc_structs                 = self.out_platform_libs + '/hesoc_structs'
 
-        # Software test runtime
-        self.out_gen_test_sw                    = self.out_gen_test + '/sw'
-        self.out_gen_test_inc                   = self.out_gen_test + '/sw/inc'
-        self.out_gen_test_hwpe_lib              = self.out_gen_test + '/sw/inc/hwpe_lib'
+            # Test
+            self.out_platform_test                          = self.out_platform + '/test'
+            self.out_platform_test_waves                    = self.out_platform_test + '/waves'
+
+            # Software test runtime
+            self.out_platform_test_sw                       = self.out_platform_test + '/sw'
+            self.out_platform_test_inc                      = self.out_platform_test + '/sw/inc'
+            self.out_platform_test_hwpe_lib                 = self.out_platform_test + '/sw/inc/hwpe_lib'
+
+        '''
+            ==========================================
+            Output environment ~ Generated accelerator
+            ==========================================
+
+            This set of parameters describe the output environment
+            where the generated accelerator wrapper is inserted. The
+            parameters should match to the hierarchy of directories
+            defined in the tool script "acc_gen_out_env.sh".
+        '''
+
+        if accelerator_design_knobs is not None and dir_out_accelerator is not None:
+
+            self.out_accelerator                            = os.path.join(dir_out_accelerator, accelerator_design_knobs.target)
+
+            # Hardware
+            self.out_accelerator_wrapper                    = self.out_accelerator + '/wrap'
+            self.out_accelerator_rtl                        = self.out_accelerator + '/rtl'
+            self.out_accelerator_acc_kernel                 = self.out_accelerator + '/rtl/acc_kernel'
+
+            # Test
+            self.out_accelerator_test                       = self.out_accelerator + '/test'
+
+            # Standalone test - Hardware
+            self.out_accelerator_standalone_test_hw         = self.out_accelerator_test + '/hw'
+
+            # Standalone test - Software
+            self.out_accelerator_standalone_test_sw         = self.out_accelerator_test + '/sw'
+            self.out_accelerator_standalone_test_hwpe_lib   = self.out_accelerator_test + '/sw/inc/hwpe_lib'
+
+            # System test - Software
+            self.out_accelerator_system_test_hwpe_lib       = self.out_accelerator + '/../../test/sw/inc/wrappers/' + accelerator_design_knobs.target + '/hwpe_lib'
 
     """
     The 'out_gen' method is in charge of physically setting up the output
@@ -179,13 +224,24 @@ class EmitRichie:
     '''
     def construct_file_name(self):
         # dictionary for file extensions
-        dict_file_ext = {
-            'hesoc'             : self.hesoc_file_name(),
-            'cl'                : self.cl_file_name(),
-            'tb'                : self.tb_file_name(),
-            'integr_support'    : self.integr_support_file_name(),
-            'sw'                : self.sw_file_name()
-        }
+        dict_file_ext = {}
+        # add file extensions for platform components
+        if self.platform_design_knobs is not None:
+            dict_file_ext.update({
+                'hesoc'             : self.hesoc_file_name(),
+                'cl'                : self.cl_file_name(),
+                'tb'                : self.tb_file_name(),
+                'integr_support'    : self.integr_support_file_name(),
+                'sw'                : self.sw_file_name(),
+            })
+        # add file extensions for platform components
+        if self.accelerator_design_knobs is not None:
+            dict_file_ext.update({
+                'hwpe'              : self.hwpe_file_name(),
+                'tb'                : self.tb_file_name(),
+                'integr_support'    : self.integr_support_file_name(),
+                'sw'                : self.sw_file_name()
+            })
         return dict_file_ext[self.device_type]
 
     '''
@@ -193,6 +249,13 @@ class EmitRichie:
     '''
     def hesoc_file_name(self):
         file_name = self.design_name + self.file_ext
+        return file_name
+
+    '''
+    Constructor of file names targeting HWPE devices.
+    '''
+    def hwpe_file_name(self):
+        file_name = self.accelerator_design_knobs.target + '_' + self.design_name + self.file_ext
         return file_name
 
     '''

@@ -1,6 +1,7 @@
 # python venv
-local_py_env/
+richie-py-env/
 **/__pycache__/
 
 # generated files
 **/*.log
+**/dev
