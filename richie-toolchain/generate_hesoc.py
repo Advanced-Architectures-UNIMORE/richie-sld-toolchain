@@ -72,7 +72,11 @@ import sys
 '''
 from python.richie.process_design_knobs import PlatformDesignKnobsFormatted
 from python.hesoc.process_design_knobs import print_generation_log
-from python.hesoc.generator import generation as generate_hesoc
+
+'''
+    Import generator
+'''
+from python.richie.generator import Generator
 
 '''
     Import emitter
@@ -100,7 +104,7 @@ dir_out_richie = sys.argv[1]
 platform_specs = PlatformSpecs
 
 '''
-    Format design knobs
+    Format platform specification
 '''
 platform_design_knobs = PlatformDesignKnobsFormatted(platform_specs)
 
@@ -120,6 +124,11 @@ emitter = EmitRichie(platform_specs, dir_out_richie)
 hesoc = Hesoc()
 
 '''
+    Instantiate generator
+'''
+generator = Generator()
+
+'''
     =====================================================================
     Component:      Heterogeneous System-on-Chip - Packages
 
@@ -130,9 +139,10 @@ hesoc = Hesoc()
 '''
     Generate design components ~ HeSoC package
 '''
-generate_hesoc(
+generator.render(
     hesoc.HesocCfgPkg(),
     platform_design_knobs,
+    None,
     emitter,
     ['hesoc', 'hesoc_cfg_pkg', ['hw', 'sv']],
     emitter.out_gen_hesoc_pkg
@@ -149,9 +159,10 @@ generate_hesoc(
 '''
     Generate design components ~ HERO AXI mailbox
 '''
-generate_hesoc(
+generator.render(
     hesoc.HeroAxiMailbox(),
     platform_design_knobs,
+    None,
     emitter,
     ['hesoc', 'hero_axi_mailbox', ['hw', 'sv']],
     emitter.out_gen_hesoc_rtl
@@ -160,9 +171,10 @@ generate_hesoc(
 '''
     Generate design components ~ L2 memory
 '''
-generate_hesoc(
+generator.render(
     hesoc.L2Mem(),
     platform_design_knobs,
+    None,
     emitter,
     ['hesoc', 'l2_mem', ['hw', 'sv']],
     emitter.out_gen_hesoc_rtl
@@ -171,9 +183,10 @@ generate_hesoc(
 '''
     Generate design components ~ PULP
 '''
-generate_hesoc(
+generator.render(
     hesoc.Pulp(),
     platform_design_knobs,
+    None,
     emitter,
     ['hesoc', 'pulp', ['hw', 'sv']],
     emitter.out_gen_hesoc_rtl
@@ -182,9 +195,10 @@ generate_hesoc(
 '''
     Generate design components ~ HeSoC interconnect (system-level)
 '''
-generate_hesoc(
+generator.render(
     hesoc.HesocInterconnect(),
     platform_design_knobs,
+    None,
     emitter,
     ['hesoc', 'hesoc_interconnect', ['hw', 'sv']],
     emitter.out_gen_hesoc_rtl
@@ -193,9 +207,10 @@ generate_hesoc(
 '''
     Generate design components ~ HeSoC control registers
 '''
-generate_hesoc(
+generator.render(
     hesoc.HesocCtrlRegs(),
     platform_design_knobs,
+    None,
     emitter,
     ['hesoc', 'hesoc_ctrl_regs', ['hw', 'sv']],
     emitter.out_gen_hesoc_rtl
@@ -204,9 +219,10 @@ generate_hesoc(
 '''
     Generate design components ~ HeSoC peripherals
 '''
-generate_hesoc(
+generator.render(
     hesoc.HesocPeripherals(),
     platform_design_knobs,
+    None,
     emitter,
     ['hesoc', 'hesoc_peripherals', ['hw', 'sv']],
     emitter.out_gen_hesoc_rtl
@@ -223,9 +239,10 @@ generate_hesoc(
 '''
     Generate design components ~ DMA wrapper OOC
 '''
-generate_hesoc(
+generator.render(
     hesoc.DmacWrapOOC(),
     platform_design_knobs,
+    None,
     emitter,
     ['hesoc', 'dmac_wrap_ooc', ['hw', 'sv']],
     emitter.out_gen_hesoc_ooc
@@ -234,9 +251,10 @@ generate_hesoc(
 '''
     Generate design components ~ PULP OOC
 '''
-generate_hesoc(
+generator.render(
     hesoc.PulpOoc(),
     platform_design_knobs,
+    None,
     emitter,
     ['hesoc', 'pulp_ooc', ['hw', 'sv']],
     emitter.out_gen_hesoc_ooc
@@ -247,9 +265,10 @@ for cl_offset in range(platform_design_knobs.n_clusters):
     '''
         Generate design components ~ PULP cluster OOC
     '''
-    generate_hesoc(
+    generator.render(
         hesoc.PulpClusterOOC(),
         platform_design_knobs,
+        None,
         emitter,
         ['cl', str(cl_offset) + '_ooc', ['hw', 'sv']],
         emitter.out_gen_hesoc_ooc,
@@ -268,9 +287,10 @@ for cl_offset in range(platform_design_knobs.n_clusters):
 '''
     Generate design components ~ Bender
 '''
-generate_hesoc(
+generator.render(
     hesoc.Bender(),
     platform_design_knobs,
+    None,
     emitter,
     ['integr_support', 'Bender', ['integr_support', 'yml']],
     emitter.out_gen_hesoc

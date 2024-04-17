@@ -52,9 +52,9 @@
     n_ports = 0
   %>
 
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for i in range (in_parallelism_factor[i]):
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for i in range (acc_wr_in_parallelism_factor[i]):
         <%
           n_ports += 1
         %>
@@ -66,9 +66,9 @@
     % endif
   % endfor
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for j in range (out_parallelism_factor[j]):
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for j in range (acc_wr_out_parallelism_factor[j]):
         <%
           n_ports += 1
         %>
@@ -92,11 +92,11 @@ ${n_ports};
 
 <%def name="hwpe_dut()">\
 
-  ${target}_top_wrap #(
+  ${acc_wr_target}_top_wrap #(
     .N_CORES          ( NC ),
     .MP               ( MP ),
     .ID               ( ID )
-  ) i_${target}_top_wrap (
+  ) i_${acc_wr_target}_top_wrap (
     .clk_i          ( clk_i          ),
     .rst_ni         ( rst_ni         ),
     .test_mode_i    ( 1'b0           ),

@@ -76,21 +76,21 @@
 
   # 1. a part of standard registers do not change with a variable number of IO streams ("nb_iter", "linestride", "tilestride").
   
-  n_io_regs += std_reg_num - 1 
+  n_io_regs += acc_wr_std_reg_num - 1 
   
-  # 2. "cnt_limit" registers are always one per source stream (input), so they account for n_source items.
+  # 2. "cnt_limit" registers are always one per source stream (input), so they account for acc_wr_n_source items.
   # The register information is used in the FSM to know how many engine "done" events terminate kernel execution.
 
-  n_io_regs += n_source
+  n_io_regs += acc_wr_n_source
   
   # 3. In case of an hls::stream interface, then one register per source stream is added to specify the packet dimension (refer to AMBA® 4 AXI4-Stream Protocol).
   
-  n_io_regs += n_sink
+  n_io_regs += acc_wr_n_sink
 %>
 
 <%
   # Counting custom registers
-  n_io_regs += custom_reg_num
+  n_io_regs += acc_wr_custom_reg_num
 %>
 
 <%
@@ -108,9 +108,9 @@
 
   num_regs_per_port_parallel = 10
 
-  for i in range (n_sink):
-    if (addr_gen_in_isprogr[i]):
-      if (is_parallel_in[i]):
+  for i in range (acc_wr_n_sink):
+    if (acc_wr_addr_gen_in_isprogr[i]):
+      if (acc_wr_is_parallel_in[i]):
         n_io_regs += num_regs_per_port_parallel
       else:
         n_io_regs += num_regs_per_port
@@ -134,9 +134,9 @@
 
   num_regs_per_port_parallel = 10
 
-  for j in range (n_source):
-    if (addr_gen_out_isprogr[j]):
-      if (is_parallel_out[j]):
+  for j in range (acc_wr_n_source):
+    if (acc_wr_addr_gen_out_isprogr[j]):
+      if (acc_wr_is_parallel_out[j]):
         n_io_regs += num_regs_per_port_parallel
       else:
         n_io_regs += num_regs_per_port
@@ -147,7 +147,7 @@
 
 <%
   # Counting TCDM
-  n_io_regs += n_sink + n_source
+  n_io_regs += acc_wr_n_sink + acc_wr_n_source
 %>
 
 <%

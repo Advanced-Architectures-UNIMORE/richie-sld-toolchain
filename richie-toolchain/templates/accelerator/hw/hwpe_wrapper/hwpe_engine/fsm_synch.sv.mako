@@ -46,7 +46,7 @@
 # so they scale well with parallelized interfaces.
 
 # Thus, the trackers are connected to the parallel streams, then the counters
-# are used for the different categories of stream_out.
+# are used for the different categories of acc_wr_stream_out.
 %>
 
 <%
@@ -65,15 +65,15 @@
 
   // Declaration of trackers
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
 
 <%
 # Declaration of trackers for parallelized (partitioned) streaming interfaces.
 %>
 
-      % for k in range (out_parallelism_factor[j]):
-  logic track_${stream_out[j]}_${k}_q, track_${stream_out[j]}_${k}_d;
+      % for k in range (acc_wr_out_parallelism_factor[j]):
+  logic track_${acc_wr_stream_out[j]}_${k}_q, track_${acc_wr_stream_out[j]}_${k}_d;
       % endfor
     % else:
 
@@ -81,7 +81,7 @@
 # Declaration of trackers for standard streaming interfaces.
 %>
 
-  logic track_${stream_out[j]}_q, track_${stream_out[j]}_d;
+  logic track_${acc_wr_stream_out[j]}_q, track_${acc_wr_stream_out[j]}_d;
     % endif
   % endfor
 
@@ -106,41 +106,41 @@
 %>
 
   // AND-ed trackers implementation (FF)
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
 
 <%
 # Implementation of delayed trackers for parallelized (partitioned) streaming interfaces.
 %>
 
-      % for k in range (out_parallelism_factor[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
   always_comb
-  begin: ${stream_out[j]}_${k}_track_q
+  begin: ${acc_wr_stream_out[j]}_${k}_track_q
     if(~rst_ni | ctrl_i.clear) begin
-      track_${stream_out[j]}_${k}_d = '0;
+      track_${acc_wr_stream_out[j]}_${k}_d = '0;
     end
-    else if(${stream_out[j]}_${k}_o.valid & ${stream_out[j]}_${k}_o.ready) begin
-      track_${stream_out[j]}_${k}_d = '1;
+    else if(${acc_wr_stream_out[j]}_${k}_o.valid & ${acc_wr_stream_out[j]}_${k}_o.ready) begin
+      track_${acc_wr_stream_out[j]}_${k}_d = '1;
     end
     else begin
-      track_${stream_out[j]}_${k}_d = '0;
+      track_${acc_wr_stream_out[j]}_${k}_d = '0;
     end
   end
 
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: ${stream_out[j]}_${k}_track_d
+  begin: ${acc_wr_stream_out[j]}_${k}_track_d
     if(~rst_ni) begin
-      track_${stream_out[j]}_${k}_q <= '0;
+      track_${acc_wr_stream_out[j]}_${k}_q <= '0;
     end
     else if(ctrl_i.clear) begin
-      track_${stream_out[j]}_${k}_q <= '0;
+      track_${acc_wr_stream_out[j]}_${k}_q <= '0;
     end
     else begin
-      track_${stream_out[j]}_${k}_q <= track_${stream_out[j]}_${k}_d;
+      track_${acc_wr_stream_out[j]}_${k}_q <= track_${acc_wr_stream_out[j]}_${k}_d;
     end
   end
       % endfor
-  assign track_${stream_out[j]}_AND = ${AND_parallel_track_out()}
+  assign track_${acc_wr_stream_out[j]}_AND = ${AND_parallel_track_out()}
 
     % else:
 
@@ -149,28 +149,28 @@
 %>
 
   always_comb
-  begin: ${stream_out[j]}_track_q
+  begin: ${acc_wr_stream_out[j]}_track_q
     if(~rst_ni | ctrl_i.clear) begin
-      track_${stream_out[j]}_d = '0;
+      track_${acc_wr_stream_out[j]}_d = '0;
     end
-    else if(${stream_out[j]}_o.valid & ${stream_out[j]}_o.ready) begin
-      track_${stream_out[j]}_d = '1;
+    else if(${acc_wr_stream_out[j]}_o.valid & ${acc_wr_stream_out[j]}_o.ready) begin
+      track_${acc_wr_stream_out[j]}_d = '1;
     end
     else begin
-      track_${stream_out[j]}_d = '0;
+      track_${acc_wr_stream_out[j]}_d = '0;
     end
   end
 
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: ${stream_out[j]}_track_d
+  begin: ${acc_wr_stream_out[j]}_track_d
     if(~rst_ni) begin
-      track_${stream_out[j]}_q <= '0;
+      track_${acc_wr_stream_out[j]}_q <= '0;
     end
     else if(ctrl_i.clear) begin
-      track_${stream_out[j]}_q <= '0;
+      track_${acc_wr_stream_out[j]}_q <= '0;
     end
     else begin
-      track_${stream_out[j]}_q <= track_${stream_out[j]}_d;
+      track_${acc_wr_stream_out[j]}_q <= track_${acc_wr_stream_out[j]}_d;
     end
   end
 
@@ -189,8 +189,8 @@
 
   // Declaration of counters
 
-  % for j in range (n_source):
-  logic unsigned [($clog2(${TARGET}_CNT_LEN)+1):0] cnt_${stream_out[j]};
+  % for j in range (acc_wr_n_source):
+  logic unsigned [($clog2(${TARGET}_CNT_LEN)+1):0] cnt_${acc_wr_stream_out[j]};
   % endfor
 
 </%def>
@@ -198,8 +198,8 @@
 <%def name="cnt_out_FF_impl()">\
 
   // Counter implementation (FF)
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
 
 <%
 # Implementation of output counters for parallelized (partitioned) streaming interfaces.
@@ -207,21 +207,21 @@
 %>
 
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: ${stream_out[j]}_cnt
+  begin: ${acc_wr_stream_out[j]}_cnt
     if((~rst_ni) | ctrl_i.clear)
-      cnt_${stream_out[j]} = 32'b0;
-  % if design_type == 'hls':
-    % if is_hls_stream == True:
+      cnt_${acc_wr_stream_out[j]} = 32'b0;
+  % if acc_wr_design_type == 'hls':
+    % if acc_wr_is_hls_stream == True:
   else if( flags_adapter.last[${j}] & flags_adapter.done ) // TO-DO: Test with multiple outputs! Might break...
     % else:
-  else if( track_${stream_out[j]}_AND & flags_adapter.done )
+  else if( track_${acc_wr_stream_out[j]}_AND & flags_adapter.done )
     % endif
   % else:
-  else if( track_${stream_out[j]}_AND & flags_adapter.done )
+  else if( track_${acc_wr_stream_out[j]}_AND & flags_adapter.done )
   % endif
-      cnt_${stream_out[j]} = cnt_${stream_out[j]} + 1;
+      cnt_${acc_wr_stream_out[j]} = cnt_${acc_wr_stream_out[j]} + 1;
     else
-      cnt_${stream_out[j]} = cnt_${stream_out[j]};
+      cnt_${acc_wr_stream_out[j]} = cnt_${acc_wr_stream_out[j]};
   end
 
 
@@ -232,21 +232,21 @@
 %>
 
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: ${stream_out[j]}_cnt
+  begin: ${acc_wr_stream_out[j]}_cnt
     if((~rst_ni) | ctrl_i.clear)
-      cnt_${stream_out[j]} = 32'b0;
-  % if design_type == 'hls':
-    % if is_hls_stream == True:
+      cnt_${acc_wr_stream_out[j]} = 32'b0;
+  % if acc_wr_design_type == 'hls':
+    % if acc_wr_is_hls_stream == True:
     else if( flags_adapter.last[${j}] & flags_adapter.done ) // TO-DO: Test with multiple outputs! Might break...
     % else:
-    else if( track_${stream_out[j]}_q & flags_adapter.done )
+    else if( track_${acc_wr_stream_out[j]}_q & flags_adapter.done )
     % endif
   % else:
-    else if( track_${stream_out[j]}_q & flags_adapter.done )
+    else if( track_${acc_wr_stream_out[j]}_q & flags_adapter.done )
   % endif
-      cnt_${stream_out[j]} = cnt_${stream_out[j]} + 1;
+      cnt_${acc_wr_stream_out[j]} = cnt_${acc_wr_stream_out[j]} + 1;
     else
-      cnt_${stream_out[j]} = cnt_${stream_out[j]};
+      cnt_${acc_wr_stream_out[j]} = cnt_${acc_wr_stream_out[j]};
   end
     % endif
   % endfor
@@ -262,8 +262,8 @@
 <%def name="cnt_out_assign_to_fsm()">\
 
   // Assign to fsm flags
-  % for j in range (n_source):
-  assign flags_o.cnt_${stream_out[j]} = cnt_${stream_out[j]};
+  % for j in range (acc_wr_n_source):
+  assign flags_o.cnt_${acc_wr_stream_out[j]} = cnt_${acc_wr_stream_out[j]};
   % endfor
 
 </%def>
@@ -276,19 +276,19 @@
 
 <%def name="AND_parallel_track_out()">\
 \
-  % for j in range (n_source-1):
-      % if (is_parallel_out[j]):
-          % for k in range (out_parallelism_factor[j]):
-track_${stream_out[j]}_${k} & \
+  % for j in range (acc_wr_n_source-1):
+      % if (acc_wr_is_parallel_out[j]):
+          % for k in range (acc_wr_out_parallelism_factor[j]):
+track_${acc_wr_stream_out[j]}_${k} & \
           % endfor
       % endif
   % endfor
 \
-  % if (is_parallel_out[n_source-1]):
-      % for k in range (out_parallelism_factor[n_source-1]-1):
-track_${stream_out[n_source-1]}_${k} & \
+  % if (acc_wr_is_parallel_out[acc_wr_n_source-1]):
+      % for k in range (acc_wr_out_parallelism_factor[acc_wr_n_source-1]-1):
+track_${acc_wr_stream_out[acc_wr_n_source-1]}_${k} & \
       % endfor
-track_${stream_out[n_source-1]}_${out_parallelism_factor[n_source-1]-1}; \
+track_${acc_wr_stream_out[acc_wr_n_source-1]}_${acc_wr_out_parallelism_factor[acc_wr_n_source-1]-1}; \
   % endif
 \
 </%def>

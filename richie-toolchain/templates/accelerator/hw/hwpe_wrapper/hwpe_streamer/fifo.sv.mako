@@ -58,16 +58,16 @@
   # NB - only input streams need 'ready' signal
   %>
 
-  % for i in range ( n_sink ):
-    % if ( is_parallel_in[i] ):
-      % for k in range ( in_parallelism_factor[i] ):
+  % for i in range ( acc_wr_n_sink ):
+    % if ( acc_wr_is_parallel_in[i] ):
+      % for k in range ( acc_wr_in_parallelism_factor[i] ):
 
-  logic tcdm_fifo_ready_${stream_in[i]}_${k};
+  logic tcdm_fifo_ready_${acc_wr_stream_in[i]}_${k};
 
       % endfor
     % else:
 
-  logic tcdm_fifo_ready_${stream_in[i]};
+  logic tcdm_fifo_ready_${acc_wr_stream_in[i]};
 
     % endif
   % endfor 
@@ -84,30 +84,30 @@
 
   // TCDM interface
 
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
 
-  hwpe_stream_intf_tcdm tcdm_fifo_${stream_in[i]}_${k} [0:0] ( .clk (clk_i) );
+  hwpe_stream_intf_tcdm tcdm_fifo_${acc_wr_stream_in[i]}_${k} [0:0] ( .clk (clk_i) );
 
       % endfor
     % else:
 
-  hwpe_stream_intf_tcdm tcdm_fifo_${stream_in[i]} [0:0] ( .clk (clk_i) );
+  hwpe_stream_intf_tcdm tcdm_fifo_${acc_wr_stream_in[i]} [0:0] ( .clk (clk_i) );
 
     % endif
   % endfor 
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
 
-  hwpe_stream_intf_tcdm tcdm_fifo_${stream_out[j]}_${k} [0:0] ( .clk (clk_i) );
+  hwpe_stream_intf_tcdm tcdm_fifo_${acc_wr_stream_out[j]}_${k} [0:0] ( .clk (clk_i) );
 
       % endfor
     % else:
 
-  hwpe_stream_intf_tcdm tcdm_fifo_${stream_out[j]} [0:0] ( .clk (clk_i) );
+  hwpe_stream_intf_tcdm tcdm_fifo_${acc_wr_stream_out[j]} [0:0] ( .clk (clk_i) );
 
     % endif
   % endfor
@@ -128,19 +128,19 @@
 
   // TCDM-side FIFO - Inputs
 
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
 
   hwpe_stream_tcdm_fifo_load #(
     .FIFO_DEPTH ( 4 )
-  ) i_${stream_in[i]}_${k}_tcdm_fifo_load (
+  ) i_${acc_wr_stream_in[i]}_${k}_tcdm_fifo_load (
     .clk_i       ( clk_i                                    ),
     .rst_ni      ( rst_ni                                   ),
     .clear_i     ( clear_i                                  ),
     .flags_o     (                                          ),
-    .ready_i     ( tcdm_fifo_ready_${stream_in[i]}_${k}     ),
-    .tcdm_slave  ( tcdm_fifo_${stream_in[i]}_${k}[0]        ),
+    .ready_i     ( tcdm_fifo_ready_${acc_wr_stream_in[i]}_${k}     ),
+    .tcdm_slave  ( tcdm_fifo_${acc_wr_stream_in[i]}_${k}[0]        ),
     .tcdm_master ( tcdm[${tcdm_offset}]                     )
   );
         <%
@@ -150,13 +150,13 @@
     % else:
   hwpe_stream_tcdm_fifo_load #(
     .FIFO_DEPTH ( 4 )
-  ) i_${stream_in[i]}_tcdm_fifo_load (
+  ) i_${acc_wr_stream_in[i]}_tcdm_fifo_load (
     .clk_i       ( clk_i                                    ),
     .rst_ni      ( rst_ni                                   ),
     .clear_i     ( clear_i                                  ),
     .flags_o     (                                          ),
-    .ready_i     ( tcdm_fifo_ready_${stream_in[i]}          ),
-    .tcdm_slave  ( tcdm_fifo_${stream_in[i]}[0]             ),
+    .ready_i     ( tcdm_fifo_ready_${acc_wr_stream_in[i]}          ),
+    .tcdm_slave  ( tcdm_fifo_${acc_wr_stream_in[i]}[0]             ),
     .tcdm_master ( tcdm[${tcdm_offset}]                     )
   );
         <%
@@ -167,18 +167,18 @@
 
   // TCDM-side FIFO - Outputs
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
 
   hwpe_stream_tcdm_fifo_store #(
     .FIFO_DEPTH ( 4 )
-  ) i_${stream_out[j]}_${k}_tcdm_fifo_store (
+  ) i_${acc_wr_stream_out[j]}_${k}_tcdm_fifo_store (
     .clk_i       ( clk_i                                    ),
     .rst_ni      ( rst_ni                                   ),
     .clear_i     ( clear_i                                  ),
     .flags_o     (                                          ),
-    .tcdm_slave  ( tcdm_fifo_${stream_out[j]}_${k}[0]        ),
+    .tcdm_slave  ( tcdm_fifo_${acc_wr_stream_out[j]}_${k}[0]        ),
     .tcdm_master ( tcdm[${tcdm_offset}]                     )
   );
         <%
@@ -188,12 +188,12 @@
     % else:
   hwpe_stream_tcdm_fifo_store #(
     .FIFO_DEPTH ( 4 )
-  ) i_${stream_out[j]}_tcdm_fifo_store (
+  ) i_${acc_wr_stream_out[j]}_tcdm_fifo_store (
     .clk_i       ( clk_i                                    ),
     .rst_ni      ( rst_ni                                   ),
     .clear_i     ( clear_i                                  ),
     .flags_o     (                                          ),
-    .tcdm_slave  ( tcdm_fifo_${stream_out[j]}[0]             ),
+    .tcdm_slave  ( tcdm_fifo_${acc_wr_stream_out[j]}[0]             ),
     .tcdm_master ( tcdm[${tcdm_offset}]                     )
   );
         <%
@@ -219,30 +219,30 @@
 
   // Streaming interface
 
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
 
-  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) stream_fifo_${stream_in[i]}_${k} ( .clk (clk_i) );
+  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) stream_fifo_${acc_wr_stream_in[i]}_${k} ( .clk (clk_i) );
 
       % endfor
     % else:
 
-  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) stream_fifo_${stream_in[i]} ( .clk (clk_i) );
+  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) stream_fifo_${acc_wr_stream_in[i]} ( .clk (clk_i) );
 
     % endif
   % endfor 
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
 
-  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) stream_fifo_${stream_out[j]}_${k} ( .clk (clk_i) );
+  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) stream_fifo_${acc_wr_stream_out[j]}_${k} ( .clk (clk_i) );
 
       % endfor
     % else:
 
-  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) stream_fifo_${stream_out[j]} ( .clk (clk_i) );
+  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) stream_fifo_${acc_wr_stream_out[j]} ( .clk (clk_i) );
 
     % endif
   % endfor
@@ -259,20 +259,20 @@
 
   // Engine-side FIFO - Inputs
 
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
 
   hwpe_stream_fifo #(
     .DATA_WIDTH( 32 ),
     .FIFO_DEPTH( 2  ),
     .LATCH_FIFO( 0  )
-  ) i_${stream_in[i]}_${k}_stream_fifo (
+  ) i_${acc_wr_stream_in[i]}_${k}_stream_fifo (
     .clk_i   ( clk_i                                      ),
     .rst_ni  ( rst_ni                                     ),
     .clear_i ( clear_i                                    ),
-    .push_i  ( stream_fifo_${stream_in[i]}_${k}.sink      ),
-    .pop_o   ( ${stream_in[i]}_${k}                       ),
+    .push_i  ( stream_fifo_${acc_wr_stream_in[i]}_${k}.sink      ),
+    .pop_o   ( ${acc_wr_stream_in[i]}_${k}                       ),
     .flags_o (                                            )
   );
 
@@ -283,12 +283,12 @@
     .DATA_WIDTH( 32 ),
     .FIFO_DEPTH( 2  ),
     .LATCH_FIFO( 0  )
-  ) i_${stream_in[i]}_stream_fifo (
+  ) i_${acc_wr_stream_in[i]}_stream_fifo (
     .clk_i   ( clk_i                                      ),
     .rst_ni  ( rst_ni                                     ),
     .clear_i ( clear_i                                    ),
-    .push_i  ( stream_fifo_${stream_in[i]}.sink      ),
-    .pop_o   ( ${stream_in[i]}                            ),
+    .push_i  ( stream_fifo_${acc_wr_stream_in[i]}.sink      ),
+    .pop_o   ( ${acc_wr_stream_in[i]}                            ),
     .flags_o (                                            )
   );
 
@@ -297,20 +297,20 @@
 
   // Engine-side FIFO - Outputs
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
 
   hwpe_stream_fifo #(
     .DATA_WIDTH( 32 ),
     .FIFO_DEPTH( 2  ),
     .LATCH_FIFO( 0  )
-  ) i_${stream_out[j]}_${k}_stream_fifo (
+  ) i_${acc_wr_stream_out[j]}_${k}_stream_fifo (
     .clk_i   ( clk_i                                      ),
     .rst_ni  ( rst_ni                                     ),
     .clear_i ( clear_i                                    ),
-    .push_i  ( stream_fifo_${stream_out[j]}_${k}.source   ),
-    .pop_o   ( ${stream_out[j]}_${k}                      ),
+    .push_i  ( stream_fifo_${acc_wr_stream_out[j]}_${k}.source   ),
+    .pop_o   ( ${acc_wr_stream_out[j]}_${k}                      ),
     .flags_o (                                            )
   );
 
@@ -321,12 +321,12 @@
     .DATA_WIDTH( 32 ),
     .FIFO_DEPTH( 2  ),
     .LATCH_FIFO( 0  )
-  ) i_${stream_out[j]}_stream_fifo (
+  ) i_${acc_wr_stream_out[j]}_stream_fifo (
     .clk_i   ( clk_i                                      ),
     .rst_ni  ( rst_ni                                     ),
     .clear_i ( clear_i                                    ),
-    .push_i  ( ${stream_out[j]}                           ),
-    .pop_o   ( stream_fifo_${stream_out[j]}.source         ),
+    .push_i  ( ${acc_wr_stream_out[j]}                           ),
+    .pop_o   ( stream_fifo_${acc_wr_stream_out[j]}.source         ),
     .flags_o (                                            )
   );
 

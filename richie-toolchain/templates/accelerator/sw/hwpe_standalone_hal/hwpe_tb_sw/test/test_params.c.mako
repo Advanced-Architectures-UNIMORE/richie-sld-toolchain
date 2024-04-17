@@ -63,15 +63,15 @@
   // This is equivalent to the number of 'done' signals that are 
   // produced by the engine itself.
   
-  % for j in range (n_source):
-  unsigned engine_runs_${stream_out[j]} = ;
+  % for j in range (acc_wr_n_source):
+  unsigned engine_runs_${acc_wr_stream_out[j]} = ;
   % endfor
 
 
-  % if custom_reg_num>0:
+  % if acc_wr_custom_reg_num>0:
   // 3. Custom registers
-    % for i in range (custom_reg_num):
-  unsigned ${custom_reg_name[i]}_val = ;
+    % for i in range (acc_wr_custom_reg_num):
+  unsigned ${acc_wr_custom_reg_name[i]}_val = ;
     % endfor 
   % endif
 
@@ -89,16 +89,16 @@
 
   /* Stream-specific parameters. */
 
-  % for i in range (n_sink):
-  unsigned ${stream_in[i]}_width              = width;
-  unsigned ${stream_in[i]}_height             = height;
-  unsigned ${stream_in[i]}_stripe_height      = stripe_height;
+  % for i in range (acc_wr_n_sink):
+  unsigned ${acc_wr_stream_in[i]}_width              = width;
+  unsigned ${acc_wr_stream_in[i]}_height             = height;
+  unsigned ${acc_wr_stream_in[i]}_stripe_height      = stripe_height;
   % endfor
 
-  % for j in range (n_source):
-  unsigned ${stream_out[j]}_width             = width;
-  unsigned ${stream_out[j]}_height            = height;
-  unsigned ${stream_out[j]}_stripe_height     = stripe_height;
+  % for j in range (acc_wr_n_source):
+  unsigned ${acc_wr_stream_out[j]}_width             = width;
+  unsigned ${acc_wr_stream_out[j]}_height            = height;
+  unsigned ${acc_wr_stream_out[j]}_stripe_height     = stripe_height;
   % endfor
 
   <%
@@ -108,14 +108,14 @@
   %>
 
   /* Dataset parameters. */
-  % for i in range (n_sink):
-  unsigned ${stream_in[i]}_stim_dim               = ${stream_in[i]}_width * ${stream_in[i]}_height;
-  unsigned ${stream_in[i]}_stripe_in_len          = ${stream_in[i]}_width * ${stream_in[i]}_stripe_height;
+  % for i in range (acc_wr_n_sink):
+  unsigned ${acc_wr_stream_in[i]}_stim_dim               = ${acc_wr_stream_in[i]}_width * ${acc_wr_stream_in[i]}_height;
+  unsigned ${acc_wr_stream_in[i]}_stripe_in_len          = ${acc_wr_stream_in[i]}_width * ${acc_wr_stream_in[i]}_stripe_height;
   % endfor
 
-  % for j in range (n_source):
-  unsigned ${stream_out[j]}_stim_dim              = ${stream_out[j]}_width * ${stream_out[j]}_height;
-  unsigned ${stream_out[j]}_stripe_out_len        = ${stream_out[j]}_width * ${stream_out[j]}_stripe_height;
+  % for j in range (acc_wr_n_source):
+  unsigned ${acc_wr_stream_out[j]}_stim_dim              = ${acc_wr_stream_out[j]}_width * ${acc_wr_stream_out[j]}_height;
+  unsigned ${acc_wr_stream_out[j]}_stripe_out_len        = ${acc_wr_stream_out[j]}_width * ${acc_wr_stream_out[j]}_stripe_height;
   % endfor
 
 </%def>

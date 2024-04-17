@@ -47,35 +47,35 @@
 
 <%def name="standard_regs(addr_current)">\
 
-  parameter int unsigned ${target.upper()}_REG_NB_ITER              = ${addr_current};
+  parameter int unsigned ${acc_wr_target.upper()}_REG_NB_ITER              = ${addr_current};
 
         <%
           addr_current += 1
         %>
 
-  parameter int unsigned ${target.upper()}_REG_SHIFT_LINESTRIDE     = ${addr_current};
+  parameter int unsigned ${acc_wr_target.upper()}_REG_SHIFT_LINESTRIDE     = ${addr_current};
 
         <%
           addr_current += 1
         %>
 
-  parameter int unsigned ${target.upper()}_REG_SHIFT_TILESTRIDE     = ${addr_current};
+  parameter int unsigned ${acc_wr_target.upper()}_REG_SHIFT_TILESTRIDE     = ${addr_current};
 
         <%
           addr_current += 1
         %>
 
-  % if is_hls_stream is True:
-    % for i in range (n_sink):
-  parameter int unsigned ${TARGET}_REG_PACKET_SIZE_${stream_in[i].upper()}     = ${addr_current};
+  % if acc_wr_is_hls_stream is True:
+    % for i in range (acc_wr_n_sink):
+  parameter int unsigned ${TARGET}_REG_PACKET_SIZE_${acc_wr_stream_in[i].upper()}     = ${addr_current};
         <%
           addr_current += 1
         %>
     % endfor
   % endif
 
-  % for j in range (n_source):
-  parameter int unsigned ${TARGET}_REG_CNT_LIMIT_${stream_out[j].upper()}     = ${addr_current};
+  % for j in range (acc_wr_n_source):
+  parameter int unsigned ${TARGET}_REG_CNT_LIMIT_${acc_wr_stream_out[j].upper()}     = ${addr_current};
         <%
           addr_current += 1
         %>

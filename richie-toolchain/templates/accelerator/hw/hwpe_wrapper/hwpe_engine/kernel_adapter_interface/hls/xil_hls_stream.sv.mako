@@ -47,11 +47,11 @@
 
 <%def name="xil_hls_stream_kernel_adapter_custom_regs()">\
 
-    % if custom_reg_num>0:
+    % if acc_wr_custom_reg_num>0:
     // Kernel parameters
-      % for i in range (custom_reg_num):
-        % if custom_reg_isport[i]:
-    .${custom_reg_name[i]}        ( ctrl_i.${custom_reg_name[i]}      ),
+      % for i in range (acc_wr_custom_reg_num):
+        % if acc_wr_custom_reg_isport[i]:
+    .${acc_wr_custom_reg_name[i]}        ( ctrl_i.${acc_wr_custom_reg_name[i]}      ),
         % endif
       % endfor
     % endif 

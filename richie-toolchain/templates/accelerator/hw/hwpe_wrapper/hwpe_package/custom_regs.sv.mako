@@ -47,13 +47,13 @@
 
 <%def name="custom_regs(addr_current)">\
 
-  % if custom_reg_num>0:
+  % if acc_wr_custom_reg_num>0:
 
   // Custom registers
 
-    % for i in range (custom_reg_num):
-        <% NAME=custom_reg_name[i].upper() %>
-  parameter int unsigned ${target.upper()}_REG_${NAME}             = ${addr_current};
+    % for i in range (acc_wr_custom_reg_num):
+        <% NAME=acc_wr_custom_reg_name[i].upper() %>
+  parameter int unsigned ${acc_wr_target.upper()}_REG_${NAME}             = ${addr_current};
         <%
           addr_current += 1
         %>

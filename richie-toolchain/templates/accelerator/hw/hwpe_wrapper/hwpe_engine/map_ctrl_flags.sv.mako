@@ -108,13 +108,13 @@
 
   /* Control signals */
 
-  ctrl_kernel_adapter_${target}_t ctrl_adapter;
+  ctrl_kernel_adapter_${acc_wr_target}_t ctrl_adapter;
 
   assign ctrl_adapter.start = ctrl_i.start;
 
-  % if is_hls_stream == True:
-    % for i in range (n_sink):
-  assign ctrl_adapter.packet_size_${stream_in[i]} = ctrl_i.packet_size_${stream_in[i]};
+  % if acc_wr_is_hls_stream == True:
+    % for i in range (acc_wr_n_sink):
+  assign ctrl_adapter.packet_size_${acc_wr_stream_in[i]} = ctrl_i.packet_size_${acc_wr_stream_in[i]};
     % endfor
   % endif
 
@@ -124,7 +124,7 @@
 
   /* Flag signals */
 
-  flags_kernel_adapter_${target}_t flags_adapter;
+  flags_kernel_adapter_${acc_wr_target}_t flags_adapter;
 
   assign flags_o.done = flags_adapter.done;
 

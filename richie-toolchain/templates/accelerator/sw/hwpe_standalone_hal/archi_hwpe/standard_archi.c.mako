@@ -47,26 +47,26 @@
 
 <%def name="standard_archi(addr_current)">\
 
-#define ${target.upper()}_REG_NB_ITER                         ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_NB_ITER                         ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_LINESTRIDE                ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_LINESTRIDE                ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_TILESTRIDE                ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_TILESTRIDE                ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-  % for j in range (n_source):
-#define ${TARGET}_REG_CNT_LIMIT_${stream_out[j].upper()}                 ${hex(addr_current)}
+  % for j in range (acc_wr_n_source):
+#define ${TARGET}_REG_CNT_LIMIT_${acc_wr_stream_out[j].upper()}                 ${hex(addr_current)}
         <%  
           addr_current += 4
         %>

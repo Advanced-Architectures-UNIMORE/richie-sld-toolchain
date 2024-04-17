@@ -62,31 +62,31 @@
 
   %>
 
-  % for i in range (n_sink):
-    % if (addr_gen_in_isprogr[i]):
-      % if (is_parallel_in[i]):
-// Input stream - ${stream_in[i]} (unrolled, programmable)
-#define ${target.upper()}_REG_${stream_in[i].upper()}_TRANS_SIZE                  ${ hex(addr_current + (i * num_regs_per_port_parallel + 0) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_LINE_STRIDE                 ${ hex(addr_current + (i * num_regs_per_port_parallel + 1) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_LINE_LENGTH                 ${ hex(addr_current + (i * num_regs_per_port_parallel + 2) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_FEAT_STRIDE                 ${ hex(addr_current + (i * num_regs_per_port_parallel + 3) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_FEAT_LENGTH                 ${ hex(addr_current + (i * num_regs_per_port_parallel + 4) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_FEAT_ROLL                   ${ hex(addr_current + (i * num_regs_per_port_parallel + 5) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_LOOP_OUTER                  ${ hex(addr_current + (i * num_regs_per_port_parallel + 6) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_REALIGN_TYPE                ${ hex(addr_current + (i * num_regs_per_port_parallel + 7) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_PORT_OFFSET                 ${ hex(addr_current + (i * num_regs_per_port_parallel + 8) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_STEP                        ${ hex(addr_current + (i * num_regs_per_port_parallel + 9) * 4) }
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_addr_gen_in_isprogr[i]):
+      % if (acc_wr_is_parallel_in[i]):
+// Input stream - ${acc_wr_stream_in[i]} (unrolled, programmable)
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_TRANS_SIZE                  ${ hex(addr_current + (i * num_regs_per_port_parallel + 0) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_LINE_STRIDE                 ${ hex(addr_current + (i * num_regs_per_port_parallel + 1) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_LINE_LENGTH                 ${ hex(addr_current + (i * num_regs_per_port_parallel + 2) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_FEAT_STRIDE                 ${ hex(addr_current + (i * num_regs_per_port_parallel + 3) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_FEAT_LENGTH                 ${ hex(addr_current + (i * num_regs_per_port_parallel + 4) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_FEAT_ROLL                   ${ hex(addr_current + (i * num_regs_per_port_parallel + 5) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_LOOP_OUTER                  ${ hex(addr_current + (i * num_regs_per_port_parallel + 6) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_REALIGN_TYPE                ${ hex(addr_current + (i * num_regs_per_port_parallel + 7) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_PORT_OFFSET                 ${ hex(addr_current + (i * num_regs_per_port_parallel + 8) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_STEP                        ${ hex(addr_current + (i * num_regs_per_port_parallel + 9) * 4) }
       % else:
-// Input stream - ${stream_in[i]} (programmable)
-#define ${target.upper()}_REG_${stream_in[i].upper()}_TRANS_SIZE                  ${ hex(addr_current + (i * num_regs_per_port + 0) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_LINE_STRIDE                 ${ hex(addr_current + (i * num_regs_per_port + 1) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_LINE_LENGTH                 ${ hex(addr_current + (i * num_regs_per_port + 2) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_FEAT_STRIDE                 ${ hex(addr_current + (i * num_regs_per_port + 3) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_FEAT_LENGTH                 ${ hex(addr_current + (i * num_regs_per_port + 4) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_FEAT_ROLL                   ${ hex(addr_current + (i * num_regs_per_port + 5) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_LOOP_OUTER                  ${ hex(addr_current + (i * num_regs_per_port + 6) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_REALIGN_TYPE                ${ hex(addr_current + (i * num_regs_per_port + 7) * 4) }
-#define ${target.upper()}_REG_${stream_in[i].upper()}_STEP                        ${ hex(addr_current + (i * num_regs_per_port + 8) * 4) }
+// Input stream - ${acc_wr_stream_in[i]} (programmable)
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_TRANS_SIZE                  ${ hex(addr_current + (i * num_regs_per_port + 0) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_LINE_STRIDE                 ${ hex(addr_current + (i * num_regs_per_port + 1) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_LINE_LENGTH                 ${ hex(addr_current + (i * num_regs_per_port + 2) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_FEAT_STRIDE                 ${ hex(addr_current + (i * num_regs_per_port + 3) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_FEAT_LENGTH                 ${ hex(addr_current + (i * num_regs_per_port + 4) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_FEAT_ROLL                   ${ hex(addr_current + (i * num_regs_per_port + 5) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_LOOP_OUTER                  ${ hex(addr_current + (i * num_regs_per_port + 6) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_REALIGN_TYPE                ${ hex(addr_current + (i * num_regs_per_port + 7) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_STEP                        ${ hex(addr_current + (i * num_regs_per_port + 8) * 4) }
       % endif
     % endif
   % endfor
@@ -116,31 +116,31 @@
 
   %>
 
-  % for j in range (n_source):
-    % if (addr_gen_out_isprogr[j]):
-      % if (is_parallel_out[j]):
-// Input stream - ${stream_out[j]} (unrolled, programmable)
-#define ${target.upper()}_REG_${stream_out[j].upper()}_TRANS_SIZE                 ${ hex(addr_current + (j * num_regs_per_port_parallel + 0) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_LINE_STRIDE                ${ hex(addr_current + (j * num_regs_per_port_parallel + 1) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_LINE_LENGTH                ${ hex(addr_current + (j * num_regs_per_port_parallel + 2) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_FEAT_STRIDE                ${ hex(addr_current + (j * num_regs_per_port_parallel + 3) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_FEAT_LENGTH                ${ hex(addr_current + (j * num_regs_per_port_parallel + 4) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_FEAT_ROLL                  ${ hex(addr_current + (j * num_regs_per_port_parallel + 5) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_LOOP_OUTER                 ${ hex(addr_current + (j * num_regs_per_port_parallel + 6) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_REALIGN_TYPE               ${ hex(addr_current + (j * num_regs_per_port_parallel + 7) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_PORT_OFFSET                ${ hex(addr_current + (j * num_regs_per_port_parallel + 8) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_STEP                       ${ hex(addr_current + (j * num_regs_per_port_parallel + 9) * 4) }
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_addr_gen_out_isprogr[j]):
+      % if (acc_wr_is_parallel_out[j]):
+// Input stream - ${acc_wr_stream_out[j]} (unrolled, programmable)
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_TRANS_SIZE                 ${ hex(addr_current + (j * num_regs_per_port_parallel + 0) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_LINE_STRIDE                ${ hex(addr_current + (j * num_regs_per_port_parallel + 1) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_LINE_LENGTH                ${ hex(addr_current + (j * num_regs_per_port_parallel + 2) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_FEAT_STRIDE                ${ hex(addr_current + (j * num_regs_per_port_parallel + 3) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_FEAT_LENGTH                ${ hex(addr_current + (j * num_regs_per_port_parallel + 4) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_FEAT_ROLL                  ${ hex(addr_current + (j * num_regs_per_port_parallel + 5) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_LOOP_OUTER                 ${ hex(addr_current + (j * num_regs_per_port_parallel + 6) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_REALIGN_TYPE               ${ hex(addr_current + (j * num_regs_per_port_parallel + 7) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_PORT_OFFSET                ${ hex(addr_current + (j * num_regs_per_port_parallel + 8) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_STEP                       ${ hex(addr_current + (j * num_regs_per_port_parallel + 9) * 4) }
       % else:
-// Input stream - ${stream_out[j]} (programmable)
-#define ${target.upper()}_REG_${stream_out[j].upper()}_TRANS_SIZE                 ${ hex(addr_current + (j * num_regs_per_port + 0) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_LINE_STRIDE                ${ hex(addr_current + (j * num_regs_per_port + 1) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_LINE_LENGTH                ${ hex(addr_current + (j * num_regs_per_port + 2) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_FEAT_STRIDE                ${ hex(addr_current + (j * num_regs_per_port + 3) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_FEAT_LENGTH                ${ hex(addr_current + (j * num_regs_per_port + 4) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_FEAT_ROLL                  ${ hex(addr_current + (j * num_regs_per_port + 5) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_LOOP_OUTER                 ${ hex(addr_current + (j * num_regs_per_port + 6) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_REALIGN_TYPE               ${ hex(addr_current + (j * num_regs_per_port + 7) * 4) }
-#define ${target.upper()}_REG_${stream_out[j].upper()}_STEP                       ${ hex(addr_current + (j * num_regs_per_port + 8) * 4) }
+// Input stream - ${acc_wr_stream_out[j]} (programmable)
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_TRANS_SIZE                 ${ hex(addr_current + (j * num_regs_per_port + 0) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_LINE_STRIDE                ${ hex(addr_current + (j * num_regs_per_port + 1) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_LINE_LENGTH                ${ hex(addr_current + (j * num_regs_per_port + 2) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_FEAT_STRIDE                ${ hex(addr_current + (j * num_regs_per_port + 3) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_FEAT_LENGTH                ${ hex(addr_current + (j * num_regs_per_port + 4) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_FEAT_ROLL                  ${ hex(addr_current + (j * num_regs_per_port + 5) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_LOOP_OUTER                 ${ hex(addr_current + (j * num_regs_per_port + 6) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_REALIGN_TYPE               ${ hex(addr_current + (j * num_regs_per_port + 7) * 4) }
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_STEP                       ${ hex(addr_current + (j * num_regs_per_port + 8) * 4) }
       % endif
     % endif
   % endfor

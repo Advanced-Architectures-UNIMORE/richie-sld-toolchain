@@ -48,24 +48,24 @@
 <%def name="streaming_engine_intf()">\
 
   // Sink ports
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
-  hwpe_stream_intf_stream.sink ${stream_in[i]}_${k}_i,
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
+  hwpe_stream_intf_stream.sink ${acc_wr_stream_in[i]}_${k}_i,
       % endfor
     % else:
-  hwpe_stream_intf_stream.sink ${stream_in[i]}_i,
+  hwpe_stream_intf_stream.sink ${acc_wr_stream_in[i]}_i,
     % endif
   % endfor
 
   // Source ports
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
-  hwpe_stream_intf_stream.source ${stream_out[j]}_${k}_o,
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
+  hwpe_stream_intf_stream.source ${acc_wr_stream_out[j]}_${k}_o,
       % endfor
     % else:
-  hwpe_stream_intf_stream.source ${stream_out[j]}_o,
+  hwpe_stream_intf_stream.source ${acc_wr_stream_out[j]}_o,
     % endif
   % endfor
 
@@ -80,23 +80,23 @@
 <%def name="streaming_kernel_adapter_intf()">\
 \
 // Data streams
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
-    .${stream_in[i]}_${k}_i ( ${stream_in[i]}_${k}_i  ),
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
+    .${acc_wr_stream_in[i]}_${k}_i ( ${acc_wr_stream_in[i]}_${k}_i  ),
       % endfor
     % else:
-    .${stream_in[i]}_i ( ${stream_in[i]}_i  ),
+    .${acc_wr_stream_in[i]}_i ( ${acc_wr_stream_in[i]}_i  ),
     % endif
   % endfor
 \
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
-    .${stream_out[j]}_${k}_o ( ${stream_out[j]}_${k}_o  ),
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
+    .${acc_wr_stream_out[j]}_${k}_o ( ${acc_wr_stream_out[j]}_${k}_o  ),
       % endfor
     % else:
-    .${stream_out[j]}_o ( ${stream_out[j]}_o  ),
+    .${acc_wr_stream_out[j]}_o ( ${acc_wr_stream_out[j]}_o  ),
     % endif
   % endfor
 \

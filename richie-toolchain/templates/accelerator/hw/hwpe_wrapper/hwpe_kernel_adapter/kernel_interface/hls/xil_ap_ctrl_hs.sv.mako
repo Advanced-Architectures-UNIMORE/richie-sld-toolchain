@@ -67,48 +67,48 @@
 
 <%def name="xil_ap_ctrl_hs_kernel_intf()">\
 
-  /* ${target} kernel interface. */
+  /* ${acc_wr_target} kernel interface. */
 
-  ${target} i_${target} (
+  ${acc_wr_target} i_${acc_wr_target} (
     // Global signals.
     .ap_clk       ( clk_i            ),
     .ap_rst_n     ( rst_ni           ),
 
     // Sink ports
-    % for i in range (n_sink):
-      % if (is_parallel_in[i]):
-        % for k in range (in_parallelism_factor[i]):
-    .${stream_in[i]}_${k}_TDATA  ( ${stream_in[i]}_${k}_i.data  ),
-    .${stream_in[i]}_${k}_TVALID ( ${stream_in[i]}_${k}_i.valid ),
-    .${stream_in[i]}_${k}_TREADY ( ${stream_in[i]}_${k}_i.ready ),
+    % for i in range (acc_wr_n_sink):
+      % if (acc_wr_is_parallel_in[i]):
+        % for k in range (acc_wr_in_parallelism_factor[i]):
+    .${acc_wr_stream_in[i]}_${k}_TDATA  ( ${acc_wr_stream_in[i]}_${k}_i.data  ),
+    .${acc_wr_stream_in[i]}_${k}_TVALID ( ${acc_wr_stream_in[i]}_${k}_i.valid ),
+    .${acc_wr_stream_in[i]}_${k}_TREADY ( ${acc_wr_stream_in[i]}_${k}_i.ready ),
         % endfor
       % else:
-    .${stream_in[i]}_TDATA  ( ${stream_in[i]}_i.data  ),
-    .${stream_in[i]}_TVALID ( ${stream_in[i]}_i.valid ),
-    .${stream_in[i]}_TREADY ( ${stream_in[i]}_i.ready ),
+    .${acc_wr_stream_in[i]}_TDATA  ( ${acc_wr_stream_in[i]}_i.data  ),
+    .${acc_wr_stream_in[i]}_TVALID ( ${acc_wr_stream_in[i]}_i.valid ),
+    .${acc_wr_stream_in[i]}_TREADY ( ${acc_wr_stream_in[i]}_i.ready ),
       % endif
     % endfor  
 
     // Source ports
-    % for j in range (n_source):
-      % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]):
-    .${stream_out[j]}_${k}_TDATA  ( ${stream_out[j]}_${k}_o.data  ),
-    .${stream_out[j]}_${k}_TVALID ( ${stream_out[j]}_${k}_o.valid ),
-    .${stream_out[j]}_${k}_TREADY ( ${stream_out[j]}_${k}_o.ready ),
+    % for j in range (acc_wr_n_source):
+      % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]):
+    .${acc_wr_stream_out[j]}_${k}_TDATA  ( ${acc_wr_stream_out[j]}_${k}_o.data  ),
+    .${acc_wr_stream_out[j]}_${k}_TVALID ( ${acc_wr_stream_out[j]}_${k}_o.valid ),
+    .${acc_wr_stream_out[j]}_${k}_TREADY ( ${acc_wr_stream_out[j]}_${k}_o.ready ),
         % endfor
       % else:
-    .${stream_out[j]}_TDATA  ( ${stream_out[j]}_o.data  ),
-    .${stream_out[j]}_TVALID ( ${stream_out[j]}_o.valid ),
-    .${stream_out[j]}_TREADY ( ${stream_out[j]}_o.ready ),
+    .${acc_wr_stream_out[j]}_TDATA  ( ${acc_wr_stream_out[j]}_o.data  ),
+    .${acc_wr_stream_out[j]}_TVALID ( ${acc_wr_stream_out[j]}_o.valid ),
+    .${acc_wr_stream_out[j]}_TREADY ( ${acc_wr_stream_out[j]}_o.ready ),
       % endif
     % endfor
 
-    % if custom_reg_num>0:
+    % if acc_wr_custom_reg_num>0:
     // Kernel parameters
-      % for i in range (custom_reg_num):
-        % if custom_reg_isport[i]:
-    .${custom_reg_name[i]}        ( ${custom_reg_name[i]} ),
+      % for i in range (acc_wr_custom_reg_num):
+        % if acc_wr_custom_reg_isport[i]:
+    .${acc_wr_custom_reg_name[i]}        ( ${acc_wr_custom_reg_name[i]} ),
         % endif
       % endfor
     % endif 

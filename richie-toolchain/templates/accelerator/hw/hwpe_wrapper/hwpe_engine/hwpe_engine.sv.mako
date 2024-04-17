@@ -48,13 +48,13 @@
  *
  * Richie integration: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
  *
- * Module: ${target}_engine.sv
+ * Module: ${acc_wr_target}_engine.sv
  *
  */
 
-import ${target}_package::*;
+import ${acc_wr_target}_package::*;
 
-module ${target}_engine (\
+module ${acc_wr_target}_engine (\
 
   // Global signals
   input  logic          clk_i,
@@ -64,8 +64,8 @@ module ${target}_engine (\
   ${streaming_engine_intf()}
 
   // Control channel
-  input  ctrl_engine_${target}_t            ctrl_i,
-  output flags_engine_${target}_t           flags_o
+  input  ctrl_engine_${acc_wr_target}_t            ctrl_i,
+  output flags_engine_${acc_wr_target}_t           flags_o
 );
 
   <%
@@ -73,7 +73,7 @@ module ${target}_engine (\
   # is built exploting specific design methodologies.
   %>
 
-  % if design_type == 'hls':
+  % if acc_wr_design_type == 'hls':
   ${map_engine_ctrl_v1_hls()}
   ${map_engine_flags_v1_hls()}
   % endif
@@ -95,13 +95,13 @@ module ${target}_engine (\
 
   <%
   # Instantiate kernel adapter. This layer is to
-  # flexibly target different type of kernels that
+  # flexibly acc_wr_target different type of kernels that
   # may be designed with HDL, HLS, etc.
   %>
 
   /* Kernel adapter */
 
-  ${target}_kernel_adapter i_${target}_adapter (
+  ${acc_wr_target}_kernel_adapter i_${acc_wr_target}_adapter (
 
     // Global signals
     .clk_i           ( clk_i            ),
@@ -120,7 +120,7 @@ module ${target}_engine (\
     ################################################
     %>
 
-    % if design_type == 'hdl':
+    % if acc_wr_design_type == 'hdl':
     ${pulp_std_kernel_adapter_ctrl()}
     ${pulp_std_kernel_adapter_flags()}
     % endif
@@ -131,8 +131,8 @@ module ${target}_engine (\
     #####################################################################
     %>
 
-    % if design_type == 'hls':
-      % if is_ap_ctrl_hs == True:
+    % if acc_wr_design_type == 'hls':
+      % if acc_wr_is_ap_ctrl_hs == True:
     ${xil_ap_ctrl_hs_kernel_adapter_custom_regs()}
     ${xil_ap_ctrl_hs_kernel_adapter_ctrl()}
     ${xil_ap_ctrl_hs_kernel_adapter_flags()}
@@ -145,8 +145,8 @@ module ${target}_engine (\
     ################################################
     %>
 
-    % if design_type == 'hls':
-      % if is_mdc_dataflow == True:
+    % if acc_wr_design_type == 'hls':
+      % if acc_wr_is_mdc_dataflow == True:
     ${mdc_dataflow_kernel_adapter_custom_regs()}
     ${mdc_dataflow_kernel_adapter_ctrl()}
     ${mdc_dataflow_kernel_adapter_flags()}
@@ -159,8 +159,8 @@ module ${target}_engine (\
     ###########################################################
     %>
 
-    % if design_type == 'hls':
-      % if is_hls_stream == True:
+    % if acc_wr_design_type == 'hls':
+      % if acc_wr_is_hls_stream == True:
     ${xil_hls_stream_kernel_adapter_custom_regs()}
     ${xil_hls_stream_kernel_adapter_ctrl()}
     ${xil_hls_stream_kernel_adapter_flags()}
@@ -169,19 +169,19 @@ module ${target}_engine (\
 
   );
 
-  % if is_hls_stream == False:
+  % if acc_wr_is_hls_stream == False:
   // At the moment output strobe is always '1
   // All bytes of output streams are written
   // to TCDM
   always_comb
   begin
-    % for j in range (n_source):
-      % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]):
-    ${stream_out[j]}_${k}_o.strb = '1;
+    % for j in range (acc_wr_n_source):
+      % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]):
+    ${acc_wr_stream_out[j]}_${k}_o.strb = '1;
         % endfor
       % else:
-    ${stream_out[j]}_o.strb = '1;
+    ${acc_wr_stream_out[j]}_o.strb = '1;
       % endif
     % endfor
   end

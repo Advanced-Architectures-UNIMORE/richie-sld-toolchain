@@ -47,16 +47,16 @@
 
 <%def name="engine_init_packet_size()">\
 \
-  % for i in range (n_sink):
-    ctrl_engine_o.packet_size_${stream_in[i]}  = ctrl_i.packet_size_${stream_in[i]};
+  % for i in range (acc_wr_n_sink):
+    ctrl_engine_o.packet_size_${acc_wr_stream_in[i]}  = ctrl_i.packet_size_${acc_wr_stream_in[i]};
   % endfor
 \
 </%def>
 
 <%def name="engine_init_cnt_limit()">\
 \
-  % for j in range (n_source):
-    ctrl_engine_o.cnt_limit_${stream_out[j]}  = ctrl_i.cnt_limit_${stream_out[j]};
+  % for j in range (acc_wr_n_source):
+    ctrl_engine_o.cnt_limit_${acc_wr_stream_out[j]}  = ctrl_i.cnt_limit_${acc_wr_stream_out[j]};
   % endfor
 \
 </%def>
@@ -78,11 +78,11 @@
   # to an output count flag (from the engine).
 %>
 
-  % for j in range (n_source):
-    % if (j is not n_source - 1):
-          flags_engine_i.cnt_${stream_out[j]} == ctrl_i.cnt_limit_${stream_out[j]} &
+  % for j in range (acc_wr_n_source):
+    % if (j is not acc_wr_n_source - 1):
+          flags_engine_i.cnt_${acc_wr_stream_out[j]} == ctrl_i.cnt_limit_${acc_wr_stream_out[j]} &
     % else:
-          flags_engine_i.cnt_${stream_out[j]} == ctrl_i.cnt_limit_${stream_out[j]} \
+          flags_engine_i.cnt_${acc_wr_stream_out[j]} == ctrl_i.cnt_limit_${acc_wr_stream_out[j]} \
     % endif
   % endfor
 

@@ -72,11 +72,14 @@ import sys
 '''
 from python.richie.process_design_knobs import PlatformDesignKnobsFormatted
 from python.richie.process_design_knobs import print_generation_log
-from python.richie_test.generator import generation as generate_richie_test
 
 from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
-from python.accelerator.generator import generation as generate_accelerator_intf
 from python.accelerator.import_design_knobs import import_accelerator_design_knobs
+
+'''
+    Import generator
+'''
+from python.richie.generator import Generator
 
 '''
     Import emitter
@@ -104,7 +107,7 @@ dir_out_richie = sys.argv[1]
 platform_specs = PlatformSpecs
 
 '''
-    Format design knobs
+    Format platform specification
 '''
 platform_design_knobs = PlatformDesignKnobsFormatted(platform_specs)
 
@@ -124,6 +127,11 @@ emitter = EmitRichie(platform_specs, dir_out_richie)
 richie_test = RichieTest()
 
 '''
+    Instantiate generator
+'''
+generator = Generator()
+
+'''
     =====================================================================
     Component:      Richie test (Hardware)
 
@@ -139,9 +147,10 @@ richie_test = RichieTest()
     dummy memories to implement instruction, stack and data
     memories.
 '''
-generate_richie_test(
+generator.render(
     richie_test.RichieTestbenchHw(),
     platform_design_knobs,
+    None,
     emitter,
     ['tb', 'richie_tb', ['hw', 'sv']],
     emitter.out_gen_test
@@ -159,9 +168,10 @@ generate_richie_test(
 '''
     Generate design components ~ QuestaSim waves
 '''
-generate_richie_test(
+generator.render(
     richie_test.VsimWaveHesoc(),
     platform_design_knobs,
+    None,
     emitter,
     ['integr_support', 'vsim_wave_hesoc', ['integr_support', 'vsim_wave']],
     emitter.out_gen_test_waves
@@ -172,9 +182,10 @@ for cluster_id in range(platform_design_knobs.n_clusters):
     '''
         Generate design components ~ QuestaSim waves
     '''
-    generate_richie_test(
+    generator.render(
         richie_test.VsimWaveCluster(),
         platform_design_knobs,
+        None,
         emitter,
         ['integr_support', 'vsim_wave_cluster_' + str(cluster_id), ['integr_support', 'vsim_wave']],
         emitter.out_gen_test_waves,
@@ -186,14 +197,14 @@ for cluster_id in range(platform_design_knobs.n_clusters):
     for accelerator_id in range(len(cl_lic_acc_names)):
 
         '''
-            Retrieve wrapper design knobs
+            Retrieve accelerator specification
         '''
 
         target_acc = cl_lic_acc_names[accelerator_id]
         accelerator_specs = import_accelerator_design_knobs(target_acc)
 
         '''
-            Format wrapper design knobs
+            Format accelerator specification
         '''
 
         accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.AcceleratorSpecs)
@@ -204,21 +215,24 @@ for cluster_id in range(platform_design_knobs.n_clusters):
 
         hwpe_name = 'hwpe_cl' + str(cluster_id) + '_lic' + str(accelerator_id)
 
-        generate_accelerator_intf(
+        generator.render(
             richie_test.VsimWaveWrapper(accelerator_design_knobs.target, hwpe_name),
+            platform_design_knobs,
             accelerator_design_knobs,
             emitter,
             ['integr_support', 'vsim_wave_' + hwpe_name, ['integr_support', 'vsim_wave']],
             emitter.out_gen_test_waves,
+            cluster_id,
             [cluster_id, accelerator_id, None]
         )
 
 '''
     Generate design components ~ QuestaSim waves
 '''
-generate_richie_test(
+generator.render(
     richie_test.VsimWaveExperimentView(),
     platform_design_knobs,
+    None,
     emitter,
     ['integr_support', 'vsim_wave_experiment_view', ['integr_support', 'vsim_wave']],
     emitter.out_gen_test_waves,

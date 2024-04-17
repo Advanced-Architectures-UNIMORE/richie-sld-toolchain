@@ -30,8 +30,8 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
-${vsim_waves_experiment_group_by_device()}
-${vsim_waves_experiment_group_by_cluster()}
+${vsim_waves_group_by_device()}
+${vsim_waves_group_by_cluster()}

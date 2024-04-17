@@ -47,10 +47,10 @@
 
 <%def name="custom_archi(addr_current)">\
 
-% if custom_reg_num>0:
+% if acc_wr_custom_reg_num>0:
 // custom regs
-  % for i in range (custom_reg_num):
-#define ${target.upper()}_REG_${custom_reg_name[i].upper()}                ${hex(addr_current)}
+  % for i in range (acc_wr_custom_reg_num):
+#define ${acc_wr_target.upper()}_REG_${acc_wr_custom_reg_name[i].upper()}                ${hex(addr_current)}
         <%
           addr_current += 4
         %>

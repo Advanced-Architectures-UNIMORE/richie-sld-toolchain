@@ -56,7 +56,7 @@
           # api "hwpe_bytecode_set()" to program the bytecode.
         %>
 
-#define ${target.upper()}_REG_BYTECODE                                 ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_BYTECODE                                 ${hex(addr_current)}
 
         <%  
           # Now let's re-initialize addr_current to 0
@@ -64,42 +64,42 @@
           addr_current = 0
         %>
 
-#define ${target.upper()}_REG_BYTECODE0_OFFS                           ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_BYTECODE0_OFFS                           ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_BYTECODE1_OFFS                           ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_BYTECODE1_OFFS                           ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_BYTECODE2_OFFS                           ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_BYTECODE2_OFFS                           ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_BYTECODE3_OFFS                           ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_BYTECODE3_OFFS                           ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_BYTECODE4_OFFS                           ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_BYTECODE4_OFFS                           ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_BYTECODE5_LOOPS0_OFFS                    ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_BYTECODE5_LOOPS0_OFFS                    ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_LOOPS1_OFFS                              ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_LOOPS1_OFFS                              ${hex(addr_current)}
 
 </%def>

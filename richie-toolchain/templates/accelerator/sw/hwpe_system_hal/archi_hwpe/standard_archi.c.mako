@@ -47,35 +47,35 @@
 
 <%def name="standard_archi(addr_current)">\
 
-#define ${target.upper()}_REG_NB_ITER                         ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_NB_ITER                         ${hex(addr_current)}
 
         <%
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_LINESTRIDE                ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_LINESTRIDE                ${hex(addr_current)}
 
         <%
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_TILESTRIDE                ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_TILESTRIDE                ${hex(addr_current)}
 
         <%
           addr_current += 4
         %>
 
-  % if is_hls_stream is True:
-    % for i in range (n_sink):
-  #define ${target.upper()}_REG_PACKET_SIZE_${stream_in[i].upper()}                 ${hex(addr_current)}
+  % if acc_wr_is_hls_stream is True:
+    % for i in range (acc_wr_n_sink):
+  #define ${acc_wr_target.upper()}_REG_PACKET_SIZE_${acc_wr_stream_in[i].upper()}                 ${hex(addr_current)}
         <%
           addr_current += 4
         %>
     % endfor
   % endif
 
-  % for j in range (n_source):
-#define ${target.upper()}_REG_CNT_LIMIT_${stream_out[j].upper()}                 ${hex(addr_current)}
+  % for j in range (acc_wr_n_source):
+#define ${acc_wr_target.upper()}_REG_CNT_LIMIT_${acc_wr_stream_out[j].upper()}                 ${hex(addr_current)}
         <%
           addr_current += 4
         %>

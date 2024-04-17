@@ -45,45 +45,45 @@
 # Global signals
 %>
 
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Global} -label {clk_i} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/clk_i}
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Global} -label {rst_ni} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/rst_ni}
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Global} -label {test_mode_i} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/test_mode_i}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Global} -label {clk_i} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/clk_i}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Global} -label {rst_ni} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/rst_ni}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Global} -label {test_mode_i} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/test_mode_i}
 
 <%
 # Data streams
 %>
 
-% for i in range (n_sink):
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Input data} -group {${stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/${stream_in[i]}_i/valid}
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Input data} -group {${stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/${stream_in[i]}_i/data}
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Input data} -group {${stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/${stream_in[i]}_i/ready}
+% for i in range (acc_wr_n_sink):
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Input data} -group {${acc_wr_stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/${acc_wr_stream_in[i]}_i/valid}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Input data} -group {${acc_wr_stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/${acc_wr_stream_in[i]}_i/data}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Input data} -group {${acc_wr_stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/${acc_wr_stream_in[i]}_i/ready}
 % endfor
 
-% for i in range (n_source):
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Output data} -group {${stream_out[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/${stream_out[i]}_o/valid}
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Output data} -group {${stream_out[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/${stream_out[i]}_o/data}
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Output data} -group {${stream_out[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/${stream_out[i]}_o/ready}
+% for i in range (acc_wr_n_source):
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Output data} -group {${acc_wr_stream_out[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/${acc_wr_stream_out[i]}_o/valid}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Output data} -group {${acc_wr_stream_out[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/${acc_wr_stream_out[i]}_o/data}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Output data} -group {${acc_wr_stream_out[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/${acc_wr_stream_out[i]}_o/ready}
 % endfor
 
 <%
 # Kernel parameters
 %>
 
-% for i in range (custom_reg_num):
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Custom registers} -label {${custom_reg_name[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/${custom_reg_name[i]}}
+% for i in range (acc_wr_custom_reg_num):
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Custom registers} -label {${acc_wr_custom_reg_name[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/${acc_wr_custom_reg_name[i]}}
 % endfor
 
 <%
 # Control signals
 %>
 
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -label {ctrl_i} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/ctrl_i}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -label {ctrl_i} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/ctrl_i}
 
 <%
 # Flag signals
 %>
 
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -label {flags_o} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/flags_o}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -label {flags_o} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/flags_o}
 
 <%
 # Additional components are required to implement the behavior of control and flag signals.
@@ -95,13 +95,13 @@ add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter
 # Kernel input counters
 %>
 
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Input counters} -label {kernel_cnt_${stream_in[i]}_${k}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_cnt_${stream_in[i]}_${k}}
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Input counters} -label {kernel_cnt_${acc_wr_stream_in[i]}_${k}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_cnt_${acc_wr_stream_in[i]}_${k}}
       % endfor
     % else:
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Input counters} -label {kernel_cnt_${stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_cnt_${stream_in[i]}}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Input counters} -label {kernel_cnt_${acc_wr_stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_cnt_${acc_wr_stream_in[i]}}
     % endif
   % endfor
 
@@ -109,13 +109,13 @@ add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter
 # Kernel output counters
 %>
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Output counters} -label {kernel_cnt_${stream_out[j]}_${k}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_cnt_${stream_out[j]}_${k}}
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Output counters} -label {kernel_cnt_${acc_wr_stream_out[j]}_${k}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_cnt_${acc_wr_stream_out[j]}_${k}}
       % endfor
     % else:
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Output counters} -label {kernel_cnt_${stream_out[j]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_cnt_${stream_out[j]}}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Output counters} -label {kernel_cnt_${acc_wr_stream_out[j]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_cnt_${acc_wr_stream_out[j]}}
     % endif
   % endfor
 
@@ -123,21 +123,21 @@ add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter
 # Kernel control - start
 %>
 
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Control} -label {Start} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_start}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Control} -label {Start} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_start}
 
 <%
 # Kernel flags - input ready, done
 %>
 
-% for i in range (n_sink):
-  % if (is_parallel_in[i]):
-    % for k in range (in_parallelism_factor[i]):
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_ready_${stream_in[i]}_${k}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_ready_${stream_in[i]}_${k}}
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_done_${stream_in[i]}_${k}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_done_${stream_in[i]}_${k}}
+% for i in range (acc_wr_n_sink):
+  % if (acc_wr_is_parallel_in[i]):
+    % for k in range (acc_wr_in_parallelism_factor[i]):
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_ready_${acc_wr_stream_in[i]}_${k}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_ready_${acc_wr_stream_in[i]}_${k}}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_done_${acc_wr_stream_in[i]}_${k}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_done_${acc_wr_stream_in[i]}_${k}}
     % endfor
   % else:
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_ready_${stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_ready_${stream_in[i]}}
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_done_${stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_done_${stream_in[i]}}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_ready_${acc_wr_stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_ready_${acc_wr_stream_in[i]}}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_done_${acc_wr_stream_in[i]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_done_${acc_wr_stream_in[i]}}
   % endif
 % endfor
 
@@ -145,13 +145,13 @@ add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter
 # Kernel flags - output done
 %>
 
-% for j in range (n_source):
-  % if (is_parallel_out[j]):
-    % for k in range (out_parallelism_factor[j]):
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_done_${stream_out[j]}_${k}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_done_${stream_out[j]}_${k}}
+% for j in range (acc_wr_n_source):
+  % if (acc_wr_is_parallel_out[j]):
+    % for k in range (acc_wr_out_parallelism_factor[j]):
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_done_${acc_wr_stream_out[j]}_${k}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_done_${acc_wr_stream_out[j]}_${k}}
     % endfor
   % else:
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_done_${stream_out[j]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_done_${stream_out[j]}}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_done_${acc_wr_stream_out[j]}} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_done_${acc_wr_stream_out[j]}}
   % endif
 % endfor
 
@@ -159,6 +159,6 @@ add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter
 # Kernel flags - input idle
 %>
 
-add wave -noupdate -group {HWPE ${target}} -group {hwpe_${target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_idle} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/kernel_idle}
+add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_kernel_adapter} -group {mdc_dataflow} -group {Kernel signals} -group {Flags} -label {kernel_idle} {/pulp_tb/dut/gen_clusters[0]/gen_cluster_sync/i_cluster/i_ooc/i_bound/hwpe_gen/hwpe_wrap_i/i_hwpe_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/kernel_idle}
 
 </%def>

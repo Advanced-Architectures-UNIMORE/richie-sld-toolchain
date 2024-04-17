@@ -46,23 +46,23 @@
 %>
 
 <%def name="streamer_init()">\
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
-    ctrl_streamer_o.${stream_in[i]}_${k}_source_ctrl.req_start    = '0;
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
+    ctrl_streamer_o.${acc_wr_stream_in[i]}_${k}_source_ctrl.req_start    = '0;
       % endfor
     % else:
-    ctrl_streamer_o.${stream_in[i]}_source_ctrl.req_start    = '0;
+    ctrl_streamer_o.${acc_wr_stream_in[i]}_source_ctrl.req_start    = '0;
     % endif
   % endfor
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
-    ctrl_streamer_o.${stream_out[j]}_${k}_sink_ctrl.req_start    = '0;
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
+    ctrl_streamer_o.${acc_wr_stream_out[j]}_${k}_sink_ctrl.req_start    = '0;
       % endfor
     % else:
-    ctrl_streamer_o.${stream_out[j]}_sink_ctrl.req_start    = '0;
+    ctrl_streamer_o.${acc_wr_stream_out[j]}_sink_ctrl.req_start    = '0;
     % endif
   % endfor
 
@@ -76,23 +76,23 @@
 
 <%def name="streamer_issue_req_start()">\
 
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
-          ctrl_streamer_o.${stream_in[i]}_${k}_source_ctrl.req_start    = '1;
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
+          ctrl_streamer_o.${acc_wr_stream_in[i]}_${k}_source_ctrl.req_start    = '1;
       % endfor
     % else:
-          ctrl_streamer_o.${stream_in[i]}_source_ctrl.req_start    = '1;
+          ctrl_streamer_o.${acc_wr_stream_in[i]}_source_ctrl.req_start    = '1;
     % endif
   % endfor
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
-          ctrl_streamer_o.${stream_out[j]}_${k}_sink_ctrl.req_start    = '1;
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
+          ctrl_streamer_o.${acc_wr_stream_out[j]}_${k}_sink_ctrl.req_start    = '1;
       % endfor
     % else:
-          ctrl_streamer_o.${stream_out[j]}_sink_ctrl.req_start    = '1;
+          ctrl_streamer_o.${acc_wr_stream_out[j]}_sink_ctrl.req_start    = '1;
     % endif
   % endfor
 
@@ -106,33 +106,33 @@
 
 <%def name="streamer_check_ready_flags()">\
 
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
-          flags_streamer_i.${stream_in[i]}_${k}_source_flags.ready_start &
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
+          flags_streamer_i.${acc_wr_stream_in[i]}_${k}_source_flags.ready_start &
       % endfor
     % else:
-          flags_streamer_i.${stream_in[i]}_source_flags.ready_start &
+          flags_streamer_i.${acc_wr_stream_in[i]}_source_flags.ready_start &
     % endif
   % endfor
 
-  % for j in range (n_source):
-    % if (j is not n_source - 1):
-      % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]):
-          flags_streamer_i.${stream_out[j]}_${k}_sink_flags.ready_start &
+  % for j in range (acc_wr_n_source):
+    % if (j is not acc_wr_n_source - 1):
+      % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]):
+          flags_streamer_i.${acc_wr_stream_out[j]}_${k}_sink_flags.ready_start &
         % endfor
       % else:
-          flags_streamer_i.${stream_out[j]}_sink_flags.ready_start &
+          flags_streamer_i.${acc_wr_stream_out[j]}_sink_flags.ready_start &
       % endif
     % else:
-      % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]-1):
-          flags_streamer_i.${stream_out[j]}_${k}_sink_flags.ready_start &
+      % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]-1):
+          flags_streamer_i.${acc_wr_stream_out[j]}_${k}_sink_flags.ready_start &
         % endfor
-          flags_streamer_i.${stream_out[j]}_${k}_sink_flags.ready_start \
+          flags_streamer_i.${acc_wr_stream_out[j]}_${k}_sink_flags.ready_start \
       % else:
-          flags_streamer_i.${stream_out[j]}_sink_flags.ready_start \
+          flags_streamer_i.${acc_wr_stream_out[j]}_sink_flags.ready_start \
       % endif
     % endif
   % endfor

@@ -60,30 +60,30 @@
 
   /* Address generator (input) - Parameters */
 
-  % for i in range (n_sink):
-    % if (addr_gen_in_isprogr[i]):
-      % if (is_parallel_in[i]):
-  const unsigned ${stream_in[i]}_parallelism_factor     = 16;
-  const unsigned ${stream_in[i]}_trans_size             = (${stream_in[i]}_width * ${stream_in[i]}_stripe_height * ${stream_in[i]}_stripe_height) / ${stream_in[i]}_parallelism_factor;
-  const unsigned ${stream_in[i]}_line_stride            = 0;
-  const unsigned ${stream_in[i]}_line_length            = ${stream_in[i]}_width / ${stream_in[i]}_parallelism_factor;
-  const unsigned ${stream_in[i]}_feat_stride            = ${stream_in[i]}_width * sizeof(uint32_t);
-  const unsigned ${stream_in[i]}_feat_length            = ${stream_in[i]}_stripe_height;
-  const unsigned ${stream_in[i]}_feat_roll              = ${stream_in[i]}_stripe_height; 
-  const unsigned ${stream_in[i]}_loop_outer             = 0;
-  const unsigned ${stream_in[i]}_realign_type           = 0; 
-  const unsigned ${stream_in[i]}_step                   = ${stream_in[i]}_parallelism_factor * sizeof(uint32_t);
-  const unsigned ${stream_in[i]}_port_offset            = sizeof(uint32_t);
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_addr_gen_in_isprogr[i]):
+      % if (acc_wr_is_parallel_in[i]):
+  const unsigned ${acc_wr_stream_in[i]}_parallelism_factor     = 16;
+  const unsigned ${acc_wr_stream_in[i]}_trans_size             = (${acc_wr_stream_in[i]}_width * ${acc_wr_stream_in[i]}_stripe_height * ${acc_wr_stream_in[i]}_stripe_height) / ${acc_wr_stream_in[i]}_parallelism_factor;
+  const unsigned ${acc_wr_stream_in[i]}_line_stride            = 0;
+  const unsigned ${acc_wr_stream_in[i]}_line_length            = ${acc_wr_stream_in[i]}_width / ${acc_wr_stream_in[i]}_parallelism_factor;
+  const unsigned ${acc_wr_stream_in[i]}_feat_stride            = ${acc_wr_stream_in[i]}_width * sizeof(uint32_t);
+  const unsigned ${acc_wr_stream_in[i]}_feat_length            = ${acc_wr_stream_in[i]}_stripe_height;
+  const unsigned ${acc_wr_stream_in[i]}_feat_roll              = ${acc_wr_stream_in[i]}_stripe_height; 
+  const unsigned ${acc_wr_stream_in[i]}_loop_outer             = 0;
+  const unsigned ${acc_wr_stream_in[i]}_realign_type           = 0; 
+  const unsigned ${acc_wr_stream_in[i]}_step                   = ${acc_wr_stream_in[i]}_parallelism_factor * sizeof(uint32_t);
+  const unsigned ${acc_wr_stream_in[i]}_port_offset            = sizeof(uint32_t);
       % else:
-  const unsigned ${stream_in[i]}_trans_size             = ${stream_in[i]}_width * ${stream_in[i]}_stripe_height * ${stream_in[i]}_stripe_height;
-  const unsigned ${stream_in[i]}_line_stride            = 0;
-  const unsigned ${stream_in[i]}_line_length            = ${stream_in[i]}_width;
-  const unsigned ${stream_in[i]}_feat_stride            = ${stream_in[i]}_width * sizeof(uint32_t);
-  const unsigned ${stream_in[i]}_feat_length            = ${stream_in[i]}_stripe_height;
-  const unsigned ${stream_in[i]}_feat_roll              = ${stream_in[i]}_stripe_height; 
-  const unsigned ${stream_in[i]}_loop_outer             = 0;
-  const unsigned ${stream_in[i]}_realign_type           = 0;
-  const unsigned ${stream_in[i]}_step                   = 4;
+  const unsigned ${acc_wr_stream_in[i]}_trans_size             = ${acc_wr_stream_in[i]}_width * ${acc_wr_stream_in[i]}_stripe_height * ${acc_wr_stream_in[i]}_stripe_height;
+  const unsigned ${acc_wr_stream_in[i]}_line_stride            = 0;
+  const unsigned ${acc_wr_stream_in[i]}_line_length            = ${acc_wr_stream_in[i]}_width;
+  const unsigned ${acc_wr_stream_in[i]}_feat_stride            = ${acc_wr_stream_in[i]}_width * sizeof(uint32_t);
+  const unsigned ${acc_wr_stream_in[i]}_feat_length            = ${acc_wr_stream_in[i]}_stripe_height;
+  const unsigned ${acc_wr_stream_in[i]}_feat_roll              = ${acc_wr_stream_in[i]}_stripe_height; 
+  const unsigned ${acc_wr_stream_in[i]}_loop_outer             = 0;
+  const unsigned ${acc_wr_stream_in[i]}_realign_type           = 0;
+  const unsigned ${acc_wr_stream_in[i]}_step                   = 4;
       % endif
     % endif
   % endfor
@@ -98,30 +98,30 @@
 
   /* Address generator (input) - Parameters */
 
-  % for i in range (n_sink):
-    % if (addr_gen_in_isprogr[i]):
-      % if (is_parallel_in[i]):
-  const unsigned ${stream_in[i]}_parallelism_factor     = 16;
-  const unsigned ${stream_in[i]}_trans_size             = (${stream_in[i]}_width * ${stream_in[i]}_stripe_height) / ${stream_in[i]}_parallelism_factor;
-  const unsigned ${stream_in[i]}_line_stride            = 0;
-  const unsigned ${stream_in[i]}_line_length            = (${stream_in[i]}_width * ${stream_in[i]}_stripe_height) / ${stream_in[i]}_parallelism_factor;
-  const unsigned ${stream_in[i]}_feat_stride            = 0;
-  const unsigned ${stream_in[i]}_feat_length            = 1;
-  const unsigned ${stream_in[i]}_feat_roll              = 0;
-  const unsigned ${stream_in[i]}_loop_outer             = 0;
-  const unsigned ${stream_in[i]}_realign_type           = 0; 
-  const unsigned ${stream_in[i]}_step                   = ${stream_in[i]}_parallelism_factor * sizeof(uint32_t);
-  const unsigned ${stream_in[i]}_port_offset            = sizeof(uint32_t);
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_addr_gen_in_isprogr[i]):
+      % if (acc_wr_is_parallel_in[i]):
+  const unsigned ${acc_wr_stream_in[i]}_parallelism_factor     = 16;
+  const unsigned ${acc_wr_stream_in[i]}_trans_size             = (${acc_wr_stream_in[i]}_width * ${acc_wr_stream_in[i]}_stripe_height) / ${acc_wr_stream_in[i]}_parallelism_factor;
+  const unsigned ${acc_wr_stream_in[i]}_line_stride            = 0;
+  const unsigned ${acc_wr_stream_in[i]}_line_length            = (${acc_wr_stream_in[i]}_width * ${acc_wr_stream_in[i]}_stripe_height) / ${acc_wr_stream_in[i]}_parallelism_factor;
+  const unsigned ${acc_wr_stream_in[i]}_feat_stride            = 0;
+  const unsigned ${acc_wr_stream_in[i]}_feat_length            = 1;
+  const unsigned ${acc_wr_stream_in[i]}_feat_roll              = 0;
+  const unsigned ${acc_wr_stream_in[i]}_loop_outer             = 0;
+  const unsigned ${acc_wr_stream_in[i]}_realign_type           = 0; 
+  const unsigned ${acc_wr_stream_in[i]}_step                   = ${acc_wr_stream_in[i]}_parallelism_factor * sizeof(uint32_t);
+  const unsigned ${acc_wr_stream_in[i]}_port_offset            = sizeof(uint32_t);
       % else:
-  const unsigned ${stream_in[i]}_trans_size             = ${stream_in[i]}_width * ${stream_in[i]}_stripe_height;
-  const unsigned ${stream_in[i]}_line_stride            = 0;
-  const unsigned ${stream_in[i]}_line_length            = ${stream_in[i]}_width * ${stream_in[i]}_stripe_height;
-  const unsigned ${stream_in[i]}_feat_stride            = 0;
-  const unsigned ${stream_in[i]}_feat_length            = 1;
-  const unsigned ${stream_in[i]}_feat_roll              = 0;
-  const unsigned ${stream_in[i]}_loop_outer             = 0;
-  const unsigned ${stream_in[i]}_realign_type           = 0; 
-  const unsigned ${stream_in[i]}_step                   = 4;
+  const unsigned ${acc_wr_stream_in[i]}_trans_size             = ${acc_wr_stream_in[i]}_width * ${acc_wr_stream_in[i]}_stripe_height;
+  const unsigned ${acc_wr_stream_in[i]}_line_stride            = 0;
+  const unsigned ${acc_wr_stream_in[i]}_line_length            = ${acc_wr_stream_in[i]}_width * ${acc_wr_stream_in[i]}_stripe_height;
+  const unsigned ${acc_wr_stream_in[i]}_feat_stride            = 0;
+  const unsigned ${acc_wr_stream_in[i]}_feat_length            = 1;
+  const unsigned ${acc_wr_stream_in[i]}_feat_roll              = 0;
+  const unsigned ${acc_wr_stream_in[i]}_loop_outer             = 0;
+  const unsigned ${acc_wr_stream_in[i]}_realign_type           = 0; 
+  const unsigned ${acc_wr_stream_in[i]}_step                   = 4;
       % endif
     % endif
   % endfor
@@ -142,30 +142,30 @@
 
   /* Address generator (output) - Parameters */
 
-  % for j in range (n_source):
-    % if (addr_gen_out_isprogr[j]):
-      % if (is_parallel_out[j]):
-  const unsigned ${stream_out[j]}_parallelism_factor    = 16; 
-  const unsigned ${stream_out[j]}_trans_size            = (${stream_out[j]}_width * ${stream_out[j]}_stripe_height * ${stream_out[j]}_stripe_height) / ${stream_out[j]}_parallelism_factor;
-  const unsigned ${stream_out[j]}_line_stride           = 0;
-  const unsigned ${stream_out[j]}_line_length           = ${stream_out[j]}_width / ${stream_out[j]}_parallelism_factor;
-  const unsigned ${stream_out[j]}_feat_stride           = ${stream_out[j]}_width * sizeof(uint32_t);
-  const unsigned ${stream_out[j]}_feat_length           = ${stream_out[j]}_stripe_height;
-  const unsigned ${stream_out[j]}_feat_roll             = ${stream_out[j]}_stripe_height; 
-  const unsigned ${stream_out[j]}_loop_outer            = 0;
-  const unsigned ${stream_out[j]}_realign_type          = 0;
-  const unsigned ${stream_out[j]}_step                  = ${stream_out[j]}_parallelism_factor * sizeof(uint32_t);
-  const unsigned ${stream_out[j]}_port_offset           = sizeof(uint32_t);
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_addr_gen_out_isprogr[j]):
+      % if (acc_wr_is_parallel_out[j]):
+  const unsigned ${acc_wr_stream_out[j]}_parallelism_factor    = 16; 
+  const unsigned ${acc_wr_stream_out[j]}_trans_size            = (${acc_wr_stream_out[j]}_width * ${acc_wr_stream_out[j]}_stripe_height * ${acc_wr_stream_out[j]}_stripe_height) / ${acc_wr_stream_out[j]}_parallelism_factor;
+  const unsigned ${acc_wr_stream_out[j]}_line_stride           = 0;
+  const unsigned ${acc_wr_stream_out[j]}_line_length           = ${acc_wr_stream_out[j]}_width / ${acc_wr_stream_out[j]}_parallelism_factor;
+  const unsigned ${acc_wr_stream_out[j]}_feat_stride           = ${acc_wr_stream_out[j]}_width * sizeof(uint32_t);
+  const unsigned ${acc_wr_stream_out[j]}_feat_length           = ${acc_wr_stream_out[j]}_stripe_height;
+  const unsigned ${acc_wr_stream_out[j]}_feat_roll             = ${acc_wr_stream_out[j]}_stripe_height; 
+  const unsigned ${acc_wr_stream_out[j]}_loop_outer            = 0;
+  const unsigned ${acc_wr_stream_out[j]}_realign_type          = 0;
+  const unsigned ${acc_wr_stream_out[j]}_step                  = ${acc_wr_stream_out[j]}_parallelism_factor * sizeof(uint32_t);
+  const unsigned ${acc_wr_stream_out[j]}_port_offset           = sizeof(uint32_t);
       % else:
-  const unsigned ${stream_out[j]}_trans_size            = ${stream_out[j]}_stripe_height * ${stream_out[j]}_stripe_height; // stripe_height * stripe_height;
-  const unsigned ${stream_out[j]}_line_stride           = sizeof(uint32_t);
-  const unsigned ${stream_out[j]}_line_length           = 1;
-  const unsigned ${stream_out[j]}_feat_stride           = ${stream_out[j]}_stripe_height * sizeof(uint32_t);
-  const unsigned ${stream_out[j]}_feat_length           = ${stream_out[j]}_stripe_height;
-  const unsigned ${stream_out[j]}_feat_roll             = ${stream_out[j]}_stripe_height;
-  const unsigned ${stream_out[j]}_loop_outer            = 0;
-  const unsigned ${stream_out[j]}_realign_type          = 0; // Unused.
-  const unsigned ${stream_out[j]}_step                   = 4;
+  const unsigned ${acc_wr_stream_out[j]}_trans_size            = ${acc_wr_stream_out[j]}_stripe_height * ${acc_wr_stream_out[j]}_stripe_height; // stripe_height * stripe_height;
+  const unsigned ${acc_wr_stream_out[j]}_line_stride           = sizeof(uint32_t);
+  const unsigned ${acc_wr_stream_out[j]}_line_length           = 1;
+  const unsigned ${acc_wr_stream_out[j]}_feat_stride           = ${acc_wr_stream_out[j]}_stripe_height * sizeof(uint32_t);
+  const unsigned ${acc_wr_stream_out[j]}_feat_length           = ${acc_wr_stream_out[j]}_stripe_height;
+  const unsigned ${acc_wr_stream_out[j]}_feat_roll             = ${acc_wr_stream_out[j]}_stripe_height;
+  const unsigned ${acc_wr_stream_out[j]}_loop_outer            = 0;
+  const unsigned ${acc_wr_stream_out[j]}_realign_type          = 0; // Unused.
+  const unsigned ${acc_wr_stream_out[j]}_step                   = 4;
       % endif
     % endif
   % endfor
@@ -180,30 +180,30 @@
 
   /* Address generator (output) - Parameters */
 
-  % for j in range (n_source):
-    % if (addr_gen_out_isprogr[j]):
-      % if (is_parallel_out[j]):
-  const unsigned ${stream_out[j]}_parallelism_factor     = 16;
-  const unsigned ${stream_out[j]}_trans_size             = (${stream_out[j]}_width * ${stream_out[j]}_stripe_height) / ${stream_out[j]}_parallelism_factor;
-  const unsigned ${stream_out[j]}_line_stride            = 0;
-  const unsigned ${stream_out[j]}_line_length            = (${stream_out[j]}_width * ${stream_out[j]}_stripe_height) / ${stream_out[j]}_parallelism_factor;
-  const unsigned ${stream_out[j]}_feat_stride            = 0;
-  const unsigned ${stream_out[j]}_feat_length            = 1;
-  const unsigned ${stream_out[j]}_feat_roll              = 0;
-  const unsigned ${stream_out[j]}_loop_outer             = 0;
-  const unsigned ${stream_out[j]}_realign_type           = 0; 
-  const unsigned ${stream_out[j]}_step                   = ${stream_out[j]}_parallelism_factor * sizeof(uint32_t);
-  const unsigned ${stream_out[j]}_port_offset            = sizeof(uint32_t);
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_addr_gen_out_isprogr[j]):
+      % if (acc_wr_is_parallel_out[j]):
+  const unsigned ${acc_wr_stream_out[j]}_parallelism_factor     = 16;
+  const unsigned ${acc_wr_stream_out[j]}_trans_size             = (${acc_wr_stream_out[j]}_width * ${acc_wr_stream_out[j]}_stripe_height) / ${acc_wr_stream_out[j]}_parallelism_factor;
+  const unsigned ${acc_wr_stream_out[j]}_line_stride            = 0;
+  const unsigned ${acc_wr_stream_out[j]}_line_length            = (${acc_wr_stream_out[j]}_width * ${acc_wr_stream_out[j]}_stripe_height) / ${acc_wr_stream_out[j]}_parallelism_factor;
+  const unsigned ${acc_wr_stream_out[j]}_feat_stride            = 0;
+  const unsigned ${acc_wr_stream_out[j]}_feat_length            = 1;
+  const unsigned ${acc_wr_stream_out[j]}_feat_roll              = 0;
+  const unsigned ${acc_wr_stream_out[j]}_loop_outer             = 0;
+  const unsigned ${acc_wr_stream_out[j]}_realign_type           = 0; 
+  const unsigned ${acc_wr_stream_out[j]}_step                   = ${acc_wr_stream_out[j]}_parallelism_factor * sizeof(uint32_t);
+  const unsigned ${acc_wr_stream_out[j]}_port_offset            = sizeof(uint32_t);
       % else:
-  const unsigned ${stream_out[j]}_trans_size             = ${stream_out[j]}_stripe_height * ${stream_out[j]}_stripe_height + 1;
-  const unsigned ${stream_out[j]}_line_stride            = sizeof(uint32_t);
-  const unsigned ${stream_out[j]}_line_length            = 1;
-  const unsigned ${stream_out[j]}_feat_stride            = ${stream_out[j]}_width * sizeof(uint32_t);
-  const unsigned ${stream_out[j]}_feat_length            = ${stream_out[j]}_stripe_height;
-  const unsigned ${stream_out[j]}_feat_roll              = ${stream_out[j]}_stripe_height;
-  const unsigned ${stream_out[j]}_loop_outer             = 0;
-  const unsigned ${stream_out[j]}_realign_type           = 0; 
-  const unsigned ${stream_out[j]}_step                   = 4;
+  const unsigned ${acc_wr_stream_out[j]}_trans_size             = ${acc_wr_stream_out[j]}_stripe_height * ${acc_wr_stream_out[j]}_stripe_height + 1;
+  const unsigned ${acc_wr_stream_out[j]}_line_stride            = sizeof(uint32_t);
+  const unsigned ${acc_wr_stream_out[j]}_line_length            = 1;
+  const unsigned ${acc_wr_stream_out[j]}_feat_stride            = ${acc_wr_stream_out[j]}_width * sizeof(uint32_t);
+  const unsigned ${acc_wr_stream_out[j]}_feat_length            = ${acc_wr_stream_out[j]}_stripe_height;
+  const unsigned ${acc_wr_stream_out[j]}_feat_roll              = ${acc_wr_stream_out[j]}_stripe_height;
+  const unsigned ${acc_wr_stream_out[j]}_loop_outer             = 0;
+  const unsigned ${acc_wr_stream_out[j]}_realign_type           = 0; 
+  const unsigned ${acc_wr_stream_out[j]}_step                   = 4;
       % endif
     % endif
   % endfor

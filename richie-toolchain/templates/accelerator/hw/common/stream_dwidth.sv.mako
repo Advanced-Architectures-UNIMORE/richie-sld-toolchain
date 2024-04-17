@@ -61,26 +61,26 @@
   n_bytes_out = []
 
   # Scan all input streams
-  for i in range (n_sink):
+  for i in range (acc_wr_n_sink):
     # Check if data with is a multiple of a word
-    remainder_words_in.append(stream_in_dwidth[i] % pulp_dwidth)
+    remainder_words_in.append(acc_wr_stream_in_dwidth[i] % pulp_dwidth)
     # Check if data with is a multiple of a byte
-    remainder_bytes_in.append(stream_in_dwidth[i] % 8)
+    remainder_bytes_in.append(acc_wr_stream_in_dwidth[i] % 8)
     # Check how many words is the interface packing
-    n_words_in.append((stream_in_dwidth[i] - remainder_words_in[i]) // pulp_dwidth)
+    n_words_in.append((acc_wr_stream_in_dwidth[i] - remainder_words_in[i]) // pulp_dwidth)
     # Check how many bytes is the interface packing
-    n_bytes_in.append((stream_in_dwidth[i] - remainder_bytes_in[i]) // 8)
+    n_bytes_in.append((acc_wr_stream_in_dwidth[i] - remainder_bytes_in[i]) // 8)
   endfor
 
   # Scan all output streams
-  for j in range (n_source):
+  for j in range (acc_wr_n_source):
     # Check if data with is a multiple of a word
-    remainder_words_out.append(stream_out_dwidth[j] % pulp_dwidth)
+    remainder_words_out.append(acc_wr_stream_out_dwidth[j] % pulp_dwidth)
     # Check if data with is a multiple of a byte
-    remainder_bytes_out.append(stream_out_dwidth[j] % 8)
+    remainder_bytes_out.append(acc_wr_stream_out_dwidth[j] % 8)
     # Check how many words is the interface packing
-    n_words_out.append((stream_out_dwidth[j] - remainder_words_out[j]) // pulp_dwidth)
+    n_words_out.append((acc_wr_stream_out_dwidth[j] - remainder_words_out[j]) // pulp_dwidth)
     # Check how many bytes is the interface packing
-    n_bytes_out.append((stream_out_dwidth[j] - remainder_bytes_out[j]) // 8)
+    n_bytes_out.append((acc_wr_stream_out_dwidth[j] - remainder_bytes_out[j]) // 8)
   endfor
 %>

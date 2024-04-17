@@ -49,23 +49,23 @@
 
   // Streaming interfaces
   
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
-  hwpe_stream_intf_stream.source ${stream_in[i]}_${k},
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
+  hwpe_stream_intf_stream.source ${acc_wr_stream_in[i]}_${k},
       % endfor
     % else:
-  hwpe_stream_intf_stream.source ${stream_in[i]},
+  hwpe_stream_intf_stream.source ${acc_wr_stream_in[i]},
     % endif
   % endfor 
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
-  hwpe_stream_intf_stream.sink ${stream_out[j]}_${k},
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
+  hwpe_stream_intf_stream.sink ${acc_wr_stream_out[j]}_${k},
       % endfor
     % else:
-  hwpe_stream_intf_stream.sink ${stream_out[j]},
+  hwpe_stream_intf_stream.sink ${acc_wr_stream_out[j]},
     % endif
   % endfor 
 
@@ -81,28 +81,28 @@
 
   // Source modules (TCDM -> HWPE)
 
-  % for i in range (n_sink):
-    % if ( is_parallel_in[i] ):
-      % for k in range ( in_parallelism_factor[i] ):
+  % for i in range (acc_wr_n_sink):
+    % if ( acc_wr_is_parallel_in[i] ):
+      % for k in range ( acc_wr_in_parallelism_factor[i] ):
   hwpe_stream_source #(
     .DATA_WIDTH       ( 32 ),
     .DECOUPLED        ( 1  ),
     .TRANS_CNT        ( 24  ),
-        % if addr_gen_in_isprogr[i]:
+        % if acc_wr_addr_gen_in_isprogr[i]:
     .IS_ADDRESSGEN_PROGR  ( 1  )
         % else:
     .IS_ADDRESSGEN_PROGR  ( 0  )
         % endif
-  ) i_${ stream_in[i] }_${k}_source (
+  ) i_${ acc_wr_stream_in[i] }_${k}_source (
     .clk_i              ( clk_i                                       ),
     .rst_ni             ( rst_ni                                      ),
     .test_mode_i        ( test_mode_i                                 ),
     .clear_i            ( clear_i                                     ),
-    .tcdm               ( tcdm_fifo_${stream_in[i]}_${k}              ), 
-    .stream             ( stream_fifo_${stream_in[i]}_${k}.source     ),
-    .ctrl_i             ( ctrl_i.${stream_in[i]}_${k}_source_ctrl     ),
-    .flags_o            ( flags_o.${stream_in[i]}_${k}_source_flags   ),
-    .tcdm_fifo_ready_o  ( tcdm_fifo_ready_${stream_in[i]}_${k}        )
+    .tcdm               ( tcdm_fifo_${acc_wr_stream_in[i]}_${k}              ), 
+    .stream             ( stream_fifo_${acc_wr_stream_in[i]}_${k}.source     ),
+    .ctrl_i             ( ctrl_i.${acc_wr_stream_in[i]}_${k}_source_ctrl     ),
+    .flags_o            ( flags_o.${acc_wr_stream_in[i]}_${k}_source_flags   ),
+    .tcdm_fifo_ready_o  ( tcdm_fifo_ready_${acc_wr_stream_in[i]}_${k}        )
   );
       % endfor
     % else:
@@ -110,67 +110,67 @@
     .DATA_WIDTH   ( 32 ),
     .DECOUPLED    ( 1  ),
     .TRANS_CNT    ( 24  ),
-        % if addr_gen_in_isprogr[i]:
+        % if acc_wr_addr_gen_in_isprogr[i]:
     .IS_ADDRESSGEN_PROGR  ( 1  )
         % else:
     .IS_ADDRESSGEN_PROGR  ( 0  )
         % endif
-  ) i_${ stream_in[i] }_source (
+  ) i_${ acc_wr_stream_in[i] }_source (
     .clk_i              ( clk_i                                       ),
     .rst_ni             ( rst_ni                                      ),
     .test_mode_i        ( test_mode_i                                 ),
     .clear_i            ( clear_i                                     ),
-    .tcdm               ( tcdm_fifo_${stream_in[i]}                   ), 
-    .stream             ( stream_fifo_${stream_in[i]}.source          ),
-    .ctrl_i             ( ctrl_i.${stream_in[i]}_source_ctrl          ),
-    .flags_o            ( flags_o.${stream_in[i]}_source_flags        ),
-    .tcdm_fifo_ready_o  ( tcdm_fifo_ready_${stream_in[i]}             )
+    .tcdm               ( tcdm_fifo_${acc_wr_stream_in[i]}                   ), 
+    .stream             ( stream_fifo_${acc_wr_stream_in[i]}.source          ),
+    .ctrl_i             ( ctrl_i.${acc_wr_stream_in[i]}_source_ctrl          ),
+    .flags_o            ( flags_o.${acc_wr_stream_in[i]}_source_flags        ),
+    .tcdm_fifo_ready_o  ( tcdm_fifo_ready_${acc_wr_stream_in[i]}             )
   );
     % endif
   % endfor 
 
   // Sink modules (TCDM <- HWPE)
 
-  % for j in range (n_source):
-    % if ( is_parallel_out[j] ):
-      % for k in range ( out_parallelism_factor[j] ):
+  % for j in range (acc_wr_n_source):
+    % if ( acc_wr_is_parallel_out[j] ):
+      % for k in range ( acc_wr_out_parallelism_factor[j] ):
   hwpe_stream_sink #(
     .DATA_WIDTH ( 32 ),
-        % if addr_gen_out_isprogr[j]:
+        % if acc_wr_addr_gen_out_isprogr[j]:
     .IS_ADDRESSGEN_PROGR  ( 1  )
         % else:
     .IS_ADDRESSGEN_PROGR  ( 0  )
         % endif
     // .NB_TCDM_PORTS (    )
-  ) i_${ stream_out[j] }_${k}_sink (
+  ) i_${ acc_wr_stream_out[j] }_${k}_sink (
     .clk_i              ( clk_i                                       ),
     .rst_ni             ( rst_ni                                      ),
     .test_mode_i        ( test_mode_i                                 ),
     .clear_i            ( clear_i                                     ),
-    .tcdm               ( tcdm_fifo_${stream_out[j]}_${k}             ), 
-    .stream             ( stream_fifo_${stream_out[j]}_${k}.sink      ),
-    .ctrl_i             ( ctrl_i.${stream_out[j]}_${k}_sink_ctrl      ),
-    .flags_o            ( flags_o.${stream_out[j]}_${k}_sink_flags    )
+    .tcdm               ( tcdm_fifo_${acc_wr_stream_out[j]}_${k}             ), 
+    .stream             ( stream_fifo_${acc_wr_stream_out[j]}_${k}.sink      ),
+    .ctrl_i             ( ctrl_i.${acc_wr_stream_out[j]}_${k}_sink_ctrl      ),
+    .flags_o            ( flags_o.${acc_wr_stream_out[j]}_${k}_sink_flags    )
   );
       % endfor
     % else:
   hwpe_stream_sink #(
     .DATA_WIDTH ( 32 ),
-        % if addr_gen_out_isprogr[j]:
+        % if acc_wr_addr_gen_out_isprogr[j]:
     .IS_ADDRESSGEN_PROGR  ( 1  )
         % else:
     .IS_ADDRESSGEN_PROGR  ( 0  )
         % endif
     // .NB_TCDM_PORTS (    )
-  ) i_${ stream_out[j] }_sink (
+  ) i_${ acc_wr_stream_out[j] }_sink (
     .clk_i              ( clk_i                                       ),
     .rst_ni             ( rst_ni                                      ),
     .test_mode_i        ( test_mode_i                                 ),
     .clear_i            ( clear_i                                     ),
-    .tcdm               ( tcdm_fifo_${stream_out[j]}                  ), 
-    .stream             ( stream_fifo_${stream_out[j]}.sink           ),
-    .ctrl_i             ( ctrl_i.${ stream_out[j] }_sink_ctrl         ),
-    .flags_o            ( flags_o.${ stream_out[j] }_sink_flags       )
+    .tcdm               ( tcdm_fifo_${acc_wr_stream_out[j]}                  ), 
+    .stream             ( stream_fifo_${acc_wr_stream_out[j]}.sink           ),
+    .ctrl_i             ( ctrl_i.${ acc_wr_stream_out[j] }_sink_ctrl         ),
+    .flags_o            ( flags_o.${ acc_wr_stream_out[j] }_sink_flags       )
   );
     % endif
   % endfor 

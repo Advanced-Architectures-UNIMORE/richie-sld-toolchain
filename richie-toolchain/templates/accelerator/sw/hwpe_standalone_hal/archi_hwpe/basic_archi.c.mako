@@ -48,36 +48,36 @@
 <%def name="basic_archi(addr_current)">\
 
 
-#define ${target.upper()}_REG_TRIGGER                                 ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_TRIGGER                                 ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_ACQUIRE                                 ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_ACQUIRE                                 ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_FINISHED                                ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_FINISHED                                ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_STATUS                                  ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_STATUS                                  ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_RUNNING_JOB                             ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_RUNNING_JOB                             ${hex(addr_current)}
 
         <%  
           addr_current += 4
         %>
 
-#define ${target.upper()}_REG_SOFT_CLEAR                              ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_SOFT_CLEAR                              ${hex(addr_current)}
 
 </%def>

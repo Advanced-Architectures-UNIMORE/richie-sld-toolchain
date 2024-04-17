@@ -35,8 +35,8 @@
 
 <%
     try:
-        TARGET = target.upper()
-        n_tcdm_ports = n_sink + n_source
+        TARGET = acc_wr_target.upper()
+        n_tcdm_ports = acc_wr_n_sink + acc_wr_n_source
     except:
         pass
 %>

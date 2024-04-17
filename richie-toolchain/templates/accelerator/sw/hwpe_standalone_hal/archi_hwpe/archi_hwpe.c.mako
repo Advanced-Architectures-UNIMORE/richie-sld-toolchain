@@ -84,19 +84,19 @@
  * ================================================================================
  *  # reg |  offset  |  bits   |   bitmask    ||  content
  * -------+----------+---------+--------------++-----------------------------------
- % for i in range (n_sink+n_source):
+ % for i in range (acc_wr_n_sink+acc_wr_n_source):
  *     ${i}  |  ${"0x{:04x}".format(64+i*4)}  |  31: 0  |  0xffffffff  ||  ${chr(i+65)}_ADDR
 % endfor
 
- *     ${i+1}  |  ${"0x{:04x}".format(64+(n_sink+n_source)*4)}  |  31: 0  |  0xffffffff  ||  NB_ITER
- *     ${i+2}  |  ${"0x{:04x}".format(64+(n_sink+n_source+1)*4)}  |  31: 0  |  0xffffffff  ||  LEN_ITER
- *     ${i+3}  |  ${"0x{:04x}".format(64+(n_sink+n_source+2)*4)}  |  31:16  |  0xffff0000  ||  SHIFT
+ *     ${i+1}  |  ${"0x{:04x}".format(64+(acc_wr_n_sink+acc_wr_n_source)*4)}  |  31: 0  |  0xffffffff  ||  NB_ITER
+ *     ${i+2}  |  ${"0x{:04x}".format(64+(acc_wr_n_sink+acc_wr_n_source+1)*4)}  |  31: 0  |  0xffffffff  ||  LEN_ITER
+ *     ${i+3}  |  ${"0x{:04x}".format(64+(acc_wr_n_sink+acc_wr_n_source+2)*4)}  |  31:16  |  0xffff0000  ||  SHIFT
  *        |          |   0: 0  |  0x00000001  ||  SIMPLEMUL
- *     ${i+4}  |  ${"0x{:04x}".format(64+(n_sink+n_source+3)*4)}  |  31: 0  |  0xffffffff  ||  VECTSTRIDE
- *     ${i+5}  |  ${"0x{:04x}".format(64+(n_sink+n_source+4)*4)}  |  31: 0  |  0xffffffff  ||  VECTSTRIDE2
- % for i in range (custom_reg_num):
- <% NAME=custom_reg_name[i].upper() %>
- *     ${n_sink+n_source+std_reg_num+i}  |  ${"0x{:04x}".format(92+i*4)}  |  ${custom_reg_dim[i]-1}: 0  |  0xffffffff  ||  HWPE_${NAME}
+ *     ${i+4}  |  ${"0x{:04x}".format(64+(acc_wr_n_sink+acc_wr_n_source+3)*4)}  |  31: 0  |  0xffffffff  ||  VECTSTRIDE
+ *     ${i+5}  |  ${"0x{:04x}".format(64+(acc_wr_n_sink+acc_wr_n_source+4)*4)}  |  31: 0  |  0xffffffff  ||  VECTSTRIDE2
+ % for i in range (acc_wr_custom_reg_num):
+ <% NAME=acc_wr_custom_reg_name[i].upper() %>
+ *     ${acc_wr_n_sink+acc_wr_n_source+acc_wr_std_reg_num+i}  |  ${"0x{:04x}".format(92+i*4)}  |  ${acc_wr_custom_reg_dim[i]-1}: 0  |  0xffffffff  ||  HWPE_${NAME}
  % endfor
  *
  * ================================================================================
@@ -193,7 +193,7 @@ addr_current = addr_top
 ${tcdm_archi(addr_current)}
 
 <%
-addr_top += (n_sink + n_source) * 4
+addr_top += (acc_wr_n_sink + acc_wr_n_source) * 4
 addr_current = addr_top
 %>
 
@@ -208,7 +208,7 @@ addr_current = addr_top
 ${standard_archi(addr_current)}
 
 <%
-addr_top += ((std_reg_num -1) + n_source) * 4 # number of "cnt_limit" regs scale linearly with "n_source", while other std-regs are constant
+addr_top += ((acc_wr_std_reg_num -1) + acc_wr_n_source) * 4 # number of "cnt_limit" regs scale linearly with "acc_wr_n_source", while other std-regs are constant
 addr_current = addr_top
 %>
 
@@ -223,7 +223,7 @@ addr_current = addr_top
 ${custom_archi(addr_current)}
 
 <%
-addr_top += custom_reg_num * 4
+addr_top += acc_wr_custom_reg_num * 4
 addr_current = addr_top
 %>
 
@@ -250,9 +250,9 @@ num_regs_per_port = 9
 
 num_regs_per_port_parallel = 10
 
-for i in range (n_sink):
-    if (addr_gen_in_isprogr[i]):
-        if (is_parallel_in[i]):
+for i in range (acc_wr_n_sink):
+    if (acc_wr_addr_gen_in_isprogr[i]):
+        if (acc_wr_is_parallel_in[i]):
             addr_top += num_regs_per_port_parallel * 4
         else:
             addr_top += num_regs_per_port * 4
@@ -284,9 +284,9 @@ num_regs_per_port = 9
 
 num_regs_per_port_parallel = 10
 
-for j in range (n_source):
-    if (addr_gen_out_isprogr[j]):
-        if (is_parallel_out[j]):
+for j in range (acc_wr_n_source):
+    if (acc_wr_addr_gen_out_isprogr[j]):
+        if (acc_wr_is_parallel_out[j]):
             addr_top += num_regs_per_port_parallel * 4
         else:
             addr_top += num_regs_per_port * 4

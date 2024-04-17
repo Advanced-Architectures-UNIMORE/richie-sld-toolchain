@@ -81,14 +81,14 @@ ${vsim_waves_hw_accelerator()}
 # =====================================================================
 %>
 
-% if (is_ap_ctrl_hs == True) or (is_hls_stream == True):
+% if (acc_wr_is_ap_ctrl_hs == True) or (acc_wr_is_hls_stream == True):
 ${vsim_waves_hwpe_streamer()}
 ${vsim_waves_hwpe_streamer_source()}
 ${vsim_waves_hwpe_streamer_sink()}
 ${vsim_waves_hwpe_streamer_addressgen()}
 % endif
 
-% if is_mdc_dataflow == True:
+% if acc_wr_is_mdc_dataflow == True:
 ${vsim_waves_hwpe_streamer()}
 % endif
 

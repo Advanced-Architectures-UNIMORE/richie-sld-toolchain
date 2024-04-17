@@ -48,11 +48,11 @@
 <%def name="tcdm_archi(addr_current)">\
 
 // Input master ports
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-#define ${target.upper()}_REG_${stream_in[i].upper()}_ADDR                         ${hex(addr_current)}
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_ADDR                         ${hex(addr_current)}
     % else:
-#define ${target.upper()}_REG_${stream_in[i].upper()}_ADDR                         ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_in[i].upper()}_ADDR                         ${hex(addr_current)}
     % endif
         <%
           addr_current += 4
@@ -60,11 +60,11 @@
   % endfor
 
 // Output master ports
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-#define ${target.upper()}_REG_${stream_out[j].upper()}_ADDR                        ${hex(addr_current)}
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_ADDR                        ${hex(addr_current)}
     % else:
-#define ${target.upper()}_REG_${stream_out[j].upper()}_ADDR                        ${hex(addr_current)}
+#define ${acc_wr_target.upper()}_REG_${acc_wr_stream_out[j].upper()}_ADDR                        ${hex(addr_current)}
     % endif
         <%
           addr_current += 4

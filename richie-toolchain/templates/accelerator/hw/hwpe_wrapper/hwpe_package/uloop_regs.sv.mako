@@ -50,16 +50,16 @@
   /* Microcode processor */
 
   // offset indeces -- this should be aligned to the microcode compiler of course!
-  % for i in range (n_sink):
-  parameter int unsigned ${target.upper()}_UCODE_${stream_in[i].upper()}_OFFS               = ${addr_current+i};
+  % for i in range (acc_wr_n_sink):
+  parameter int unsigned ${acc_wr_target.upper()}_UCODE_${acc_wr_stream_in[i].upper()}_OFFS               = ${addr_current+i};
   % endfor
 
         <%
-          addr_current += n_sink
+          addr_current += acc_wr_n_sink
         %>
 
-  % for j in range (n_source):
-  parameter int unsigned ${target.upper()}_UCODE_${stream_out[j].upper()}_OFFS              = ${addr_current+j};
+  % for j in range (acc_wr_n_source):
+  parameter int unsigned ${acc_wr_target.upper()}_UCODE_${acc_wr_stream_out[j].upper()}_OFFS              = ${addr_current+j};
   % endfor
 
   // mnemonics -- this should be aligned to the microcode compiler of course!
@@ -68,24 +68,24 @@
           addr_current = 0
         %>
 
-  parameter int unsigned ${target.upper()}_UCODE_MNEM_NBITER      = ${addr_current};
+  parameter int unsigned ${acc_wr_target.upper()}_UCODE_MNEM_NBITER      = ${addr_current};
 
         <%
           addr_current += 1
         %>
 
-  parameter int unsigned ${target.upper()}_UCODE_MNEM_ITERSTRIDE  = ${addr_current};
+  parameter int unsigned ${acc_wr_target.upper()}_UCODE_MNEM_ITERSTRIDE  = ${addr_current};
 
         <%
           addr_current += 1
         %>
 
-  parameter int unsigned ${target.upper()}_UCODE_MNEM_ONESTRIDE   = ${addr_current};
+  parameter int unsigned ${acc_wr_target.upper()}_UCODE_MNEM_ONESTRIDE   = ${addr_current};
 
         <%
           addr_current += 1
         %>
 
-  parameter int unsigned ${target.upper()}_UCODE_MNEM_TILESTRIDE  = ${addr_current};
+  parameter int unsigned ${acc_wr_target.upper()}_UCODE_MNEM_TILESTRIDE  = ${addr_current};
 
 </%def>

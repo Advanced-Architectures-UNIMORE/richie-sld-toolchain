@@ -49,30 +49,30 @@
  *
  * Richie integration: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
  *
- * Module: ${target}_fsm.sv
+ * Module: ${acc_wr_target}_fsm.sv
  *
  */
 
-import ${target}_package::*;
+import ${acc_wr_target}_package::*;
 import hwpe_ctrl_package::*;
 
-module ${target}_fsm (
+module ${acc_wr_target}_fsm (
   // Global signals
   input  logic                                  clk_i,
   input  logic                                  rst_ni,
   input  logic                                  test_mode_i,
   output logic                                  clear_i,
   // ctrl & flags
-  output ctrl_streamer_${target}_t                        ctrl_streamer_o,
-  input  flags_streamer_${target}_t                       flags_streamer_i,
-  output ctrl_engine_${target}_t                          ctrl_engine_o,
-  input  flags_engine_${target}_t                         flags_engine_i,
+  output ctrl_streamer_${acc_wr_target}_t                        ctrl_streamer_o,
+  input  flags_streamer_${acc_wr_target}_t                       flags_streamer_i,
+  output ctrl_engine_${acc_wr_target}_t                          ctrl_engine_o,
+  input  flags_engine_${acc_wr_target}_t                         flags_engine_i,
   output ctrl_uloop_t                           ctrl_ucode_o,
   input  flags_uloop_t                          flags_ucode_i,
   output ctrl_slave_t                           ctrl_slave_o,
   input  flags_slave_t                          flags_slave_i,
   input  ctrl_regfile_t                         reg_file_i,
-  input  ctrl_fsm_${target}_t                             ctrl_i
+  input  ctrl_fsm_${acc_wr_target}_t                             ctrl_i
 );
 
   // State signals
@@ -83,9 +83,9 @@ module ${target}_fsm (
     FSM_WAIT,
     FSM_UPDATEIDX,
     FSM_TERMINATE
-  } state_fsm_${target}_t;
+  } state_fsm_${acc_wr_target}_t;
 
-  state_fsm_${target}_t curr_state, next_state;
+  state_fsm_${acc_wr_target}_t curr_state, next_state;
 
   // State computation
   always_ff @(posedge clk_i or negedge rst_ni)
@@ -119,8 +119,8 @@ module ${target}_fsm (
     ctrl_engine_o.enable     = '1; // Enable execution
     ctrl_engine_o.start      = '0; // Trigger execution
 
-    % if design_type == 'hls':
-      % if is_hls_stream == True:
+    % if acc_wr_design_type == 'hls':
+      % if acc_wr_is_hls_stream == True:
 ${engine_init_packet_size()}
       % endif
     % endif
@@ -131,10 +131,10 @@ ${engine_init_packet_size()}
     ctrl_slave_o.done = '0;
     ctrl_slave_o.evt  = '0;
 
-    % if custom_reg_num>0:
+    % if acc_wr_custom_reg_num>0:
     // Custom registers
-      % for i in range (custom_reg_num):
-    ctrl_engine_o.${custom_reg_name[i]}    = ctrl_i.${custom_reg_name[i]};
+      % for i in range (acc_wr_custom_reg_num):
+    ctrl_engine_o.${acc_wr_custom_reg_name[i]}    = ctrl_i.${acc_wr_custom_reg_name[i]};
       % endfor
     % endif
 

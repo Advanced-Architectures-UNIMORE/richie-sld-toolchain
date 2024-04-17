@@ -47,7 +47,7 @@
 
 <%def name="mdc_dataflow_kernel_ctrl()">\
 
-  /* ${target} control signals. */
+  /* ${acc_wr_target} control signals. */
 
   logic kernel_start;
 
@@ -66,34 +66,34 @@
 
 <%def name="mdc_dataflow_kernel_flags()">\
 
-  /* ${target} flag signals. */
+  /* ${acc_wr_target} flag signals. */
 
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
 
-  // logic kernel_ready_${stream_in[i]}_${k}; //FIXEME: to be removed
-  logic kernel_done_${stream_in[i]}_${k};
+  // logic kernel_ready_${acc_wr_stream_in[i]}_${k}; //FIXEME: to be removed
+  logic kernel_done_${acc_wr_stream_in[i]}_${k};
 
       % endfor
     % else:
 
-  // logic kernel_ready_${stream_in[i]}; //FIXEME: to be removed
-  logic kernel_done_${stream_in[i]};
+  // logic kernel_ready_${acc_wr_stream_in[i]}; //FIXEME: to be removed
+  logic kernel_done_${acc_wr_stream_in[i]};
 
     % endif
   % endfor
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
 
-  logic kernel_done_${stream_out[j]}_${k};
+  logic kernel_done_${acc_wr_stream_out[j]}_${k};
 
       % endfor
     % else:
 
-  logic kernel_done_${stream_out[j]};
+  logic kernel_done_${acc_wr_stream_out[j]};
 
     % endif
   % endfor
@@ -110,31 +110,31 @@
   // EX: What if Out_0 is provided at each input and Out_1 once per 10 inputs?
   assign flags_o.done = ${AND_kernel_done_out()};
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
 
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: fsm_done_${stream_out[j]}_${k}
+  begin: fsm_done_${acc_wr_stream_out[j]}_${k}
     if(~rst_ni)
-      kernel_done_${stream_out[j]}_${k} = 1'b0;
-    else if((${stream_out[j]}_${k}_o.valid)&(${stream_out[j]}_${k}_o.ready))
-      kernel_done_${stream_out[j]}_${k} = 1'b1;
+      kernel_done_${acc_wr_stream_out[j]}_${k} = 1'b0;
+    else if((${acc_wr_stream_out[j]}_${k}_o.valid)&(${acc_wr_stream_out[j]}_${k}_o.ready))
+      kernel_done_${acc_wr_stream_out[j]}_${k} = 1'b1;
     else
-      kernel_done_${stream_out[j]}_${k} = 1'b0;
+      kernel_done_${acc_wr_stream_out[j]}_${k} = 1'b0;
   end
 
       % endfor
     % else:
 
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: fsm_done_${stream_out[j]}
+  begin: fsm_done_${acc_wr_stream_out[j]}
     if(~rst_ni)
-      kernel_done_${stream_out[j]} = 1'b0;
-    else if((${stream_out[j]}_o.valid)&(${stream_out[j]}_o.ready))
-      kernel_done_${stream_out[j]} = 1'b1;
+      kernel_done_${acc_wr_stream_out[j]} = 1'b0;
+    else if((${acc_wr_stream_out[j]}_o.valid)&(${acc_wr_stream_out[j]}_o.ready))
+      kernel_done_${acc_wr_stream_out[j]} = 1'b1;
     else
-      kernel_done_${stream_out[j]} = 1'b0;
+      kernel_done_${acc_wr_stream_out[j]} = 1'b0;
   end
 
     % endif
@@ -189,27 +189,27 @@
 
 <%def name="mdc_dataflow_counter_in()">\
 
-  /* ${target} input counters. Ready. */
+  /* ${acc_wr_target} input counters. Ready. */
 
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
 
-  logic unsigned [($clog2(${target.upper()}_CNT_LEN)+1):0] kernel_cnt_${stream_in[i]}_${k};
+  logic unsigned [($clog2(${acc_wr_target.upper()}_CNT_LEN)+1):0] kernel_cnt_${acc_wr_stream_in[i]}_${k};
 
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: engine_cnt_${stream_in[i]}_${k}
+  begin: engine_cnt_${acc_wr_stream_in[i]}_${k}
     if((~rst_ni) | kernel_start) begin
-      kernel_cnt_${stream_in[i]}_${k} = 32'b0;
+      kernel_cnt_${acc_wr_stream_in[i]}_${k} = 32'b0;
     end
     else if(kernel_start) begin
-      kernel_cnt_${stream_in[i]}_${k} = 32'b0;
+      kernel_cnt_${acc_wr_stream_in[i]}_${k} = 32'b0;
     end
-    else if ((${stream_in[i]}_${k}_i.valid) & (${stream_in[i]}_${k}_i.ready)) begin
-      kernel_cnt_${stream_in[i]}_${k} = kernel_cnt_${stream_in[i]}_${k} + 1;
+    else if ((${acc_wr_stream_in[i]}_${k}_i.valid) & (${acc_wr_stream_in[i]}_${k}_i.ready)) begin
+      kernel_cnt_${acc_wr_stream_in[i]}_${k} = kernel_cnt_${acc_wr_stream_in[i]}_${k} + 1;
     end
     else begin
-      kernel_cnt_${stream_in[i]}_${k} = kernel_cnt_${stream_in[i]}_${k};
+      kernel_cnt_${acc_wr_stream_in[i]}_${k} = kernel_cnt_${acc_wr_stream_in[i]}_${k};
     end
   end
 
@@ -218,26 +218,26 @@
   // on counting the ouputs, the number of inputs needed to generate an ouput
   // are usually > 1.
   // SOL: Add to ctrl_i also the information about max_input.
-  assign kernel_done_${stream_in[i]}_${k} = (kernel_cnt_${stream_in[i]}_${k}==1) ? 1 : 0;
+  assign kernel_done_${acc_wr_stream_in[i]}_${k} = (kernel_cnt_${acc_wr_stream_in[i]}_${k}==1) ? 1 : 0;
 
       % endfor
     % else:
 
-  logic unsigned [($clog2(${target.upper()}_CNT_LEN)+1):0] kernel_cnt_${stream_in[i]};
+  logic unsigned [($clog2(${acc_wr_target.upper()}_CNT_LEN)+1):0] kernel_cnt_${acc_wr_stream_in[i]};
 
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: engine_cnt_${stream_in[i]}
+  begin: engine_cnt_${acc_wr_stream_in[i]}
     if((~rst_ni) | kernel_start) begin
-      kernel_cnt_${stream_in[i]} = 32'b0;
+      kernel_cnt_${acc_wr_stream_in[i]} = 32'b0;
     end
     else if(kernel_start) begin
-      kernel_cnt_${stream_in[i]} = 32'b0;
+      kernel_cnt_${acc_wr_stream_in[i]} = 32'b0;
     end
-    else if ((${stream_in[i]}_i.valid) & (${stream_in[i]}_i.ready)) begin
-      kernel_cnt_${stream_in[i]} = kernel_cnt_${stream_in[i]} + 1;
+    else if ((${acc_wr_stream_in[i]}_i.valid) & (${acc_wr_stream_in[i]}_i.ready)) begin
+      kernel_cnt_${acc_wr_stream_in[i]} = kernel_cnt_${acc_wr_stream_in[i]} + 1;
     end
     else begin
-      kernel_cnt_${stream_in[i]} = kernel_cnt_${stream_in[i]};
+      kernel_cnt_${acc_wr_stream_in[i]} = kernel_cnt_${acc_wr_stream_in[i]};
     end
   end
 
@@ -246,7 +246,7 @@
   // on counting the ouputs, the number of inputs needed to generate an ouput
   // are usually > 1.
   // SOL: Add to ctrl_i also the information about max_input.
-  assign kernel_done_${stream_in[i]} = (kernel_cnt_${stream_in[i]}==1) ? 1 : 0;
+  assign kernel_done_${acc_wr_stream_in[i]} = (kernel_cnt_${acc_wr_stream_in[i]}==1) ? 1 : 0;
 
     % endif
   % endfor 
@@ -260,13 +260,13 @@
 %>
 
 <%def name="mdc_dataflow_counter_out()">\
-  /* ${target} output counters. */
+  /* ${acc_wr_target} output counters. */
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
 
-  logic unsigned [($clog2(${target.upper()}_CNT_LEN)+1):0] kernel_cnt_${stream_out[j]}_${k};
+  logic unsigned [($clog2(${acc_wr_target.upper()}_CNT_LEN)+1):0] kernel_cnt_${acc_wr_stream_out[j]}_${k};
 
   // Suggested design:
   //      ap_done = done_out0 & ... & done_outM;
@@ -277,23 +277,23 @@
   // FIXME: At this point, cnt_out is not essential here and could be removed.
 
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: engine_cnt_${stream_out[j]}_${k}
+  begin: engine_cnt_${acc_wr_stream_out[j]}_${k}
     if((~rst_ni) | kernel_start)
-      kernel_cnt_${stream_out[j]}_${k} = 32'b0;
+      kernel_cnt_${acc_wr_stream_out[j]}_${k} = 32'b0;
     else if(!kernel_idle) begin
-      if((${stream_out[j]}_${k}_o.valid)&(${stream_out[j]}_${k}_o.ready))
-        kernel_cnt_${stream_out[j]}_${k} = kernel_cnt_${stream_out[j]}_${k} + 1;
+      if((${acc_wr_stream_out[j]}_${k}_o.valid)&(${acc_wr_stream_out[j]}_${k}_o.ready))
+        kernel_cnt_${acc_wr_stream_out[j]}_${k} = kernel_cnt_${acc_wr_stream_out[j]}_${k} + 1;
       else
-        kernel_cnt_${stream_out[j]}_${k} = kernel_cnt_${stream_out[j]}_${k};
+        kernel_cnt_${acc_wr_stream_out[j]}_${k} = kernel_cnt_${acc_wr_stream_out[j]}_${k};
     end
   end
 
-  assign cnt_${stream_out[j]}_${k} = kernel_cnt_${stream_out[j]}_${k};
+  assign cnt_${acc_wr_stream_out[j]}_${k} = kernel_cnt_${acc_wr_stream_out[j]}_${k};
 
       % endfor
     % else:
 
-  logic unsigned [($clog2(${target.upper()}_CNT_LEN)+1):0] kernel_cnt_${stream_out[j]};
+  logic unsigned [($clog2(${acc_wr_target.upper()}_CNT_LEN)+1):0] kernel_cnt_${acc_wr_stream_out[j]};
 
   // Suggested design:
   //      ap_done = done_out0 & ... & done_outM;
@@ -304,18 +304,18 @@
   // FIXME: At this point, cnt_out is not essential here and could be removed.
 
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: engine_cnt_${stream_out[j]}
+  begin: engine_cnt_${acc_wr_stream_out[j]}
     if((~rst_ni) | kernel_start)
-      kernel_cnt_${stream_out[j]} = 32'b0;
+      kernel_cnt_${acc_wr_stream_out[j]} = 32'b0;
     else if(!kernel_idle) begin
-      if((${stream_out[j]}_o.valid)&(${stream_out[j]}_o.ready))
-        kernel_cnt_${stream_out[j]} = kernel_cnt_${stream_out[j]} + 1;
+      if((${acc_wr_stream_out[j]}_o.valid)&(${acc_wr_stream_out[j]}_o.ready))
+        kernel_cnt_${acc_wr_stream_out[j]} = kernel_cnt_${acc_wr_stream_out[j]} + 1;
       else
-        kernel_cnt_${stream_out[j]} = kernel_cnt_${stream_out[j]};
+        kernel_cnt_${acc_wr_stream_out[j]} = kernel_cnt_${acc_wr_stream_out[j]};
     end
   end
 
-  assign cnt_${stream_out[j]} = kernel_cnt_${stream_out[j]};
+  assign cnt_${acc_wr_stream_out[j]} = kernel_cnt_${acc_wr_stream_out[j]};
 
     % endif
   % endfor
@@ -330,68 +330,68 @@
 
 <%def name="mdc_dataflow_kernel_intf()">\
 
-  /* ${target} kernel interface. */
+  /* ${acc_wr_target} kernel interface. */
 
-  ${target} i_${target} (
+  ${acc_wr_target} i_${acc_wr_target} (
     // Global signals.
     .ap_clk             ( clk_i            ), 
     .ap_rst_n           ( rst_ni           ), 
 
-    % if custom_reg_num>0:
+    % if acc_wr_custom_reg_num>0:
     // Kernel parameters
-      % for i in range (custom_reg_num):
-        % if custom_reg_isport[i]:
-    .${custom_reg_name[i]}        ( ${custom_reg_name[i]} ),
+      % for i in range (acc_wr_custom_reg_num):
+        % if acc_wr_custom_reg_isport[i]:
+    .${acc_wr_custom_reg_name[i]}        ( ${acc_wr_custom_reg_name[i]} ),
         % endif
       % endfor
     % endif 
 
     // Sink ports
-    % for i in range (n_sink):
-      % if (is_parallel_in[i]):
-        % for k in range (in_parallelism_factor[i]):
-    .${stream_in[i]}_${k}_TDATA  ( ${stream_in[i]}_${k}_i.data  ),
-    .${stream_in[i]}_${k}_TVALID ( ${stream_in[i]}_${k}_i.valid ),
-    .${stream_in[i]}_${k}_TREADY ( ${stream_in[i]}_${k}_i.ready ),
+    % for i in range (acc_wr_n_sink):
+      % if (acc_wr_is_parallel_in[i]):
+        % for k in range (acc_wr_in_parallelism_factor[i]):
+    .${acc_wr_stream_in[i]}_${k}_TDATA  ( ${acc_wr_stream_in[i]}_${k}_i.data  ),
+    .${acc_wr_stream_in[i]}_${k}_TVALID ( ${acc_wr_stream_in[i]}_${k}_i.valid ),
+    .${acc_wr_stream_in[i]}_${k}_TREADY ( ${acc_wr_stream_in[i]}_${k}_i.ready ),
         % endfor
       % else:
-    .${stream_in[i]}_TDATA  ( ${stream_in[i]}_i.data  ),
-    .${stream_in[i]}_TVALID ( ${stream_in[i]}_i.valid ),
-    .${stream_in[i]}_TREADY ( ${stream_in[i]}_i.ready ),
+    .${acc_wr_stream_in[i]}_TDATA  ( ${acc_wr_stream_in[i]}_i.data  ),
+    .${acc_wr_stream_in[i]}_TVALID ( ${acc_wr_stream_in[i]}_i.valid ),
+    .${acc_wr_stream_in[i]}_TREADY ( ${acc_wr_stream_in[i]}_i.ready ),
       % endif
     % endfor  
 
     // Source ports
-    % for j in range (n_source-1):
-      % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]):
-    .${stream_out[j]}_${k}_TDATA  ( ${stream_out[j]}_${k}_o.data  ),
-    .${stream_out[j]}_${k}_TVALID ( ${stream_out[j]}_${k}_o.valid ),
-    .${stream_out[j]}_${k}_TREADY ( ${stream_out[j]}_${k}_o.ready ),
+    % for j in range (acc_wr_n_source-1):
+      % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]):
+    .${acc_wr_stream_out[j]}_${k}_TDATA  ( ${acc_wr_stream_out[j]}_${k}_o.data  ),
+    .${acc_wr_stream_out[j]}_${k}_TVALID ( ${acc_wr_stream_out[j]}_${k}_o.valid ),
+    .${acc_wr_stream_out[j]}_${k}_TREADY ( ${acc_wr_stream_out[j]}_${k}_o.ready ),
         % endfor
       % else:
-    .${stream_out[j]}_TDATA  ( ${stream_out[j]}_o.data  ),
-    .${stream_out[j]}_TVALID ( ${stream_out[j]}_o.valid ),
-    .${stream_out[j]}_TREADY ( ${stream_out[j]}_o.ready ),
+    .${acc_wr_stream_out[j]}_TDATA  ( ${acc_wr_stream_out[j]}_o.data  ),
+    .${acc_wr_stream_out[j]}_TVALID ( ${acc_wr_stream_out[j]}_o.valid ),
+    .${acc_wr_stream_out[j]}_TREADY ( ${acc_wr_stream_out[j]}_o.ready ),
       % endif
     % endfor
 
-    % if (is_parallel_out[n_source-1]):
-      % for k in range (out_parallelism_factor[n_source-1]-1):
-    .${stream_out[n_source-1]}_${k}_TDATA  ( ${stream_out[n_source-1]}_${k}_o.data  ),
-    .${stream_out[n_source-1]}_${k}_TVALID ( ${stream_out[n_source-1]}_${k}_o.valid ),
-    .${stream_out[n_source-1]}_${k}_TREADY ( ${stream_out[n_source-1]}_${k}_o.ready ),
+    % if (acc_wr_is_parallel_out[acc_wr_n_source-1]):
+      % for k in range (acc_wr_out_parallelism_factor[acc_wr_n_source-1]-1):
+    .${acc_wr_stream_out[acc_wr_n_source-1]}_${k}_TDATA  ( ${acc_wr_stream_out[acc_wr_n_source-1]}_${k}_o.data  ),
+    .${acc_wr_stream_out[acc_wr_n_source-1]}_${k}_TVALID ( ${acc_wr_stream_out[acc_wr_n_source-1]}_${k}_o.valid ),
+    .${acc_wr_stream_out[acc_wr_n_source-1]}_${k}_TREADY ( ${acc_wr_stream_out[acc_wr_n_source-1]}_${k}_o.ready ),
       % endfor
     % else:
-    .${stream_out[n_source-1]}_TDATA  ( ${stream_out[n_source-1]}_o.data  ),
-    .${stream_out[n_source-1]}_TVALID ( ${stream_out[n_source-1]}_o.valid ),
-    .${stream_out[n_source-1]}_TREADY ( ${stream_out[n_source-1]}_o.ready )
+    .${acc_wr_stream_out[acc_wr_n_source-1]}_TDATA  ( ${acc_wr_stream_out[acc_wr_n_source-1]}_o.data  ),
+    .${acc_wr_stream_out[acc_wr_n_source-1]}_TVALID ( ${acc_wr_stream_out[acc_wr_n_source-1]}_o.valid ),
+    .${acc_wr_stream_out[acc_wr_n_source-1]}_TREADY ( ${acc_wr_stream_out[acc_wr_n_source-1]}_o.ready )
     % endif
 
-    % if (is_parallel_out[n_source-1]):
-    .${stream_out[n_source-1]}_${out_parallelism_factor[n_source-1]-1}_TDATA  ( ${stream_out[n_source-1]}_${out_parallelism_factor[n_source-1]-1}_o.data  ),
-    .${stream_out[n_source-1]}_${out_parallelism_factor[n_source-1]-1}_TVALID ( ${stream_out[n_source-1]}_${out_parallelism_factor[n_source-1]-1}_o.valid ),
-    .${stream_out[n_source-1]}_${out_parallelism_factor[n_source-1]-1}_TREADY ( ${stream_out[n_source-1]}_${out_parallelism_factor[n_source-1]-1}_o.ready )
+    % if (acc_wr_is_parallel_out[acc_wr_n_source-1]):
+    .${acc_wr_stream_out[acc_wr_n_source-1]}_${acc_wr_out_parallelism_factor[acc_wr_n_source-1]-1}_TDATA  ( ${acc_wr_stream_out[acc_wr_n_source-1]}_${acc_wr_out_parallelism_factor[acc_wr_n_source-1]-1}_o.data  ),
+    .${acc_wr_stream_out[acc_wr_n_source-1]}_${acc_wr_out_parallelism_factor[acc_wr_n_source-1]-1}_TVALID ( ${acc_wr_stream_out[acc_wr_n_source-1]}_${acc_wr_out_parallelism_factor[acc_wr_n_source-1]-1}_o.valid ),
+    .${acc_wr_stream_out[acc_wr_n_source-1]}_${acc_wr_out_parallelism_factor[acc_wr_n_source-1]-1}_TREADY ( ${acc_wr_stream_out[acc_wr_n_source-1]}_${acc_wr_out_parallelism_factor[acc_wr_n_source-1]-1}_o.ready )
     % endif
 
   );
@@ -417,46 +417,46 @@
 
 <%def name="AND_kernel_done_in()">\
 \
-% for i in range (n_sink-1):
-    % if (is_parallel_in[i]):
-        % for k in range (in_parallelism_factor[i]):
-kernel_done_${stream_in[i]}_${k} & \
+% for i in range (acc_wr_n_sink-1):
+    % if (acc_wr_is_parallel_in[i]):
+        % for k in range (acc_wr_in_parallelism_factor[i]):
+kernel_done_${acc_wr_stream_in[i]}_${k} & \
         % endfor
     % else:
-kernel_done_${stream_in[i]} & \
+kernel_done_${acc_wr_stream_in[i]} & \
     % endif
 % endfor
 \
-% if (is_parallel_in[n_sink-1]):
-    % for k in range (in_parallelism_factor[n_sink-1]-1):
-kernel_done_${stream_in[n_sink-1]}_${k} & \
+% if (acc_wr_is_parallel_in[acc_wr_n_sink-1]):
+    % for k in range (acc_wr_in_parallelism_factor[acc_wr_n_sink-1]-1):
+kernel_done_${acc_wr_stream_in[acc_wr_n_sink-1]}_${k} & \
     % endfor
-kernel_done_${stream_in[n_sink-1]}_${in_parallelism_factor[n_sink-1]-1};\
+kernel_done_${acc_wr_stream_in[acc_wr_n_sink-1]}_${acc_wr_in_parallelism_factor[acc_wr_n_sink-1]-1};\
 % else:
-kernel_done_${stream_in[n_sink-1]}\
+kernel_done_${acc_wr_stream_in[acc_wr_n_sink-1]}\
 % endif
 \
 </%def>
 
 <%def name="AND_kernel_done_out()">\
 \
-% for j in range (n_source-1):
-    % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]):
-kernel_done_${stream_out[j]}_${k} & \
+% for j in range (acc_wr_n_source-1):
+    % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]):
+kernel_done_${acc_wr_stream_out[j]}_${k} & \
         % endfor
     % else:
-kernel_done_${stream_out[j]} & \
+kernel_done_${acc_wr_stream_out[j]} & \
     % endif
 % endfor
 \
-% if (is_parallel_out[n_source-1]):
-    % for k in range (out_parallelism_factor[n_source-1]-1):
-kernel_done_${stream_out[n_source-1]}_${k} & \
+% if (acc_wr_is_parallel_out[acc_wr_n_source-1]):
+    % for k in range (acc_wr_out_parallelism_factor[acc_wr_n_source-1]-1):
+kernel_done_${acc_wr_stream_out[acc_wr_n_source-1]}_${k} & \
     % endfor
-kernel_done_${stream_out[n_source-1]}_${out_parallelism_factor[n_source-1]-1};\
+kernel_done_${acc_wr_stream_out[acc_wr_n_source-1]}_${acc_wr_out_parallelism_factor[acc_wr_n_source-1]-1};\
 % else:
-kernel_done_${stream_out[n_source-1]}\
+kernel_done_${acc_wr_stream_out[acc_wr_n_source-1]}\
 % endif
 \
 </%def>

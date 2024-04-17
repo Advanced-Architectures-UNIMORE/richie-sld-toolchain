@@ -48,23 +48,23 @@
 <%def name="streaming_top_intf()">\
 
   // Streamer interfaces
-  % for i in range (n_sink):
-    % if (is_parallel_in[i]):
-      % for k in range (in_parallelism_factor[i]):
-  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) ${stream_in[i]}_${k} ( .clk (clk_i) );
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
+  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) ${acc_wr_stream_in[i]}_${k} ( .clk (clk_i) );
       % endfor
     % else:
-  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) ${stream_in[i]} ( .clk (clk_i) );
+  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) ${acc_wr_stream_in[i]} ( .clk (clk_i) );
     % endif
   % endfor 
 
-  % for j in range (n_source):
-    % if (is_parallel_out[j]):
-      % for k in range (out_parallelism_factor[j]):
-  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) ${stream_out[j]}_${k} ( .clk (clk_i) );
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
+  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) ${acc_wr_stream_out[j]}_${k} ( .clk (clk_i) );
       % endfor
     % else:
-  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) ${stream_out[j]} ( .clk (clk_i) );
+  hwpe_stream_intf_stream #( .DATA_WIDTH(32) ) ${acc_wr_stream_out[j]} ( .clk (clk_i) );
     % endif
   % endfor
 
@@ -78,23 +78,23 @@
 
 <%def name="streaming_engine_intf()">\
 
-    % for i in range (n_sink):
-      % if (is_parallel_in[i]):
-        % for k in range (in_parallelism_factor[i]):
-    .${stream_in[i]}_${k}_i              ( ${stream_in[i]}_${k}.sink       ),
+    % for i in range (acc_wr_n_sink):
+      % if (acc_wr_is_parallel_in[i]):
+        % for k in range (acc_wr_in_parallelism_factor[i]):
+    .${acc_wr_stream_in[i]}_${k}_i              ( ${acc_wr_stream_in[i]}_${k}.sink       ),
         % endfor
       % else:
-    .${stream_in[i]}_i              ( ${stream_in[i]}.sink       ),
+    .${acc_wr_stream_in[i]}_i              ( ${acc_wr_stream_in[i]}.sink       ),
       % endif
     % endfor 
 
-    % for j in range (n_source):
-      % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]):
-    .${stream_out[j]}_${k}_o              ( ${stream_out[j]}_${k}.source       ),
+    % for j in range (acc_wr_n_source):
+      % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]):
+    .${acc_wr_stream_out[j]}_${k}_o              ( ${acc_wr_stream_out[j]}_${k}.source       ),
         % endfor
       % else:
-    .${stream_out[j]}_o              ( ${stream_out[j]}.source       ),
+    .${acc_wr_stream_out[j]}_o              ( ${acc_wr_stream_out[j]}.source       ),
       % endif
     % endfor 
 
@@ -108,23 +108,23 @@
 
 <%def name="streaming_streamer_intf()">\
 
-    % for i in range (n_sink):
-      % if (is_parallel_in[i]):
-        % for k in range (in_parallelism_factor[i]):
-    .${stream_in[i]}_${k}              ( ${stream_in[i]}_${k}.source       ),
+    % for i in range (acc_wr_n_sink):
+      % if (acc_wr_is_parallel_in[i]):
+        % for k in range (acc_wr_in_parallelism_factor[i]):
+    .${acc_wr_stream_in[i]}_${k}              ( ${acc_wr_stream_in[i]}_${k}.source       ),
         % endfor
       % else:
-    .${stream_in[i]}              ( ${stream_in[i]}.source       ),
+    .${acc_wr_stream_in[i]}              ( ${acc_wr_stream_in[i]}.source       ),
       % endif
     % endfor 
 
-    % for j in range (n_source):
-      % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]):
-    .${stream_out[j]}_${k}              ( ${stream_out[j]}_${k}.sink       ),
+    % for j in range (acc_wr_n_source):
+      % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]):
+    .${acc_wr_stream_out[j]}_${k}              ( ${acc_wr_stream_out[j]}_${k}.sink       ),
         % endfor
       % else:
-    .${stream_out[j]}              ( ${stream_out[j]}.sink       ),
+    .${acc_wr_stream_out[j]}              ( ${acc_wr_stream_out[j]}.sink       ),
       % endif
     % endfor 
 

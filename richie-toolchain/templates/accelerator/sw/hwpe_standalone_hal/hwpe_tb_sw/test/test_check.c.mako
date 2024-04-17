@@ -47,12 +47,12 @@
 
 <%def name="error_check()">\
 
-  % for j in range (n_source):
-  // error check on ${stream_out[j]}
-  for(i=0; i<${stream_out[j]}_height; i++){
-    for(j=0; j<${stream_out[j]}_width; j++){
-      int32_t dut_val = ${stream_out[j]}_l1[i*${stream_out[j]}_width+j];
-      int32_t ref_val = ${stream_out[j]}_golden_l1[i*${stream_out[j]}_width+j];
+  % for j in range (acc_wr_n_source):
+  // error check on ${acc_wr_stream_out[j]}
+  for(i=0; i<${acc_wr_stream_out[j]}_height; i++){
+    for(j=0; j<${acc_wr_stream_out[j]}_width; j++){
+      int32_t dut_val = ${acc_wr_stream_out[j]}_l1[i*${acc_wr_stream_out[j]}_width+j];
+      int32_t ref_val = ${acc_wr_stream_out[j]}_golden_l1[i*${acc_wr_stream_out[j]}_width+j];
       if(dut_val != ref_val) errors++;
     }
   }

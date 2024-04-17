@@ -49,7 +49,7 @@
  *
  * Project:         Richie
  *
- * Title:           ${target}_cluster_intf.sv
+ * Title:           ${acc_wr_target}_cluster_intf.sv
  *
  * Description:     The interface is positioned in between an accelerator
  *                  region and the top module of an accelerator wrapper.

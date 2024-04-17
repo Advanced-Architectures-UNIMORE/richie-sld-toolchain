@@ -48,7 +48,7 @@
 <%def name="xil_ap_ctrl_hs_engine_ctrl()">\
 
   // Control signals
-  input  ctrl_kernel_adapter_${target}_t           ctrl_i,
+  input  ctrl_kernel_adapter_${acc_wr_target}_t           ctrl_i,
 
 </%def>
 
@@ -61,6 +61,6 @@
 <%def name="xil_ap_ctrl_hs_engine_flags()">\
 
   // Flag signals
-  output  flags_kernel_adapter_${target}_t           flags_o
+  output  flags_kernel_adapter_${acc_wr_target}_t           flags_o
 \
 </%def>

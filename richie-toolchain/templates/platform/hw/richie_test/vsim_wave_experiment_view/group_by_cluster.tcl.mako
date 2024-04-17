@@ -35,16 +35,16 @@
 
 <%
 # =====================================================================
-# Title:        vsim_waves_experiment_group_by_cluster
+# Title:        vsim_waves_group_by_cluster
 # Type:         Template API
 # Description:  Waves grouped by cluster.
 # =====================================================================
 %>
 
-<%def name="vsim_waves_experiment_group_by_cluster()">\
+<%def name="vsim_waves_group_by_cluster()">\
 % for cl_id in range(n_clusters):
 
-add wave -noupdate -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {CLK} /richie_tb/dut/clk_i
+add wave -noupdate -group {exp_view_by_cluster} -group {cl[${cl_id}]} -label {CLK} /richie_tb/dut/clk_i
 
     <%
         # Additional design knobs
@@ -54,13 +54,13 @@ add wave -noupdate -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label
 
         n_acc_cl = len(cl_lic_acc_names)
     %>
-add wave -noupdate -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {CORE[${cl_id},0]-CLK-en}  {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[0]/core_region_i/clock_en_i}
-add wave -noupdate -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {CORE[${cl_id},0]-INSTR-req}  {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[0]/core_region_i/instr_req_o}
+add wave -noupdate -group {exp_view_by_cluster} -group {cl[${cl_id}]} -label {proxy[${cl_id},0]-CLK-en}  {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[0]/core_region_i/clock_en_i}
+add wave -noupdate -group {exp_view_by_cluster} -group {cl[${cl_id}]} -label {proxy[${cl_id},0]-INSTR-req}  {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/CORE[0]/core_region_i/instr_req_o}
 
-add wave -noupdate -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {DMA[${cl_id},0]-W-valid} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/w_valid}
-add wave -noupdate -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {DMA[${cl_id},0]-W-ready} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/w_ready}
-add wave -noupdate -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {DMA[${cl_id},0]-R-valid} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/r_valid}
-add wave -noupdate -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {DMA[${cl_id},0]-R-ready} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/r_ready}
+add wave -noupdate -group {exp_view_by_cluster} -group {cl[${cl_id}]} -label {dma[${cl_id},0]-W-valid} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/w_valid}
+add wave -noupdate -group {exp_view_by_cluster} -group {cl[${cl_id}]} -label {dma[${cl_id},0]-W-ready} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/w_ready}
+add wave -noupdate -group {exp_view_by_cluster} -group {cl[${cl_id}]} -label {dma[${cl_id},0]-R-valid} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/r_valid}
+add wave -noupdate -group {exp_view_by_cluster} -group {cl[${cl_id}]} -label {dma[${cl_id},0]-R-ready} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/dmac_wrap_i/ext_master/r_ready}
 
     % for acc_id in range(n_acc_cl):
 
@@ -80,7 +80,7 @@ add wave -noupdate -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label
                 port_offset_relative = port_offset - mst_port_offset_L
             %>
 
-add wave -noupdate -group {Experiment [CL-grouped]} -group {CL[${cl_id}]} -label {${cl_lic_acc_names[acc_id].upper()}[${cl_id},${acc_id},${port_offset_relative}]-req} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/hwpe_xbar_master[${port_offset}]/req}
+add wave -noupdate -group {exp_view_by_cluster} -group {cl[${cl_id}]} -label {${cl_lic_acc_names[acc_id].upper()}[${cl_id},${acc_id},${port_offset_relative}]-req} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/hwpe_xbar_master[${port_offset}]/req}
         % endfor
 
     % endfor

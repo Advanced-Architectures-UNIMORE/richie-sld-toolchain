@@ -49,7 +49,7 @@
  *
  * Project:         Richie
  *
- * Title:           ${target}_kernel_adapter.sv
+ * Title:           ${acc_wr_target}_kernel_adapter.sv
  *
  * Description:     Interface to the accelerator datapath. It can be tailored
  *                  a variety of accelerator standards and protocols, e.g. PULP, 
@@ -61,9 +61,9 @@
  *
  * ===================================================================== */
 
-import ${target}_package::*;
+import ${acc_wr_target}_package::*;
 
-module ${target}_kernel_adapter (\
+module ${acc_wr_target}_kernel_adapter (\
 
   // Global signals
   input  logic          clk_i,
@@ -72,10 +72,10 @@ module ${target}_kernel_adapter (\
 
   ${streaming_kernel_adapter_intf()}
 
-  % if custom_reg_num > 0:
+  % if acc_wr_custom_reg_num > 0:
   // Kernel parameters
-    % for i in range (custom_reg_num):
-  input logic [${custom_reg_dim[i]-1}:0] ${custom_reg_name[i]},
+    % for i in range (acc_wr_custom_reg_num):
+  input logic [${acc_wr_custom_reg_dim[i]-1}:0] ${acc_wr_custom_reg_name[i]},
     % endfor
   % endif
 
@@ -85,7 +85,7 @@ module ${target}_kernel_adapter (\
   ###############################################
   %>
 
-  % if design_type == 'hdl':
+  % if acc_wr_design_type == 'hdl':
   ${pulp_std_engine_ctrl()}
   ${pulp_std_engine_flags()}
   % endif
@@ -96,8 +96,8 @@ module ${target}_kernel_adapter (\
   ####################################################################
   %>
 
-  % if design_type == 'hls':
-    % if is_ap_ctrl_hs == True:
+  % if acc_wr_design_type == 'hls':
+    % if acc_wr_is_ap_ctrl_hs == True:
   ${xil_ap_ctrl_hs_engine_ctrl()}
   ${xil_ap_ctrl_hs_engine_flags()}
     % endif
@@ -109,8 +109,8 @@ module ${target}_kernel_adapter (\
   ###############################################
   %>
 
-  % if design_type == 'hls':
-    % if is_mdc_dataflow == True:
+  % if acc_wr_design_type == 'hls':
+    % if acc_wr_is_mdc_dataflow == True:
   ${mdc_dataflow_engine_ctrl()}
   ${mdc_dataflow_engine_flags()}
     % endif
@@ -122,8 +122,8 @@ module ${target}_kernel_adapter (\
   ###########################################################
   %>
 
-  % if design_type == 'hls':
-    % if is_hls_stream == True:
+  % if acc_wr_design_type == 'hls':
+    % if acc_wr_is_hls_stream == True:
   ${xil_hls_stream_engine_ctrl()}
   ${xil_hls_stream_engine_flags()}
     % endif
@@ -137,7 +137,7 @@ module ${target}_kernel_adapter (\
   #######################################
   %>
 
-  % if design_type == 'hdl':
+  % if acc_wr_design_type == 'hdl':
   ${pulp_std_kernel_intf()}
   % endif
 
@@ -147,8 +147,8 @@ module ${target}_kernel_adapter (\
   ############################################################
   %>
 
-  % if design_type == 'hls':
-    % if is_ap_ctrl_hs == True:
+  % if acc_wr_design_type == 'hls':
+    % if acc_wr_is_ap_ctrl_hs == True:
   ${xil_ap_ctrl_hs_kernel_ctrl()}
   ${xil_ap_ctrl_hs_kernel_flags()}
   ${xil_ap_ctrl_hs_kernel_intf()}
@@ -162,8 +162,8 @@ module ${target}_kernel_adapter (\
   #######################################
   %>
 
-  % if design_type == 'hls':
-    % if is_mdc_dataflow == True:
+  % if acc_wr_design_type == 'hls':
+    % if acc_wr_is_mdc_dataflow == True:
   ${mdc_dataflow_kernel_ctrl()}
   ${mdc_dataflow_kernel_flags()}
   ${mdc_dataflow_counter_in()}
@@ -179,8 +179,8 @@ module ${target}_kernel_adapter (\
   ###################################################
   %>
 
-  % if design_type == 'hls':
-    % if is_hls_stream == True:
+  % if acc_wr_design_type == 'hls':
+    % if acc_wr_is_hls_stream == True:
   ${xil_hls_stream_stream_dwidth_match_def()}
   ${xil_hls_stream_kernel_ctrl_def()}
   ${xil_hls_stream_kernel_flags_def()}

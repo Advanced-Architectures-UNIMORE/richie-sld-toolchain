@@ -73,8 +73,12 @@ import os
 '''
 from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
 from python.accelerator.process_design_knobs import print_wrapper_log
-from python.accelerator.generator import generation as generate_accelerator_intf
 from python.accelerator.import_design_knobs import import_accelerator_design_knobs
+
+'''
+    Import generator
+'''
+from python.richie.generator import Generator
 
 '''
     Import emitter
@@ -92,13 +96,13 @@ from templates.accelerator.hw.hwpe_wrapper.hwpe_wrapper import HwpeWrapper
 dir_out_acc = sys.argv[1]
 
 '''
-    Retrieve design knobs
+    Retrieve accelerator specification
 '''
 target_acc = os.environ['TARGET_ACC']
 accelerator_specs = import_accelerator_design_knobs(target_acc)
 
 '''
-    Format design knobs
+    Format accelerator specification
 '''
 
 accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.AcceleratorSpecs)
@@ -106,7 +110,7 @@ accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.Acc
 '''
     Instantiate emitter
 '''
-accelerator_emitter = AcceleratorEmitter(accelerator_design_knobs, dir_out_acc)
+emitter = AcceleratorEmitter(accelerator_design_knobs, dir_out_acc)
 
 '''
     Print generation log
@@ -118,6 +122,11 @@ print_wrapper_log(accelerator_design_knobs)
     Instantiate templates
 '''
 hwpe_wrapper = HwpeWrapper()
+
+'''
+    Instantiate generator
+'''
+generator = Generator()
 
 if accelerator_design_knobs.is_third_party is False:
 
@@ -135,100 +144,109 @@ if accelerator_design_knobs.is_third_party is False:
     '''
         Generate design components ~ Cluster interface
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.HwpeClusterIntf(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['hwpe', 'cluster_intf', ['hw', 'sv']],
-        accelerator_emitter.out_gen_wrap
+        emitter.out_gen_wrap
     )
 
     '''
         Generate design components ~ Top wrapper
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.HwpeTopWrapper(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['hwpe', 'top_wrapper', ['hw', 'sv']],
-        accelerator_emitter.out_gen_wrap
+        emitter.out_gen_wrap
     )
 
     '''
         Generate design components ~ Top
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.HwpeTop(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['hwpe', 'top', ['hw', 'sv']],
-        accelerator_emitter.out_gen_rtl
+        emitter.out_gen_rtl
     )
 
     '''
         Generate design components ~ Engine
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.HwpeEngine(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['hwpe', 'engine', ['hw', 'sv']],
-        accelerator_emitter.out_gen_rtl
+        emitter.out_gen_rtl
     )
 
     '''
         Generate design components ~ Kernel adapter
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.HwpeKernelAdapter(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['hwpe', 'kernel_adapter', ['hw', 'sv']],
-        accelerator_emitter.out_gen_rtl
+        emitter.out_gen_rtl
     )
 
     '''
         Generate design components ~ Streamer
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.HwpeStreamer(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['hwpe', 'streamer', ['hw', 'sv']],
-        accelerator_emitter.out_gen_rtl
+        emitter.out_gen_rtl
     )
 
     '''
         Generate design components ~ Controller
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.HwpeCtrl(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['hwpe', 'ctrl', ['hw', 'sv']],
-        accelerator_emitter.out_gen_rtl
+        emitter.out_gen_rtl
     )
 
     '''
         Generate design components ~ FSM
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.HwpeFsm(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['hwpe', 'fsm', ['hw', 'sv']],
-        accelerator_emitter.out_gen_rtl
+        emitter.out_gen_rtl
     )
 
     '''
         Generate design components ~ Package
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.HwpePackage(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['hwpe', 'package', ['hw', 'sv']],
-        accelerator_emitter.out_gen_rtl
+        emitter.out_gen_rtl
     )
 
     '''
@@ -243,34 +261,37 @@ if accelerator_design_knobs.is_third_party is False:
     '''
         Generate design components ~ Bender
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.Bender(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['integr_support', 'Bender', ['integr_support', 'yml']],
-        accelerator_emitter.out_hwpe
+        emitter.out_hwpe
     )
 
     '''
         Generate design components ~ List of IP modules
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.SrcFiles(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['tb', 'src_files', ['integr_support', 'yml']],
-        accelerator_emitter.out_hwpe
+        emitter.out_hwpe
     )
 
     '''
         Generate design components ~ List of IP dependencies
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.IpsList(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['tb', 'ips_list', ['integr_support', 'yml']],
-        accelerator_emitter.out_hwpe
+        emitter.out_hwpe
     )
 
 else:
@@ -282,10 +303,11 @@ else:
     '''
         Generate design components ~ Cluster interface
     '''
-    generate_accelerator_intf(
+    generator.render(
         hwpe_wrapper.HwpeClusterIntf(),
+        None,
         accelerator_design_knobs,
-        accelerator_emitter,
+        emitter,
         ['hwpe', 'cluster_intf', ['hw', 'sv']],
-        accelerator_emitter.out_gen_wrap
+        emitter.out_gen_wrap
     )

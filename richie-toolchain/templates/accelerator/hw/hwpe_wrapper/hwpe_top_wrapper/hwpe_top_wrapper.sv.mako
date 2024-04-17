@@ -49,14 +49,14 @@
  *
  * Richie integration: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
  *
- * Module: ${target}_top_wrapper.sv
+ * Module: ${acc_wr_target}_top_wrapper.sv
  *
  */
 
-import ${target}_package::*;
+import ${acc_wr_target}_package::*;
 import hwpe_ctrl_package::*;
 
-module ${target}_top_wrap
+module ${acc_wr_target}_top_wrap
 #(
   parameter int unsigned N_CORES = 2,
   parameter int unsigned MP  = ${n_tcdm_ports},
@@ -132,11 +132,11 @@ module ${target}_top_wrap
     periph_r_id    = periph.r_id;
   end
 
-  ${target}_top #(
+  ${acc_wr_target}_top #(
     .N_CORES ( N_CORES ),
     .MP      ( MP      ),
     .ID      ( ID      )
-  ) i_${target}_top (
+  ) i_${acc_wr_target}_top (
     .clk_i       ( clk_i       ),
     .rst_ni      ( rst_ni      ),
     .test_mode_i ( test_mode_i ),

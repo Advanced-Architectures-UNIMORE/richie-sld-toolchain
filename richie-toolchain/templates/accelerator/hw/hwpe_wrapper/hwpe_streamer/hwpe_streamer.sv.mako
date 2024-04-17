@@ -49,14 +49,14 @@
  *
  * Richie integration: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
  *
- * Module: ${target}_streamer.sv
+ * Module: ${acc_wr_target}_streamer.sv
  * 
  */
 
-import ${target}_package::*;
+import ${acc_wr_target}_package::*;
 import hwpe_stream_package::*;
 
-module ${target}_streamer
+module ${acc_wr_target}_streamer
 #(
   parameter int unsigned MP  = ${n_tcdm_ports}, // number of master ports
   parameter int unsigned FD  = 2 // FIFO depth
@@ -88,8 +88,8 @@ module ${target}_streamer
   ${ streaming_intf() }
 
   // control channel
-  input  ctrl_streamer_${target}_t  ctrl_i,
-  output flags_streamer_${target}_t flags_o
+  input  ctrl_streamer_${acc_wr_target}_t  ctrl_i,
+  output flags_streamer_${acc_wr_target}_t flags_o
 );
 
   <%

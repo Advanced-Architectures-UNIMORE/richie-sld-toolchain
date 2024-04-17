@@ -42,7 +42,7 @@
 %>
 
 <%def name="def_ip_hwpe_cluster_intf()">\
-module ${target}_cluster_intf
+module ${acc_wr_target}_cluster_intf
 #(
   parameter N_CORES = 2,
   parameter N_HWPE_PORTS = 2,
@@ -84,12 +84,12 @@ module ${target}_cluster_intf
   logic [N_HWPE_PORTS-1:0]           tcdm_r_valid;
 
   /* Target accelerator wrapper. */
-  % if is_third_party == False:
-  ${target}_top_wrap #(
+  % if acc_wr_is_third_party == False:
+  ${acc_wr_target}_top_wrap #(
   % else:
-    % if design_type == 'hls':
-      % if is_mdc_dataflow == True:
-  multi_dataflow_${target}_top_wrap #(
+    % if acc_wr_design_type == 'hls':
+      % if acc_wr_is_mdc_dataflow == True:
+  multi_dataflow_${acc_wr_target}_top_wrap #(
       % endif
     % endif
    % endif

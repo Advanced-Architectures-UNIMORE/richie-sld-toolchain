@@ -43,12 +43,12 @@
 
 <%def name="vsim_waves_hw_accelerator()">\
 
-% if (is_ap_ctrl_hs == True) or (is_hls_stream == True):
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {accelerator} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/i_${target}/*}
+% if (acc_wr_is_ap_ctrl_hs == True) or (acc_wr_is_hls_stream == True):
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {accelerator} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/i_${acc_wr_target}/*}
 % endif
 
-% if is_mdc_dataflow == True:
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {accelerator} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/i_${target}_reconf_datapath_top/reconf_dpath/*}
+% if acc_wr_is_mdc_dataflow == True:
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {accelerator} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/i_${acc_wr_target}_reconf_datapath_top/reconf_dpath/*}
 % endif
 
 </%def>
@@ -63,12 +63,12 @@ add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators}
 
 <%def name="vsim_waves_accelerator_kernel_adapter()">\
 
-% if (is_ap_ctrl_hs == True) or (is_hls_stream == True):
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {adapter} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/*}
+% if (acc_wr_is_ap_ctrl_hs == True) or (acc_wr_is_hls_stream == True):
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {adapter} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/*}
 % endif
 
-% if is_mdc_dataflow == True:
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {adapter} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_engine/i_${target}_adapter/*}
+% if acc_wr_is_mdc_dataflow == True:
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {adapter} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_engine/i_${acc_wr_target}_adapter/*}
 % endif
 
 </%def>

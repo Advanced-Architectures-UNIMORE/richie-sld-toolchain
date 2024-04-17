@@ -46,7 +46,7 @@
 #include <stdint.h>
 
 // System
-#include <hero-target.h>
+#include <hero-acc_wr_target.h>
 
 // HWPE
 #include "inc/hwpe_lib/archi_hwpe.h"
@@ -68,7 +68,7 @@ ${include_t_libs()}
 
 int main() {
 
-  printf("Software test application - DUT: ${target}\n");
+  printf("Software test application - DUT: ${acc_wr_target}\n");
 
   <%
   #############################

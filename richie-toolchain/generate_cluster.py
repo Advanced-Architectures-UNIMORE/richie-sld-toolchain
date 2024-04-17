@@ -71,9 +71,13 @@ import sys
     Import custom functions
 '''
 from python.richie.process_design_knobs import PlatformDesignKnobsFormatted
-from python.cluster.generator import generation as generate_cluster
 from python.cluster.process_design_knobs import print_generation_log
 from python.richie.process_design_knobs import get_acc_targets
+
+'''
+    Import generator
+'''
+from python.richie.generator import Generator
 
 '''
     Import emitter
@@ -101,7 +105,7 @@ dir_out_richie = sys.argv[1]
 platform_specs = PlatformSpecs
 
 '''
-    Format design knobs
+    Format platform specification
 '''
 platform_design_knobs = PlatformDesignKnobsFormatted(platform_specs)
 
@@ -114,6 +118,11 @@ emitter = EmitRichie(platform_specs, dir_out_richie)
     Instantiate templates
 '''
 cluster = Cluster()
+
+'''
+    Instantiate generator
+'''
+generator = Generator()
 
 '''
     Generate one-by-one all necessary cluster components
@@ -137,9 +146,10 @@ for cl_offset in range(platform_design_knobs.n_clusters):
     '''
         Generate design components ~ PULP cluster package
     '''
-    generate_cluster(
+    generator.render(
         cluster.PulpClusterCfgPkg(),
         platform_design_knobs,
+        None,
         emitter,
         ['cl', str(cl_offset) + '_cfg_pkg', ['hw', 'sv']],
         emitter.out_gen_cl_pkg,
@@ -149,9 +159,10 @@ for cl_offset in range(platform_design_knobs.n_clusters):
     '''
         Generate design components ~ PULP cluster macros
     '''
-    generate_cluster(
+    generator.render(
         cluster.PulpClusterDefines(),
         platform_design_knobs,
+        None,
         emitter,
         ['cl', str(cl_offset) + '_defines', ['hw', 'sv']],
         emitter.out_gen_cl_pkg,
@@ -170,9 +181,10 @@ for cl_offset in range(platform_design_knobs.n_clusters):
         Generate design components ~ LIC accelerator region
     '''
 
-    generate_cluster(
+    generator.render(
         cluster.LicAccRegion(),
         platform_design_knobs,
+        None,
         emitter,
         ['cl', str(cl_offset) + '_lic_acc_region', ['hw', 'sv']],
         emitter.out_gen_cl_rtl,
@@ -182,9 +194,10 @@ for cl_offset in range(platform_design_knobs.n_clusters):
     '''
         Generate design components ~ Peripheral accelerator interface
     '''
-    generate_cluster(
+    generator.render(
         cluster.PeriphAccIntf(),
         platform_design_knobs,
+        None,
         emitter,
         ['cl', str(cl_offset) + '_periph_acc_intf', ['hw', 'sv']],
         emitter.out_gen_cl_rtl,
@@ -203,9 +216,10 @@ for cl_offset in range(platform_design_knobs.n_clusters):
 '''
     Generate design components ~ Bender
 '''
-generate_cluster(
+generator.render(
     cluster.Bender(),
     platform_design_knobs,
+    None,
     emitter,
     ['integr_support', 'Bender', ['integr_support', 'yml']],
     emitter.out_gen_cl,

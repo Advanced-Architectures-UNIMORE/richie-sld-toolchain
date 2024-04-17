@@ -71,12 +71,15 @@ import sys, os
     Import custom functions
 '''
 from python.richie.process_design_knobs import PlatformDesignKnobsFormatted
-from python.richie_libs.generator import generation as generate_richie_libs
 from python.richie_libs.process_design_knobs import print_generation_log
 
 from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
-from python.accelerator.generator import generation as generate_accelerator_intf
 from python.accelerator.import_design_knobs import import_accelerator_design_knobs
+
+'''
+    Import generator
+'''
+from python.richie.generator import Generator
 
 '''
     Import emitter
@@ -108,7 +111,7 @@ dir_out = sys.argv[1]
 platform_specs = PlatformSpecs
 
 '''
-    Format design knobs
+    Format platform specification
 '''
 platform_design_knobs = PlatformDesignKnobsFormatted(platform_specs)
 
@@ -132,6 +135,11 @@ hesoc_structs = HesocStructs()
 hwpe_system_hal = HwpeSystemHal()
 
 '''
+    Instantiate generator
+'''
+generator = Generator()
+
+'''
     =====================================================================
     Component:      Software libraries - LibHWPE
 
@@ -148,14 +156,14 @@ for cl_offset in range(platform_design_knobs.n_clusters):
     for accelerator_id in range(len(cl_lic_acc_names)):
 
         '''
-            Retrieve wrapper design knobs
+            Retrieve accelerator specification
         '''
 
         target_acc = cl_lic_acc_names[accelerator_id]
         accelerator_specs = import_accelerator_design_knobs(target_acc)
 
         '''
-            Format wrapper design knobs
+            Format accelerator specification
         '''
 
         accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.AcceleratorSpecs)
@@ -177,7 +185,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
 
         hwpe_name = 'hwpe_cl' + str(cl_offset) + '_lic' + str(accelerator_id)
 
-        generate_richie_libs(
+        generator.render(
             libhwpe.HwpeClLicHost(hwpe_name),
             platform_design_knobs,
             accelerator_design_knobs,
@@ -188,7 +196,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             [accelerator_id, None, None]
         )
 
-        generate_richie_libs(
+        generator.render(
             libhwpe.MakefileHost(hwpe_name),
             platform_design_knobs,
             accelerator_design_knobs,
@@ -199,7 +207,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             [accelerator_id, None, None]
         )
 
-        generate_richie_libs(
+        generator.render(
             libhwpe.HwpeClLicPulp(hwpe_name),
             platform_design_knobs,
             accelerator_design_knobs,
@@ -210,7 +218,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             [accelerator_id, None, None]
         )
 
-        generate_richie_libs(
+        generator.render(
             libhwpe.MakefilePulp(hwpe_name),
             platform_design_knobs,
             accelerator_design_knobs,
@@ -221,7 +229,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             [accelerator_id, None, None]
         )
 
-        generate_richie_libs(
+        generator.render(
             libhwpe.HwpeClLicHeader(hwpe_name),
             platform_design_knobs,
             accelerator_design_knobs,
@@ -236,21 +244,25 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             Generate archi and hal for HWPE
         '''
 
-        generate_accelerator_intf(
+        generator.render(
             hwpe_system_hal.ArchiHwpe(),
+            None,
             accelerator_design_knobs,
             emitter,
             ['sw', 'archi_hwpe', ['sw', 'archi']],
             lib_path + '/inc',
+            cl_offset,
             [cl_offset, accelerator_id, None]
         )
 
-        generate_accelerator_intf(
+        generator.render(
             hwpe_system_hal.HalHwpe(),
+            None,
             accelerator_design_knobs,
             emitter,
             ['sw', 'hal_hwpe', ['sw', 'hal']],
             lib_path + '/inc',
+            cl_offset,
             [cl_offset, accelerator_id, None]
         )
 
@@ -278,7 +290,7 @@ os.mkdir(lib_path + '/pulp')
     Generate design components ~ LibRICHIE (Host APIs)
 '''
 
-generate_richie_libs(
+generator.render(
     librichie.RichieTargetHost(),
     platform_design_knobs,
     accelerator_design_knobs,
@@ -287,7 +299,7 @@ generate_richie_libs(
     lib_path + '/host'
 )
 
-generate_richie_libs(
+generator.render(
     librichie.MakefileHost(),
     platform_design_knobs,
     accelerator_design_knobs,
@@ -296,7 +308,7 @@ generate_richie_libs(
     lib_path + '/host'
 )
 
-generate_richie_libs(
+generator.render(
     librichie.RichieTargetPulp(),
     platform_design_knobs,
     accelerator_design_knobs,
@@ -307,7 +319,7 @@ generate_richie_libs(
     [platform_design_knobs.list_cl_lic, platform_design_knobs.list_cl_hci, None]
 )
 
-generate_richie_libs(
+generator.render(
     librichie.MakefilePulp(),
     platform_design_knobs,
     accelerator_design_knobs,
@@ -316,7 +328,7 @@ generate_richie_libs(
     lib_path + '/pulp'
 )
 
-generate_richie_libs(
+generator.render(
     librichie.RichieTargetHeader(),
     platform_design_knobs,
     accelerator_design_knobs,
@@ -349,7 +361,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
     for accelerator_id in range(len(cl_lic_acc_names)):
 
         '''
-            Retrieve wrapper design knobs
+            Retrieve accelerator specification
         '''
 
         target_acc = cl_lic_acc_names[accelerator_id]
@@ -363,7 +375,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
             accelerator_specs = import_accelerator_design_knobs(target_acc)
 
             '''
-                Format wrapper design knobs
+                Format accelerator specification
             '''
 
             accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.AcceleratorSpecs)
@@ -374,7 +386,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
 
             hwpe_name = accelerator_design_knobs.target
 
-            generate_richie_libs(
+            generator.render(
                 hwpe_structs.DefStructHwpe(hwpe_name),
                 platform_design_knobs,
                 accelerator_design_knobs,
@@ -389,7 +401,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
     Generate design components ~ Common HWPE structs
 '''
 
-generate_richie_libs(
+generator.render(
     hwpe_structs.DefStructCommon(),
     platform_design_knobs,
     accelerator_design_knobs,
@@ -412,7 +424,7 @@ generate_richie_libs(
     Generate design components ~ Performance evaluation
 '''
 
-generate_richie_libs(
+generator.render(
     hesoc_structs.DefStructPerfEval(),
     platform_design_knobs,
     accelerator_design_knobs,

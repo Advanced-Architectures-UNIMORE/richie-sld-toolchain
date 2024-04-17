@@ -48,13 +48,13 @@
 <%def name="include_t_libs()">\
 
   // Synthetic stimuli
-  % for i in range (n_sink):
-  #include "inc/stim/${stream_in[i]}.h"
+  % for i in range (acc_wr_n_sink):
+  #include "inc/stim/${acc_wr_stream_in[i]}.h"
   % endfor
 
   // Golden results
-  % for j in range (n_source):
-  #include "inc/stim/${stream_out[j]}.h"
+  % for j in range (acc_wr_n_source):
+  #include "inc/stim/${acc_wr_stream_out[j]}.h"
   % endfor
 
 </%def>
@@ -71,20 +71,20 @@
 
   // Stimuli
 
-  % for i in range (n_sink):
-  ${stream_in_dtype[i]} *${stream_in[i]}_l1 = ${stream_in[i]};
+  % for i in range (acc_wr_n_sink):
+  ${acc_wr_stream_in_dtype[i]} *${acc_wr_stream_in[i]}_l1 = ${acc_wr_stream_in[i]};
   % endfor
 
   // Results
 
-  % for j in range (n_source):
-  ${stream_out_dtype[j]} *${stream_out[j]}_l1 = ${stream_out[j]};
+  % for j in range (acc_wr_n_source):
+  ${acc_wr_stream_out_dtype[j]} *${acc_wr_stream_out[j]}_l1 = ${acc_wr_stream_out[j]};
   % endfor
 
   // Golden results
 
-  % for j in range (n_source):
-  ${stream_out_dtype[j]} *${stream_out[j]}_golden_l1 = ${stream_out[j]};
+  % for j in range (acc_wr_n_source):
+  ${acc_wr_stream_out_dtype[j]} *${acc_wr_stream_out[j]}_golden_l1 = ${acc_wr_stream_out[j]};
   % endfor
 
 </%def>
@@ -101,20 +101,20 @@
 
   // Stimuli
 
-  % for i in range (n_sink):
-  for (i = 0; i < ${stream_in[i]}_stripe_height; i++){
-    for (j = 0; j < ${stream_in[i]}_width; j++){
-      ${stream_in[i]}_l1[i*${stream_in[i]}_width+j] = ${stream_in[i]}[i*${stream_in[i]}_width+j];
+  % for i in range (acc_wr_n_sink):
+  for (i = 0; i < ${acc_wr_stream_in[i]}_stripe_height; i++){
+    for (j = 0; j < ${acc_wr_stream_in[i]}_width; j++){
+      ${acc_wr_stream_in[i]}_l1[i*${acc_wr_stream_in[i]}_width+j] = ${acc_wr_stream_in[i]}[i*${acc_wr_stream_in[i]}_width+j];
     }
   }
   % endfor
 
   // Golden results
 
-  % for j in range (n_source):
-  for (i = 0; i < ${stream_out[j]}_stripe_height; i++){
-    for (j = 0; j < ${stream_out[j]}_width; j++){
-      ${stream_out[j]}_golden_l1[i*${stream_out[j]}_width+j] = ${stream_out[j]}[i*${stream_out[j]}_width+j];
+  % for j in range (acc_wr_n_source):
+  for (i = 0; i < ${acc_wr_stream_out[j]}_stripe_height; i++){
+    for (j = 0; j < ${acc_wr_stream_out[j]}_width; j++){
+      ${acc_wr_stream_out[j]}_golden_l1[i*${acc_wr_stream_out[j]}_width+j] = ${acc_wr_stream_out[j]}[i*${acc_wr_stream_out[j]}_width+j];
     }
   }
   % endfor

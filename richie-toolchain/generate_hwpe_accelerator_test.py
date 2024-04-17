@@ -73,8 +73,12 @@ import os
 '''
 from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
 from python.accelerator.process_design_knobs import print_generation_log
-from python.accelerator.generator import generation as generate_accelerator_intf
 from python.accelerator.import_design_knobs import import_accelerator_design_knobs
+
+'''
+    Import generator
+'''
+from python.richie.generator import Generator
 
 '''
     Import emitter
@@ -95,13 +99,13 @@ from templates.accelerator.sw.hwpe_system_hal.hwpe_system_hal import HwpeSystemH
 dir_out_acc = sys.argv[1]
 
 '''
-    Retrieve design knobs
+    Retrieve accelerator specification
 '''
 target_acc = os.environ['TARGET_ACC']
 accelerator_specs = import_accelerator_design_knobs(target_acc)
 
 '''
-    Format design knobs
+    Format accelerator specification
 '''
 
 accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.AcceleratorSpecs)
@@ -109,7 +113,7 @@ accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.Acc
 '''
     Instantiate emitter
 '''
-accelerator_emitter = AcceleratorEmitter(accelerator_design_knobs, dir_out_acc)
+emitter = AcceleratorEmitter(accelerator_design_knobs, dir_out_acc)
 
 '''
     Print generation log
@@ -131,18 +135,24 @@ print_generation_log(accelerator_design_knobs)
 hwpe_standalone_test = HwpeStandaloneTest()
 
 '''
+    Instantiate generator
+'''
+generator = Generator()
+
+'''
     Generate design components ~ Hardware test
     Basic standalone testbench that instantiates the DUT
     (generated accelerator), a RISC-V processor and some
     dummy memories to implement instruction, stack and data
     memories.
 '''
-generate_accelerator_intf(
+generator.render(
     hwpe_standalone_test.HwpeTbHw(),
+    None,
     accelerator_design_knobs,
-    accelerator_emitter,
+    emitter,
     ['tb', 'tb_hwpe', ['hw', 'sv']],
-    accelerator_emitter.out_gen_standalone_test_hw
+    emitter.out_gen_standalone_test_hw
 )
 
 '''
@@ -163,24 +173,26 @@ hwpe_standalone_hal = HwpeStandaloneHal()
     Generate design components ~ Archi
     Description of the memory mapping.
 '''
-generate_accelerator_intf(
+generator.render(
     hwpe_standalone_hal.ArchiHwpe(),
+    None,
     accelerator_design_knobs,
-    accelerator_emitter,
+    emitter,
     ['sw', 'archi_hwpe', ['sw', 'archi']],
-    accelerator_emitter.out_gen_standalone_test_hwpe_lib
+    emitter.out_gen_standalone_test_hwpe_lib
 )
 
 '''
     Generate design components ~ Hardware Abstraction Layer (HAL)
     Hardware Abstraction Layer with accelerator SW primitives.
 '''
-generate_accelerator_intf(
+generator.render(
     hwpe_standalone_hal.HalHwpe(),
+    None,
     accelerator_design_knobs,
-    accelerator_emitter,
+    emitter,
     ['sw', 'hal_hwpe', ['sw', 'hal']],
-    accelerator_emitter.out_gen_standalone_test_hwpe_lib
+    emitter.out_gen_standalone_test_hwpe_lib
 )
 
 '''
@@ -188,12 +200,13 @@ generate_accelerator_intf(
     SW test to assess HWPE functionality consisting of a baremetal
     test running in the standalone test.
 '''
-generate_accelerator_intf(
+generator.render(
     hwpe_standalone_hal.HwpeTbSw(),
+    None,
     accelerator_design_knobs,
-    accelerator_emitter,
+    emitter,
     ['sw', 'tb_hwpe', ['sw', 'tb']],
-    accelerator_emitter.out_gen_standalone_test_sw
+    emitter.out_gen_standalone_test_sw
 )
 
 '''
@@ -207,12 +220,13 @@ generate_accelerator_intf(
 '''
     Generate design components ~ QuestaSim waves
 '''
-generate_accelerator_intf(
+generator.render(
     hwpe_standalone_test.VsimWave(),
+    None,
     accelerator_design_knobs,
-    accelerator_emitter,
+    emitter,
     ['integr_support', 'vsim_wave', ['integr_support', 'vsim_wave']],
-    accelerator_emitter.out_hwpe
+    emitter.out_hwpe
 )
 
 '''
@@ -238,24 +252,26 @@ hwpe_system_hal = HwpeSystemHal()
     Generate design components ~ Archi
     Description of the memory mapping.
 '''
-generate_accelerator_intf(
+generator.render(
     hwpe_system_hal.ArchiHwpe(),
+    None,
     accelerator_design_knobs,
-    accelerator_emitter,
+    emitter,
     ['sw', 'archi_hwpe', ['sw', 'archi']],
-    accelerator_emitter.out_gen_system_test_hwpe_lib
+    emitter.out_gen_system_test_hwpe_lib
 )
 
 '''
     Generate design components ~ Hardware Abstraction Layer (HAL)
     Hardware Abstraction Layer with accelerator SW primitives.
 '''
-generate_accelerator_intf(
+generator.render(
     hwpe_system_hal.HalHwpe(),
+    None,
     accelerator_design_knobs,
-    accelerator_emitter,
+    emitter,
     ['sw', 'hal_hwpe', ['sw', 'hal']],
-    accelerator_emitter.out_gen_system_test_hwpe_lib
+    emitter.out_gen_system_test_hwpe_lib
 )
 
 '''
@@ -263,10 +279,11 @@ generate_accelerator_intf(
     SW test to assess HWPE functionality consisting of a baremetal
     test running inside the Richie-based Accelerator-Rich HeSoC.
 '''
-generate_accelerator_intf(
+generator.render(
     hwpe_system_hal.HwpeTbSw(),
+    None,
     accelerator_design_knobs,
-    accelerator_emitter,
+    emitter,
     ['sw', 'tb_hwpe', ['sw', 'tb']],
-    accelerator_emitter.out_gen_system_test_hwpe_lib
+    emitter.out_gen_system_test_hwpe_lib
 )

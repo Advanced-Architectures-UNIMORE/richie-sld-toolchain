@@ -50,7 +50,7 @@
   /* HWPE execution */
 
   // Being RTL simualtion very slow, a single data stripe is processed
-  // in order to assess the functionality of the ${target} DUT.
+  // in order to assess the functionality of the ${acc_wr_target} DUT.
 
   printf("HWPE execution - Start!\n");
 

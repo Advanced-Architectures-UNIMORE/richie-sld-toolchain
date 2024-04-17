@@ -49,14 +49,14 @@
  *
  * Richie integration: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
  *
- * Module: ${target}_top.sv
+ * Module: ${acc_wr_target}_top.sv
  *
  */
 
-import ${target}_package::*;
+import ${acc_wr_target}_package::*;
 import hwpe_ctrl_package::*;
 
-module ${target}_top
+module ${acc_wr_target}_top
 #(
   parameter int unsigned N_CORES = 2,
   parameter int unsigned MP  = ${n_tcdm_ports},
@@ -81,15 +81,15 @@ module ${target}_top
   // Signals
   logic enable, clear;
   logic [N_CORES-1:0][REGFILE_N_EVT-1:0] evt;
-  ctrl_streamer_${target}_t  streamer_ctrl;
-  flags_streamer_${target}_t streamer_flags;
-  ctrl_engine_${target}_t    engine_ctrl;
-  flags_engine_${target}_t   engine_flags;
+  ctrl_streamer_${acc_wr_target}_t  streamer_ctrl;
+  flags_streamer_${acc_wr_target}_t streamer_flags;
+  ctrl_engine_${acc_wr_target}_t    engine_ctrl;
+  flags_engine_${acc_wr_target}_t   engine_flags;
 
   ${streaming_top_intf()}
 
   // HWPE engine wrapper
-  ${target}_engine i_engine (
+  ${acc_wr_target}_engine i_engine (
     .clk_i            ( clk_i          ),
     .rst_ni           ( rst_ni         ),
     .test_mode_i      ( test_mode_i    ),
@@ -101,7 +101,7 @@ module ${target}_top
   );
 
   // HWPE streamer wrapper
-  ${target}_streamer #(
+  ${acc_wr_target}_streamer #(
     .MP ( MP )
   ) i_streamer (
     .clk_i            ( clk_i          ),
@@ -118,7 +118,7 @@ module ${target}_top
   );
 
   // HWPE ctrl wrapper
-  ${target}_ctrl #(
+  ${acc_wr_target}_ctrl #(
     .N_CORES   ( N_CORES  ),
     .N_CONTEXT ( 1  ),
     ${ctrl_n_io_regs()}

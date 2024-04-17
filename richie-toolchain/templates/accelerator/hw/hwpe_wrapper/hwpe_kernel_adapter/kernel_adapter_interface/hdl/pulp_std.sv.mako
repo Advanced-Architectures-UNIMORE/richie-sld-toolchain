@@ -48,7 +48,7 @@
 <%def name="pulp_std_engine_ctrl()">\
 
   // Control signals
-  input  ctrl_engine_${target}_t           ctrl_i,
+  input  ctrl_engine_${acc_wr_target}_t           ctrl_i,
 
 </%def>
 
@@ -61,6 +61,6 @@
 <%def name="pulp_std_engine_flags()">\
 
   // Flag signals
-  output flags_engine_${target}_t          flags_o
+  output flags_engine_${acc_wr_target}_t          flags_o
 
 </%def>

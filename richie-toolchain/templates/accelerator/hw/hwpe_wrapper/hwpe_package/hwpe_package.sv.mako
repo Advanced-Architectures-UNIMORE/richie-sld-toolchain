@@ -49,15 +49,15 @@
  *
  * Richie integration: Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
  *
- * Module: ${target}_package.sv
+ * Module: ${acc_wr_target}_package.sv
  *
  */
 
 import hwpe_stream_package::*;
 
-package ${target}_package;
+package ${acc_wr_target}_package;
 
-  parameter int unsigned ${target.upper()}_CNT_LEN = 1024; // maximum length of the vectors for a scalar product
+  parameter int unsigned ${acc_wr_target.upper()}_CNT_LEN = 1024; // maximum length of the vectors for a scalar product
 
   /* Registers */
 
@@ -97,7 +97,7 @@ addr_current = addr_top
   ${tcdm_master_regs(addr_current)}
 
   <%
-    addr_top += n_sink + n_source
+    addr_top += acc_wr_n_sink + acc_wr_n_source
     addr_current = addr_top
   %>
 
@@ -112,13 +112,13 @@ addr_current = addr_top
 
   <%
     # 1. a part of standard registers do not change with a variable number of IO streams.
-    # 2. "cnt_limit" registers are always one per source stream (input), so they account for n_source items.
+    # 2. "cnt_limit" registers are always one per source stream (input), so they account for acc_wr_n_source items.
     # 3. in case of an hls::stream interface, then one register per source stream is added to specify the packet dimension (refer to AMBA® 4 AXI4-Stream Protocol).
 
-    addr_top += (std_reg_num -1) + n_source
+    addr_top += (acc_wr_std_reg_num -1) + acc_wr_n_source
 
-    if (is_hls_stream is True):
-      addr_top += n_source
+    if (acc_wr_is_hls_stream is True):
+      addr_top += acc_wr_n_source
     endif
 
     addr_current = addr_top
@@ -133,7 +133,7 @@ addr_current = addr_top
   ${custom_regs(addr_current)}
 
   <%
-    addr_top += custom_reg_num
+    addr_top += acc_wr_custom_reg_num
     addr_current = addr_top
   %>
 
@@ -158,9 +158,9 @@ addr_current = addr_top
 
     num_regs_per_port_parallel = 10
 
-    for i in range (n_sink):
-      if (addr_gen_in_isprogr[i]):
-        if (is_parallel_in[i]):
+    for i in range (acc_wr_n_sink):
+      if (acc_wr_addr_gen_in_isprogr[i]):
+        if (acc_wr_is_parallel_in[i]):
           addr_top += num_regs_per_port_parallel
         else:
           addr_top += num_regs_per_port
@@ -192,9 +192,9 @@ addr_current = addr_top
 
     num_regs_per_port_parallel = 10
 
-    for j in range (n_source):
-      if (addr_gen_out_isprogr[j]):
-        if (is_parallel_out[j]):
+    for j in range (acc_wr_n_source):
+      if (acc_wr_addr_gen_out_isprogr[j]):
+        if (acc_wr_is_parallel_out[j]):
           addr_top += num_regs_per_port_parallel
         else:
           addr_top += num_regs_per_port
@@ -231,41 +231,41 @@ addr_current = addr_top
     logic enable;
     logic start;
 
-    % if is_hls_stream is True:
-      % for i in range (n_sink):
-    logic unsigned [23:0] packet_size_${stream_in[i]};
+    % if acc_wr_is_hls_stream is True:
+      % for i in range (acc_wr_n_sink):
+    logic unsigned [23:0] packet_size_${acc_wr_stream_in[i]};
       % endfor
     % endif
 
-    % for j in range (n_source):
-      % if (is_parallel_out[j]):
-    logic unsigned [$clog2(${target.upper()}_CNT_LEN):0] cnt_limit_${stream_out[j]};
+    % for j in range (acc_wr_n_source):
+      % if (acc_wr_is_parallel_out[j]):
+    logic unsigned [$clog2(${acc_wr_target.upper()}_CNT_LEN):0] cnt_limit_${acc_wr_stream_out[j]};
       % else:
-    logic unsigned [$clog2(${target.upper()}_CNT_LEN):0] cnt_limit_${stream_out[j]};
+    logic unsigned [$clog2(${acc_wr_target.upper()}_CNT_LEN):0] cnt_limit_${acc_wr_stream_out[j]};
       % endif
     % endfor
 
-    % if custom_reg_num>0:
+    % if acc_wr_custom_reg_num>0:
     // Custom registers
-      % for i in range (custom_reg_num):
-    logic unsigned [${custom_reg_dim[i]}-1:0] ${custom_reg_name[i]};
+      % for i in range (acc_wr_custom_reg_num):
+    logic unsigned [${acc_wr_custom_reg_dim[i]}-1:0] ${acc_wr_custom_reg_name[i]};
       % endfor
     % endif
-  } ctrl_engine_${target}_t;
+  } ctrl_engine_${acc_wr_target}_t;
 
   typedef struct packed {
 
-    % for j in range (n_source):
-      % if (is_parallel_out[j]):
-    logic unsigned [$clog2(${target.upper()}_CNT_LEN):0] cnt_${stream_out[j]};
+    % for j in range (acc_wr_n_source):
+      % if (acc_wr_is_parallel_out[j]):
+    logic unsigned [$clog2(${acc_wr_target.upper()}_CNT_LEN):0] cnt_${acc_wr_stream_out[j]};
       % else:
-    logic unsigned [$clog2(${target.upper()}_CNT_LEN):0] cnt_${stream_out[j]};
+    logic unsigned [$clog2(${acc_wr_target.upper()}_CNT_LEN):0] cnt_${acc_wr_stream_out[j]};
       % endif
     % endfor
 
     logic done;
     logic ready;
-  } flags_engine_${target}_t;
+  } flags_engine_${acc_wr_target}_t;
 
   <%
   ###############################
@@ -275,23 +275,23 @@ addr_current = addr_top
 
   typedef struct packed {
     logic start;
-    % if is_hls_stream is True:
-      % for i in range (n_sink):
-    logic unsigned [23:0] packet_size_${stream_in[i]};
+    % if acc_wr_is_hls_stream is True:
+      % for i in range (acc_wr_n_sink):
+    logic unsigned [23:0] packet_size_${acc_wr_stream_in[i]};
       % endfor
     % endif
-  } ctrl_kernel_adapter_${target}_t;
+  } ctrl_kernel_adapter_${acc_wr_target}_t;
 
   typedef struct packed {
     logic done;
     logic idle;
     logic ready;
-    % if is_hls_stream is True:
-    logic [${n_sink}-1:0] last;
+    % if acc_wr_is_hls_stream is True:
+    logic [${acc_wr_n_sink}-1:0] last;
     % endif
 
 
-  } flags_kernel_adapter_${target}_t;
+  } flags_kernel_adapter_${acc_wr_target}_t;
 
   <%
   #########################
@@ -301,51 +301,51 @@ addr_current = addr_top
 
   typedef struct packed {
 
-    % for i in range (n_sink):
-      % if (is_parallel_in[i]):
-        % for k in range (in_parallelism_factor[i]):
-    hwpe_stream_package::ctrl_sourcesink_t ${stream_in[i]}_${k}_source_ctrl;
+    % for i in range (acc_wr_n_sink):
+      % if (acc_wr_is_parallel_in[i]):
+        % for k in range (acc_wr_in_parallelism_factor[i]):
+    hwpe_stream_package::ctrl_sourcesink_t ${acc_wr_stream_in[i]}_${k}_source_ctrl;
         % endfor
       % else:
-    hwpe_stream_package::ctrl_sourcesink_t ${stream_in[i]}_source_ctrl;
+    hwpe_stream_package::ctrl_sourcesink_t ${acc_wr_stream_in[i]}_source_ctrl;
       % endif
     % endfor
 
-    % for j in range (n_source):
-      % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]):
-    hwpe_stream_package::ctrl_sourcesink_t ${stream_out[j]}_${k}_sink_ctrl;
+    % for j in range (acc_wr_n_source):
+      % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]):
+    hwpe_stream_package::ctrl_sourcesink_t ${acc_wr_stream_out[j]}_${k}_sink_ctrl;
         % endfor
       % else:
-    hwpe_stream_package::ctrl_sourcesink_t ${stream_out[j]}_sink_ctrl;
+    hwpe_stream_package::ctrl_sourcesink_t ${acc_wr_stream_out[j]}_sink_ctrl;
       % endif
     % endfor
 
-  } ctrl_streamer_${target}_t;
+  } ctrl_streamer_${acc_wr_target}_t;
 
   typedef struct packed {
 
-    % for i in range (n_sink):
-      % if (is_parallel_in[i]):
-        % for k in range (in_parallelism_factor[i]):
-    hwpe_stream_package::flags_sourcesink_t ${stream_in[i]}_${k}_source_flags;
+    % for i in range (acc_wr_n_sink):
+      % if (acc_wr_is_parallel_in[i]):
+        % for k in range (acc_wr_in_parallelism_factor[i]):
+    hwpe_stream_package::flags_sourcesink_t ${acc_wr_stream_in[i]}_${k}_source_flags;
         % endfor
       % else:
-    hwpe_stream_package::flags_sourcesink_t ${stream_in[i]}_source_flags;
+    hwpe_stream_package::flags_sourcesink_t ${acc_wr_stream_in[i]}_source_flags;
       % endif
     % endfor
 
-    % for j in range (n_source):
-      % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]):
-    hwpe_stream_package::flags_sourcesink_t ${stream_out[j]}_${k}_sink_flags;
+    % for j in range (acc_wr_n_source):
+      % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]):
+    hwpe_stream_package::flags_sourcesink_t ${acc_wr_stream_out[j]}_${k}_sink_flags;
         % endfor
       % else:
-    hwpe_stream_package::flags_sourcesink_t ${stream_out[j]}_sink_flags;
+    hwpe_stream_package::flags_sourcesink_t ${acc_wr_stream_out[j]}_sink_flags;
       % endif
     % endfor
 
-  } flags_streamer_${target}_t;
+  } flags_streamer_${acc_wr_target}_t;
 
   <%
   ####################
@@ -355,82 +355,82 @@ addr_current = addr_top
 
   typedef struct packed {
 
-    % for i in range (n_sink):
-      % if (addr_gen_in_isprogr[i]):
-        % if (is_parallel_in[i]):
-    // Input stream - ${stream_in[i]} (unrolled, programmable)
-    logic unsigned [31:0] ${stream_in[i]}_trans_size;
-    logic unsigned [31:0] ${stream_in[i]}_port_offset;
-    logic unsigned [15:0] ${stream_in[i]}_line_stride;
-    logic unsigned [15:0] ${stream_in[i]}_line_length;
-    logic unsigned [15:0] ${stream_in[i]}_feat_stride;
-    logic unsigned [15:0] ${stream_in[i]}_feat_length;
-    logic unsigned [15:0] ${stream_in[i]}_feat_roll;
-    logic unsigned [15:0] ${stream_in[i]}_step;
-    logic unsigned ${stream_in[i]}_loop_outer;
-    logic unsigned ${stream_in[i]}_realign_type;
+    % for i in range (acc_wr_n_sink):
+      % if (acc_wr_addr_gen_in_isprogr[i]):
+        % if (acc_wr_is_parallel_in[i]):
+    // Input stream - ${acc_wr_stream_in[i]} (unrolled, programmable)
+    logic unsigned [31:0] ${acc_wr_stream_in[i]}_trans_size;
+    logic unsigned [31:0] ${acc_wr_stream_in[i]}_port_offset;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_line_stride;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_line_length;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_feat_stride;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_feat_length;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_feat_roll;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_step;
+    logic unsigned ${acc_wr_stream_in[i]}_loop_outer;
+    logic unsigned ${acc_wr_stream_in[i]}_realign_type;
       % else:
-    // Input stream - ${stream_in[i]} (programmable)
-    logic unsigned [31:0] ${stream_in[i]}_trans_size;
-    logic unsigned [15:0] ${stream_in[i]}_line_stride;
-    logic unsigned [15:0] ${stream_in[i]}_line_length;
-    logic unsigned [15:0] ${stream_in[i]}_feat_stride;
-    logic unsigned [15:0] ${stream_in[i]}_feat_length;
-    logic unsigned [15:0] ${stream_in[i]}_feat_roll;
-    logic unsigned [15:0] ${stream_in[i]}_step;
-    logic unsigned ${stream_in[i]}_loop_outer;
-    logic unsigned ${stream_in[i]}_realign_type;
+    // Input stream - ${acc_wr_stream_in[i]} (programmable)
+    logic unsigned [31:0] ${acc_wr_stream_in[i]}_trans_size;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_line_stride;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_line_length;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_feat_stride;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_feat_length;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_feat_roll;
+    logic unsigned [15:0] ${acc_wr_stream_in[i]}_step;
+    logic unsigned ${acc_wr_stream_in[i]}_loop_outer;
+    logic unsigned ${acc_wr_stream_in[i]}_realign_type;
         % endif
       % endif
     % endfor
 
-    % for j in range (n_source):
-      % if (addr_gen_out_isprogr[j]):
-        % if (is_parallel_out[j]):
-    // Output stream - ${stream_out[j]} (unrolled, programmable)
-    logic unsigned [31:0] ${stream_out[j]}_trans_size;
-    logic unsigned [31:0] ${stream_out[j]}_port_offset;
-    logic unsigned [15:0] ${stream_out[j]}_line_stride;
-    logic unsigned [15:0] ${stream_out[j]}_line_length;
-    logic unsigned [15:0] ${stream_out[j]}_feat_stride;
-    logic unsigned [15:0] ${stream_out[j]}_feat_length;
-    logic unsigned [15:0] ${stream_out[j]}_feat_roll;
-    logic unsigned [15:0] ${stream_out[j]}_step;
-    logic unsigned ${stream_out[j]}_loop_outer;
-    logic unsigned ${stream_out[j]}_realign_type;
+    % for j in range (acc_wr_n_source):
+      % if (acc_wr_addr_gen_out_isprogr[j]):
+        % if (acc_wr_is_parallel_out[j]):
+    // Output stream - ${acc_wr_stream_out[j]} (unrolled, programmable)
+    logic unsigned [31:0] ${acc_wr_stream_out[j]}_trans_size;
+    logic unsigned [31:0] ${acc_wr_stream_out[j]}_port_offset;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_line_stride;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_line_length;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_feat_stride;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_feat_length;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_feat_roll;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_step;
+    logic unsigned ${acc_wr_stream_out[j]}_loop_outer;
+    logic unsigned ${acc_wr_stream_out[j]}_realign_type;
       % else:
-    // Output stream - ${stream_out[j]} (programmable)
-    logic unsigned [31:0] ${stream_out[j]}_trans_size;
-    logic unsigned [15:0] ${stream_out[j]}_line_stride;
-    logic unsigned [15:0] ${stream_out[j]}_line_length;
-    logic unsigned [15:0] ${stream_out[j]}_feat_stride;
-    logic unsigned [15:0] ${stream_out[j]}_feat_length;
-    logic unsigned [15:0] ${stream_out[j]}_feat_roll;
-    logic unsigned [15:0] ${stream_out[j]}_step;
-    logic unsigned ${stream_out[j]}_loop_outer;
-    logic unsigned ${stream_out[j]}_realign_type;
+    // Output stream - ${acc_wr_stream_out[j]} (programmable)
+    logic unsigned [31:0] ${acc_wr_stream_out[j]}_trans_size;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_line_stride;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_line_length;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_feat_stride;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_feat_length;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_feat_roll;
+    logic unsigned [15:0] ${acc_wr_stream_out[j]}_step;
+    logic unsigned ${acc_wr_stream_out[j]}_loop_outer;
+    logic unsigned ${acc_wr_stream_out[j]}_realign_type;
         % endif
       % endif
     % endfor
 
     // Computation
-    % if is_hls_stream is True:
-      % for i in range (n_sink):
-    logic unsigned [23:0] packet_size_${stream_in[i]};
+    % if acc_wr_is_hls_stream is True:
+      % for i in range (acc_wr_n_sink):
+    logic unsigned [23:0] packet_size_${acc_wr_stream_in[i]};
       % endfor
     % endif
 
-    % for j in range (n_source):
-    logic unsigned [$clog2(${target.upper()}_CNT_LEN):0] cnt_limit_${stream_out[j]};
+    % for j in range (acc_wr_n_source):
+    logic unsigned [$clog2(${acc_wr_target.upper()}_CNT_LEN):0] cnt_limit_${acc_wr_stream_out[j]};
     % endfor
 
-    % if custom_reg_num>0:
+    % if acc_wr_custom_reg_num>0:
     // Custom registers
-      % for i in range (custom_reg_num):
-    logic unsigned [${custom_reg_dim[i]}-1:0] ${custom_reg_name[i]};
+      % for i in range (acc_wr_custom_reg_num):
+    logic unsigned [${acc_wr_custom_reg_dim[i]}-1:0] ${acc_wr_custom_reg_name[i]};
       % endfor
     % endif
 
-  } ctrl_fsm_${target}_t;
+  } ctrl_fsm_${acc_wr_target}_t;
 
 endpackage

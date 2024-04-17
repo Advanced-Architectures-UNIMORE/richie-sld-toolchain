@@ -47,7 +47,7 @@
 # HWPE streamer - Top
 %>
 
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {top} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {top} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/*}
 
 </%def>
 
@@ -65,15 +65,15 @@ add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators}
 # HWPE streamer - Source modules
 %>
 
-% for i in range (n_sink):
-    % if (is_parallel_in[i]):
-        % for k in range (in_parallelism_factor[i]):
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_in[i]}_${k}} -group {source} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_in[i]}_${k}_source/*}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_in[i]}_${k}} -group {split_streams[0]} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_in[i]}_${k}_source/split_streams[0]/*}
+% for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+        % for k in range (acc_wr_in_parallelism_factor[i]):
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_in[i]}_${k}} -group {source} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_in[i]}_${k}_source/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_in[i]}_${k}} -group {split_streams[0]} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_in[i]}_${k}_source/split_streams[0]/*}
         % endfor
     % else:
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_in[i]}} -group {source} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_in[i]}_source/*}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_in[i]}} -group {split_streams[0]} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_in[i]}_source/split_streams[0]/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_in[i]}} -group {source} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_in[i]}_source/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_in[i]}} -group {split_streams[0]} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_in[i]}_source/split_streams[0]/*}
     % endif
 % endfor 
 
@@ -94,15 +94,15 @@ add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators}
 # HWPE streamer - Sink modules
 %>
 
-% for j in range (n_source):
-    % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]):
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_out[j]}_${k}} -group {sink} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_out[j]}_${k}_sink/*}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_out[j]}_${k}} -group {split_streams[0]} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_out[j]}_${k}_sink/split_streams[0]/*}
+% for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]):
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_out[j]}_${k}} -group {sink} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_out[j]}_${k}_sink/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_out[j]}_${k}} -group {split_streams[0]} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_out[j]}_${k}_sink/split_streams[0]/*}
         % endfor
     % else:
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_out[j]}} -group {sink} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_out[j]}_sink/*}
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_out[j]}} -group {split_streams[0]} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_out[j]}_sink/split_streams[0]/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_out[j]}} -group {sink} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_out[j]}_sink/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_out[j]}} -group {split_streams[0]} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_out[j]}_sink/split_streams[0]/*}
     % endif
 % endfor 
 
@@ -122,13 +122,13 @@ add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators}
 # HWPE streamer - Address generators (source modules)
 %>
 
-% for i in range (n_sink):
-    % if (is_parallel_in[i]):
-        % for k in range (in_parallelism_factor[i]):
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_in[i]}_${k}} -group {addressgen} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_in[i]}_${k}_source/i_addressgen/*}
+% for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+        % for k in range (acc_wr_in_parallelism_factor[i]):
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_in[i]}_${k}} -group {addressgen} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_in[i]}_${k}_source/i_addressgen/*}
         % endfor
     % else:
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_in[i]}} -group {addressgen} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_in[i]}_source/i_addressgen/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_in[i]}} -group {addressgen} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_in[i]}_source/i_addressgen/*}
     % endif
 % endfor 
 
@@ -136,13 +136,13 @@ add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators}
 # HWPE streamer - Address generators (sink modules)
 %>
 
-% for j in range (n_source):
-    % if (is_parallel_out[j]):
-        % for k in range (out_parallelism_factor[j]):
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_out[j]}_${k}} -group {addressgen} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_out[j]}_${k}_sink/i_addressgen/*}
+% for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+        % for k in range (acc_wr_out_parallelism_factor[j]):
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_out[j]}_${k}} -group {addressgen} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_out[j]}_${k}_sink/i_addressgen/*}
         % endfor
     % else:
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${stream_out[j]}} -group {addressgen} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${target}_top/i_streamer/i_${stream_out[j]}_sink/i_addressgen/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {streamer} -group {${acc_wr_stream_out[j]}} -group {addressgen} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_streamer/i_${acc_wr_stream_out[j]}_sink/i_addressgen/*}
     % endif
 % endfor 
 

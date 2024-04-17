@@ -73,7 +73,11 @@ import sys
 from python.richie.process_design_knobs import PlatformDesignKnobsFormatted
 from python.richie.process_design_knobs import get_acc_targets
 from python.richie.process_design_knobs import print_generation_log
-from python.richie.generator import generation as generate_richie
+
+'''
+    Import generator
+'''
+from python.richie.generator import Generator
 
 '''
     Import emitter
@@ -101,7 +105,7 @@ dir_out = sys.argv[1]
 platform_specs = PlatformSpecs
 
 '''
-    Format design knobs
+    Format platform specification
 '''
 platform_design_knobs = PlatformDesignKnobsFormatted(platform_specs)
 
@@ -121,6 +125,11 @@ emitter = EmitRichie(platform_specs, dir_out)
 richie = Richie()
 
 '''
+    Instantiate generator
+'''
+generator = Generator()
+
+'''
     =====================================================================
     Component:      Hardware
 
@@ -132,9 +141,10 @@ richie = Richie()
     Generate design components ~ PULP IP
 '''
 
-generate_richie(
+generator.render(
     richie.PulpIp(),
     platform_design_knobs,
+    None,
     emitter,
     ['hesoc', 'pulp_t' + platform_design_knobs.target_fpga_hesoc, ['hw', 'v']],
     emitter.out_gen_ip
@@ -152,19 +162,22 @@ generate_richie(
 '''
     Generate design components ~ Bender
 '''
-generate_richie(
+generator.render(
     richie.Bender(),
     platform_design_knobs,
+    None,
     emitter,
     ['integr_support', 'Bender', ['integr_support', 'yml']],
     emitter.out
 )
 
-generate_richie(
+generator.render(
     richie.BenderLock(),
     platform_design_knobs,
+    None,
     emitter,
     ['integr_support', 'Bender', ['integr_support', 'lock']],
     emitter.out,
+    0,
     [get_acc_targets(platform_design_knobs), None, None]
 )

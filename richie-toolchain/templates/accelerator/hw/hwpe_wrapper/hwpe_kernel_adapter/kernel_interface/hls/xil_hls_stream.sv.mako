@@ -51,22 +51,22 @@
   logic start_stream; 
 
   // Input stream controls
-  % for i in range (n_sink):
-  logic [${n_bytes_in[i]}-1:0] ${stream_in[i]}_i_TKEEP;
-  logic ${stream_in[i]}_i_TUSER;
-  logic ${stream_in[i]}_i_TLAST;
-  logic ${stream_in[i]}_i_TID;
-  logic ${stream_in[i]}_i_TDEST;
+  % for i in range (acc_wr_n_sink):
+  logic [${n_bytes_in[i]}-1:0] ${acc_wr_stream_in[i]}_i_TKEEP;
+  logic ${acc_wr_stream_in[i]}_i_TUSER;
+  logic ${acc_wr_stream_in[i]}_i_TLAST;
+  logic ${acc_wr_stream_in[i]}_i_TID;
+  logic ${acc_wr_stream_in[i]}_i_TDEST;
   % endfor
 
   // Input data packet transaction counter
-  % for i in range (n_sink):
-  logic unsigned [31:0] cnt_last_${stream_in[i]};
+  % for i in range (acc_wr_n_sink):
+  logic unsigned [31:0] cnt_last_${acc_wr_stream_in[i]};
   % endfor
 
   // Output transaction counter
-  % for j in range (n_source):
-  logic unsigned [31:0] cnt_last_${stream_out[j]};
+  % for j in range (acc_wr_n_source):
+  logic unsigned [31:0] cnt_last_${acc_wr_stream_out[j]};
   % endfor
 
 </%def>
@@ -74,7 +74,7 @@
 <%def name="xil_hls_stream_kernel_ctrl()">\
 
   // Pilot global controls
-  % for j in range (n_source):
+  % for j in range (acc_wr_n_source):
   always_comb
   begin: pilot_start
     if(~rst_ni) begin
@@ -86,7 +86,7 @@
     else if(flags_o.done) begin
       start_stream = '0;
     end
-    else if ((${stream_out[j]}_o.valid) & (${stream_out[j]}_o.ready)) begin
+    else if ((${acc_wr_stream_out[j]}_o.valid) & (${acc_wr_stream_out[j]}_o.ready)) begin
       start_stream = start_stream;
     end
     else begin
@@ -96,70 +96,70 @@
   % endfor
 
   // Pilot input streaming controls
-  % for i in range (n_sink):
-  assign ${stream_in[i]}_i_TKEEP = '1;
-  assign ${stream_in[i]}_i_TID   = '0;
-  assign ${stream_in[i]}_i_TDEST = '0;
+  % for i in range (acc_wr_n_sink):
+  assign ${acc_wr_stream_in[i]}_i_TKEEP = '1;
+  assign ${acc_wr_stream_in[i]}_i_TID   = '0;
+  assign ${acc_wr_stream_in[i]}_i_TDEST = '0;
 
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: gen_user_${stream_in[i]}
+  begin: gen_user_${acc_wr_stream_in[i]}
     if(~rst_ni) begin
-      ${stream_in[i]}_i_TUSER = '0;
+      ${acc_wr_stream_in[i]}_i_TUSER = '0;
     end
     else if(ctrl_i.start) begin
-      ${stream_in[i]}_i_TUSER = '1;
+      ${acc_wr_stream_in[i]}_i_TUSER = '1;
     end
-    else if ((${stream_in[i]}_i.valid) & (${stream_in[i]}_i.ready)) begin
-      ${stream_in[i]}_i_TUSER = '0;
+    else if ((${acc_wr_stream_in[i]}_i.valid) & (${acc_wr_stream_in[i]}_i.ready)) begin
+      ${acc_wr_stream_in[i]}_i_TUSER = '0;
     end
     else begin
-      ${stream_in[i]}_i_TUSER = ${stream_in[i]}_i_TUSER;
+      ${acc_wr_stream_in[i]}_i_TUSER = ${acc_wr_stream_in[i]}_i_TUSER;
     end
   end
   % endfor 
 
   // Count input data packet transactions
-  % for i in range (n_sink):
+  % for i in range (acc_wr_n_sink):
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: adapter_cnt_${stream_in[i]}_tx
+  begin: adapter_cnt_${acc_wr_stream_in[i]}_tx
     if(~rst_ni) begin
-      cnt_last_${stream_in[i]} = '0;
+      cnt_last_${acc_wr_stream_in[i]} = '0;
     end
     else if(ctrl_i.start) begin
-      cnt_last_${stream_in[i]} = '0;
+      cnt_last_${acc_wr_stream_in[i]} = '0;
     end
-    else if(${stream_in[i]}_i_TLAST) begin
-      cnt_last_${stream_in[i]} = '0;
+    else if(${acc_wr_stream_in[i]}_i_TLAST) begin
+      cnt_last_${acc_wr_stream_in[i]} = '0;
     end
-    else if ((${stream_in[i]}_i.valid) & (${stream_in[i]}_i.ready)) begin
-      cnt_last_${stream_in[i]} = cnt_last_${stream_in[i]} + 1;
+    else if ((${acc_wr_stream_in[i]}_i.valid) & (${acc_wr_stream_in[i]}_i.ready)) begin
+      cnt_last_${acc_wr_stream_in[i]} = cnt_last_${acc_wr_stream_in[i]} + 1;
     end
     else begin
-      cnt_last_${stream_in[i]} = cnt_last_${stream_in[i]};
+      cnt_last_${acc_wr_stream_in[i]} = cnt_last_${acc_wr_stream_in[i]};
     end
   end
   % endfor   
 
   // Generate input last signal (for data packets)
-  % for i in range (n_sink):
-  assign ${stream_in[i]}_i_TLAST = (cnt_last_${stream_in[i]}==ctrl_i.packet_size_${stream_in[i]}) ? 1 : 0;
+  % for i in range (acc_wr_n_sink):
+  assign ${acc_wr_stream_in[i]}_i_TLAST = (cnt_last_${acc_wr_stream_in[i]}==ctrl_i.packet_size_${acc_wr_stream_in[i]}) ? 1 : 0;
   % endfor  
 
   // Count output transactions
-  % for j in range (n_source):
+  % for j in range (acc_wr_n_source):
   always_ff @(posedge clk_i or negedge rst_ni)
-  begin: adapter_cnt_${stream_out[j]}_tx
+  begin: adapter_cnt_${acc_wr_stream_out[j]}_tx
     if(~rst_ni) begin
-      cnt_last_${stream_out[j]} = '0;
+      cnt_last_${acc_wr_stream_out[j]} = '0;
     end
     else if(ctrl_i.start) begin
-      cnt_last_${stream_out[j]} = '0;
+      cnt_last_${acc_wr_stream_out[j]} = '0;
     end
-    else if ((${stream_out[j]}_o.valid) & (${stream_out[j]}_o.ready)) begin
-      cnt_last_${stream_out[j]} = cnt_last_${stream_out[j]} + 1;
+    else if ((${acc_wr_stream_out[j]}_o.valid) & (${acc_wr_stream_out[j]}_o.ready)) begin
+      cnt_last_${acc_wr_stream_out[j]} = cnt_last_${acc_wr_stream_out[j]} + 1;
     end
     else begin
-      cnt_last_${stream_out[j]} = cnt_last_${stream_out[j]};
+      cnt_last_${acc_wr_stream_out[j]} = cnt_last_${acc_wr_stream_out[j]};
     end
   end
   % endfor 
@@ -175,13 +175,13 @@
 <%def name="xil_hls_stream_stream_strobes_def()">\
 
   // Input strobes
-  % for i in range (n_sink):
-  logic [${n_bytes_in[i]}-1:0] ${stream_in[i]}_i_TSTRB;
+  % for i in range (acc_wr_n_sink):
+  logic [${n_bytes_in[i]}-1:0] ${acc_wr_stream_in[i]}_i_TSTRB;
   % endfor
 
   // Output strobes
-  % for j in range (n_source):
-  logic [${n_bytes_out[j]}-1:0] ${stream_out[j]}_o_TSTRB;
+  % for j in range (acc_wr_n_source):
+  logic [${n_bytes_out[j]}-1:0] ${acc_wr_stream_out[j]}_o_TSTRB;
   % endfor
 
 </%def>
@@ -189,13 +189,13 @@
 <%def name="xil_hls_stream_stream_strobes()">\
 
   // Assign input strobes
-  % for i in range (n_sink):
-  assign ${stream_in[i]}_i_TSTRB = '0;
+  % for i in range (acc_wr_n_sink):
+  assign ${acc_wr_stream_in[i]}_i_TSTRB = '0;
   % endfor
 
   // Get output strobes
-  % for j in range (n_source):
-  assign ${stream_out[j]}_o.strb = '1;
+  % for j in range (acc_wr_n_source):
+  assign ${acc_wr_stream_out[j]}_o.strb = '1;
   % endfor
 
 </%def>
@@ -209,12 +209,12 @@
 <%def name="xil_hls_stream_kernel_flags_def()">\
 
   // Output stream flags
-  % for j in range (n_source):
-  logic [${n_bytes_out[j]}-1:0] ${stream_out[j]}_o_TKEEP;
-  logic ${stream_out[j]}_o_TUSER;
-  logic ${stream_out[j]}_o_TLAST;
-  logic ${stream_out[j]}_o_TID;
-  logic ${stream_out[j]}_o_TDEST;
+  % for j in range (acc_wr_n_source):
+  logic [${n_bytes_out[j]}-1:0] ${acc_wr_stream_out[j]}_o_TKEEP;
+  logic ${acc_wr_stream_out[j]}_o_TUSER;
+  logic ${acc_wr_stream_out[j]}_o_TLAST;
+  logic ${acc_wr_stream_out[j]}_o_TID;
+  logic ${acc_wr_stream_out[j]}_o_TDEST;
   % endfor
 
 </%def>
@@ -222,8 +222,8 @@
 <%def name="xil_hls_stream_kernel_flags()">\
 
   // Get output last signal (for data packets)
-  % for j in range (n_source):
-  assign flags_o.last[${j}] = ${stream_out[j]}_o_TLAST;
+  % for j in range (acc_wr_n_source):
+  assign flags_o.last[${j}] = ${acc_wr_stream_out[j]}_o_TLAST;
   % endfor
 
 </%def>
@@ -236,46 +236,46 @@
 
 <%def name="xil_hls_stream_kernel_intf()">\
 
-  /* ${target} kernel interface */
+  /* ${acc_wr_target} kernel interface */
 
-  ${target} i_${target} (
+  ${acc_wr_target} i_${acc_wr_target} (
     // Global signals
     .ap_clk       ( clk_i            ),
     .ap_rst_n     ( rst_ni           ),
 
     // Sink ports
-    % for i in range (n_sink):
-    .${stream_in[i]}_TDATA  ( ${stream_in[i]}_data_kernel ),
-    .${stream_in[i]}_TVALID ( ${stream_in[i]}_i.valid ),
-    .${stream_in[i]}_TREADY ( ${stream_in[i]}_i.ready ),
+    % for i in range (acc_wr_n_sink):
+    .${acc_wr_stream_in[i]}_TDATA  ( ${acc_wr_stream_in[i]}_data_kernel ),
+    .${acc_wr_stream_in[i]}_TVALID ( ${acc_wr_stream_in[i]}_i.valid ),
+    .${acc_wr_stream_in[i]}_TREADY ( ${acc_wr_stream_in[i]}_i.ready ),
 
-    .${stream_in[i]}_TKEEP  ( ${stream_in[i]}_i_TKEEP ),
-    .${stream_in[i]}_TSTRB  ( ${stream_in[i]}_i_TSTRB ),
-    .${stream_in[i]}_TUSER  ( ${stream_in[i]}_i_TUSER ),
-    .${stream_in[i]}_TLAST  ( ${stream_in[i]}_i_TLAST ),
-    .${stream_in[i]}_TID    ( ${stream_in[i]}_i_TID   ),
-    .${stream_in[i]}_TDEST  ( ${stream_in[i]}_i_TDEST ),
+    .${acc_wr_stream_in[i]}_TKEEP  ( ${acc_wr_stream_in[i]}_i_TKEEP ),
+    .${acc_wr_stream_in[i]}_TSTRB  ( ${acc_wr_stream_in[i]}_i_TSTRB ),
+    .${acc_wr_stream_in[i]}_TUSER  ( ${acc_wr_stream_in[i]}_i_TUSER ),
+    .${acc_wr_stream_in[i]}_TLAST  ( ${acc_wr_stream_in[i]}_i_TLAST ),
+    .${acc_wr_stream_in[i]}_TID    ( ${acc_wr_stream_in[i]}_i_TID   ),
+    .${acc_wr_stream_in[i]}_TDEST  ( ${acc_wr_stream_in[i]}_i_TDEST ),
     % endfor  
 
     // Source ports
-    % for j in range (n_source):
-    .${stream_out[j]}_TDATA  ( ${stream_out[j]}_data_kernel ),
-    .${stream_out[j]}_TVALID ( ${stream_out[j]}_o.valid ),
-    .${stream_out[j]}_TREADY ( ${stream_out[j]}_o.ready ),
+    % for j in range (acc_wr_n_source):
+    .${acc_wr_stream_out[j]}_TDATA  ( ${acc_wr_stream_out[j]}_data_kernel ),
+    .${acc_wr_stream_out[j]}_TVALID ( ${acc_wr_stream_out[j]}_o.valid ),
+    .${acc_wr_stream_out[j]}_TREADY ( ${acc_wr_stream_out[j]}_o.ready ),
     
-    .${stream_out[j]}_TKEEP  ( ${stream_out[j]}_o_TKEEP ),
-    .${stream_out[j]}_TSTRB  ( ${stream_out[j]}_o_TSTRB ),
-    .${stream_out[j]}_TUSER  ( ${stream_out[j]}_o_TUSER ),
-    .${stream_out[j]}_TLAST  ( ${stream_out[j]}_o_TLAST ),
-    .${stream_out[j]}_TID    ( ${stream_out[j]}_o_TID   ),
-    .${stream_out[j]}_TDEST  ( ${stream_out[j]}_o_TDEST ),
+    .${acc_wr_stream_out[j]}_TKEEP  ( ${acc_wr_stream_out[j]}_o_TKEEP ),
+    .${acc_wr_stream_out[j]}_TSTRB  ( ${acc_wr_stream_out[j]}_o_TSTRB ),
+    .${acc_wr_stream_out[j]}_TUSER  ( ${acc_wr_stream_out[j]}_o_TUSER ),
+    .${acc_wr_stream_out[j]}_TLAST  ( ${acc_wr_stream_out[j]}_o_TLAST ),
+    .${acc_wr_stream_out[j]}_TID    ( ${acc_wr_stream_out[j]}_o_TID   ),
+    .${acc_wr_stream_out[j]}_TDEST  ( ${acc_wr_stream_out[j]}_o_TDEST ),
     % endfor
 
-    % if custom_reg_num>0:
+    % if acc_wr_custom_reg_num>0:
     // Kernel parameters
-      % for i in range (custom_reg_num):
-        % if custom_reg_isport[i]:
-    .${custom_reg_name[i]}        ( ${custom_reg_name[i]} ),
+      % for i in range (acc_wr_custom_reg_num):
+        % if acc_wr_custom_reg_isport[i]:
+    .${acc_wr_custom_reg_name[i]}        ( ${acc_wr_custom_reg_name[i]} ),
         % endif
       % endfor
     % endif 
@@ -297,13 +297,13 @@
 <%def name="xil_hls_stream_stream_dwidth_match_def()">\
 
   // Input data - Data width adaptation
-  % for i in range (n_sink):
-  logic [${stream_in_dwidth[i]}-1:0] ${stream_in[i]}_data_kernel;
+  % for i in range (acc_wr_n_sink):
+  logic [${acc_wr_stream_in_dwidth[i]}-1:0] ${acc_wr_stream_in[i]}_data_kernel;
   % endfor
 
   // Output data - Data width adaptation
-  % for j in range (n_source):
-  logic [${stream_out_dwidth[j]}-1:0] ${stream_out[j]}_data_kernel;
+  % for j in range (acc_wr_n_source):
+  logic [${acc_wr_stream_out_dwidth[j]}-1:0] ${acc_wr_stream_out[j]}_data_kernel;
   % endfor
 
 </%def>
@@ -311,53 +311,53 @@
 <%def name="xil_hls_stream_stream_dwidth_match()">\
 
   // Adapat input data interface (from system) to kernel data interface
-  % for i in range (n_sink):
-    % if stream_in_dwidth[i]>pulp_dwidth:
+  % for i in range (acc_wr_n_sink):
+    % if acc_wr_stream_in_dwidth[i]>pulp_dwidth:
 
       <%
-        diff_dwidth = stream_in_dwidth[i] - pulp_dwidth
+        diff_dwidth = acc_wr_stream_in_dwidth[i] - pulp_dwidth
       %>
 \
-  assign ${stream_in[i]}_data_kernel = {${diff_dwidth}'b0, ${stream_in[i]}_i.data}; 
+  assign ${acc_wr_stream_in[i]}_data_kernel = {${diff_dwidth}'b0, ${acc_wr_stream_in[i]}_i.data}; 
 
-    % elif stream_in_dwidth[i]<pulp_dwidth:
+    % elif acc_wr_stream_in_dwidth[i]<pulp_dwidth:
 
       <%
-        diff_dwidth = pulp_dwidth - stream_in_dwidth[i]
+        diff_dwidth = pulp_dwidth - acc_wr_stream_in_dwidth[i]
       %>
 \
   // TO-DO: Not supported yet
-  assign ${stream_in[i]}_data_kernel = ${stream_in[i]}_i.data; 
+  assign ${acc_wr_stream_in[i]}_data_kernel = ${acc_wr_stream_in[i]}_i.data; 
 
-    % elif stream_in_dwidth[i]==pulp_dwidth:
+    % elif acc_wr_stream_in_dwidth[i]==pulp_dwidth:
 \
-  assign ${stream_in[i]}_data_kernel = ${stream_in[i]}_i.data; 
+  assign ${acc_wr_stream_in[i]}_data_kernel = ${acc_wr_stream_in[i]}_i.data; 
   
     % endif
   % endfor
 
   // Adapat kernel data interface to output data interface (to system)
-  % for j in range (n_source):
-    % if stream_out_dwidth[j]>pulp_dwidth:
+  % for j in range (acc_wr_n_source):
+    % if acc_wr_stream_out_dwidth[j]>pulp_dwidth:
 
       <%
-        diff_dwidth = stream_out_dwidth[j] - pulp_dwidth
+        diff_dwidth = acc_wr_stream_out_dwidth[j] - pulp_dwidth
       %>
 \
   // TO-DO: Not supported yet
-  assign ${stream_out[j]}_o.data = ${stream_out[j]}_data_kernel; 
+  assign ${acc_wr_stream_out[j]}_o.data = ${acc_wr_stream_out[j]}_data_kernel; 
 
-    % elif stream_out_dwidth[j]<pulp_dwidth:
+    % elif acc_wr_stream_out_dwidth[j]<pulp_dwidth:
 
       <%
-        diff_dwidth = pulp_dwidth - stream_out_dwidth[j]
+        diff_dwidth = pulp_dwidth - acc_wr_stream_out_dwidth[j]
       %>
 \
-  assign ${stream_out[j]}_o.data = {${diff_dwidth}'b0, ${stream_out[j]}_data_kernel}; 
+  assign ${acc_wr_stream_out[j]}_o.data = {${diff_dwidth}'b0, ${acc_wr_stream_out[j]}_data_kernel}; 
 
-    % elif stream_out_dwidth[j]==pulp_dwidth:
+    % elif acc_wr_stream_out_dwidth[j]==pulp_dwidth:
 \
-  assign ${stream_out[j]}_o.data = ${stream_out[j]}_data_kernel; 
+  assign ${acc_wr_stream_out[j]}_o.data = ${acc_wr_stream_out[j]}_data_kernel; 
   
     % endif
   % endfor
