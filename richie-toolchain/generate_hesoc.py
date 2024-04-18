@@ -38,13 +38,13 @@
                     phase by formatting values, and so on. This is accomplished by
                     the scripts under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/process_design_knobs.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/formatter.py'
 
                     - The rendering phase requires a generator which is invoked by the
                     current script via the 'gen_*_comps' function. The definition of
                     both the generator and function are found under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/generator.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/generator.py'
 
                     - After generation, the specialized components are assembled all
                     together into an output environment which resembles the top hierarchy
@@ -68,12 +68,6 @@
 import sys
 
 '''
-    Import custom functions
-'''
-from python.richie.process_design_knobs import PlatformDesignKnobsFormatted
-from python.hesoc.process_design_knobs import print_generation_log
-
-'''
     Import generator
 '''
 from python.generator import Generator
@@ -84,13 +78,24 @@ from python.generator import Generator
 from python.emitter import Emitter
 
 '''
+    Import logger
+'''
+from python.logger import Logger
+
+'''
     Import design knobs
 '''
 from dev.platform_dev.specs.platform_specs import PlatformSpecs
 
 '''
+    Import formatter
+'''
+from python.formatter import Formatter
+
+'''
     Import templates
 '''
+from templates.platform.hw.richie.richie import Richie
 from templates.platform.hw.hesoc.hesoc import Hesoc
 
 '''
@@ -104,14 +109,24 @@ dir_out_richie = sys.argv[1]
 platform_specs = PlatformSpecs
 
 '''
+    Instantiate formatter
+'''
+format = Formatter()
+
+'''
     Format platform specification
 '''
-platform_design_knobs = PlatformDesignKnobsFormatted(platform_specs)
+platform_design_knobs = format.platform(platform_specs)
+
+'''
+    Instantiate logger
+'''
+logger = Logger(platform_design_knobs, None)
 
 '''
     Print generation log
 '''
-print_generation_log(platform_design_knobs)
+logger.hesoc()
 
 '''
     Instantiate emitter

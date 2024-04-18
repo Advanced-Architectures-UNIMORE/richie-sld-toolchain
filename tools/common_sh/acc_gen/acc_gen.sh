@@ -48,9 +48,9 @@ source $THIS_DIR/../common.sh
 init_generation()
 {
     echo -e ""
-    echo "# ========================================= #"
-    echo "# Initializating wrapper design environment #"
-    echo "# ========================================= #"
+    echo "# ======================================================= #"
+    echo "# Initializating accelerator interface design environment #"
+    echo "# ======================================================= #"
     echo -e ""
 
     make --silent acc_gen_init
@@ -63,7 +63,7 @@ init_generation()
 #               Python class of 'richie-toolchain.py' once it reads the platform
 #               configuration specifications. 'acc_config.cfg' is meant
 #               to be a setup file to pilot the generation of accelerator
-#               wrappers. This procedure is transparent to the user that
+#               interfaces. This procedure is transparent to the user that
 #               approaches to the toolchain.
 # =====================================================================
 
@@ -74,7 +74,7 @@ read_richie_config()
 
     if [ $n_acc -gt 0 ]; then
 
-        echo -e "[sh] >> Accelerator wrappers will be generated for the following applications:\n"
+        echo -e "[sh] >> Accelerator interfaces will be generated for the following accelerator datapaths:\n"
 
         # Accelerator targets
         for (( c=0; c<=$n_acc-1; c++ ))
@@ -93,7 +93,7 @@ read_richie_config()
 
     else
 
-        echo -e "[sh] >> No targets for accelerator wrapper\n"
+        echo -e "[sh] >> No targets for accelerator interfaces\n"
 
     fi
 }
@@ -117,11 +117,11 @@ get_accelerator_design_knobs()
     cd $dir_root
     make --silent acc_gen_clean
 
-    # Fetch accelerator specifications
+    # Retrieve accelerator specifications
     cd $dir_acc_src
     for (( c=0; c<=$n_acc-1; c++ ))
     do
-        echo "[sh] >> Retrieving wrapper target #$c -> ${acc_targets[$c]}"
+        echo "[sh] >> Retrieving accelerator design knobs concerning accelerator datapath #$c -> ${acc_targets[$c]}"
         make --silent clean all ACC_DEV_DIR=$dir_accelerator_dev TARGET_ACC=${acc_targets[$c]} ACC_HW_DESIGN=$dir_richie_acc_hw
     done
 }
@@ -164,7 +164,7 @@ gen_accelerator_interface()
         check_acc_out
 
         if [ "$is_gen" == "false" ]; then
-            # Generate target accelerator wrapper
+            # Generate target accelerator interface
             make --silent acc_gen_datapaths_list TARGET_ACC=${acc_targets[$c]}
             make --silent acc_gen_out_env TARGET_ACC=${acc_targets[$c]}
             make --silent acc_gen_run TARGET_ACC=${acc_targets[$c]}
@@ -209,7 +209,7 @@ if [ -f ${CONFIG_FILE} ]; then
         # Fetch accelerator specifications
         get_accelerator_design_knobs
 
-        # Generate accelerator wrappers
+        # Generate accelerator interfaces
         gen_accelerator_interface
 
     fi

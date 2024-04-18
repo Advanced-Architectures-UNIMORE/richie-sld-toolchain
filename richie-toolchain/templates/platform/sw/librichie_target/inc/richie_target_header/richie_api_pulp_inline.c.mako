@@ -36,7 +36,7 @@
                     accomplishes the rendering phase. Generators are
                     defined under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/generator.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/generator.py'
 
     Date:           22.11.2022
 

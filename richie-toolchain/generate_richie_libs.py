@@ -38,13 +38,13 @@
                     phase by formatting values, and so on. This is accomplished by
                     the scripts under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/process_design_knobs.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/formatter.py'
 
                     - The rendering phase requires a generator which is invoked by the
                     current script via the 'gen_*_comps' function. The definition of
                     both the generator and function are found under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/generator.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/generator.py'
 
                     - After generation, the specialized components are assembled all
                     together into an output environment which resembles the top hierarchy
@@ -68,15 +68,6 @@
 import sys, os
 
 '''
-    Import custom functions
-'''
-from python.richie.process_design_knobs import PlatformDesignKnobsFormatted
-from python.richie_libs.process_design_knobs import print_generation_log
-
-from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
-from python.accelerator.import_design_knobs import import_accelerator_design_knobs
-
-'''
     Import generator
 '''
 from python.generator import Generator
@@ -87,9 +78,19 @@ from python.generator import Generator
 from python.emitter import Emitter
 
 '''
+    Import logger
+'''
+from python.logger import Logger
+
+'''
     Import design knobs
 '''
 from dev.platform_dev.specs.platform_specs import PlatformSpecs
+
+'''
+    Import formatter
+'''
+from python.formatter import Formatter
 
 '''
     Import templates
@@ -111,14 +112,24 @@ dir_out_richie = sys.argv[1]
 platform_specs = PlatformSpecs
 
 '''
+    Instantiate formatter
+'''
+format = Formatter()
+
+'''
     Format platform specification
 '''
-platform_design_knobs = PlatformDesignKnobsFormatted(platform_specs)
+platform_design_knobs = format.platform(platform_specs)
+
+'''
+    Instantiate logger
+'''
+logger = Logger(platform_design_knobs, None)
 
 '''
     Print generation log
 '''
-print_generation_log(platform_design_knobs)
+logger.richie_libs()
 
 '''
     Instantiate emitter
@@ -141,6 +152,79 @@ generator = Generator()
 
 '''
     =====================================================================
+    Component:      Software libraries - LibRICHIE
+
+    Description:    Generation of libraries and correlated components
+                    to abstract and simplify the accelerator-rich
+                    system control.
+    ===================================================================== */
+'''
+
+'''
+    Create libraries directory
+'''
+
+platform_librichie_path = emitter.out_platform_librichie_target
+
+os.mkdir(platform_librichie_path + '/host')
+os.mkdir(platform_librichie_path + '/inc')
+os.mkdir(platform_librichie_path + '/pulp')
+
+'''
+    Generate design components ~ LibRICHIE (Host APIs)
+'''
+
+generator.render(
+    librichie.RichieTargetHost(),
+    platform_design_knobs,
+    None,
+    emitter,
+    ['sw', 'richie-target', ['sw', 'API']],
+    platform_librichie_path + '/host'
+)
+
+generator.render(
+    librichie.MakefileHost(),
+    platform_design_knobs,
+    None,
+    emitter,
+    ['integr_support', 'Makefile', ['integr_support', 'mk']],
+    platform_librichie_path + '/host'
+)
+
+generator.render(
+    librichie.RichieTargetPulp(),
+    platform_design_knobs,
+    None,
+    emitter,
+    ['sw', 'richie-target', ['sw', 'API']],
+    platform_librichie_path + '/pulp',
+    0,
+    [platform_design_knobs.list_cl_lic, platform_design_knobs.list_cl_hci, None]
+)
+
+generator.render(
+    librichie.MakefilePulp(),
+    platform_design_knobs,
+    None,
+    emitter,
+    ['integr_support', 'Makefile', ['integr_support', 'mk']],
+    platform_librichie_path + '/pulp'
+)
+
+generator.render(
+    librichie.RichieTargetHeader(),
+    platform_design_knobs,
+    None,
+    emitter,
+    ['sw', 'richie-target', ['sw', 'header']],
+    platform_librichie_path + '/inc',
+    0,
+    [platform_design_knobs.list_cl_lic, platform_design_knobs.list_cl_hci, None]
+)
+
+'''
+    =====================================================================
     Component:      Software libraries - LibHWPE
 
     Description:    Generation of libraries and correlated components
@@ -160,13 +244,14 @@ for cl_offset in range(platform_design_knobs.n_clusters):
         '''
 
         target_acc = cl_lic_acc_names[accelerator_id]
-        accelerator_specs = import_accelerator_design_knobs(target_acc)
+        accelerator_design_knobs_raw_module = format.import_accelerator_design_knobs(target_acc)
+        accelerator_design_knobs_raw = accelerator_design_knobs_raw_module.AcceleratorSpecs
 
         '''
             Format accelerator specification
         '''
 
-        accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.AcceleratorSpecs)
+        accelerator_design_knobs = format.accelerator(accelerator_design_knobs_raw)
 
         '''
             Create libraries directory
@@ -268,79 +353,6 @@ for cl_offset in range(platform_design_knobs.n_clusters):
 
 '''
     =====================================================================
-    Component:      Software libraries - LibRICHIE
-
-    Description:    Generation of libraries and correlated components
-                    to abstract and simplify the accelerator-rich
-                    system control.
-    ===================================================================== */
-'''
-
-'''
-    Create libraries directory
-'''
-
-platform_librichie_path = emitter.out_platform_librichie_target
-
-os.mkdir(platform_librichie_path + '/host')
-os.mkdir(platform_librichie_path + '/inc')
-os.mkdir(platform_librichie_path + '/pulp')
-
-'''
-    Generate design components ~ LibRICHIE (Host APIs)
-'''
-
-generator.render(
-    librichie.RichieTargetHost(),
-    platform_design_knobs,
-    accelerator_design_knobs,
-    emitter,
-    ['sw', 'richie-target', ['sw', 'API']],
-    platform_librichie_path + '/host'
-)
-
-generator.render(
-    librichie.MakefileHost(),
-    platform_design_knobs,
-    accelerator_design_knobs,
-    emitter,
-    ['integr_support', 'Makefile', ['integr_support', 'mk']],
-    platform_librichie_path + '/host'
-)
-
-generator.render(
-    librichie.RichieTargetPulp(),
-    platform_design_knobs,
-    accelerator_design_knobs,
-    emitter,
-    ['sw', 'richie-target', ['sw', 'API']],
-    platform_librichie_path + '/pulp',
-    0,
-    [platform_design_knobs.list_cl_lic, platform_design_knobs.list_cl_hci, None]
-)
-
-generator.render(
-    librichie.MakefilePulp(),
-    platform_design_knobs,
-    accelerator_design_knobs,
-    emitter,
-    ['integr_support', 'Makefile', ['integr_support', 'mk']],
-    platform_librichie_path + '/pulp'
-)
-
-generator.render(
-    librichie.RichieTargetHeader(),
-    platform_design_knobs,
-    accelerator_design_knobs,
-    emitter,
-    ['sw', 'richie-target', ['sw', 'header']],
-    platform_librichie_path + '/inc',
-    0,
-    [platform_design_knobs.list_cl_lic, platform_design_knobs.list_cl_hci, None]
-)
-
-'''
-    =====================================================================
     Component:      Software libraries - HWPE structs
 
     Description:    Generation of C structures for HWPE wrappers.
@@ -372,13 +384,19 @@ for cl_offset in range(platform_design_knobs.n_clusters):
 
             list_acc_types.append(target_acc)
 
-            accelerator_specs = import_accelerator_design_knobs(target_acc)
+            '''
+                Retrieve accelerator specification
+            '''
+
+            target_acc = cl_lic_acc_names[accelerator_id]
+            accelerator_design_knobs_raw_module = format.import_accelerator_design_knobs(target_acc)
+            accelerator_design_knobs_raw = accelerator_design_knobs_raw_module.AcceleratorSpecs
 
             '''
                 Format accelerator specification
             '''
 
-            accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.AcceleratorSpecs)
+            accelerator_design_knobs = format.accelerator(accelerator_design_knobs_raw)
 
             '''
                 Generate design components ~ LibHWPE (Host APIs)

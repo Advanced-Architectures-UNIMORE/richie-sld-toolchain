@@ -38,13 +38,13 @@
                     phase by formatting values, and so on. This is accomplished by
                     the scripts under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/process_design_knobs.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/formatter.py'
 
                     - The rendering phase requires a generator which is invoked by the
                     current script via the 'gen_*_comps' function. The definition of
                     both the generator and function are found under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/generator.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/generator.py'
 
                     - After generation, the specialized components are assembled all
                     together into an output environment which resembles the top hierarchy
@@ -69,13 +69,6 @@ import sys
 import os
 
 '''
-    Import custom functions
-'''
-from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
-from python.accelerator.process_design_knobs import print_wrapper_log
-from python.accelerator.import_design_knobs import import_accelerator_design_knobs
-
-'''
     Import generator
 '''
 from python.generator import Generator
@@ -86,9 +79,22 @@ from python.generator import Generator
 from python.emitter import Emitter
 
 '''
+    Import logger
+'''
+from python.logger import Logger
+
+'''
+    Import formatter
+'''
+from python.formatter import Formatter
+
+'''
     Import templates
 '''
 from templates.accelerator.hw.hwpe_wrapper.hwpe_wrapper import HwpeWrapper
+from templates.accelerator.hw.hwpe_standalone_test.hwpe_standalone_test import HwpeStandaloneTest
+from templates.accelerator.sw.hwpe_standalone_hal.hwpe_standalone_hal import HwpeStandaloneHal
+from templates.accelerator.sw.hwpe_system_hal.hwpe_system_hal import HwpeSystemHal
 
 '''
     Read input arguments
@@ -96,16 +102,21 @@ from templates.accelerator.hw.hwpe_wrapper.hwpe_wrapper import HwpeWrapper
 dir_out_acc = sys.argv[1]
 
 '''
+    Instantiate formatter
+'''
+format = Formatter()
+
+'''
     Retrieve accelerator specification
 '''
 target_acc = os.environ['TARGET_ACC']
-accelerator_specs = import_accelerator_design_knobs(target_acc)
+accelerator_design_knobs_raw_module = format.import_accelerator_design_knobs(target_acc)
+accelerator_design_knobs_raw = accelerator_design_knobs_raw_module.AcceleratorSpecs
 
 '''
     Format accelerator specification
 '''
-
-accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.AcceleratorSpecs)
+accelerator_design_knobs = format.accelerator(accelerator_design_knobs_raw)
 
 '''
     Instantiate emitter
@@ -113,201 +124,346 @@ accelerator_design_knobs = AcceleratorDesignKnobsFormatted(accelerator_specs.Acc
 emitter = Emitter(None, accelerator_design_knobs, None, dir_out_acc)
 
 '''
-    Print generation log
+    Instantiate logger
 '''
-
-print_wrapper_log(accelerator_design_knobs)
+logger = Logger(None, accelerator_design_knobs)
 
 '''
     Instantiate templates
 '''
 hwpe_wrapper = HwpeWrapper()
+hwpe_standalone_test = HwpeStandaloneTest()
 
 '''
     Instantiate generator
 '''
 generator = Generator()
 
-if accelerator_design_knobs.is_third_party is False:
+'''
+    =====================================================================
+    Component:      Accelerator interface (HWPE-based)
 
-    '''
-        =====================================================================
-        Component:      Accelerator interface (HWPE-based)
+    Description:    Generation of the accelerator interface to integrate
+                    application-specific accelerators inside Richie.
+    ===================================================================== */
+'''
 
-        Description:    Generation of components concerning the accelerator
-                        interface. and integrate application-specific accelerators
-                        inside the Richie Cluster. The interface is meant to
-                        enable the accelerator communication within Richie.
-        ===================================================================== */
-    '''
+'''
+    Print generation log
+'''
+logger.hwpe_accelerator_interface()
 
-    '''
-        Generate design components ~ Cluster interface
-    '''
-    generator.render(
-        hwpe_wrapper.HwpeClusterIntf(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['hwpe', 'cluster_intf', ['hw', 'sv']],
-        emitter.out_accelerator_wrapper
-    )
+'''
+    Generate design components ~ Cluster interface
+'''
+generator.render(
+    hwpe_wrapper.HwpeClusterIntf(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['hwpe', 'cluster_intf', ['hw', 'sv']],
+    emitter.out_accelerator_wrapper
+)
 
-    '''
-        Generate design components ~ Top wrapper
-    '''
-    generator.render(
-        hwpe_wrapper.HwpeTopWrapper(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['hwpe', 'top_wrapper', ['hw', 'sv']],
-        emitter.out_accelerator_wrapper
-    )
+'''
+    Generate design components ~ Top wrapper
+'''
+generator.render(
+    hwpe_wrapper.HwpeTopWrapper(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['hwpe', 'top_wrapper', ['hw', 'sv']],
+    emitter.out_accelerator_wrapper
+)
 
-    '''
-        Generate design components ~ Top
-    '''
-    generator.render(
-        hwpe_wrapper.HwpeTop(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['hwpe', 'top', ['hw', 'sv']],
-        emitter.out_accelerator_rtl
-    )
+'''
+    Generate design components ~ Top
+'''
+generator.render(
+    hwpe_wrapper.HwpeTop(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['hwpe', 'top', ['hw', 'sv']],
+    emitter.out_accelerator_rtl
+)
 
-    '''
-        Generate design components ~ Engine
-    '''
-    generator.render(
-        hwpe_wrapper.HwpeEngine(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['hwpe', 'engine', ['hw', 'sv']],
-        emitter.out_accelerator_rtl
-    )
+'''
+    Generate design components ~ Engine
+'''
+generator.render(
+    hwpe_wrapper.HwpeEngine(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['hwpe', 'engine', ['hw', 'sv']],
+    emitter.out_accelerator_rtl
+)
 
-    '''
-        Generate design components ~ Kernel adapter
-    '''
-    generator.render(
-        hwpe_wrapper.HwpeKernelAdapter(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['hwpe', 'kernel_adapter', ['hw', 'sv']],
-        emitter.out_accelerator_rtl
-    )
+'''
+    Generate design components ~ Kernel adapter
+'''
+generator.render(
+    hwpe_wrapper.HwpeKernelAdapter(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['hwpe', 'kernel_adapter', ['hw', 'sv']],
+    emitter.out_accelerator_rtl
+)
 
-    '''
-        Generate design components ~ Streamer
-    '''
-    generator.render(
-        hwpe_wrapper.HwpeStreamer(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['hwpe', 'streamer', ['hw', 'sv']],
-        emitter.out_accelerator_rtl
-    )
+'''
+    Generate design components ~ Streamer
+'''
+generator.render(
+    hwpe_wrapper.HwpeStreamer(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['hwpe', 'streamer', ['hw', 'sv']],
+    emitter.out_accelerator_rtl
+)
 
-    '''
-        Generate design components ~ Controller
-    '''
-    generator.render(
-        hwpe_wrapper.HwpeCtrl(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['hwpe', 'ctrl', ['hw', 'sv']],
-        emitter.out_accelerator_rtl
-    )
+'''
+    Generate design components ~ Controller
+'''
+generator.render(
+    hwpe_wrapper.HwpeCtrl(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['hwpe', 'ctrl', ['hw', 'sv']],
+    emitter.out_accelerator_rtl
+)
 
-    '''
-        Generate design components ~ FSM
-    '''
-    generator.render(
-        hwpe_wrapper.HwpeFsm(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['hwpe', 'fsm', ['hw', 'sv']],
-        emitter.out_accelerator_rtl
-    )
+'''
+    Generate design components ~ FSM
+'''
+generator.render(
+    hwpe_wrapper.HwpeFsm(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['hwpe', 'fsm', ['hw', 'sv']],
+    emitter.out_accelerator_rtl
+)
 
-    '''
-        Generate design components ~ Package
-    '''
-    generator.render(
-        hwpe_wrapper.HwpePackage(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['hwpe', 'package', ['hw', 'sv']],
-        emitter.out_accelerator_rtl
-    )
+'''
+    Generate design components ~ Package
+'''
+generator.render(
+    hwpe_wrapper.HwpePackage(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['hwpe', 'package', ['hw', 'sv']],
+    emitter.out_accelerator_rtl
+)
 
-    '''
-        =====================================================================
-        Component:      Accelerator interface (Dependency management)
+'''
+    =====================================================================
+    Component:      Accelerator interface (Dependency management)
 
-        Description:    Generation of integration support components, such as
-                        scripts for source management tools, simulations, etc.
-        ===================================================================== */
-    '''
+    Description:    Generation of integration support components, such as
+                    scripts for source management tools, simulations, etc.
+    ===================================================================== */
+'''
 
-    '''
-        Generate design components ~ Bender
-    '''
-    generator.render(
-        hwpe_wrapper.Bender(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['integr_support', 'Bender', ['integr_support', 'yml']],
-        emitter.out_accelerator
-    )
+'''
+    Generate design components ~ Bender
+'''
+generator.render(
+    hwpe_wrapper.Bender(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['integr_support', 'Bender', ['integr_support', 'yml']],
+    emitter.out_accelerator
+)
 
-    '''
-        Generate design components ~ List of IP modules
-    '''
-    generator.render(
-        hwpe_wrapper.SrcFiles(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['tb', 'src_files', ['integr_support', 'yml']],
-        emitter.out_accelerator
-    )
+'''
+    Generate design components ~ List of IP modules
+'''
+generator.render(
+    hwpe_wrapper.SrcFiles(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['tb', 'src_files', ['integr_support', 'yml']],
+    emitter.out_accelerator
+)
 
-    '''
-        Generate design components ~ List of IP dependencies
-    '''
-    generator.render(
-        hwpe_wrapper.IpsList(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['tb', 'ips_list', ['integr_support', 'yml']],
-        emitter.out_accelerator
-    )
+'''
+    Generate design components ~ List of IP dependencies
+'''
+generator.render(
+    hwpe_wrapper.IpsList(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['tb', 'ips_list', ['integr_support', 'yml']],
+    emitter.out_accelerator
+)
 
-else:
+'''
+    =========================================================================
+    Component:      Standalone Test for the Accelerator interface (HWPE-based)
 
-    '''
-        In this case, only generate the interface to the Richie Cluster.
-    '''
+    Description:    Generation of hardware test components.
+    ========================================================================= */
+'''
 
-    '''
-        Generate design components ~ Cluster interface
-    '''
-    generator.render(
-        hwpe_wrapper.HwpeClusterIntf(),
-        None,
-        accelerator_design_knobs,
-        emitter,
-        ['hwpe', 'cluster_intf', ['hw', 'sv']],
-        emitter.out_accelerator_wrapper
-    )
+'''
+    Print generation log
+'''
+logger.hwpe_accelerator_interface_test()
+
+'''
+    Generate design components ~ Hardware test
+    Basic standalone testbench that instantiates the DUT
+    (generated accelerator), a RISC-V processor and some
+    dummy memories to implement instruction, stack and data
+    memories.
+'''
+generator.render(
+    hwpe_standalone_test.HwpeTbHw(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['tb', 'tb_hwpe', ['hw', 'sv']],
+    emitter.out_accelerator_standalone_test_hw
+)
+
+'''
+    =====================================================================
+    Component:      Standalone Test for the Accelerator interface (HWPE-based)
+
+    Description:    Generation of software test components (Hardware
+                    Abstraction Layer, HAL).
+    ===================================================================== */
+'''
+
+'''
+    Instantiate SW testbench item
+'''
+hwpe_standalone_hal = HwpeStandaloneHal()
+
+'''
+    Generate design components ~ Archi
+    Description of the memory mapping.
+'''
+generator.render(
+    hwpe_standalone_hal.ArchiHwpe(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['sw', 'archi_hwpe', ['sw', 'archi']],
+    emitter.out_accelerator_standalone_test_hwpe_lib
+)
+
+'''
+    Generate design components ~ Hardware Abstraction Layer (HAL)
+    Hardware Abstraction Layer with accelerator SW primitives.
+'''
+generator.render(
+    hwpe_standalone_hal.HalHwpe(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['sw', 'hal_hwpe', ['sw', 'hal']],
+    emitter.out_accelerator_standalone_test_hwpe_lib
+)
+
+'''
+    Generate design components ~ Software test
+    SW test to assess HWPE functionality consisting of a baremetal
+    test running in the standalone test.
+'''
+generator.render(
+    hwpe_standalone_hal.HwpeTbSw(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['sw', 'tb_hwpe', ['sw', 'tb']],
+    emitter.out_accelerator_standalone_test_sw
+)
+
+'''
+    =====================================================================
+    Component:      Standalone Test for the Accelerator interface (HWPE-based)
+
+    Description:    Generation of simulation test components (QuestaSim waves).
+    ===================================================================== */
+'''
+
+'''
+    Generate design components ~ QuestaSim waves
+'''
+generator.render(
+    hwpe_standalone_test.VsimWave(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['integr_support', 'vsim_wave', ['integr_support', 'vsim_wave']],
+    emitter.out_accelerator
+)
+
+'''
+    =====================================================================
+    Component:      System-Level Test for the Accelerator interface (HWPE-based)
+
+    Description:    The system-level test consists of the integration of the
+                    accelerator in the Richie-based Accelerator-Rich HeSoC
+                    and subsequent run of the test application on the Richie
+                    Cluster.
+
+                    Generation of software test components (Hardware
+                    Abstraction Layer, HAL).
+    ===================================================================== */
+'''
+
+'''
+    Instantiate SW testbench item
+'''
+hwpe_system_hal = HwpeSystemHal()
+
+'''
+    Generate design components ~ Archi
+    Description of the memory mapping.
+'''
+generator.render(
+    hwpe_system_hal.ArchiHwpe(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['sw', 'archi_hwpe', ['sw', 'archi']],
+    emitter.out_accelerator_system_test_hwpe_lib
+)
+
+'''
+    Generate design components ~ Hardware Abstraction Layer (HAL)
+    Hardware Abstraction Layer with accelerator SW primitives.
+'''
+generator.render(
+    hwpe_system_hal.HalHwpe(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['sw', 'hal_hwpe', ['sw', 'hal']],
+    emitter.out_accelerator_system_test_hwpe_lib
+)
+
+'''
+    Generate design components ~ Software test
+    SW test to assess HWPE functionality consisting of a baremetal
+    test running inside the Richie-based Accelerator-Rich HeSoC.
+'''
+generator.render(
+    hwpe_system_hal.HwpeTbSw(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['sw', 'tb_hwpe', ['sw', 'tb']],
+    emitter.out_accelerator_system_test_hwpe_lib
+)

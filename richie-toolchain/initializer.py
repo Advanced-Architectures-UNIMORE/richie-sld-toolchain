@@ -42,7 +42,7 @@ from dev.platform_dev.specs.platform_specs import PlatformSpecs
 '''
     Import custom functions
 '''
-from python.richie.process_design_knobs import get_acc_info
+from python.formatter import get_acc_info
 
 '''
     Create accelerator configuration file. The latter is processed by shell script

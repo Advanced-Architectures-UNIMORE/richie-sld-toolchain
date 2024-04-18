@@ -19,7 +19,7 @@
 
     Project:        Richie Toolchain
 
-    Title:          Generation of the Platform Cluster
+    Title:          Generation of the Richie Cluster
 
     Description:    This script specializes and generates a subsystem of the
                     Accelerator-Rich HeSoC, given the platform and accelerator
@@ -38,13 +38,13 @@
                     phase by formatting values, and so on. This is accomplished by
                     the scripts under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/process_design_knobs.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/formatter.py'
 
                     - The rendering phase requires a generator which is invoked by the
                     current script via the 'gen_*_comps' function. The definition of
                     both the generator and function are found under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/generator.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/generator.py'
 
                     - After generation, the specialized components are assembled all
                     together into an output environment which resembles the top hierarchy
@@ -68,13 +68,6 @@
 import sys
 
 '''
-    Import custom functions
-'''
-from python.richie.process_design_knobs import PlatformDesignKnobsFormatted
-from python.cluster.process_design_knobs import print_generation_log
-from python.richie.process_design_knobs import get_acc_targets
-
-'''
     Import generator
 '''
 from python.generator import Generator
@@ -85,9 +78,19 @@ from python.generator import Generator
 from python.emitter import Emitter
 
 '''
+    Import logger
+'''
+from python.logger import Logger
+
+'''
     Import design knobs
 '''
 from dev.platform_dev.specs.platform_specs import PlatformSpecs
+
+'''
+    Import formatter
+'''
+from python.formatter import Formatter
 
 '''
     Import templates
@@ -105,9 +108,19 @@ dir_out_richie = sys.argv[1]
 platform_specs = PlatformSpecs
 
 '''
+    Instantiate formatter
+'''
+format = Formatter()
+
+'''
     Format platform specification
 '''
-platform_design_knobs = PlatformDesignKnobsFormatted(platform_specs)
+platform_design_knobs = format.platform(platform_specs)
+
+'''
+    Instantiate logger
+'''
+logger = Logger(platform_design_knobs, None)
 
 '''
     Instantiate emitter
@@ -133,7 +146,7 @@ for cl_offset in range(platform_design_knobs.n_clusters):
     '''
         Print generation log
     '''
-    print_generation_log(platform_design_knobs, cl_offset)
+    logger.cluster(cl_offset)
 
     '''
         =====================================================================
@@ -224,6 +237,6 @@ generator.render(
     ['integr_support', 'Bender', ['integr_support', 'yml']],
     emitter.out_platform_cl,
     0,
-    [get_acc_targets(platform_design_knobs), None, None]
+    [format.get_acc_targets(platform_design_knobs), None, None]
 )
 

@@ -26,30 +26,28 @@
 
                     Templates are divided in three categories:
 
-                        - Top ~ A top template is the main target of the rendering
-                        phase. It is the entry point where the rendering for a particular
-                        rendering target begins. It is comparable to an entry point in a
-                        typical programming language (e.g. a 'main' function). A top
-                        template may comprise parametrized components and template APIs
-                        to recall template modules (or template blocks using the Mako syntax).
-                        Furthermore, the Mako runtime environment is exploitable to ease
+                        - Top ~ A top template is the entry point of the rendering operation,
+                        which comprise parametrized components and template APIs to recall
+                        template modules (or template blocks, using the Mako syntax).
+                        Rhe Mako runtime environment is heavily leveraged to facilitate
                         the instantiation of different template components and modules
                         within the top template itself. The Python interpreter can thus
                         be invoked within the body of the template to define parameters,
                         use conditional statements and for loops. A top template comes with
-                        a python support file that permits to collect all the template
-                        components needed during the rendering phase.
+                        a Python support file (same of the top template) that permits to
+                        collect all the template components needed during the rendering phase.
 
-                        - Modules ~ A module is a template block that can be instantiated by
-                        a top template. This solution permits to simplify the construction of
-                        highly modular templates having lot of alternative implementation
-                        solutions that can be re-targeted exploting conditional assignements
-                        guided by input user needs and re-calling template modules through
-                        template APIs. It is worth to know that input user parameters have
-                        not to be specified as input API arguments since these are globally
-                        applied to the components, as well as recall other modules. The latter
-                        can happen both at the same hierarchy level, or at lower thus possibly
-                        making it a top template for other template modules.
+                        - Modules ~ A module is a template block and its content can be
+                        recalled in a top template. Modularity allows for an easier combination
+                        of template components. These can be recalled via template APIs and
+                        re-targeted exploting conditional assignements. Further, input design
+                        knobs are leveraged at generation-time to retrieve the proper template
+                        modules to attain a certain functionality. It is worth to know that
+                        design knobs have not to be specified as input API arguments since
+                        these are globally applied to the components, as well as recall other
+                        modules. The latter can happen both at the same hierarchy level,
+                        or at lower thus possibly making it a top template for other template
+                        modules.
 
                         - Common ~ Common template components shared by all templates on the
                         basis of their nature (HW, SW).
@@ -78,7 +76,7 @@
 
 # Packages
 from os import listdir
-from os.path import isfile, join
+from os.path import isfile, join, basename, abspath
 
 '''
     Collector class
@@ -150,7 +148,7 @@ class Collector:
     def get_template(self):
         s = ''
         for paths in self.get_path_all():
-            # print('Retrieving template at path: ', paths)
+            print('Rendering template "%s" (path: %s)' % (basename(paths), abspath(paths)))
             with open(paths, 'r') as f:
                 s += f.read()
                 f.close()

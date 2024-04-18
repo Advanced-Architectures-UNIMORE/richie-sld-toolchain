@@ -46,11 +46,6 @@ from distutils.dir_util import copy_tree
 import os
 
 '''
-    Import custom functions
-'''
-from python.accelerator.process_design_knobs import AcceleratorDesignKnobsFormatted
-
-'''
     =============
     Emitter class
     =============
@@ -287,10 +282,9 @@ class Emitter:
         return file_name
 
     '''
-    Retrieve file extension.
+    Create dictionary with the output file extensions.
     '''
     def get_dict_file_ext(self):
-        # dictionary for file extensions
         dict_file_ext = {
             'hw'                : { "sv": ".sv", "v": ".v" } ,
             'integr_support'    : { "yml": ".yml", "lock": ".lock", "vsim_wave": ".tcl", "mk": "" } ,

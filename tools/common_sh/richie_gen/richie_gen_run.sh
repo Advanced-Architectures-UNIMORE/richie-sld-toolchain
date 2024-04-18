@@ -39,10 +39,9 @@ source $dir_py_venv/bin/activate
 # Launch python generators
 cd richie-toolchain
 python generate_richie.py $dir_out_richie
-python generate_richie_libs.py $dir_out_richie
-python generate_richie_test.py $dir_out_richie
 python generate_hesoc.py $dir_out_richie
 python generate_cluster.py $dir_out_richie
+python generate_richie_libs.py $dir_out_richie
 
 # Deactivate environment
 deactivate
