@@ -73,8 +73,7 @@
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     % for j in range(n_acc_cl):
@@ -119,8 +118,7 @@ static inline void richie_init(RICHIE_DEVICE_PTR richie, const int cluster_id, c
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -157,8 +155,7 @@ static inline int richie_activate(RICHIE_DEVICE_PTR richie, const int cluster_id
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -194,8 +191,7 @@ static inline void richie_program(RICHIE_DEVICE_PTR richie, const int cluster_id
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -230,8 +226,7 @@ static inline void richie_update_buffer_addr(RICHIE_DEVICE_PTR richie, const int
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -266,8 +261,7 @@ static inline void richie_compute(RICHIE_DEVICE_PTR richie, const int cluster_id
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -310,8 +304,7 @@ static inline void richie_wait_eu(RICHIE_DEVICE_PTR richie, const int cluster_id
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -346,8 +339,7 @@ static inline void richie_wait_polling(RICHIE_DEVICE_PTR richie, const int clust
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -384,8 +376,7 @@ static inline int richie_is_finished(RICHIE_DEVICE_PTR richie, const int cluster
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -421,8 +412,7 @@ static inline void richie_free(RICHIE_DEVICE_PTR richie, const int cluster_id, c
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){

@@ -20,7 +20,7 @@
 
     Project:        Richie Toolchain
 
-    Title:          Host API
+    Title:          Device API
 
     Description:    This class collects the templates which comply with
                     a subsystem of the Accelerator-Rich HeSoC.
@@ -48,7 +48,7 @@
 %>
 
 <%
-  # Wrapper dependencies
+  # Accelerator interface dependencies
   accelerator_id = extra_param_0
 %>
 

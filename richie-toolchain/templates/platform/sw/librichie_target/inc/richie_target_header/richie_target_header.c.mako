@@ -48,7 +48,7 @@
 %>
 
 <%
-  # Wrapper dependencies
+  # Accelerator interface dependencies
   accelerator_id = extra_param_0
 %>
 
@@ -161,8 +161,7 @@ struct richie_struct {
 
         cluster_id = i
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 

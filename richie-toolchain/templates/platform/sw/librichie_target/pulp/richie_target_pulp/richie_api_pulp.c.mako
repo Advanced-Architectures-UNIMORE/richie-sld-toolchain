@@ -36,7 +36,7 @@
                     accomplishes the rendering phase. Generators are
                     defined under:
 
-                        ==> 'richie-toolchain/richie-toolchain/python/generator.py'
+                        ==> 'richie-toolchain/richie-toolchain/python/<component-libraries>/generator.py'
 
     Date:           15.7.2022
 
@@ -74,8 +74,7 @@
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     % for j in range(n_acc_cl):
@@ -103,8 +102,7 @@ void richie_init(RICHIE_DEVICE_PTR richie, const int cluster_id, const int accel
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -141,8 +139,7 @@ int richie_activate(RICHIE_DEVICE_PTR richie, const int cluster_id, const int ac
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -178,8 +175,7 @@ void richie_program(RICHIE_DEVICE_PTR richie, const int cluster_id, const int ac
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -214,8 +210,7 @@ void richie_update_buffer_addr(RICHIE_DEVICE_PTR richie, const int cluster_id, c
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -250,8 +245,7 @@ void richie_compute(RICHIE_DEVICE_PTR richie, const int cluster_id, const int ac
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -286,8 +280,7 @@ void richie_wait_eu(RICHIE_DEVICE_PTR richie, const int cluster_id, const int ac
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -322,8 +315,7 @@ void richie_wait_polling(RICHIE_DEVICE_PTR richie, const int cluster_id, const i
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -360,8 +352,7 @@ int richie_is_finished(RICHIE_DEVICE_PTR richie, const int cluster_id, const int
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
@@ -397,8 +388,7 @@ void richie_free(RICHIE_DEVICE_PTR richie, const int cluster_id, const int accel
         cl_lic_acc_names = list_cl_lic[i][1]
         cl_hci_acc_names = list_cl_hci[i][1]
 
-        # Count number of wrappers
-
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names) + len(cl_hci_acc_names)
     %>
     if(cluster_id == ${cluster_id}){
