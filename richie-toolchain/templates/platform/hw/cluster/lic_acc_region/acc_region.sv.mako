@@ -45,8 +45,7 @@
 <%def name="def_ip_acc_region()">\
 
   <%
-    # Count number of wrappers
-
+    # Count number of accelerator interfaces
     n_acc_cl = len(cl_lic_acc_names)
   %>
 
@@ -56,7 +55,7 @@
     parameter NB_CORES = 2,
     parameter ID_WIDTH = 8,
 
-    // HWPE wrappers
+    // HWPE-based accelerator interfaces
     parameter NB_HWPE = 0,
     parameter NB_HWPE_LIC_PORTS_TOTAL = 0,
     % for acc_offset in range(n_acc_cl):
@@ -65,7 +64,7 @@
       % endif
     % endfor
 
-    // Other params
+    // Other parameters
     parameter N_DMA = 4,
     parameter N_EXT = 4,
     parameter N_MEM = 16,

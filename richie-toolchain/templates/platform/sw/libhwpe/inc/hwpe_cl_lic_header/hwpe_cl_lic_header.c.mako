@@ -48,7 +48,7 @@
 %>
 
 <%
-  # Wrapper dependencies
+  # Accelerator interface dependencies
   accelerator_id = extra_param_0
 %>
 

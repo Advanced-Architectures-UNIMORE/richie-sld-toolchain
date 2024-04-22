@@ -78,14 +78,15 @@ get_platform_design_knobs()
 }
 
 # =====================================================================
-# Title:        gen_acc_wrappers
+# Title:        gen_acc_interfaces
 # Description:  This shell function invokes the 'acc_gen.mk' recipes to
-#               generate accelerator wrappers compliant with the platform
-#               infrastructure. Besides, the procedure derives the design
-#               knobs to specialize the platform components.
+#               generate HW/SW accelerator interfaces compliant with the
+#               Richie platform. Besides, the procedure derives the necessary
+#               accelerator design knobs to drive the specialization of
+#               the platform components.
 # =====================================================================
 
-gen_acc_wrappers()
+gen_acc_interfaces()
 {
     # Cleaning generated platform
     cd $dir_root
@@ -150,8 +151,8 @@ init_generation
 # Retrieve platform specifications
 get_platform_design_knobs
 
-# Generate accelerator wrappers
-gen_acc_wrappers
+# Generate HW/SW accelerator interfaces
+gen_acc_interfaces
 
 # Generate Accelerator-Rich HeSoC
 gen_richie

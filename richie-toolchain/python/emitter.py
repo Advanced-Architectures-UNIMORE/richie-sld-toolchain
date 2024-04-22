@@ -71,7 +71,7 @@ class Emitter:
             Output environment ~ Generated platform
             =======================================
 
-            This set of parameters describe the output environment
+            This set of emitter parameters describe the output environment
             where the generated platform components are inserted. The
             parameters should match to the hierarchy of directories
             defined in the tool script "out_gen_out_env.sh".
@@ -116,8 +116,8 @@ class Emitter:
             Output environment ~ Generated accelerator
             ==========================================
 
-            This set of parameters describe the output environment
-            where the generated accelerator wrapper is inserted. The
+            This set of emitter parameters describe the output environment
+            where the generated accelerator interface is inserted. The
             parameters should match to the hierarchy of directories
             defined in the tool script "acc_gen_out_env.sh".
         '''
@@ -127,9 +127,8 @@ class Emitter:
             self.out_accelerator                            = os.path.join(dir_out_accelerator, accelerator_design_knobs.target)
 
             # Hardware
-            self.out_accelerator_wrapper                    = self.out_accelerator + '/wrap'
             self.out_accelerator_rtl                        = self.out_accelerator + '/rtl'
-            self.out_accelerator_acc_kernel                 = self.out_accelerator + '/rtl/acc_kernel'
+            self.out_accelerator_acc_datapath               = self.out_accelerator + '/rtl/datapath'
 
             # Test
             self.out_accelerator_test                       = self.out_accelerator + '/test'
@@ -142,7 +141,7 @@ class Emitter:
             self.out_accelerator_standalone_test_hwpe_lib   = self.out_accelerator_test + '/sw/inc/hwpe_lib'
 
             # System test - Software
-            self.out_accelerator_system_test_hwpe_lib       = self.out_accelerator + '/../../test/sw/inc/wrappers/' + accelerator_design_knobs.target + '/hwpe_lib'
+            self.out_accelerator_system_test_hwpe_lib       = self.out_accelerator + '/../../test/sw/inc/accelerators/' + accelerator_design_knobs.target + '/hwpe_lib'
 
     """
     The 'out_gen' method is in charge of physically setting up the output

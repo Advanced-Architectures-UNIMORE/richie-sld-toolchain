@@ -30,11 +30,11 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
-  # Wrapper dependencies 
+  # Accelerator interface dependencies
   list_acc_types = extra_param_0
   list_acc_integrated = extra_param_1
 %>
@@ -126,15 +126,15 @@ struct hwpe_dma_struct {
 };
 
 struct hwpe_addr_gen_struct {
-    unsigned port_offset; 
-    unsigned trans_size; 
-    unsigned line_stride; 
-    unsigned line_length; 
-    unsigned feat_stride; 
-    unsigned feat_length; 
-    unsigned feat_roll; 
-    unsigned loop_outer; 
-    unsigned realign_type; 
+    unsigned port_offset;
+    unsigned trans_size;
+    unsigned line_stride;
+    unsigned line_length;
+    unsigned feat_stride;
+    unsigned feat_length;
+    unsigned feat_roll;
+    unsigned loop_outer;
+    unsigned realign_type;
     unsigned step;
 };
 

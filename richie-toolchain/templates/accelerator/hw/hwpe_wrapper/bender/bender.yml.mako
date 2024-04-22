@@ -85,7 +85,7 @@ workspace:
 
 sources:
   % for i in range (acc_wr_num_kernel_modules):
-  - rtl/acc_kernel/${acc_wr_kernel_modules[i]}
+  - rtl/datapath/${acc_wr_kernel_modules[i]}
   % endfor
   - rtl/${acc_wr_target}_package.sv
   - rtl/${acc_wr_target}_fsm.sv
@@ -94,5 +94,5 @@ sources:
   - rtl/${acc_wr_target}_kernel_adapter.sv
   - rtl/${acc_wr_target}_engine.sv
   - rtl/${acc_wr_target}_top.sv
-  - wrap/${acc_wr_target}_top_wrapper.sv
-  - wrap/${acc_wr_target}_cluster_intf.sv
+  - rtl/${acc_wr_target}_top_wrapper.sv
+  - rtl/${acc_wr_target}_cluster_intf.sv

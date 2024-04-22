@@ -355,7 +355,8 @@ for cl_offset in range(platform_design_knobs.n_clusters):
     =====================================================================
     Component:      Software libraries - HWPE structs
 
-    Description:    Generation of C structures for HWPE wrappers.
+    Description:    Generation of C structures for HWPE-based accelerator
+                    interfaces.
     ===================================================================== */
 '''
 

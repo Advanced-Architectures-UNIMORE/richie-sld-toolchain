@@ -148,7 +148,7 @@ class Collector:
     def get_template(self):
         s = ''
         for paths in self.get_path_all():
-            print('Rendering template "%s" (path: %s)' % (basename(paths), abspath(paths)))
+            # print('Rendering template "%s" (path: %s)' % (basename(paths), abspath(paths)))
             with open(paths, 'r') as f:
                 s += f.read()
                 f.close()

@@ -89,6 +89,6 @@ if [ ! -d "$dir_out_richie" ]; then
     # Software runtime
     mkdir -p $dir_out_richie/test/sw
     mkdir -p $dir_out_richie/test/sw/inc
-    mkdir -p $dir_out_richie/test/sw/inc/wrappers
+    mkdir -p $dir_out_richie/test/sw/inc/accelerators
 
 fi

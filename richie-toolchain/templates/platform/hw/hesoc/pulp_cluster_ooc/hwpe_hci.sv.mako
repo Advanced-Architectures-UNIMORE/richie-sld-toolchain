@@ -22,7 +22,7 @@
 
     Title:          Template
 
-    Description:    Wrapper of the PULP cluster for OOC synthesis.
+    Description:    PULP cluster wrapper for FPGA OOC synthesis.
 
     Date:           13.1.2022
 
@@ -30,15 +30,15 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
 # =====================================================================
 # Title:        inst_param_hwpe_hci_region
 # Type:         Template API
-# Description:  Instantiation of parameters for HWPE-based accelerator 
-#               wrappers.
+# Description:  Instantiation of parameters for HWPE-based accelerator
+#               interfaces.
 # =====================================================================
 %>
 
@@ -51,8 +51,8 @@
 # =====================================================================
 # Title:        inst_param_hwpe_hci_interface
 # Type:         Template API
-# Description:  Instantiation of parameters for the HCI interconnection of 
-#               HWPE-based accelerator wrappers.
+# Description:  Instantiation of parameters for the HCI interconnection of
+#               HWPE-based accelerator interfaces.
 # =====================================================================
 %>
 

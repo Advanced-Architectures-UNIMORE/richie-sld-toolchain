@@ -30,11 +30,11 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
-  # Wrapper dependencies 
+  # Accelerator interface dependencies
   accelerator_id = extra_param_0
 %>
 
@@ -91,7 +91,7 @@ struct ${cl_lic_acc_names[accelerator_id]}_custom_regs_struct {
 % if acc_wr_custom_reg_num>0:
     % for i in range (acc_wr_custom_reg_num):
     unsigned ${acc_wr_custom_reg_name[i]};
-    % endfor 
+    % endfor
 % endif
 };
 
@@ -114,7 +114,7 @@ struct ${cl_lic_acc_names[accelerator_id]}_wrapper_struct {
 
     ${cl_lic_acc_names[accelerator_id]}_ctrl_struct           ctrl;
 
-    Program_${cl_lic_acc_names[accelerator_id].title()} init; 
+    Program_${cl_lic_acc_names[accelerator_id].title()} init;
     Program_${cl_lic_acc_names[accelerator_id].title()} program;
     Program_${cl_lic_acc_names[accelerator_id].title()} update_buffer_addr;
     Command_${cl_lic_acc_names[accelerator_id].title()} compute;

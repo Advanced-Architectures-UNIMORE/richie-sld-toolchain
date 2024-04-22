@@ -45,14 +45,16 @@ from dev.platform_dev.specs.platform_specs import PlatformSpecs
 from python.formatter import get_acc_info
 
 '''
-    Create accelerator configuration file. The latter is processed by shell script
-    "richie-toolchain/tools/common_sh/acc_gen/acc_gen_config.sh" to guide the generation of
-    hardware wrappers for target acceleration kernels.
+    Create accelerator configuration file, which guides the generation of
+    HW/SW accelerator interfaces on top of the provided accelerator design
+    knobs. The former file is processed by the shell script:
+
+        "richie-toolchain/tools/common_sh/acc_gen/acc_gen_config.sh"
 '''
 
 acc_cfg_file = "dev/platform_dev/acc_config.cfg"
 
-print("[py] >> Creating accelerator configuration file to guide accelerator wrapper generation")
+print("[py] >> Creating accelerator configuration file to guide the generation of HW/SW accelerator interfaces")
 print("\n\t- Location ->", acc_cfg_file, "\n")
 
 # Retrieve platform specification

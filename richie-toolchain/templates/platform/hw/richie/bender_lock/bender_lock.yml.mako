@@ -39,10 +39,10 @@
 %>
 
 <%
-  # Wrapper dependencies
+  # Accelerator interface dependencies
   wrapper_deps = extra_param_0
 
-  # Count number of wrappers
+  # Count number of accelerator interfaces
   n_wrapper_deps = len(wrapper_deps)
 %>
 
@@ -283,7 +283,7 @@ packages:
 
   ${wrapper_deps[i]}:
     source:
-      Path: "./src/${hesoc_name}/wrappers/${wrapper_deps[i]}"
+      Path: "./src/${hesoc_name}/accelerators/${wrapper_deps[i]}"
     dependencies:
       - hwpe-stream
       - hwpe-ctrl

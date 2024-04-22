@@ -46,8 +46,7 @@
 <%def name="insert_ip_hwpe_intf()">\
 
   <%
-    # Count number of wrappers
-
+    # Count number of accelerator interfaces
     n_acc_cl = len(cl_lic_acc_names)
   %>
 
@@ -127,7 +126,7 @@ endmodule
   % for i in range(acc_offset+1):
 
     <%
-      # Only HWPE-based wrappers are currently supported
+      # Only HWPE-based accelerator interfaces are currently supported
     %>
 
     % if cl_lic_acc_protocols[i] == "hwpe":

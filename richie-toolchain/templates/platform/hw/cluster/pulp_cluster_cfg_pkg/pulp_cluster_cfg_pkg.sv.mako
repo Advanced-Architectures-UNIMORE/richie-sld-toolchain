@@ -30,7 +30,7 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 /* =====================================================================
@@ -70,14 +70,14 @@ package automatic pulp_cluster_${cl_id}_cfg_pkg;
     localparam int unsigned CORE_NAME = "${cl_core_name.upper()}";
     // Notes:
     // - instead of using the core name, information has to be propagated in the RTL as a numeric value (core type = 0, 1, etc.)
-    
-    localparam int unsigned N_CORES = ${cl_n_cores}; 
+
+    localparam int unsigned N_CORES = ${cl_n_cores};
     // Notes:
     // - must be a power of 2 and <= 8
     // - all clusters have same number of cores
 
     <%
-        # Definition of parameters for HWPE-based accelerator wrappers
+        # Definition of parameters for HWPE-based accelerator interfaces
     %>
 
     // -- HWPE wrapper - LIC interconnect
@@ -93,11 +93,11 @@ package automatic pulp_cluster_${cl_id}_cfg_pkg;
     %>
 
     // -- DMA
-    localparam int unsigned N_DMAS = ${n_dma}; // Default: 4 
+    localparam int unsigned N_DMAS = ${n_dma}; // Default: 4
                                             // Larger values seem to break the cluster
-    localparam int unsigned DMA_FIFO_DEPTH_REQ = ${cl_dma_max_n_reqs}; 
+    localparam int unsigned DMA_FIFO_DEPTH_REQ = ${cl_dma_max_n_reqs};
                                             // Maximum number of requests the DMA can handle in flight
-    localparam int unsigned DMA_MAX_N_TXNS = ${cl_dma_max_n_txns}; // Default: N_CORES 
+    localparam int unsigned DMA_MAX_N_TXNS = ${cl_dma_max_n_txns}; // Default: N_CORES
                                             // Maximum number of transactions the DMA can have in flight
     localparam int unsigned DMA_STREAMS = ${cl_dma_n_dma_streams}; // Default: 1
     localparam int unsigned DMA_MAX_BURST_SIZE = ${cl_dma_max_burst_size}; // Default: 2048 [B], must be a power of 2
@@ -119,7 +119,7 @@ package automatic pulp_cluster_${cl_id}_cfg_pkg;
     <%
         # Definition of parameters for cluster peripheral interconnect
 
-        # Count number of wrappers
+        # Count number of accelerator interfaces
         n_acc_cl = len(cl_lic_acc_names)
     %>
 
@@ -127,7 +127,7 @@ package automatic pulp_cluster_${cl_id}_cfg_pkg;
     localparam int unsigned N_SPERIPHS_HWPE = N_HWPE_LIC + N_HWPE_HCI;
     localparam int unsigned N_SPERIPHS      = N_SPERIPHS_HWPE + 8;
 
-% for i in range(n_acc_cl): 
+% for i in range(n_acc_cl):
 <%
     # Define accelerator offset
     acc_offset = i

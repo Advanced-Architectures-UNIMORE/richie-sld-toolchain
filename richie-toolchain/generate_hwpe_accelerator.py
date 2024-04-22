@@ -162,7 +162,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['hwpe', 'cluster_intf', ['hw', 'sv']],
-    emitter.out_accelerator_wrapper
+    emitter.out_accelerator_rtl
 )
 
 '''
@@ -174,7 +174,7 @@ generator.render(
     accelerator_design_knobs,
     emitter,
     ['hwpe', 'top_wrapper', ['hw', 'sv']],
-    emitter.out_accelerator_wrapper
+    emitter.out_accelerator_rtl
 )
 
 '''

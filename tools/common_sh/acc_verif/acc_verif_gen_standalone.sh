@@ -18,13 +18,13 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Generate accelerator test
+# Name: 		    Generate accelerator test
 #
 # Description:  Generate standalone verification environment.
 #
 # Date:        	23.11.2021
 #
-# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 		  Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
@@ -33,11 +33,11 @@
 readonly dir_out=$1
 readonly dir_verif=$2
 
-# Get source components (see Makefile recipe deps)
-echo -e "[sh] >> Retrieving generated TB components to validate accelerator wrapper"
+# Get source components
+echo -e "[sh] >> Retrieving test components to validate the target accelerator with the generated HW/SW interface"
 
-# update hw tb
+# update hardware test components
 cp -rf $dir_out/hw/hwpe_standalone_tb/tb_hwpe.sv $dir_verif/hw/rtl/
 
-# update sw tb
+# update software test components
 cp -rf $dir_out/sw/hwpe_standalone_tb/* $dir_verif/sw/

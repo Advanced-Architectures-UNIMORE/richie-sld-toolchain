@@ -74,10 +74,10 @@
 # =====================================================================
 
 <%
-  # Wrapper dependencies
+  # Accelerator interface dependencies
   wrapper_deps = extra_param_0
 
-  # Count number of wrappers
+  # Count number of accelerator interfaces
   n_wrapper_deps = len(wrapper_deps)
 %>
 
@@ -87,7 +87,7 @@ package:
 
 dependencies:
 % for i in range(n_wrapper_deps):
-  ${wrapper_deps[i]}: { path: "./src/${hesoc_name}/wrappers/${wrapper_deps[i]}" }
+  ${wrapper_deps[i]}: { path: "./src/${hesoc_name}/accelerators/${wrapper_deps[i]}" }
 % endfor
 
 export_include_dirs:

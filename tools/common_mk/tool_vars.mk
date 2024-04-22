@@ -52,7 +52,7 @@ PY_VENV_DIR							:= ${RICHIE_TOOLCHAIN_ROOT}/${PY_VENV}
 
 OUT_DIR 								:= ${RICHIE_TOOLCHAIN_ROOT}/output
 OUT_RICHIE_GEN					:= ${OUT_DIR}/${TARGET_PLATFORM}
-OUT_ACC_GEN							:= ${OUT_RICHIE_GEN}/wrappers
+OUT_ACC_GEN							:= ${OUT_RICHIE_GEN}/accelerators
 
 # Device (extracted from source)
 

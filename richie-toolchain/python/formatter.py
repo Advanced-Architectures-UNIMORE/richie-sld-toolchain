@@ -98,28 +98,28 @@ class Formatter:
         # cores
         self.list_cl_cores = []
         for cl_target in cl_list:
-            self.list_cl_cores.append(format_cl_core_params(cl_target().core))
+            self.list_cl_cores.append(format_cl_core_design_knobs(cl_target().core))
         # DMA
         self.list_cl_dma = []
         for cl_target in cl_list:
-            self.list_cl_dma.append(format_cl_dma_params(cl_target().dma))
+            self.list_cl_dma.append(format_cl_dma_design_knobs(cl_target().dma))
         # L1 data memory
         self.list_cl_l1 = []
         for cl_target in cl_list:
-            self.list_cl_l1.append(format_cl_l1_params(cl_target().l1))
+            self.list_cl_l1.append(format_cl_l1_design_knobs(cl_target().l1))
         # hardware accelerators
         self.list_cl_lic = []
         self.list_cl_hci = []
         for cl_target in cl_list:
-            self.list_cl_lic.append(self.format_cl_acc_params(cl_target().lic))
-            self.list_cl_hci.append(self.format_cl_acc_params(cl_target().hci))
+            self.list_cl_lic.append(self.format_cl_acc_design_knobs(cl_target().lic))
+            self.list_cl_hci.append(self.format_cl_acc_design_knobs(cl_target().hci))
 
     '''
         Methods to format accelerator design knobs.
     '''
 
-    def format_accelerator_wrapper(self, wrapper_specs_raw):
-        self.is_third_party                     = wrapper_specs_raw().is_third_party
+    def format_accelerator_wrapper(self, accelerator_specs_raw):
+        self.is_third_party                     = accelerator_specs_raw().is_third_party
         return self
 
     def format_accelerator_author(self, author_specs_raw):
@@ -168,12 +168,9 @@ class Formatter:
         =====================================================================
         Title:          get_acc_targets
         Type:           Method
-        Description:    This method derives the distinct target applications
-                        that need an accelerator wrapper to be generated. Examples
-                        of such use can be found both in the generation of the
-                        accelerator interface between the wrapper and the support
-                        interconnection, as well as in that of the clsuter source
-                        management scripts (Bender).
+        Description:    This method derives the information concerning the
+                        accelerator datapaths for which an interface is to be
+                        generated (and of which type, e.g., HWPE-based).
         =====================================================================
     '''
 
@@ -190,7 +187,7 @@ class Formatter:
             cl_lic_acc_protocols = platform_design_knobs.list_cl_lic[i][2]
             cl_hci_acc_protocols = platform_design_knobs.list_cl_hci[i][2]
 
-            # Count number of wrappers
+            # Count number of accelerator interfaces
             n_acc_cl_lic = len(cl_lic_acc_names)
             n_acc_cl_hci = len(cl_hci_acc_names)
 
@@ -253,7 +250,7 @@ class Formatter:
 
     '''
         =====================================================================
-        Title:        format_cl_acc_params
+        Title:        format_cl_acc_design_knobs
         Type:         Method
         Description:  Target a specific cluster interconnection and extract
                       and format accelerator design knobs. The output
@@ -262,7 +259,7 @@ class Formatter:
         =====================================================================
     '''
 
-    def format_cl_acc_params(self, cl_target_interco):
+    def format_cl_acc_design_knobs(self, cl_target_interco):
         total_data_ports    = 0
         acc_names           = []
         acc_protocols       = []
@@ -276,7 +273,7 @@ class Formatter:
             # retrieve number of accelerator data ports
             accelerator_specs_raw_module = self.import_accelerator_design_knobs(acc_names[-1])
             accelerator_specs_raw = accelerator_specs_raw_module.AcceleratorSpecs
-            # format accelerator wrapper design knobs
+            # format accelerator design knobs
             accelerator_specs = Formatter().accelerator(accelerator_specs_raw)
             # accelerator_specs_raw = AcceleratorDesignKnobsFormatted(accelerator_specs.AcceleratorSpecs)
             # extract data ports
@@ -338,8 +335,8 @@ def get_target_hesoc(target_hesoc_board):
     =====================================================================
     Title:        get_acc_info
     Type:         Function
-    Description:  Derive information about the accelerator wrapper
-                    generation process.
+    Description:  Derive information concerning the generation of the
+                  accelerator interfaces.
     =====================================================================
 '''
 
@@ -395,7 +392,7 @@ def calc_cl_acc_data_ports(accelerator_specs):
 
 '''
     =====================================================================
-    Title:        format_cl_core_params
+    Title:        format_cl_core_design_knobs
     Type:         Function
     Description:  Target a specific cluster and extract and format core
                     design knobs. The output content is formatted in
@@ -403,14 +400,14 @@ def calc_cl_acc_data_ports(accelerator_specs):
     =====================================================================
 '''
 
-def format_cl_core_params(cl_target_core):
+def format_cl_core_design_knobs(cl_target_core):
     core_name           = cl_target_core[0]
     n_cores             = cl_target_core[1]
     return core_name, n_cores
 
 '''
     =====================================================================
-    Title:        format_cl_dma_params
+    Title:        format_cl_dma_design_knobs
     Type:         Function
     Description:  Target a specific cluster and extract and format DMA
                     design knobs. The output content is formatted in
@@ -418,7 +415,7 @@ def format_cl_core_params(cl_target_core):
     =====================================================================
 '''
 
-def format_cl_dma_params(cl_target_dma):
+def format_cl_dma_design_knobs(cl_target_dma):
     n_dma               = cl_target_dma[0]
     max_n_reqs          = cl_target_dma[1]
     max_n_txns          = cl_target_dma[2]
@@ -428,7 +425,7 @@ def format_cl_dma_params(cl_target_dma):
 
 '''
     =====================================================================
-    Title:        format_cl_l1_params
+    Title:        format_cl_l1_design_knobs
     Type:         Function
     Description:  Target a specific L1 setup and extract and format L1
                     design knobs. The output content is formatted in a
@@ -436,7 +433,7 @@ def format_cl_dma_params(cl_target_dma):
     =====================================================================
 '''
 
-def format_cl_l1_params(cl_target_l1):
+def format_cl_l1_design_knobs(cl_target_l1):
     n_l1_banks        = cl_target_l1[0]
     l1_size           = cl_target_l1[1]
     return n_l1_banks, l1_size

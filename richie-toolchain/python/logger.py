@@ -75,7 +75,7 @@ class Logger:
         if(verbose is True):
 
             print("\n")
-            print("[py] >> User-defined HeSoC specification:")
+            print("[py] >> Platform design knobs for the HeSoC specialization:")
 
             print("\n\tHeSoC name:", self.platform_design_knobs.hesoc_name)
 
@@ -95,7 +95,7 @@ class Logger:
         if(verbose is True):
 
             print("\n")
-            print("[py] >> User-defined cluster specification:")
+            print("[py] >> Platform design knobs for the cluster specialization:")
 
             print("\n\tLIC interconnect:")
             print("\t\tAccelerator names:",               self.platform_design_knobs.list_cl_lic[cluster_id][1])
@@ -128,7 +128,7 @@ class Logger:
         if(verbose is True):
 
             print("\n")
-            print("[py] >> User-defined wrapper specification:")
+            print("[py] >> Accelerator design knobs for the HWPE specialization:")
 
             '''
                 Kernel information
@@ -213,7 +213,7 @@ class Logger:
         if(verbose is True):
 
             print("\n")
-            print("[py] >> User-defined wrapper specification:")
+            print("[py] >> Accelerator design knobs for the HWPE test specialization:")
 
             print("\nTarget name:", self.accelerator_design_knobs.target)
 

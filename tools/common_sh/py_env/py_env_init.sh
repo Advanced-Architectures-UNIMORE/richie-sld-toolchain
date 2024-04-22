@@ -33,7 +33,7 @@
 readonly dir_py_venv=$1
 
 # Create virtual python environment
-echo -e "[sh] >> Creating virtual environment to generate a specialized accelerator wrapper."
+echo -e "[sh] >> Creating Python virtual environment of the Richie Toolchain."
 python3 -m venv $dir_py_venv
 
 # Activate environment

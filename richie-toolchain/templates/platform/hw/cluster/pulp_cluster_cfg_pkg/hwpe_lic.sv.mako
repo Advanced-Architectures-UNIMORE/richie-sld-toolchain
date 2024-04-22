@@ -30,25 +30,25 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
 # =====================================================================
 # Title:        def_param_hwpe_lic_region
 # Type:         Template API
-# Description:  Definition of parameters for HWPE-based accelerator 
-#               wrappers in the accelerator region.
+# Description:  Definition of parameters for HWPE-based accelerator
+#               interfaces in the accelerator region.
 # =====================================================================
 %>
 
 <%def name="def_param_hwpe_lic_region()">\
 
   <%
-    # Check and count HWPE-based wrappers.
+    # Check and count HWPE-based accelerator interfaces
 
     n_hwpe_lic = 0
-    
+
     for acc_prot in cl_lic_acc_protocols:
       if acc_prot == "hwpe":
         n_hwpe_lic += 1
@@ -68,8 +68,8 @@
 # =====================================================================
 # Title:        def_param_hwpe_lic_interface
 # Type:         Template API
-# Description:  Definition of parameters for the LIC interconnection of 
-#               HWPE-based accelerator wrappers.
+# Description:  Definition of parameters for the LIC interconnection of
+#               HWPE-based accelerator interfaces.
 # =====================================================================
 %>
 
@@ -77,14 +77,12 @@
 
   <%
 
-    # Count number of wrappers
-
+    # Count number of accelerator interfaces
     n_acc_cl = len(cl_lic_acc_names)
 
-    # Count number of data ports associated to HWPE-based wrappers
-
+    # Count number of data ports associated to HWPE-based accelerator interfaces
     n_hwpe_ports_total = 0
-    
+
     for acc_offset in range(n_acc_cl):
       if (cl_lic_acc_protocols[acc_offset] == "hwpe"):
         n_hwpe_ports_total += cl_lic_acc_n_data_ports[acc_offset]

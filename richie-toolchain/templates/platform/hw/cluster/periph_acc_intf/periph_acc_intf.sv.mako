@@ -30,7 +30,7 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 /* =====================================================================
@@ -51,7 +51,7 @@
  *
  * Title:           pulp_cluster_${cl_id}_periph_acc_intf.sv
  *
- * Description:     The peripheral accelerator interface routes the slave 
+ * Description:     The peripheral accelerator interface routes the slave
  *                  peripheral signals toward the slave port of HWPE-based
  *                  accelerators.
  *
@@ -62,8 +62,7 @@
  * ===================================================================== */
 
 <%
-  # Count number of wrappers
-
+  # Count number of accelerator interfaces
   n_acc_cl = len(cl_lic_acc_names)
 %>
 
@@ -81,7 +80,7 @@ module periph_acc_intf
   XBAR_PERIPH_BUS.Master                              hwpe_cfg_master[NB_SPERIPHS_HWPE-1:0]
 );
 
-  % for i in range(n_acc_cl): 
+  % for i in range(n_acc_cl):
     <%
       # Define accelerator offset
 
@@ -97,7 +96,7 @@ module periph_acc_intf
   assign speriph_hwpe_slave[HWPE_${acc_offset}_ID].r_opc   = hwpe_cfg_master[${acc_offset}].r_opc;
   assign speriph_hwpe_slave[HWPE_${acc_offset}_ID].r_id    = hwpe_cfg_master[${acc_offset}].r_id;
   assign speriph_hwpe_slave[HWPE_${acc_offset}_ID].r_valid = hwpe_cfg_master[${acc_offset}].r_valid;
-  
+
   assign hwpe_cfg_master[${acc_offset}].req   = speriph_hwpe_slave[HWPE_${acc_offset}_ID].req;
   assign hwpe_cfg_master[${acc_offset}].add   = speriph_hwpe_slave[HWPE_${acc_offset}_ID].add;
   assign hwpe_cfg_master[${acc_offset}].wen   = speriph_hwpe_slave[HWPE_${acc_offset}_ID].wen;

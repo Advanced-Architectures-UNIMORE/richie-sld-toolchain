@@ -143,7 +143,7 @@ generator = Generator()
     =====================================================================
     Component:      Richie (Hardware)
 
-    Description:    Generation of IP wrapper for PULP instance.
+    Description:    Generation of an FPGA IP wrapper for Richie.
     =====================================================================
 '''
 

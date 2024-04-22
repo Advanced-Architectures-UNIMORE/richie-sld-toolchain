@@ -68,7 +68,7 @@ class Generator:
     Map the design knobs to the templates.
     """
 
-    def retrieve_knobs(self, platform_design_knobs, accelerator_design_knobs, cluster_id=0, extra_params=[]):
+    def retrieve_knobs(self, platform_design_knobs, accelerator_design_knobs, cluster_id=0, extra_knobs=[]):
 
         '''
             ========================
@@ -81,36 +81,36 @@ class Generator:
             self.template_knobs.update({
 
                 # Author
-                'author'                          : platform_design_knobs.author,
-                'email'                           : platform_design_knobs.email,
+                'author'                            : platform_design_knobs.author,
+                'email'                             : platform_design_knobs.email,
 
                 # HeSoC
-                'hesoc_name'                      : platform_design_knobs.hesoc_name,
+                'hesoc_name'                        : platform_design_knobs.hesoc_name,
 
                 # FPGA deployment
-                'target_fpga_board'               : platform_design_knobs.target_fpga_board,
-                'target_fpga_hesoc'               : platform_design_knobs.target_fpga_hesoc,
+                'target_fpga_board'                 : platform_design_knobs.target_fpga_board,
+                'target_fpga_hesoc'                 : platform_design_knobs.target_fpga_hesoc,
 
                 # AXI interface
-                'aw'                              : platform_design_knobs.aw,
-                'dw'                              : platform_design_knobs.dw,
-                'iw'                              : platform_design_knobs.iw,
-                'uw'                              : platform_design_knobs.uw,
-                'aw_pl2ps'                        : platform_design_knobs.aw_pl2ps,
-                'iw_pl2ps'                        : platform_design_knobs.iw_pl2ps,
-                'uw_pl2ps'                        : platform_design_knobs.uw_pl2ps,
-                'aw_ps2pl'                        : platform_design_knobs.aw_ps2pl,
-                'iw_ps2pl'                        : platform_design_knobs.iw_ps2pl,
-                'uw_ps2pl'                        : platform_design_knobs.uw_ps2pl,
-                'aw_lite'                         : platform_design_knobs.aw_lite,
-                'dw_lite'                         : platform_design_knobs.dw_lite,
+                'aw'                                : platform_design_knobs.aw,
+                'dw'                                : platform_design_knobs.dw,
+                'iw'                                : platform_design_knobs.iw,
+                'uw'                                : platform_design_knobs.uw,
+                'aw_pl2ps'                          : platform_design_knobs.aw_pl2ps,
+                'iw_pl2ps'                          : platform_design_knobs.iw_pl2ps,
+                'uw_pl2ps'                          : platform_design_knobs.uw_pl2ps,
+                'aw_ps2pl'                          : platform_design_knobs.aw_ps2pl,
+                'iw_ps2pl'                          : platform_design_knobs.iw_ps2pl,
+                'uw_ps2pl'                          : platform_design_knobs.uw_ps2pl,
+                'aw_lite'                           : platform_design_knobs.aw_lite,
+                'dw_lite'                           : platform_design_knobs.dw_lite,
 
                 # L2 memory
-                'n_l2_banks'                      : platform_design_knobs.l2[0],
-                'l2_size'                         : platform_design_knobs.l2[1],
+                'n_l2_banks'                        : platform_design_knobs.l2[0],
+                'l2_size'                           : platform_design_knobs.l2[1],
 
                 # Number of clusters
-                'n_clusters'                      : platform_design_knobs.n_clusters,
+                'n_clusters'                        : platform_design_knobs.n_clusters,
             })
 
         '''
@@ -124,34 +124,34 @@ class Generator:
             self.template_knobs.update({
 
                 # Cluster ID
-                'cl_id'                           : cluster_id,
+                'cl_id'                             : cluster_id,
 
                 # Cluster cores
-                'cl_core_name'                    : platform_design_knobs.list_cl_cores[cluster_id][0],
-                'cl_n_cores'                      : platform_design_knobs.list_cl_cores[cluster_id][1],
+                'cl_core_name'                      : platform_design_knobs.list_cl_cores[cluster_id][0],
+                'cl_n_cores'                        : platform_design_knobs.list_cl_cores[cluster_id][1],
 
                 # Cluster DMA
-                'n_dma'                           : platform_design_knobs.list_cl_dma[cluster_id][0],
-                'cl_dma_max_n_reqs'               : platform_design_knobs.list_cl_dma[cluster_id][1],
-                'cl_dma_max_n_txns'               : platform_design_knobs.list_cl_dma[cluster_id][2],
-                'cl_dma_n_dma_streams'            : platform_design_knobs.list_cl_dma[cluster_id][3],
-                'cl_dma_max_burst_size'           : platform_design_knobs.list_cl_dma[cluster_id][4],
+                'n_dma'                             : platform_design_knobs.list_cl_dma[cluster_id][0],
+                'cl_dma_max_n_reqs'                 : platform_design_knobs.list_cl_dma[cluster_id][1],
+                'cl_dma_max_n_txns'                 : platform_design_knobs.list_cl_dma[cluster_id][2],
+                'cl_dma_n_dma_streams'              : platform_design_knobs.list_cl_dma[cluster_id][3],
+                'cl_dma_max_burst_size'             : platform_design_knobs.list_cl_dma[cluster_id][4],
 
                 # Cluster data memory
-                'cl_n_l1_banks'                   : platform_design_knobs.list_cl_l1[cluster_id][0],
-                'cl_l1_size'                      : platform_design_knobs.list_cl_l1[cluster_id][1],
+                'cl_n_l1_banks'                     : platform_design_knobs.list_cl_l1[cluster_id][0],
+                'cl_l1_size'                        : platform_design_knobs.list_cl_l1[cluster_id][1],
                 #
                 # Logarithmic interconnect (LIC)
-                'cl_lic_total_data_ports'         : platform_design_knobs.list_cl_lic[cluster_id][0],
-                'cl_lic_acc_names'                : platform_design_knobs.list_cl_lic[cluster_id][1],
-                'cl_lic_acc_protocols'            : platform_design_knobs.list_cl_lic[cluster_id][2],
-                'cl_lic_acc_n_data_ports'         : platform_design_knobs.list_cl_lic[cluster_id][3],
+                'cl_lic_total_data_ports'           : platform_design_knobs.list_cl_lic[cluster_id][0],
+                'cl_lic_acc_names'                  : platform_design_knobs.list_cl_lic[cluster_id][1],
+                'cl_lic_acc_protocols'              : platform_design_knobs.list_cl_lic[cluster_id][2],
+                'cl_lic_acc_n_data_ports'           : platform_design_knobs.list_cl_lic[cluster_id][3],
 
                 # Heterogeneous interconnect (HCI)
-                'cl_hci_total_data_ports'         : platform_design_knobs.list_cl_hci[cluster_id][0],
-                'cl_hci_acc_names'                : platform_design_knobs.list_cl_hci[cluster_id][1],
-                'cl_hci_acc_protocols'            : platform_design_knobs.list_cl_hci[cluster_id][2],
-                'cl_hci_acc_n_data_ports'         : platform_design_knobs.list_cl_hci[cluster_id][3],
+                'cl_hci_total_data_ports'           : platform_design_knobs.list_cl_hci[cluster_id][0],
+                'cl_hci_acc_names'                  : platform_design_knobs.list_cl_hci[cluster_id][1],
+                'cl_hci_acc_protocols'              : platform_design_knobs.list_cl_hci[cluster_id][2],
+                'cl_hci_acc_n_data_ports'           : platform_design_knobs.list_cl_hci[cluster_id][3],
             })
 
         '''
@@ -216,12 +216,12 @@ class Generator:
         self.template_knobs.update({
 
             # Generic
-            'extra_param_0'                   : extra_params[0],
-            'extra_param_1'                   : extra_params[1],
-            'extra_param_2'                   : extra_params[2],
+            'extra_param_0'                         : extra_knobs[0],
+            'extra_param_1'                         : extra_knobs[1],
+            'extra_param_2'                         : extra_knobs[2],
 
             # Software (not yet exposed to the user)
-            'inline_richie_api'               : 1
+            'inline_richie_api'                     : 1
         })
 
     """
@@ -248,12 +248,12 @@ class Generator:
     Render the template using the input design knobs.
     """
 
-    def render(self, template, platform_design_knobs, accelerator_design_knobs, emitter, descr, out_dir, cluster_id=0, extra_params=[None for _ in range(3)]):
+    def render(self, template, platform_design_knobs, accelerator_design_knobs, emitter, descr, out_dir, cluster_id=0, extra_knobs=[None for _ in range(3)]):
         # Prepare template to render
         target = Template(template)
 
         # Pass the design knobs to the generator, which will then map them to the template knobs
-        self.retrieve_knobs(platform_design_knobs, accelerator_design_knobs, cluster_id, extra_params)
+        self.retrieve_knobs(platform_design_knobs, accelerator_design_knobs, cluster_id, extra_knobs)
 
         # Launch rendering engine
         string = target.render(**self.template_knobs)

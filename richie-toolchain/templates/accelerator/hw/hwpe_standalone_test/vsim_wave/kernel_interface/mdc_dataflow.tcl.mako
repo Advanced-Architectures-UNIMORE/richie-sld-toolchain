@@ -87,8 +87,8 @@ add wave -noupdate -group {HWPE ${acc_wr_target}} -group {hwpe_${acc_wr_target}_
 
 <%
 # Additional components are required to implement the behavior of control and flag signals.
-# The wrapper engine that MDC employs has no [start, done, idle, ready] interface, thus
-# these behaviours have to be implemented in the wrapper body itself.
+# The accelerator interface that MDC adopts has no [start, done, idle, ready] controls, thus
+# these behaviours have to be implemented in the interface body itself.
 %>
 
 <%

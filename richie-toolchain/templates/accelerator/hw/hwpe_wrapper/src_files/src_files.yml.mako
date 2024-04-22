@@ -79,7 +79,7 @@ hwpe_wrapper:
 
     % for i in range (acc_wr_num_kernel_modules):
       % if ".dat" not in acc_wr_kernel_modules[i]:
-    rtl/acc_kernel/${acc_wr_kernel_modules[i]},
+    rtl/datapath/${acc_wr_kernel_modules[i]},
       % endif
     % endfor
     rtl/${acc_wr_target}_package.sv,
@@ -89,7 +89,8 @@ hwpe_wrapper:
     rtl/${acc_wr_target}_kernel_adapter.sv,
     rtl/${acc_wr_target}_engine.sv,
     rtl/${acc_wr_target}_top.sv,
-    wrap/${acc_wr_target}_top_wrapper.sv,
+    rtl/${acc_wr_target}_top_wrapper.sv,
+    rtl/${acc_wr_target}_cluster_intf.sv,
   ]
   vlog_opts : [
     "-L hwpe_ctrl_lib",

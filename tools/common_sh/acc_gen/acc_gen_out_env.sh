@@ -18,13 +18,13 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Accelerator output environment
+# Name: 		    Accelerator output environment
 #
 # Description: 	Create output environment for generated accelerator interface.
 #
 # Date:        	23.11.2021
 #
-# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 		  Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
@@ -43,7 +43,7 @@ THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 source $THIS_DIR/../common.sh
 
 if [ ! -d "$dir_out_acc" ]; then
-    echo -e "[sh] >> Creating directory for accelerator wrappers"
+    echo -e "[sh] >> Creating directory for application-specific accelerators"
 
     mkdir $dir_out_acc
 fi
@@ -59,9 +59,8 @@ if [ ! -d "$dir_out_target_acc" ]; then
     # Create directories for generated hardware #
     # ========================================= #
 
-    mkdir $dir_out_target_acc/wrap
     mkdir $dir_out_target_acc/rtl
-    mkdir $dir_out_target_acc/rtl/acc_kernel
+    mkdir $dir_out_target_acc/rtl/datapath
 
     # ========================================== #
     # Create directories for test and validation #
@@ -79,11 +78,11 @@ if [ ! -d "$dir_out_target_acc" ]; then
 
     # System test
     dir_test_system=$dir_out_target_acc/../../test
-    dir_test_wrapper_lib=$dir_test_system/sw/inc/wrappers
+    dir_test_accelerator_lib=$dir_test_system/sw/inc/accelerators
 
-    if [ -d "$dir_test_wrapper_lib" ]; then
-        mkdir $dir_test_wrapper_lib/$target_acc
-        mkdir $dir_test_wrapper_lib/$target_acc/hwpe_lib
+    if [ -d "$dir_test_accelerator_lib" ]; then
+        mkdir $dir_test_accelerator_lib/$target_acc
+        mkdir $dir_test_accelerator_lib/$target_acc/hwpe_lib
     else
         error_exit "[sh] >> Directory not found -> $dir_test_system"
     fi
@@ -95,7 +94,7 @@ if [ ! -d "$dir_out_target_acc" ]; then
 
     echo -e "[sh] >> Retrieving RTL of <$target_acc> kernel"
 
-    dest=$dir_out_target_acc/rtl/acc_kernel
+    dest=$dir_out_target_acc/rtl/datapath
     if [ -d "$dest" ]; then
         cp -rf $dir_dev_target_acc/rtl/* $dest
     else
@@ -136,7 +135,7 @@ if [ ! -d "$dir_out_target_acc" ]; then
     fi
 
     # Copy TB generator for input stimuli and golden results (system test)
-    dest=$dir_test_wrapper_lib/$target_acc
+    dest=$dir_test_accelerator_lib/$target_acc
     if [ -d "$dest" ]; then
 
         src=$dir_dev_target_acc/sw/ref_sw
@@ -171,7 +170,7 @@ if [ ! -d "$dir_out_target_acc" ]; then
     # Copy TB generator for compilation support files for software TB
     dest=$dir_test_standalone/sw
     if [ -d "$dest" ]; then
-        cp -rf $dir_static/static_tb/wrapper/* $dest
+        cp -rf $dir_static/static_tb/hwpe_accelerator/* $dest
     else
         error_exit "[sh] >> Directory not found -> $dest"
     fi

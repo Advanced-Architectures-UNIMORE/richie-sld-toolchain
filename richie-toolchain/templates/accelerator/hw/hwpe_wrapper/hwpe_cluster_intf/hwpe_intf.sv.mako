@@ -30,7 +30,7 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
@@ -83,7 +83,7 @@ module ${acc_wr_target}_cluster_intf
   logic [N_HWPE_PORTS-1:0] [32-1:0]  tcdm_r_rdata;
   logic [N_HWPE_PORTS-1:0]           tcdm_r_valid;
 
-  /* Target accelerator wrapper. */
+  /* Target accelerator interface. */
   % if acc_wr_is_third_party == False:
   ${acc_wr_target}_top_wrap #(
   % else:

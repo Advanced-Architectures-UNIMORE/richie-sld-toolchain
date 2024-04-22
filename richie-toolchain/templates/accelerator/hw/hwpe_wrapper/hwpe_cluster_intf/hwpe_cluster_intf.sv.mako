@@ -52,7 +52,7 @@
  * Title:           ${acc_wr_target}_cluster_intf.sv
  *
  * Description:     The interface is positioned in between an accelerator
- *                  region and the top module of an accelerator wrapper.
+ *                  region and the top module of a HW accelerator interface.
  *                  The goal of the IP is to decompose the crossbar TCDM
  *                  master interface (from Richie's cluster) into the
  *                  single signals of the TCDM communication protocol.
