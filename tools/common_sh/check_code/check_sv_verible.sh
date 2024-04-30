@@ -1,6 +1,6 @@
 # =====================================================================
 #
-# Copyright (C) 2021 University of Modena and Reggio Emilia
+# Copyright (C) 2024 University of Modena and Reggio Emilia
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,18 +18,29 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 	    Python Venv requirements
+# Name:         Check SystemVerilog style guidelines (from lowRISC).
 #
-# Description: 	List of Python packages and versions to install in the
-#               Python virtual environment.
+# Description:  Launch Verible formatting tool.
 #
-# Date:        	23.11.2021
+# Date:        	29.4.2024
 #
-# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 	    Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
-Mako==1.1.5
-MarkupSafe==2.0.1
-numpy==1.19.5
-pylint==3.1.0
+#!/bin/bash
+
+THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+source $THIS_DIR/../common.sh
+
+# Read Makefile arguments
+readonly dir_root=$1
+readonly dir_tools=$2
+readonly dir_out_richie=$3
+readonly dir_verible_install=$4
+
+# Add Verible executable path
+export PATH=$dir_verible_install:$PATH
+
+# Run Verible
+find $dir_out_richie -type f -name "*.sv" -exec $dir_tools/verible-format.py --inplace --files "{}" \;

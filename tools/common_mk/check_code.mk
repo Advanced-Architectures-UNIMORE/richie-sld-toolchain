@@ -18,18 +18,25 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 	    Python Venv requirements
+# Name: 		Environment setup
 #
-# Description: 	List of Python packages and versions to install in the
-#               Python virtual environment.
+# Description: 	Recipes to run code check scripts.
 #
 # Date:        	23.11.2021
 #
-# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
-Mako==1.1.5
-MarkupSafe==2.0.1
-numpy==1.19.5
-pylint==3.1.0
+check_python_pep8: common_sh
+	@bash ${SCRIPTS_CHECK_CODE}/$@.sh \
+		${RICHIE_TOOLCHAIN_ROOT} \
+		${PY_VENV_DIR} \
+		${SRC_PLAT}
+
+check_sv_verible: 
+	@bash ${SCRIPTS_CHECK_CODE}/$@.sh \
+		${RICHIE_TOOLCHAIN_ROOT} \
+		${TOOLS_DIR} \
+		${OUT_RICHIE_GEN} \
+		${VERIBLE_INSTALL}

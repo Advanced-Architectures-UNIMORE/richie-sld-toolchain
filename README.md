@@ -1,6 +1,6 @@
 # The Richie Toolchain
-The *Richie Toolchain* is a System-Level Design (SLD) Toolchain that automates and simplifies the HW/SW assembling and specialization of *Accelerator-Rich Heterogeneous Systems-on-Chip (HeSoCs)*.
-The Toolchain comprises a set of Python-based tools, which enables the seamless and rapid composition of accelerators into full-fledged Accelerator-Rich HeSoCs, from a *high-level description*. Indeed, the Toolchain supports various *accelerator design flows*, e.g., leveraging High-Level Synthesis (HLS).
+The *Richie Toolchain* is a System-Level Design (SLD) Toolchain that automates and simplifies the HW/SW assembling and specialization of *Accelerator-Rich Heterogeneous Systems-on-Chip (HeSoCs)*. 
+The Toolchain comprises a setool (e come attivarlo) f Python-based tools, which enables the seamless and rapid composition of accelerators into full-fledged Accelerator-Rich HeSoCs, from a *high-level description*. Indeed, the Toolchain supports various *accelerator design flows*, e.g., leveraging High-Level Synthesis (HLS). 
 Generated HeSoCs are based on the [Parallel Ultra Low Power (PULP) Platform](https://pulp-platform.org/index.html), an open-source research and development platform targeting highly parallel architectures for ultra-low-power processing based on the RISC-V Instruction Set Architecture (ISA). The *Richie Toolchain* was formerly named *GenOv*.
 
 ## Getting Started
@@ -15,7 +15,7 @@ git clone https://github.com/gbellocchi/richie-toolchain.git
 Be sure that `RICHIE_HW` is set to the root of the Richie hardware subsystem (e.g. `/home/user-name/workspace_user/richie/hardware`).
 
 ### Python Virtual Environment
-The toolchain leverages a Python virtual environment in order to manage the tool dependencies.  The toolchain has been tested with `Python 3.8.10`, so we recommend to stick with this version.
+The toolchain leverages a Python virtual environment in order to manage the tool dependencies.  The toolchain has been tested with `Python 3.8.10`, so we recommend to stick with this version. 
 To create the environment and install the required packages (listed inside `requirements.txt`), simply run:
 
 ```
@@ -29,12 +29,41 @@ make py_env_update_reqs
 ```
 Note that the `py_env_init` command should be run again to install newly added packages and/or update old ones.
 
-### External Sources
+### External Git Submodules
 External Git submodules can be pulled with the following command:
 
 ```
 make richie_gen_init
 ```
+
+### Install Verible
+[Verible](https://chipsalliance.github.io/verible/) is an open-source SystemVerilog style linter and formatting tool. The style linter is relatively mature and is used as part of our generation flow to analyze RTL components. Linting serves as a productivity tool for designers to quickly find typos and bugs at the time when the RTL is designed.
+
+We leverage Verible to capture different aspects of the code and detects style elements that are in violation of the [lowRISC Verilog Coding Style Guide](https://github.com/lowRISC/style-guides/blob/master/VerilogCodingStyle.md), thus reducing manual code alignment steps.
+
+You can download and build Verible from scratch as explained on the [Verible GitHub page](https://github.com/google/verible/). But since this requires the Bazel build system the recommendation is to download and install a pre-built binary as described below.
+
+Go to [this page](https://github.com/google/verible/releases) and download the correct binary archive for your machine.
+
+The example below is for Ubuntu 20.04:
+
+```
+export VERIBLE_VERSION=v0.0-2135-gb534c1fe
+cd tools && wget https://github.com/google/verible/releases/download/${VERIBLE_VERSION}/verible-${VERIBLE_VERSION}-Ubuntu-20.04-focal-x86_64.tar.gz
+tar -xf verible-${VERIBLE_VERSION}-Ubuntu-20.04-focal-x86_64.tar.gz
+
+```
+
+If you are using Ubuntu 18.04 then instead use:
+
+```console
+export VERIBLE_VERSION=v0.0-2135-gb534c1fe
+cd tools && wget https://github.com/google/verible/releases/download/${VERIBLE_VERSION}/verible-${VERIBLE_VERSION}-Ubuntu-18.04-bionic-x86_64.tar.gz
+tar -xf verible-${VERIBLE_VERSION}-Ubuntu-18.04-bionic-x86_64.tar.gz
+
+```
+
+Note that we currently use version v0.0-2135-gb534c1fe, but it is expected that this version is going to be updated frequently, since the tool is under active development.
 
 ## System-Level Design
 The *Richie Toolchain* facilitates three SLD phases concerning the assembling of Accelerator-Rich HeSoCs: (i) **accelerator design**; (ii) **system integration**; (iii) **system optimization**.
@@ -86,7 +115,7 @@ Specifications are collected in the accelerator library (`src/accelerators/`), i
 
 ### System Optimization
 This phase specializes the platform parts to meet the requirements of the integrated workload, thus producing a specialized and optimized *Accelerator-Rich HeSoC*.
-Similarly, this phase mandates a *platform specification file* with the HeSoC characteristics,
+Similarly, this phase mandates a *platform specification file* with the HeSoC characteristics, 
 
 ```python
 class platform_specs:
@@ -125,12 +154,17 @@ Basically:
 4) The result consists of a *full-fledged Accelerator-Rich HeSoC*, including both HW/SW components and ready-to-go simulation and synthesis scripts.
 
 ### How to Run
-The generation flow is triggered with a `make clean all`.
+The generation flow is triggered with a `make clean all`. 
 Additionally, add the following arguments:
 
-- **PLATFORM_NAME**: This is to specify the target platform to generate. For example,  `make clean all PLATFORM_NAME=richie_example` is run to generate the target `richie_example` under `src/platforms/richie_example/specs`.
+- **TARGET_PLATFORM**: This is to specify the target platform to generate. For example,  `make clean all TARGET_PLATFORM=richie_example` is run to generate the target `richie_example` under `src/platforms/richie_example/specs`.
 
 The generated components will then be available under `output`.
+
+### Analyze generated RTL with Verible
+```
+make check_sv_verible TARGET_PLATFORM=richie_example
+```
 
 ## License
 The *Richie Toolchain* is released under permissive open source licenses:
@@ -216,14 +250,14 @@ Other work which can be found in or contributed to this repository:
 
 </p>
 </details>
-
+  
 ## Useful Repositories
 
 ### AMD-Xilinx Open Hardware Competition 2023
-*GenOv* - the former name of the *Richie toolchain* - was proposed in the 2023 edition of the AMD-Xilinx Open Hardware Competition.
+*GenOv* - the former name of the *Richie toolchain* - was proposed in the 2023 edition of the AMD-Xilinx Open Hardware Competition. 
 ```
 Spoiler...
-																																												...We have not won! :-)
+																																												...We have not won! :-) 
 ```
 Yet, we have released a [tutorial](https://github.com/gbellocchi/xil_open_hw_23) to help you familiarize yourself with our work.
 

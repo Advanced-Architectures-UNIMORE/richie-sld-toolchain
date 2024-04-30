@@ -36,41 +36,42 @@ SRC_PLAT 								:= ${SRC_DIR}/platforms
 
 # Scripts
 
-SCRIPTS_DIR							:= ${RICHIE_TOOLCHAIN_ROOT}/tools/common_sh
-SCRIPTS_ACC_GEN					:= ${SCRIPTS_DIR}/acc_gen
-SCRIPTS_ACC_VERIF				:= ${SCRIPTS_DIR}/acc_verif
-SCRIPTS_RICHIE_GEN			:= ${SCRIPTS_DIR}/richie_gen
-SCRIPTS_RICHIE_EXPORT		:= ${SCRIPTS_DIR}/richie_export
-SCRIPTS_PY_ENV					:= ${SCRIPTS_DIR}/py_env
+SCRIPTS_DIR								:= ${RICHIE_TOOLCHAIN_ROOT}/tools/common_sh
+SCRIPTS_ACC_GEN							:= ${SCRIPTS_DIR}/acc_gen
+SCRIPTS_ACC_VERIF						:= ${SCRIPTS_DIR}/acc_verif
+SCRIPTS_RICHIE_GEN						:= ${SCRIPTS_DIR}/richie_gen
+SCRIPTS_RICHIE_EXPORT					:= ${SCRIPTS_DIR}/richie_export
+SCRIPTS_PY_ENV							:= ${SCRIPTS_DIR}/py_env
+SCRIPTS_CHECK_CODE						:= ${SCRIPTS_DIR}/check_code
 
 # Python virtual environment
 
 PY_VENV 								:= richie-py-env
-PY_VENV_DIR							:= ${RICHIE_TOOLCHAIN_ROOT}/${PY_VENV}
+PY_VENV_DIR								:= ${RICHIE_TOOLCHAIN_ROOT}/${PY_VENV}
 
 # Output content
 
 OUT_DIR 								:= ${RICHIE_TOOLCHAIN_ROOT}/output
-OUT_RICHIE_GEN					:= ${OUT_DIR}/${TARGET_PLATFORM}
-OUT_ACC_GEN							:= ${OUT_RICHIE_GEN}/accelerators
+OUT_RICHIE_GEN							:= ${OUT_DIR}/${TARGET_PLATFORM}
+OUT_ACC_GEN								:= ${OUT_RICHIE_GEN}/accelerators
 
 # Device (extracted from source)
 
 DEV_DIR 								:= ${RICHIE_TOOLCHAIN_ROOT}/richie-toolchain/dev
-DEV_ACC_DIR 						:= ${DEV_DIR}/accelerator_dev
-DEV_OV_DIR 							:= ${DEV_DIR}/platform_dev
+DEV_ACC_DIR 							:= ${DEV_DIR}/accelerator_dev
+DEV_OV_DIR 								:= ${DEV_DIR}/platform_dev
 
 # Templates
 
 TEMPL 									:= ${RICHIE_TOOLCHAIN_ROOT}/richie-toolchain/templates
 
 TEMPL_ACC								:= ${TEMPL}/accelerators
-TEMPL_ACC_HW_DIR				:= ${TEMPL_ACC}/hw
-TEMPL_ACC_SW_DIR				:= ${TEMPL_ACC}/sw
-TEMPL_ACC_HW_MNGT_DIR		:= ${TEMPL_ACC}/integr_support
+TEMPL_ACC_HW_DIR						:= ${TEMPL_ACC}/hw
+TEMPL_ACC_SW_DIR						:= ${TEMPL_ACC}/sw
+TEMPL_ACC_HW_MNGT_DIR					:= ${TEMPL_ACC}/integr_support
 
 TEMPL_OV								:= ${TEMPL}/platforms
-TEMPL_OV_HW_DIR					:= ${TEMPL_OV}/hw
+TEMPL_OV_HW_DIR							:= ${TEMPL_OV}/hw
 
 # Static modules
 
@@ -78,11 +79,16 @@ STATIC 									:= ${RICHIE_TOOLCHAIN_ROOT}/richie-toolchain/static
 
 # Verification
 
-VERIF_ACC 							:= ${RICHIE_TOOLCHAIN_ROOT}/richie-toolchain/verif/hwpe-tb
+VERIF_ACC 								:= ${RICHIE_TOOLCHAIN_ROOT}/richie-toolchain/verif/hwpe-tb
 
 # System-level integration
 
-RICHIE_HW_SRC						:= ${RICHIE_HW}/src
-RICHIE_HW_DEPS					:= ${RICHIE_HW}/deps
-RICHIE_HW_TEST					:= ${RICHIE_HW}/vsim
-RICHIE_HW_ACCEL					:= ${RICHIE_HW}/accelerators
+RICHIE_HW_SRC							:= ${RICHIE_HW}/src
+RICHIE_HW_DEPS							:= ${RICHIE_HW}/deps
+RICHIE_HW_TEST							:= ${RICHIE_HW}/vsim
+RICHIE_HW_ACCEL							:= ${RICHIE_HW}/accelerators
+
+# Tools
+
+TOOLS_DIR								:= ${RICHIE_TOOLCHAIN_ROOT}/tools
+VERIBLE_INSTALL							:= ${TOOLS_DIR}/verible-v0.0-2135-gb534c1fe/bin

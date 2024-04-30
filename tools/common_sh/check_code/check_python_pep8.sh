@@ -1,6 +1,6 @@
 # =====================================================================
 #
-# Copyright (C) 2021 University of Modena and Reggio Emilia
+# Copyright (C) 2024 University of Modena and Reggio Emilia
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,18 +18,31 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 	    Python Venv requirements
+# Name: 	    Check Python PEP8 style guidelines.
 #
-# Description: 	List of Python packages and versions to install in the
-#               Python virtual environment.
+# Description:  Launch Python linter and search for bugs and style errors.
 #
-# Date:        	23.11.2021
+# Date:        	26.4.2024
 #
-# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 	    Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
-Mako==1.1.5
-MarkupSafe==2.0.1
-numpy==1.19.5
-pylint==3.1.0
+#!/bin/bash
+
+THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+source $THIS_DIR/../common.sh
+
+# Read Makefile arguments
+readonly dir_root=$1
+readonly dir_py_venv=$2
+readonly dir_richie_src=$3
+
+# Activate environment
+source $dir_py_venv/bin/activate
+
+# Analyze generate scripts
+pylint $dir_root/richie-toolchain
+
+# Deactivate environment
+deactivate
