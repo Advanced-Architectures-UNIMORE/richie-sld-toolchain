@@ -21,9 +21,9 @@
 # Name: 				Accelerator library
 #
 # Description: 	Recipes to extract accelerator specification files and
-#								the generation of the HW/SW accelerator interfaces.
-# 							These aid the integration of acceleration kernels inside
-#								the target Accelerator-Rich HeSoC.
+#								the generation of the necessary HW/SW accelerator interfaces
+# 							to facilitate the integration of accelerator datapaths inside
+#								Accelerator-Rich HeSoCs.
 #
 # Date:        	24.11.2021
 #

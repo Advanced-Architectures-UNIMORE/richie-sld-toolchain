@@ -30,7 +30,7 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
@@ -61,11 +61,11 @@ ${vsim_waves_hwpe_engine()}
 
 <%
 # =====================================================================
-# Description:  Accelerator kernel adapter.
+# Description:  Accelerator datapath adapter.
 # =====================================================================
 %>
 
-${vsim_waves_accelerator_kernel_adapter()}
+${vsim_waves_accelerator_datapath_adapter()}
 
 <%
 # =====================================================================

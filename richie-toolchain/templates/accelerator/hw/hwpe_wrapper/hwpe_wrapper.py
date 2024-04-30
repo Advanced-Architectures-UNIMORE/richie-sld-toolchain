@@ -53,7 +53,7 @@ from templates.accelerator.hw.hwpe_wrapper.hwpe_top.hwpe_top import HwpeTop
 from templates.accelerator.hw.hwpe_wrapper.hwpe_package.hwpe_package import HwpePackage
 
 from templates.accelerator.hw.hwpe_wrapper.hwpe_engine.hwpe_engine import HwpeEngine
-from templates.accelerator.hw.hwpe_wrapper.hwpe_kernel_adapter.hwpe_kernel_adapter import HwpeKernelAdapter
+from templates.accelerator.hw.hwpe_wrapper.hwpe_datapath_adapter.hwpe_datapath_adapter import HwpeDatapathAdapter
 
 from templates.accelerator.hw.hwpe_wrapper.hwpe_streamer.hwpe_streamer import HwpeStreamer
 
@@ -105,27 +105,27 @@ class HwpeWrapper:
             temp_modules = ['fsm_synch.sv.mako',
                             'streaming.sv.mako',
                             'map_ctrl_flags.sv.mako',
-                            'kernel_adapter_interface/hdl/' + 'pulp_std.sv.mako',
-                            'kernel_adapter_interface/hls/' + 'xil_ap_ctrl_hs.sv.mako',
-                            'kernel_adapter_interface/hls/' + 'mdc_dataflow.sv.mako',
-                            'kernel_adapter_interface/hls/' + 'xil_hls_stream.sv.mako'],
+                            'datapath_adapter_interface/pulp_std.sv.mako',
+                            'datapath_adapter_interface/xil_ap_ctrl_hs.sv.mako',
+                            'datapath_adapter_interface/mdc_dataflow.sv.mako',
+                            'datapath_adapter_interface/xil_hls_stream.sv.mako'],
             path_common = self.path_common
         ).top()
 
-    def HwpeKernelAdapter(self):
-        print("\n[py] >> HWPE accelerator interface ~ Kernel adapter")
-        return HwpeKernelAdapter(
-            temp_type = 'templates/accelerator/hw/hwpe_wrapper/hwpe_kernel_adapter/',
-            temp_top = 'hwpe_kernel_adapter.sv.mako',
-            temp_modules = ['kernel_adapter_interface/streaming.sv.mako',
-                            'kernel_adapter_interface/hdl/' + 'pulp_std.sv.mako',
-                            'kernel_adapter_interface/hls/' + 'xil_ap_ctrl_hs.sv.mako',
-                            'kernel_adapter_interface/hls/' + 'mdc_dataflow.sv.mako',
-                            'kernel_adapter_interface/hls/' + 'xil_hls_stream.sv.mako',
-                            'kernel_interface/hdl/' + 'pulp_std.sv.mako',
-                            'kernel_interface/hls/' + 'xil_ap_ctrl_hs.sv.mako',
-                            'kernel_interface/hls/' + 'mdc_dataflow.sv.mako',
-                            'kernel_interface/hls/' + 'xil_hls_stream.sv.mako'],
+    def HwpeDatapathAdapter(self):
+        print("\n[py] >> HWPE accelerator interface ~ Datapath adapter")
+        return HwpeDatapathAdapter(
+            temp_type = 'templates/accelerator/hw/hwpe_wrapper/hwpe_datapath_adapter/',
+            temp_top = 'hwpe_datapath_adapter.sv.mako',
+            temp_modules = ['datapath_adapter_interface/streaming.sv.mako',
+                            'datapath_adapter_interface/pulp_std.sv.mako',
+                            'datapath_adapter_interface/xil_ap_ctrl_hs.sv.mako',
+                            'datapath_adapter_interface/mdc_dataflow.sv.mako',
+                            'datapath_adapter_interface/xil_hls_stream.sv.mako',
+                            'datapath_interface/pulp_std.sv.mako',
+                            'datapath_interface/xil_ap_ctrl_hs.sv.mako',
+                            'datapath_interface/mdc_dataflow.sv.mako',
+                            'datapath_interface/xil_hls_stream.sv.mako'],
             path_common = self.path_common
         ).top()
 

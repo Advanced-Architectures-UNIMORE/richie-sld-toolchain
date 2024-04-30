@@ -73,20 +73,20 @@ hwpe_wrapper:
     # HLS typically generates .dat files. These are used to initialize IPs
     # with pre-defined values. Since the standalone TB and its source management
     # tool fatigue to process these files, they are not sourced together with the
-    # other accelerator kernel modules. To succesfully make ModelSim process these
+    # other accelerator datapath modules. To succesfully make ModelSim process these
     # files, they should be placed in the top ModelSim working directory.
     %>
 
-    % for i in range (acc_wr_num_kernel_modules):
-      % if ".dat" not in acc_wr_kernel_modules[i]:
-    rtl/datapath/${acc_wr_kernel_modules[i]},
+    % for i in range (acc_wr_num_datapath_modules):
+      % if ".dat" not in acc_wr_datapath_modules[i]:
+    rtl/datapath/${acc_wr_datapath_modules[i]},
       % endif
     % endfor
     rtl/${acc_wr_target}_package.sv,
     rtl/${acc_wr_target}_fsm.sv,
     rtl/${acc_wr_target}_ctrl.sv,
     rtl/${acc_wr_target}_streamer.sv,
-    rtl/${acc_wr_target}_kernel_adapter.sv,
+    rtl/${acc_wr_target}_datapath_adapter.sv,
     rtl/${acc_wr_target}_engine.sv,
     rtl/${acc_wr_target}_top.sv,
     rtl/${acc_wr_target}_top_wrapper.sv,

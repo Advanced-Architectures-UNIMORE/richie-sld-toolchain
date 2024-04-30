@@ -35,11 +35,11 @@
 
 <%
   # Assess dimension of IO data interfaces. The host system is 64b, while the accelerator-rich one is 32b.
-  # However, accelerator kernels with different data widths might be integrated for many reasons (e.g. optimziation
+  # However, accelerator datapaths with different data widths might be integrated for many reasons (e.g. optimziation
   # regarding data communication), hence It is important to support them accordingly.
 
   # IMP:
-  # Right now we only supports smaller (than 32b) data widths in the kernel adapter.
+  # Right now we only supports smaller (than 32b) data widths in the datapath adapter.
   # TO-DO:
   # 1. Extend supporting for multiples of 32b.
   # 2. Support also non-multiples (use remainder).

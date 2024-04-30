@@ -30,7 +30,7 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
@@ -43,6 +43,6 @@
 
 <%def name="vsim_waves_hwpe_engine()">\
 
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {engine} -group {top} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_engine/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {lic_acc_region} -group {acc_${acc_wr_target}[${extra_param_1}]} -group {engine} -group {top} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_engine/*}
 
 </%def>

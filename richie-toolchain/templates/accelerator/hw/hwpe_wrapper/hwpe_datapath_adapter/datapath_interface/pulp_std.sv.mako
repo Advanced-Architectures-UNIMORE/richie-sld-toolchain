@@ -22,7 +22,7 @@
 
     Title:          Template
 
-    Description:    HWPE kernel adapter.
+    Description:    HWPE datapath adapter.
 
     Date:           11.6.2021
 
@@ -30,24 +30,24 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
-######################################
-## Kernel interface - PULP standard ##
-######################################
+########################################
+## Datapath interface - PULP standard ##
+########################################
 %>
 
 <%
-#########################################
-## Kernel interface - Kernel interface ##
-#########################################
+#############################################
+## Datapath interface - Datapath interface ##
+#############################################
 %>
 
-<%def name="pulp_std_kernel_intf()">\
+<%def name="pulp_std_datapath_intf()">\
 
-  /* ${acc_wr_target} kernel interface. */
+  /* ${acc_wr_target} datapath interface. */
 
   ${acc_wr_target} i_${acc_wr_target} (
     // Global signals.
@@ -63,7 +63,7 @@
       % else:
     .${acc_wr_stream_in[i]}  ( ${acc_wr_stream_in[i]}_i  ),
       % endif
-    % endfor  
+    % endfor
 
     // Source ports
     % for j in range (acc_wr_n_source):
@@ -77,13 +77,13 @@
     % endfor
 
     % if acc_wr_custom_reg_num>0:
-    // Kernel parameters
+    // Datapath parameters
       % for i in range (acc_wr_custom_reg_num):
         % if acc_wr_custom_reg_isport[i]:
     .${acc_wr_custom_reg_name[i]}        ( ${acc_wr_custom_reg_name[i]} ),
         % endif
       % endfor
-    % endif 
+    % endif
 
     // Control signals.
     .ctrl_i       ( flags_o            ),

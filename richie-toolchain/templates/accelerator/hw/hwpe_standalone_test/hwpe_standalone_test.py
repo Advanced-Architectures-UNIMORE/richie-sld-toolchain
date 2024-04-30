@@ -73,9 +73,9 @@ class HwpeStandaloneTest:
                             'hwpe_fsm.tcl.mako',
                             'hwpe_streamer.tcl.mako',
                             'hwpe_top.tcl.mako',
-                            'kernel_interface/mdc_dataflow.tcl.mako',
-                            'kernel_interface/xil_ap_ctrl_hs.tcl.mako',
-                            'kernel_interface/kernel_hls.tcl.mako',
+                            'datapath_interface/mdc_dataflow.tcl.mako',
+                            'datapath_interface/xil_ap_ctrl_hs.tcl.mako',
+                            'datapath_interface/datapath_hls.tcl.mako',
                             'richie_acc_intf.tcl.mako'
             ],
             path_common = self.path_common

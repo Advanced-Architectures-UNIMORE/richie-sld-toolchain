@@ -22,7 +22,7 @@
 
     Title:          Template
 
-    Description:    HWPE kernel adapter.
+    Description:    HWPE datapath adapter.
 
     Date:           11.6.2021
 
@@ -30,44 +30,44 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
-###########################################################
-## Kernel interface - Xilinx ap_ctrl_hs (refer to UG902) ##
-###########################################################
+#############################################################
+## Datapath interface - Xilinx ap_ctrl_hs (refer to UG902) ##
+#############################################################
 %>
 
 <%
-########################################
-## Kernel interface - Kernel controls ##
-########################################
+############################################
+## Datapath interface - Datapath controls ##
+############################################
 %>
 
-<%def name="xil_ap_ctrl_hs_kernel_ctrl()">\
+<%def name="xil_ap_ctrl_hs_datapath_ctrl()">\
 
 </%def>
 
 <%
-#####################################
-## Kernel interface - Kernel flags ##
-#####################################
+#########################################
+## Datapath interface - Datapath flags ##
+#########################################
 %>
 
-<%def name="xil_ap_ctrl_hs_kernel_flags()">\
+<%def name="xil_ap_ctrl_hs_datapath_flags()">\
 
 </%def>
 
 <%
-###########################################################
-## Kernel interface - Xilinx ap_ctrl_hs kernel interface ##
-###########################################################
+###############################################################
+## Datapath interface - Xilinx ap_ctrl_hs datapath interface ##
+###############################################################
 %>
 
-<%def name="xil_ap_ctrl_hs_kernel_intf()">\
+<%def name="xil_ap_ctrl_hs_datapath_intf()">\
 
-  /* ${acc_wr_target} kernel interface. */
+  /* ${acc_wr_target} datapath interface. */
 
   ${acc_wr_target} i_${acc_wr_target} (
     // Global signals.
@@ -87,7 +87,7 @@
     .${acc_wr_stream_in[i]}_TVALID ( ${acc_wr_stream_in[i]}_i.valid ),
     .${acc_wr_stream_in[i]}_TREADY ( ${acc_wr_stream_in[i]}_i.ready ),
       % endif
-    % endfor  
+    % endfor
 
     // Source ports
     % for j in range (acc_wr_n_source):
@@ -105,13 +105,13 @@
     % endfor
 
     % if acc_wr_custom_reg_num>0:
-    // Kernel parameters
+    // Datapath parameters
       % for i in range (acc_wr_custom_reg_num):
         % if acc_wr_custom_reg_isport[i]:
     .${acc_wr_custom_reg_name[i]}        ( ${acc_wr_custom_reg_name[i]} ),
         % endif
       % endfor
-    % endif 
+    % endif
 
     // Control signals.
     .ap_start      ( ctrl_i.start             ),
@@ -123,9 +123,9 @@
 </%def>
 
 <%
-################################################
-## Kernel interface - Generate stream strobes ##
-################################################
+##################################################
+## Datapath interface - Generate stream strobes ##
+##################################################
 %>
 
 <%def name="xil_ap_ctrl_hs_stream_strobes()">\

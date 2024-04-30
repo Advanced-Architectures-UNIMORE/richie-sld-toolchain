@@ -30,7 +30,7 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
@@ -47,19 +47,19 @@
 # HWPE controller - Top
 %>
 
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {ctrl} -group {top} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_ctrl/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {lic_acc_region} -group {acc_${acc_wr_target}[${extra_param_1}]} -group {ctrl} -group {top} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_ctrl/*}
 
 <%
 # HWPE controller - Slave
 %>
 
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {ctrl} -group {slave} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_ctrl/i_slave/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {lic_acc_region} -group {acc_${acc_wr_target}[${extra_param_1}]} -group {ctrl} -group {slave} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_ctrl/i_slave/*}
 
 <%
 # Slave port of HWPE controller exposed on the peripheral interconnect
 %>
 
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {ctrl} -group {slave_periph_port} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_ctrl/i_slave/cfg/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {lic_acc_region} -group {acc_${acc_wr_target}[${extra_param_1}]} -group {ctrl} -group {slave_periph_port} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_ctrl/i_slave/cfg/*}
 
 </%def>
 
@@ -72,7 +72,7 @@ add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators}
 %>
 
 <%def name="vsim_waves_hwpe_ctrl_regfile()">\
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {ctrl} -group {regfile} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_ctrl/i_slave/i_regfile/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {lic_acc_region} -group {acc_${acc_wr_target}[${extra_param_1}]} -group {ctrl} -group {regfile} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_ctrl/i_slave/i_regfile/*}
 </%def>
 
 <%
@@ -85,6 +85,6 @@ add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators}
 
 <%def name="vsim_waves_hwpe_ctrl_uloop()">\
 
-add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {accelerators} -group {wrapper[${extra_param_1}]} -group {ctrl} -group {uloop} -group {top} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_ctrl/i_uloop/*}
+add wave -noupdate -group {pulp_cluster[${extra_param_0}]} -group {lic_acc_region} -group {acc_${acc_wr_target}[${extra_param_1}]} -group {ctrl} -group {uloop} -group {top} {/richie_tb/dut/gen_clusters[${extra_param_0}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/i_cl_${extra_param_0}_lic_intf_${extra_param_1}/i_top_wrap/i_${acc_wr_target}_top/i_ctrl/i_uloop/*}
 
 </%def>

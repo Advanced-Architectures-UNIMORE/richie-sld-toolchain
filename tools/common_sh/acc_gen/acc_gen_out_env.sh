@@ -92,7 +92,7 @@ if [ ! -d "$dir_out_target_acc" ]; then
     # hardware-mapped  application which is accelerated in hardware.
     # ============================================================================= #
 
-    echo -e "[sh] >> Retrieving RTL of <$target_acc> kernel"
+    echo -e "[sh] >> Retrieving RTL of <$target_acc> accelerator datapath"
 
     dest=$dir_out_target_acc/rtl/datapath
     if [ -d "$dest" ]; then

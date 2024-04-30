@@ -46,9 +46,9 @@
 # Version 0 is is no longer used (kept as backup).
 #
 # The reason why these have been avoided is to simplify the
-# agile instantiation of different type of kernel adapters.
+# agile instantiation of different type of datapath adapters.
 # For example, the control/flag interface of PULP accelerators
-# and HLS-compiled kernels is different. While the former
+# and HLS-compiled datapaths is different. While the former
 # is typically driven using the struct, the latter uses
 # separated ports for each signal.
 %>
@@ -87,18 +87,18 @@
 
 <%
 # Version 1 re-defines the control and flag structs on the
-# basis of the kernel interface that is adopted.
+# basis of the datapath interface that is adopted.
 #
 # The struct ctrl_i and flags_o are directly instantiated
-# on the kernel interface to drive control and flags in
+# on the datapath interface to drive control and flags in
 # between the latter and the wrapper FSM. The struct are
 # defined in the SystemVerilog package of the wrapper:
 #
-# - ctrl_kernel_adapter_t
-# - flags_kernel_adapter_t
+# - ctrl_datapath_adapter_t
+# - flags_datapath_adapter_t
 #
 # The re-definition is needed to flexibly pilot the FSM
-# ready signal. For example, in case of an HLS kernel, both
+# ready signal. For example, in case of an HLS datapath, both
 # the 'ready' and 'idle' flags will be used to pilot the FSM
 # 'ready' signal. At the same time, another methodology might
 # implement a slightly different interface with no 'idle'.
@@ -108,7 +108,7 @@
 
   /* Control signals */
 
-  ctrl_kernel_adapter_${acc_wr_target}_t ctrl_adapter;
+  ctrl_datapath_adapter_${acc_wr_target}_t ctrl_adapter;
 
   assign ctrl_adapter.start = ctrl_i.start;
 
@@ -124,7 +124,7 @@
 
   /* Flag signals */
 
-  flags_kernel_adapter_${acc_wr_target}_t flags_adapter;
+  flags_datapath_adapter_${acc_wr_target}_t flags_adapter;
 
   assign flags_o.done = flags_adapter.done;
 

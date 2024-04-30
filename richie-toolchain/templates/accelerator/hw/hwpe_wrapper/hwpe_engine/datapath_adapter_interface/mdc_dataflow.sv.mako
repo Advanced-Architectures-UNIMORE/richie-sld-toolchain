@@ -30,43 +30,43 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
-#############################################
-## Kernel adapter interface - MDC dataflow ##
-#############################################
+###############################################
+## Datapath adapter interface - MDC dataflow ##
+###############################################
 %>
 
 <%
-#################################################
-## Kernel adapter interface - Custom registers ##
-#################################################
+###################################################
+## Datapath adapter interface - Custom registers ##
+###################################################
 %>
 
-<%def name="mdc_dataflow_kernel_adapter_custom_regs()">\
+<%def name="mdc_dataflow_datapath_adapter_custom_regs()">\
 
     % if acc_wr_custom_reg_num>0:
-    // Kernel parameters
+    // Datapath parameters
       % for i in range (acc_wr_custom_reg_num):
         % if acc_wr_custom_reg_isport[i]:
     .${acc_wr_custom_reg_name[i]}        ( ctrl_i.${acc_wr_custom_reg_name[i]}      ),
         % endif
       % endfor
-    % endif 
+    % endif
 
 </%def>
 
 <%
-#########################################
-## Kernel adapter interface - Controls ##
-#########################################
+###########################################
+## Datapath adapter interface - Controls ##
+###########################################
 
 # Reference flags mapping: map_engine_ctrl_v1_hls
 %>
 
-<%def name="mdc_dataflow_kernel_adapter_ctrl()">\
+<%def name="mdc_dataflow_datapath_adapter_ctrl()">\
 
     // Control signals
     .ctrl_i      ( ctrl_adapter            ),
@@ -74,14 +74,14 @@
 </%def>
 
 <%
-######################################
-## Kernel adapter interface - Flags ##
-######################################
+########################################
+## Datapath adapter interface - Flags ##
+########################################
 
 # Reference flags mapping: map_engine_flags_v1_hls
 %>
 
-<%def name="mdc_dataflow_kernel_adapter_flags()">\
+<%def name="mdc_dataflow_datapath_adapter_flags()">\
 
     // Flag signals
     .flags_o       ( flags_adapter             )

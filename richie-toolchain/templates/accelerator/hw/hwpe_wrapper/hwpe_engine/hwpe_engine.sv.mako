@@ -30,7 +30,7 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 /*
@@ -69,7 +69,7 @@ module ${acc_wr_target}_engine (\
 );
 
   <%
-  # Re-map control and flags in case the kernel interface
+  # Re-map control and flags in case the datapath interface
   # is built exploting specific design methodologies.
   %>
 
@@ -94,14 +94,14 @@ module ${acc_wr_target}_engine (\
   ${cnt_out_assign_to_fsm()}
 
   <%
-  # Instantiate kernel adapter. This layer is to
-  # flexibly acc_wr_target different type of kernels that
+  # Instantiate datapath adapter. This layer is to
+  # flexibly acc_wr_target different type of datapaths that
   # may be designed with HDL, HLS, etc.
   %>
 
-  /* Kernel adapter */
+  /* Datapath adapter */
 
-  ${acc_wr_target}_kernel_adapter i_${acc_wr_target}_adapter (
+  ${acc_wr_target}_datapath_adapter i_${acc_wr_target}_adapter (
 
     // Global signals
     .clk_i           ( clk_i            ),
@@ -112,58 +112,58 @@ module ${acc_wr_target}_engine (\
     # Data streams
     %>
 
-    ${streaming_kernel_adapter_intf()}
+    ${streaming_datapath_adapter_intf()}
 
     <%
-    ################################################
-    ## Kernel adapater interface -> PULP standard ##
-    ################################################
+    ##################################################
+    ## Datapath adapater interface -> PULP standard ##
+    ##################################################
     %>
 
     % if acc_wr_design_type == 'hdl':
-    ${pulp_std_kernel_adapter_ctrl()}
-    ${pulp_std_kernel_adapter_flags()}
+    ${pulp_std_datapath_adapter_ctrl()}
+    ${pulp_std_datapath_adapter_flags()}
     % endif
 
     <%
-    #####################################################################
-    ## Kernel adapater interface -> Xilinx ap_ctrl_hs (refer to UG902) ##
-    #####################################################################
+    #######################################################################
+    ## Datapath adapater interface -> Xilinx ap_ctrl_hs (refer to UG902) ##
+    #######################################################################
     %>
 
     % if acc_wr_design_type == 'hls':
       % if acc_wr_is_ap_ctrl_hs == True:
-    ${xil_ap_ctrl_hs_kernel_adapter_custom_regs()}
-    ${xil_ap_ctrl_hs_kernel_adapter_ctrl()}
-    ${xil_ap_ctrl_hs_kernel_adapter_flags()}
+    ${xil_ap_ctrl_hs_datapath_adapter_custom_regs()}
+    ${xil_ap_ctrl_hs_datapath_adapter_ctrl()}
+    ${xil_ap_ctrl_hs_datapath_adapter_flags()}
       % endif
     % endif
 
     <%
-    ################################################
-    ## Kernel adapater interface -> MDC dataflow  ##
-    ################################################
+    ##################################################
+    ## Datapath adapater interface -> MDC dataflow  ##
+    ##################################################
     %>
 
     % if acc_wr_design_type == 'hls':
       % if acc_wr_is_mdc_dataflow == True:
-    ${mdc_dataflow_kernel_adapter_custom_regs()}
-    ${mdc_dataflow_kernel_adapter_ctrl()}
-    ${mdc_dataflow_kernel_adapter_flags()}
+    ${mdc_dataflow_datapath_adapter_custom_regs()}
+    ${mdc_dataflow_datapath_adapter_ctrl()}
+    ${mdc_dataflow_datapath_adapter_flags()}
       % endif
     % endif
 
     <%
-    ###########################################################
-    ## Kernel adapter interface -> Xilinx hls::stream object ##
-    ###########################################################
+    #############################################################
+    ## Datapath adapter interface -> Xilinx hls::stream object ##
+    #############################################################
     %>
 
     % if acc_wr_design_type == 'hls':
       % if acc_wr_is_hls_stream == True:
-    ${xil_hls_stream_kernel_adapter_custom_regs()}
-    ${xil_hls_stream_kernel_adapter_ctrl()}
-    ${xil_hls_stream_kernel_adapter_flags()}
+    ${xil_hls_stream_datapath_adapter_custom_regs()}
+    ${xil_hls_stream_datapath_adapter_ctrl()}
+    ${xil_hls_stream_datapath_adapter_flags()}
       % endif
     % endif
 

@@ -49,7 +49,7 @@
   # IO registers - What?
   # To this category grasp a number of classes of HWPE registers
   # that are required to to support the operations of the accelerated 
-  # kernel. To this end, these registered are accessible by the cluster
+  # datapath. To this end, these registered are accessible by the cluster
   # cores that can thus execute R/W operations. These tipically include
   # standard and custom registers, as well those pertaining to programmability
   # of the streamer (e.g. address generator and TCDM master port addresses).
@@ -79,7 +79,7 @@
   n_io_regs += acc_wr_std_reg_num - 1 
   
   # 2. "cnt_limit" registers are always one per source stream (input), so they account for acc_wr_n_source items.
-  # The register information is used in the FSM to know how many engine "done" events terminate kernel execution.
+  # The register information is used in the FSM to know how many engine "done" events terminate datapath execution.
 
   n_io_regs += acc_wr_n_source
   

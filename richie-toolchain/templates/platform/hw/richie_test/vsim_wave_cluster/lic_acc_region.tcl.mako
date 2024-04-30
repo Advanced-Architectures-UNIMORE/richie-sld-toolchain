@@ -45,10 +45,10 @@
 
 % if (n_acc_cl>0):
 
-add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {accelerators} -group {lic_acc_region} -group {top} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {lic_acc_region} -group {top} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/*}
 
-add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {accelerators} -group {lic_acc_region} -group {events} -label {cl_event} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/evt_o}
-add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {accelerators} -group {lic_acc_region} -group {events} -label {acc_event} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/hwpe_evt}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {lic_acc_region} -group {events} -label {cl_event} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/evt_o}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {lic_acc_region} -group {events} -label {acc_event} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/hwpe_evt}
 
   <%
     mst_port_offset_L = 0
@@ -68,10 +68,10 @@ add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {accelerators} -group 
     %>
 
     % for port_offset in range(mst_port_offset_L, mst_port_offset_H+1):
-add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {accelerators} -group {lic_acc_region} -group {wrapper[${acc_offset}]} -group {hwpe_xbar_master[${port_offset}]} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/hwpe_xbar_master[${port_offset}]/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {lic_acc_region} -group {acc_${cl_lic_acc_names[acc_offset]}[${acc_offset}]} -group {hwpe_xbar_master[${port_offset}]} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/hwpe_xbar_master[${port_offset}]/*}
     % endfor
 
-add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {accelerators} -group {lic_acc_region} -group {wrapper[${acc_offset}]} -group {hwpe_cfg_slave[${acc_offset}]} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/hwpe_cfg_slave[${acc_offset}]/*}
+add wave -noupdate -group {pulp_cluster[${cl_id}]} -group {lic_acc_region} -group {acc_${cl_lic_acc_names[acc_offset]}[${acc_offset}]} -group {hwpe_cfg_slave[${acc_offset}]} {/richie_tb/dut/gen_clusters[${cl_id}]/gen_cluster_sync/i_cluster/i_ooc/i_bound/lic_acc_region_gen/lic_acc_region_i/hwpe_cfg_slave[${acc_offset}]/*}
   % endfor
 
 % endif

@@ -203,8 +203,8 @@ class Generator:
                 'acc_wr_addr_gen_out_isprogr'       : accelerator_design_knobs.addr_gen_out_isprogr,
 
                 # Static design components
-                'acc_wr_kernel_modules'             : self.get_datapath_modules_list(accelerator_design_knobs),
-                'acc_wr_num_kernel_modules'         : len(self.get_datapath_modules_list(accelerator_design_knobs)),
+                'acc_wr_datapath_modules'           : self.get_datapath_modules_list(accelerator_design_knobs),
+                'acc_wr_num_datapath_modules'       : len(self.get_datapath_modules_list(accelerator_design_knobs)),
             })
 
         '''
@@ -232,8 +232,7 @@ class Generator:
     """
 
     def get_datapath_modules_list(self, accelerator_design_knobs):
-        # filename = 'templates/accelerator/integr_support/rtl_list/engine_list.log'
-        filename = 'dev/accelerator_dev/' + accelerator_design_knobs.target + '/kernel_list.log'
+        filename = 'dev/accelerator_dev/' + accelerator_design_knobs.target + '/datapath_list.log'
         l = []
         with open(filename, 'r') as f:
             for s in f.readlines():

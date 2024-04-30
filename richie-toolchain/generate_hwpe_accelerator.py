@@ -202,14 +202,14 @@ generator.render(
 )
 
 '''
-    Generate design components ~ Kernel adapter
+    Generate design components ~ Datapath adapter
 '''
 generator.render(
-    hwpe_wrapper.HwpeKernelAdapter(),
+    hwpe_wrapper.HwpeDatapathAdapter(),
     None,
     accelerator_design_knobs,
     emitter,
-    ['hwpe', 'kernel_adapter', ['hw', 'sv']],
+    ['hwpe', 'datapath_adapter', ['hw', 'sv']],
     emitter.out_accelerator_rtl
 )
 

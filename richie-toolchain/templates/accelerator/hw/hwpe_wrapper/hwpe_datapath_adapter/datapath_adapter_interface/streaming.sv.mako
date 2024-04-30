@@ -22,40 +22,45 @@
 
     Title:          Template
 
-    Description:    HWPE engine.
+    Description:    HWPE datapath adapter.
 
     Date:           11.6.2021
 
-    Author: 	    Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+    Author: 	      Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
-######################################
-## Kernel interface - PULP standard ##
-######################################
+############################################
+## Datapath adapter interface - Streaming ##
+############################################
 %>
 
-<%
-##############################################
-## Kernel adapter interface - PULP standard ##
-##############################################
-%>
+<%def name="streaming_datapath_adapter_intf()">\
 
-<%def name="pulp_std_kernel_adapter_ctrl()">\
+  // Sink ports
+  % for i in range (acc_wr_n_sink):
+    % if (acc_wr_is_parallel_in[i]):
+      % for k in range (acc_wr_in_parallelism_factor[i]):
+  hwpe_stream_intf_stream.sink ${acc_wr_stream_in[i]}_${k}_i,
+      % endfor
+    % else:
+  hwpe_stream_intf_stream.sink ${acc_wr_stream_in[i]}_i,
+    % endif
+  % endfor
 
-    // Control signals
-    .ctrl_i       ( ctrl_i              ),
+  // Source ports
+  % for j in range (acc_wr_n_source):
+    % if (acc_wr_is_parallel_out[j]):
+      % for k in range (acc_wr_out_parallelism_factor[j]):
+  hwpe_stream_intf_stream.source ${acc_wr_stream_out[j]}_${k}_o,
+      % endfor
+    % else:
+  hwpe_stream_intf_stream.source ${acc_wr_stream_out[j]}_o,
+    % endif
+  % endfor
 
 </%def>
-
-<%def name="pulp_std_kernel_adapter_flags()">\
-
-    // Flag signals
-    .flags_o      ( flags_o             )
-
-</%def>
-

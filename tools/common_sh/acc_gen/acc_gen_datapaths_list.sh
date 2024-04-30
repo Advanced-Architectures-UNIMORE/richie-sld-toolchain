@@ -34,4 +34,4 @@
 readonly dir_accelerator_dev=$1
 readonly target_acc=$2
 
-ls ${dir_accelerator_dev}/${target_acc}/rtl >> ${dir_accelerator_dev}/${target_acc}/kernel_list.log
+ls ${dir_accelerator_dev}/${target_acc}/rtl >> ${dir_accelerator_dev}/${target_acc}/datapath_list.log

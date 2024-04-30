@@ -22,7 +22,7 @@
 
     Title:          Template
 
-    Description:    HWPE kernel adapter.
+    Description:    HWPE datapath adapter.
 
     Date:           11.6.2021
 
@@ -30,37 +30,37 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
-##############################################
-## Kernel adapter interface - PULP standard ##
-##############################################
+#####################################################################
+## Datapath adapter interface - Xilinx ap_ctrl_hs (refer to UG902) ##
+#####################################################################
 %>
 
 <%
-##################################################
-## Kernel adapter interface - Control interface ##
-##################################################
+####################################################
+## Datapath adapter interface - Control interface ##
+####################################################
 %>
 
-<%def name="pulp_std_engine_ctrl()">\
+<%def name="xil_ap_ctrl_hs_engine_ctrl()">\
 
   // Control signals
-  input  ctrl_engine_${acc_wr_target}_t           ctrl_i,
+  input  ctrl_datapath_adapter_${acc_wr_target}_t           ctrl_i,
 
 </%def>
 
 <%
-################################################
-## Kernel adapter interface - Flags interface ##
-################################################
+##################################################
+## Datapath adapter interface - Flags interface ##
+##################################################
 %>
 
-<%def name="pulp_std_engine_flags()">\
+<%def name="xil_ap_ctrl_hs_engine_flags()">\
 
   // Flag signals
-  output flags_engine_${acc_wr_target}_t          flags_o
-
+  output  flags_datapath_adapter_${acc_wr_target}_t           flags_o
+\
 </%def>

@@ -22,7 +22,7 @@
 
     Title:          Template
 
-    Description:    HWPE kernel adapter.
+    Description:    HWPE datapath adapter.
 
     Date:           11.6.2021
 
@@ -30,25 +30,25 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
-##################################################
-## Kernel interface - Xilinx hls::stream object ##
-##################################################
+####################################################
+## Datapath interface - Xilinx hls::stream object ##
+####################################################
 %>
 
 <%
-########################################
-## Kernel interface - Kernel controls ##
-########################################
+############################################
+## Datapath interface - Datapath controls ##
+############################################
 %>
 
-<%def name="xil_hls_stream_kernel_ctrl_def()">\
+<%def name="xil_hls_stream_datapath_ctrl_def()">\
 
   // Global controls
-  logic start_stream; 
+  logic start_stream;
 
   // Input stream controls
   % for i in range (acc_wr_n_sink):
@@ -71,7 +71,7 @@
 
 </%def>
 
-<%def name="xil_hls_stream_kernel_ctrl()">\
+<%def name="xil_hls_stream_datapath_ctrl()">\
 
   // Pilot global controls
   % for j in range (acc_wr_n_source):
@@ -116,7 +116,7 @@
       ${acc_wr_stream_in[i]}_i_TUSER = ${acc_wr_stream_in[i]}_i_TUSER;
     end
   end
-  % endfor 
+  % endfor
 
   // Count input data packet transactions
   % for i in range (acc_wr_n_sink):
@@ -138,12 +138,12 @@
       cnt_last_${acc_wr_stream_in[i]} = cnt_last_${acc_wr_stream_in[i]};
     end
   end
-  % endfor   
+  % endfor
 
   // Generate input last signal (for data packets)
   % for i in range (acc_wr_n_sink):
   assign ${acc_wr_stream_in[i]}_i_TLAST = (cnt_last_${acc_wr_stream_in[i]}==ctrl_i.packet_size_${acc_wr_stream_in[i]}) ? 1 : 0;
-  % endfor  
+  % endfor
 
   // Count output transactions
   % for j in range (acc_wr_n_source):
@@ -162,14 +162,14 @@
       cnt_last_${acc_wr_stream_out[j]} = cnt_last_${acc_wr_stream_out[j]};
     end
   end
-  % endfor 
+  % endfor
 
 </%def>
 
 <%
-################################################
-## Kernel interface - Generate stream strobes ##
-################################################
+##################################################
+## Datapath interface - Generate stream strobes ##
+##################################################
 %>
 
 <%def name="xil_hls_stream_stream_strobes_def()">\
@@ -201,12 +201,12 @@
 </%def>
 
 <%
-#####################################
-## Kernel interface - Kernel flags ##
-#####################################
+#########################################
+## Datapath interface - Datapath flags ##
+#########################################
 %>
 
-<%def name="xil_hls_stream_kernel_flags_def()">\
+<%def name="xil_hls_stream_datapath_flags_def()">\
 
   // Output stream flags
   % for j in range (acc_wr_n_source):
@@ -219,7 +219,7 @@
 
 </%def>
 
-<%def name="xil_hls_stream_kernel_flags()">\
+<%def name="xil_hls_stream_datapath_flags()">\
 
   // Get output last signal (for data packets)
   % for j in range (acc_wr_n_source):
@@ -229,14 +229,14 @@
 </%def>
 
 <%
-############################################################
-## Kernel interface - Xilinx hls::stream kernel interface ##
-############################################################
+################################################################
+## Datapath interface - Xilinx hls::stream datapath interface ##
+################################################################
 %>
 
-<%def name="xil_hls_stream_kernel_intf()">\
+<%def name="xil_hls_stream_datapath_intf()">\
 
-  /* ${acc_wr_target} kernel interface */
+  /* ${acc_wr_target} datapath interface */
 
   ${acc_wr_target} i_${acc_wr_target} (
     // Global signals
@@ -245,7 +245,7 @@
 
     // Sink ports
     % for i in range (acc_wr_n_sink):
-    .${acc_wr_stream_in[i]}_TDATA  ( ${acc_wr_stream_in[i]}_data_kernel ),
+    .${acc_wr_stream_in[i]}_TDATA  ( ${acc_wr_stream_in[i]}_data_datapath ),
     .${acc_wr_stream_in[i]}_TVALID ( ${acc_wr_stream_in[i]}_i.valid ),
     .${acc_wr_stream_in[i]}_TREADY ( ${acc_wr_stream_in[i]}_i.ready ),
 
@@ -255,14 +255,14 @@
     .${acc_wr_stream_in[i]}_TLAST  ( ${acc_wr_stream_in[i]}_i_TLAST ),
     .${acc_wr_stream_in[i]}_TID    ( ${acc_wr_stream_in[i]}_i_TID   ),
     .${acc_wr_stream_in[i]}_TDEST  ( ${acc_wr_stream_in[i]}_i_TDEST ),
-    % endfor  
+    % endfor
 
     // Source ports
     % for j in range (acc_wr_n_source):
-    .${acc_wr_stream_out[j]}_TDATA  ( ${acc_wr_stream_out[j]}_data_kernel ),
+    .${acc_wr_stream_out[j]}_TDATA  ( ${acc_wr_stream_out[j]}_data_datapath ),
     .${acc_wr_stream_out[j]}_TVALID ( ${acc_wr_stream_out[j]}_o.valid ),
     .${acc_wr_stream_out[j]}_TREADY ( ${acc_wr_stream_out[j]}_o.ready ),
-    
+
     .${acc_wr_stream_out[j]}_TKEEP  ( ${acc_wr_stream_out[j]}_o_TKEEP ),
     .${acc_wr_stream_out[j]}_TSTRB  ( ${acc_wr_stream_out[j]}_o_TSTRB ),
     .${acc_wr_stream_out[j]}_TUSER  ( ${acc_wr_stream_out[j]}_o_TUSER ),
@@ -272,13 +272,13 @@
     % endfor
 
     % if acc_wr_custom_reg_num>0:
-    // Kernel parameters
+    // Datapath parameters
       % for i in range (acc_wr_custom_reg_num):
         % if acc_wr_custom_reg_isport[i]:
     .${acc_wr_custom_reg_name[i]}        ( ${acc_wr_custom_reg_name[i]} ),
         % endif
       % endfor
-    % endif 
+    % endif
 
     // Control signals
     .ap_start      ( start_stream             ),
@@ -289,28 +289,28 @@
 </%def>
 
 <%
-#######################################################
-## Kernel interface - Match data width of IO streams ##
-#######################################################
+#########################################################
+## Datapath interface - Match data width of IO streams ##
+#########################################################
 %>
 
 <%def name="xil_hls_stream_stream_dwidth_match_def()">\
 
   // Input data - Data width adaptation
   % for i in range (acc_wr_n_sink):
-  logic [${acc_wr_stream_in_dwidth[i]}-1:0] ${acc_wr_stream_in[i]}_data_kernel;
+  logic [${acc_wr_stream_in_dwidth[i]}-1:0] ${acc_wr_stream_in[i]}_data_datapath;
   % endfor
 
   // Output data - Data width adaptation
   % for j in range (acc_wr_n_source):
-  logic [${acc_wr_stream_out_dwidth[j]}-1:0] ${acc_wr_stream_out[j]}_data_kernel;
+  logic [${acc_wr_stream_out_dwidth[j]}-1:0] ${acc_wr_stream_out[j]}_data_datapath;
   % endfor
 
 </%def>
 
 <%def name="xil_hls_stream_stream_dwidth_match()">\
 
-  // Adapat input data interface (from system) to kernel data interface
+  // Adapat input data interface (from system) to datapath data interface
   % for i in range (acc_wr_n_sink):
     % if acc_wr_stream_in_dwidth[i]>pulp_dwidth:
 
@@ -318,7 +318,7 @@
         diff_dwidth = acc_wr_stream_in_dwidth[i] - pulp_dwidth
       %>
 \
-  assign ${acc_wr_stream_in[i]}_data_kernel = {${diff_dwidth}'b0, ${acc_wr_stream_in[i]}_i.data}; 
+  assign ${acc_wr_stream_in[i]}_data_datapath = {${diff_dwidth}'b0, ${acc_wr_stream_in[i]}_i.data};
 
     % elif acc_wr_stream_in_dwidth[i]<pulp_dwidth:
 
@@ -327,16 +327,16 @@
       %>
 \
   // TO-DO: Not supported yet
-  assign ${acc_wr_stream_in[i]}_data_kernel = ${acc_wr_stream_in[i]}_i.data; 
+  assign ${acc_wr_stream_in[i]}_data_datapath = ${acc_wr_stream_in[i]}_i.data;
 
     % elif acc_wr_stream_in_dwidth[i]==pulp_dwidth:
 \
-  assign ${acc_wr_stream_in[i]}_data_kernel = ${acc_wr_stream_in[i]}_i.data; 
-  
+  assign ${acc_wr_stream_in[i]}_data_datapath = ${acc_wr_stream_in[i]}_i.data;
+
     % endif
   % endfor
 
-  // Adapat kernel data interface to output data interface (to system)
+  // Adapat datapath data interface to output data interface (to system)
   % for j in range (acc_wr_n_source):
     % if acc_wr_stream_out_dwidth[j]>pulp_dwidth:
 
@@ -345,7 +345,7 @@
       %>
 \
   // TO-DO: Not supported yet
-  assign ${acc_wr_stream_out[j]}_o.data = ${acc_wr_stream_out[j]}_data_kernel; 
+  assign ${acc_wr_stream_out[j]}_o.data = ${acc_wr_stream_out[j]}_data_datapath;
 
     % elif acc_wr_stream_out_dwidth[j]<pulp_dwidth:
 
@@ -353,12 +353,12 @@
         diff_dwidth = pulp_dwidth - acc_wr_stream_out_dwidth[j]
       %>
 \
-  assign ${acc_wr_stream_out[j]}_o.data = {${diff_dwidth}'b0, ${acc_wr_stream_out[j]}_data_kernel}; 
+  assign ${acc_wr_stream_out[j]}_o.data = {${diff_dwidth}'b0, ${acc_wr_stream_out[j]}_data_datapath};
 
     % elif acc_wr_stream_out_dwidth[j]==pulp_dwidth:
 \
-  assign ${acc_wr_stream_out[j]}_o.data = ${acc_wr_stream_out[j]}_data_kernel; 
-  
+  assign ${acc_wr_stream_out[j]}_o.data = ${acc_wr_stream_out[j]}_data_datapath;
+
     % endif
   % endfor
 </%def>

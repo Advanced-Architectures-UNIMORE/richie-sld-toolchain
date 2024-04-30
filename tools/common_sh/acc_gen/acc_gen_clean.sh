@@ -40,7 +40,6 @@ rm -rf ${dir_accelerator_dev}
 mkdir ${dir_accelerator_dev}
 find . -type d -name '__pycache__' -not -path "${dir_py_venv}" -exec rm -rf {} +
 find . -name "*.pyc" -type f -delete
-rm -rf ${dir_templ_acc}/integr_support/rtl_list/*.log
 
 # Cleaning generated application-specific accelerator
 rm -rf ${dir_out_acc}

@@ -1,4 +1,3 @@
-<%
 '''
     =====================================================================
 
@@ -22,45 +21,20 @@
 
     Title:          Template
 
-    Description:    HWPE kernel adapter.
+    Description:    This object simply returns a template.
 
     Date:           11.6.2021
 
-    Author: 	      Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+    Author:         Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 
     =====================================================================
 
-'''  
-%>
+'''
 
-<%
-###################################################################
-## Kernel adapter interface - Xilinx ap_ctrl_hs (refer to UG902) ##
-###################################################################
-%>
+#!/usr/bin/env python3
 
-<%
-##################################################
-## Kernel adapter interface - Control interface ##
-##################################################
-%>
+from python.collector import Collector
 
-<%def name="xil_ap_ctrl_hs_engine_ctrl()">\
-
-  // Control signals
-  input  ctrl_kernel_adapter_${acc_wr_target}_t           ctrl_i,
-
-</%def>
-
-<%
-################################################
-## Kernel adapter interface - Flags interface ##
-################################################
-%>
-
-<%def name="xil_ap_ctrl_hs_engine_flags()">\
-
-  // Flag signals
-  output  flags_kernel_adapter_${acc_wr_target}_t           flags_o
-\
-</%def>
+class HwpeDatapathAdapter(Collector):
+    def top(self):
+        return self.get_template()

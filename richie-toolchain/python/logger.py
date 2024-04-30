@@ -131,10 +131,10 @@ class Logger:
             print("[py] >> Accelerator design knobs for the HWPE specialization:")
 
             '''
-                Kernel information
+                Datapath information
             '''
 
-            print("\n\tKernel application:")
+            print("\n\tAccelerator datapath:")
 
             print("\t\tTarget name:", self.accelerator_design_knobs.target)
             print("\t\tDesign Methodology:", self.accelerator_design_knobs.design_type)

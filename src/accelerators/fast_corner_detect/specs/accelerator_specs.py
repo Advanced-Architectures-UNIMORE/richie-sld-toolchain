@@ -68,14 +68,14 @@ class AcceleratorSpecs:
         return self
 
     '''
-        Kernel information:
+        Datapath information:
 
-        - 'target' ~ Acceleration kernel. This the target of the hardware wrapper generator.
+        - 'target' ~ Acceleration datapath. This the target of the hardware wrapper generator.
 
-        - 'design_type' ~ Design methodology employed to construct the acceleration kernel.
+        - 'design_type' ~ Design methodology employed to construct the acceleration datapath.
         Handcrafted HDL (set 'hdl') and HLS-compiled (set 'hls') methods are supported.
 
-        - 'intf_protocol' ~ Selection of interface between acceleration kernel and wrapper. Set
+        - 'intf_protocol' ~ Selection of interface between acceleration datapath and wrapper. Set
         the desired interface as 'True', while leaving the others set to 'False'. Now the proposed
         methodology supports:
 
@@ -84,7 +84,7 @@ class AcceleratorSpecs:
             > 'hls_stream' - Xilinx hls::stream object (refer to AMBA 4 AXI4-Stream Protocol)
     '''
 
-    def kernel(self):
+    def datapath(self):
         self.target                             = 'fast_corner_detect'
         self.design_type                        = 'hls'
         self.intf_protocol                      = 'hls_stream'

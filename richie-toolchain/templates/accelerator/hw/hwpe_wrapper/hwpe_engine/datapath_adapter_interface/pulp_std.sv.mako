@@ -1,3 +1,4 @@
+<%
 '''
     =====================================================================
 
@@ -21,20 +22,40 @@
 
     Title:          Template
 
-    Description:    This object simply returns a template.
+    Description:    HWPE engine.
 
     Date:           11.6.2021
 
-    Author:         Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+    Author: 	    Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 
     =====================================================================
 
 '''
+%>
 
-#!/usr/bin/env python3
+<%
+########################################
+## Datapath interface - PULP standard ##
+########################################
+%>
 
-from python.collector import Collector
+<%
+################################################
+## Datapath adapter interface - PULP standard ##
+################################################
+%>
 
-class HwpeKernelAdapter(Collector):
-    def top(self):
-        return self.get_template()
+<%def name="pulp_std_datapath_adapter_ctrl()">\
+
+    // Control signals
+    .ctrl_i       ( ctrl_i              ),
+
+</%def>
+
+<%def name="pulp_std_datapath_adapter_flags()">\
+
+    // Flag signals
+    .flags_o      ( flags_o             )
+
+</%def>
+

@@ -60,27 +60,27 @@ ${vsim_waves_hwpe_top()}
 ${vsim_waves_hwpe_engine()}
 
 <%
-#########################
-## HWPE kernel adapter ##
-#########################
+###########################
+## HWPE datapath adapter ##
+###########################
 %>
 
 % if acc_wr_is_ap_ctrl_hs == True:
-${vsim_waves_hwpe_kernel_adapter_xil_ap_ctrl_hs()}
+${vsim_waves_hwpe_datapath_adapter_xil_ap_ctrl_hs()}
 % endif
 
 % if acc_wr_is_mdc_dataflow == True:
-${vsim_waves_hwpe_kernel_adapter_mdc_dataflow()}
+${vsim_waves_hwpe_datapath_adapter_mdc_dataflow()}
 % endif
 
 <%
-#####################
-## HWPE kernel HLS ##
-#####################
+#######################
+## HWPE datapath HLS ##
+#######################
 %>
 
 % if acc_wr_design_type == 'hls':
-${vsim_waves_hwpe_kernel_HLS()}
+${vsim_waves_hwpe_datapath_HLS()}
 % endif
 
 <%

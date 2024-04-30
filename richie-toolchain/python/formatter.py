@@ -60,7 +60,7 @@ class Formatter:
     def accelerator(self, accelerator_specs_raw):
         self.format_accelerator_wrapper(accelerator_specs_raw().wrapper)
         self.format_accelerator_author(accelerator_specs_raw().author)
-        self.format_accelerator_datapath(accelerator_specs_raw().kernel)
+        self.format_accelerator_datapath(accelerator_specs_raw().datapath)
         self.format_accelerator_streaming(accelerator_specs_raw().streaming)
         self.format_accelerator_regfile(accelerator_specs_raw().regfile)
         self.format_accelerator_addressgen(accelerator_specs_raw().addressgen)

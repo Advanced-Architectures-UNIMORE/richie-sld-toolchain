@@ -84,14 +84,14 @@ workspace:
   checkout_dir: "./deps"
 
 sources:
-  % for i in range (acc_wr_num_kernel_modules):
-  - rtl/datapath/${acc_wr_kernel_modules[i]}
+  % for i in range (acc_wr_num_datapath_modules):
+  - rtl/datapath/${acc_wr_datapath_modules[i]}
   % endfor
   - rtl/${acc_wr_target}_package.sv
   - rtl/${acc_wr_target}_fsm.sv
   - rtl/${acc_wr_target}_ctrl.sv
   - rtl/${acc_wr_target}_streamer.sv
-  - rtl/${acc_wr_target}_kernel_adapter.sv
+  - rtl/${acc_wr_target}_datapath_adapter.sv
   - rtl/${acc_wr_target}_engine.sv
   - rtl/${acc_wr_target}_top.sv
   - rtl/${acc_wr_target}_top_wrapper.sv

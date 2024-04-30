@@ -268,9 +268,9 @@ addr_current = addr_top
   } flags_engine_${acc_wr_target}_t;
 
   <%
-  ###############################
-  ## Typedefs - Kernel adapter ##
-  ###############################
+  #################################
+  ## Typedefs - Datapath adapter ##
+  #################################
   %>
 
   typedef struct packed {
@@ -280,7 +280,7 @@ addr_current = addr_top
     logic unsigned [23:0] packet_size_${acc_wr_stream_in[i]};
       % endfor
     % endif
-  } ctrl_kernel_adapter_${acc_wr_target}_t;
+  } ctrl_datapath_adapter_${acc_wr_target}_t;
 
   typedef struct packed {
     logic done;
@@ -291,7 +291,7 @@ addr_current = addr_top
     % endif
 
 
-  } flags_kernel_adapter_${acc_wr_target}_t;
+  } flags_datapath_adapter_${acc_wr_target}_t;
 
   <%
   #########################

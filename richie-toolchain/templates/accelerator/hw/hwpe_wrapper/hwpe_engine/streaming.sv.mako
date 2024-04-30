@@ -30,7 +30,7 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
@@ -72,12 +72,12 @@
 </%def>
 
 <%
-##################################
-## Streaming - Kernel interface ##
-##################################
+####################################
+## Streaming - Datapath interface ##
+####################################
 %>
 
-<%def name="streaming_kernel_adapter_intf()">\
+<%def name="streaming_datapath_adapter_intf()">\
 \
 // Data streams
   % for i in range (acc_wr_n_sink):

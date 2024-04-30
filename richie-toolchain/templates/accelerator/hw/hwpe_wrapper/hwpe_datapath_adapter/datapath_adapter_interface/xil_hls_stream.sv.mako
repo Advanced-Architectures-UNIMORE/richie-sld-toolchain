@@ -22,7 +22,7 @@
 
     Title:          Template
 
-    Description:    HWPE kernel adapter.
+    Description:    HWPE datapath adapter.
 
     Date:           11.6.2021
 
@@ -30,37 +30,37 @@
 
     =====================================================================
 
-'''  
+'''
 %>
 
 <%
-##############################################
-## Kernel adapter interface - MDC dataflow  ##
-##############################################
+############################################################
+## Datapath adapter interface - Xilinx hls::stream object ##
+############################################################
 %>
 
 <%
-##################################################
-## Kernel adapter interface - Control interface ##
-##################################################
+####################################################
+## Datapath adapter interface - Control interface ##
+####################################################
 %>
 
-<%def name="mdc_dataflow_engine_ctrl()">\
+<%def name="xil_hls_stream_engine_ctrl()">\
 
   // Control signals
-  input  ctrl_kernel_adapter_${acc_wr_target}_t           ctrl_i,
+  input  ctrl_datapath_adapter_${acc_wr_target}_t           ctrl_i,
 
 </%def>
 
 <%
-################################################
-## Kernel adapter interface - Flags interface ##
-################################################
+##################################################
+## Datapath adapter interface - Flags interface ##
+##################################################
 %>
 
-<%def name="mdc_dataflow_engine_flags()">\
+<%def name="xil_hls_stream_engine_flags()">\
 
   // Flag signals
-  output  flags_kernel_adapter_${acc_wr_target}_t           flags_o
-\
+  output  flags_datapath_adapter_${acc_wr_target}_t           flags_o
+
 </%def>

@@ -88,7 +88,7 @@ class RichieTest:
                             'hwpe/hwpe_fsm.tcl.mako',
                             'hwpe/hwpe_streamer.tcl.mako',
                             'hwpe/hwpe_top.tcl.mako',
-                            'hwpe/accelerator_kernel.tcl.mako',
+                            'hwpe/accelerator_datapath.tcl.mako',
                             'hwpe.tcl.mako'
             ],
             path_common = self.path_common
