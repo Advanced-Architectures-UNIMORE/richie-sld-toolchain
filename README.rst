@@ -8,8 +8,10 @@ The Richie Toolchain
   :align: center
 
 The *Richie Toolchain* is a System-Level Design (SLD) Toolchain that automates and simplifies the HW/SW assembling and specialization of *Accelerator-Rich Heterogeneous Systems-on-Chip (HeSoCs)*.
-The Toolchain comprises a setool (e come attivarlo) f Python-based tools, which enables the seamless and rapid composition of accelerators into full-fledged Accelerator-Rich HeSoCs, from a *high-level description*. Indeed, the Toolchain supports various *accelerator design flows*, e.g., leveraging High-Level Synthesis (HLS).
-Generated HeSoCs are based on the [Parallel Ultra Low Power (PULP) Platform](https://pulp-platform.org/index.html), an open-source research and development platform targeting highly parallel architectures for ultra-low-power processing based on the RISC-V Instruction Set Architecture (ISA). The *Richie Toolchain* was formerly named *GenOv*.
+The Toolchain comprises a set of Python-based tools, which enables the seamless and rapid composition of accelerators into full-fledged Accelerator-Rich HeSoCs, from a *high-level description*.
+Indeed, the Toolchain supports various *accelerator design flows*, e.g., leveraging High-Level Synthesis (HLS).
+Generated HeSoCs are based on the `Parallel Ultra Low Power (PULP) Platform <https://pulp-platform.org/index.html>`_, an open-source research and development platform targeting highly parallel architectures for ultra-low-power processing based on the RISC-V Instruction Set Architecture (ISA).
+The *Richie Toolchain* was formerly named *GenOv*.
 
 .. include_after_this_label
 
@@ -25,11 +27,11 @@ Clone the repository with its Git submodules using :code:`git clone --recursive 
 ---------------------------------------
 Integration within the Richie Framework
 ---------------------------------------
-This toolchain is employed as part of the *Richie framework*, which includes the HW/SW components to design, build and deploy a full-fledged accelerator-rich HeSoC.
+This toolchain is employed as part of the *Richie framework*, which includes the HW/SW components to design, build, and deploy a full-fledged accelerator-rich HeSoC.
 This ecosystem leverages the *Richie Toolchain* to generate the necessary HW/SW sources to drive the specialization of the target HeSoC platform.
-In order to safely let the framework parts interact, the root of the Richie hardware subsystem (:code:`RICHIE_HW`) must be defined accordingly:
+To safely let the framework parts interact, the root of the Richie hardware subsystem (:code:`RICHIE_HW`) must be defined accordingly:
 
-.. code-block:: none
+.. code-block:: console
 
   export RICHIE_HW=<global-path-to-richie>/richie/hardware
 
@@ -37,17 +39,17 @@ In order to safely let the framework parts interact, the root of the Richie hard
 Python Virtual Environment
 --------------------------
 The toolchain leverages a Python virtual environment to manage the tool dependencies.
-The toolchain has been tested with :code:`Python 3.8.10`, so we recommend to stick with this version.
+The toolchain has been tested with :code:`Python 3.8.10`, so we recommend sticking with this version.
 To create the environment and install the required packages (listed inside :code:`requirements.txt`), simply run:
 
-.. code-block:: none
+.. code-block:: console
 
     make py_env_init
 
 Then, the environment can be activated by :code:`source richie-py-env/bin/activate`.
 If new packages are added, the environment can be updated with the following command:
 
-.. code-block:: none
+.. code-block:: console
 
     make py_env_update_reqs
 
@@ -56,9 +58,9 @@ Note that the :code:`py_env_init` command should be run again to install newly a
 --------------------------
 Third-Party Git Submodules
 --------------------------
-Third-Party submodules can be pulled with the following command:
+Third-party submodules can be pulled with the following command:
 
-.. code-block:: none
+.. code-block:: console
 
     make richie_gen_init
 
@@ -89,7 +91,9 @@ The *Richie Toolchain* facilitates three SLD phases concerning the assembling of
 ------------------
 Accelerator Design
 ------------------
-This phase produces the accelerator datapaths. The *Richie Toolchain* supports various design flows to accomodate a wide range of users and application needs, including:
+.. _richie_toolchain_root_sld_acc_design:
+
+This phase produces the accelerator datapaths. The *Richie Toolchain* supports various design flows to accommodate a wide range of users and application needs, including:
 
 * High-Level Synthesis:
 
@@ -108,7 +112,10 @@ The IP interface is expected to attain the following requirements:
 ------------------
 System Integration
 ------------------
-This phase generates the accelerator interfaces which facilitate the integration inside the Accelerator-Rich HeSoC. These include HW interfaces for data communication and control, as well as SW drivers.
+.. _richie_toolchain_root_sld_integration:
+
+This phase generates the accelerator interfaces which facilitate the integration inside the Accelerator-Rich HeSoC.
+These include HW interfaces for data communication and control, as well as SW drivers.
 The user is asked to provide an *accelerator specification file* describing the characteristics of the accelerator interface, as shown in the example below:
 
 .. code-block:: python
@@ -132,12 +139,16 @@ The user is asked to provide an *accelerator specification file* describing the 
 
 Specifications are collected in the accelerator library (:code:`src/accelerators/`), including the following sections:
 
-* :code:`specs/`: This location contains the accelerator specification file :code:`accelerator_specs.py`, which embodies the required information to specialize the HW/SW interface between the application-specific accelerators and the outer platform.
+* :code:`specs/`: This location contains the accelerator specification file :code:`accelerator_specs.py`, which embodies the required information
+  to specialize the HW/SW interface between the application-specific accelerators and the outer platform.
 
 -------------------
 System Optimization
 -------------------
-This phase specializes the platform parts to meet the requirements of the integrated workload, thus producing a specialized and optimized *Accelerator-Rich HeSoC*.
+.. _richie_toolchain_root_sld_optimization:
+
+This phase performs the specialization of the platform parts to meet the requirements of the integrated workload.
+The outcome consists of a specialized and optimized *Accelerator-Rich HeSoC*.
 Similarly, this phase mandates a *platform specification file* with the HeSoC characteristics,
 
 .. code-block:: python
@@ -164,11 +175,13 @@ Similarly, this phase mandates a *platform specification file* with the HeSoC ch
 
 Specifications are collected in the platform library (:code:`src/platforms/`), including the following sections:
 
-* :code:`specs/`: This location contains the platform specification file :code:`platform_specs.py`, which guides the Richie Toolchain on how to specialize the Accelerator-Rich HeSoC.
+* :code:`specs/`: This location contains the platform specification file :code:`platform_specs.py`, which guides the Richie Toolchain on how
+  to specialize the Accelerator-Rich HeSoC.
 
 ========================================
 Generation of the Accelerator-Rich HeSoC
 ========================================
+.. _richie_toolchain_root_generation:
 
 -------------------
 The Generation Flow
@@ -177,31 +190,33 @@ The *Richie Toolchain* adopts a design automation approach, which can be defined
 Basically:
 
 #. *Platform* and *accelerator specification files* consist of user-defined design knobs, which are meant to specialize the HeSoC components;
-#. *Templates* consist of marked-up text, which can be potentially *rendered* into various output formats, e.g. HW/SW components, scripts, documentation, etc.
-#. The *generation flow* provides parameters to a *rendering engine*, which parses and renders the toolchain templates. In particular, the latter leverages the [Mako Template Library](https://www.makotemplates.org/).
+#. *Templates* consist of marked-up text, which can be *rendered* into various output formats, e.g. HW/SW components, scripts, documentation, etc.
+#. The *generation flow* provides parameters to a *rendering engine*, which parses and renders the toolchain templates.
+   In particular, the latter leverages the `Mako Template Library <https://www.makotemplates.org/>`_.
 #. The result consists of a *full-fledged Accelerator-Rich HeSoC*, including both HW/SW components and ready-to-go simulation and synthesis scripts.
 
 ----------
 How to Run
 ----------
-The generation flow is triggered with a :code:`make clean all`.
+The generation flow is triggered with the following command:
+
+.. code-block:: console
+
+  make clean all TARGET_PLATFORM=<TARGET_PLATFORM>
+
 Additionally, add the following arguments:
 
-* **TARGET_PLATFORM**: This is to specify the target platform to generate. For example, :code:`make clean all TARGET_PLATFORM=richie_example` is run to generate the target :code:`richie_example` under :code:`src/platforms/richie_example/specs`.
+* **TARGET_PLATFORM**: This is to specify the target platform, where the device-under-test (DUT) is integrated.
+  This should match the name declared in the corresponding :ref:`platform specification file <richie_toolchain_root_sld_optimization>`.
+  For example, :code:`make clean all TARGET_PLATFORM=richie_example` is run to generate the target platform :code:`richie_example`, which
+  specification is kept under :code:`src/platforms/richie_example/specs`.
 
 The generated components will then be available under :code:`output`.
-
-----------------------------------
-Analyze generated RTL with Verible
-----------------------------------
-.. code-block:: none
-
-    make check_sv_verible TARGET_PLATFORM=richie_example
 
 =======
 License
 =======
-The *Richie Toolchain* is released under permissive open source licenses:
+The *Richie Toolchain* is released under permissive open-source licenses:
 
 * **Source files**, **tool scripts** and **templates** are released under the :code:`Apache 2.0 license` (`Apache-2.0 <https://www.apache.org/licenses/LICENSE-2.0>`_).
 * **Generated components** are differently released depending on their specific nature:
@@ -227,8 +242,7 @@ If you use Richie in your work, you can cite us:
             organization={IEEE}
         }
 
-
-Other work which can be found in or contributed to this repository:
+| Other work which can be found in or contributed to this repository:
 
 .. details:: XNOR neural engine: A hardware accelerator IP for 21.6-fJ/op binary neural network inference
 

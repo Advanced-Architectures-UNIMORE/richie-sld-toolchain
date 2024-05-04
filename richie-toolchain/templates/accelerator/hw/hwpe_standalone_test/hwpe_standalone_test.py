@@ -47,12 +47,22 @@
 
 #!/usr/bin/env python3
 
+from templates.accelerator.hw.hwpe_standalone_test.bender.bender import Bender
 from templates.accelerator.hw.hwpe_standalone_test.hwpe_tb_hw.hwpe_tb_hw import HwpeTbHw
 from templates.accelerator.hw.hwpe_standalone_test.vsim_wave.vsim_wave import VsimWave
 
 class HwpeStandaloneTest:
     def __init__(self):
         self.path_common = 'templates/accelerator/hw/common/'
+
+    def Bender(self):
+        print("\n[py] >> HWPE standalone test ~ HW testbench")
+        return Bender(
+            temp_type = 'templates/accelerator/hw/hwpe_standalone_test/bender/',
+            temp_top = 'bender.yml.mako',
+            temp_modules = [],
+            path_common = self.path_common
+        ).top()
 
     def HwpeTbHw(self):
         print("\n[py] >> HWPE standalone test ~ HW testbench")

@@ -339,6 +339,27 @@ generator.render(
     =====================================================================
     Component:      Standalone Test for the Accelerator interface (HWPE-based)
 
+    Description:    Generation of integration support components, such as
+                    scripts for source management tools, simulations, etc.
+    ===================================================================== */
+'''
+
+'''
+    Generate design components ~ Bender
+'''
+generator.render(
+    hwpe_standalone_test.Bender(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['integr_support', 'Bender', ['integr_support', 'yml']],
+    emitter.out_accelerator_standalone_test_hw
+)
+
+'''
+    =====================================================================
+    Component:      Standalone Test for the Accelerator interface (HWPE-based)
+
     Description:    Generation of software test components (Hardware
                     Abstraction Layer, HAL).
     ===================================================================== */
