@@ -18,9 +18,9 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		    Export generated Accelerator-Rich HeSoC to the Richie HW subsystem.
+# Name: 		    Export generated Accelerator-Rich HeSoC.
 #
-# Description:  Prepare generated platform components for exporting.
+# Description:  Export generated Accelerator-Rich HeSoC.
 #
 # Date:        	23.11.2021
 #
@@ -36,7 +36,7 @@ readonly dir_hw_src=$2
 readonly target_platform=$3
 
 THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-source $THIS_DIR/../common.sh
+source $THIS_DIR/../common/common.sh
 
 echo -e ""
 echo -e "# ============================================== #"

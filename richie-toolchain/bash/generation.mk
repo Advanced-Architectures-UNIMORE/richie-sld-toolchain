@@ -20,7 +20,7 @@
 #
 # Name: 				Generation of the Accelerator-Rich HeSoC
 #
-# Description: 	Recipes to specialize and optimize Accelerator-Rich HeSoC.
+# Description: 	Recipes to specialize and optimize the Accelerator-Rich HeSoC.
 #
 # Date:        	23.11.2021
 #
@@ -28,6 +28,7 @@
 #
 # =====================================================================
 
+# Platform generation
 richie_gen:
 	@bash ${SCRIPTS_RICHIE_GEN}/$@.sh \
 		${RICHIE_TOOLCHAIN_ROOT} \
@@ -38,7 +39,7 @@ richie_gen:
 
 richie_gen_run:
 	@bash ${SCRIPTS_RICHIE_GEN}/$@.sh \
-		${PY_VENV} \
+		${PY_VENV_NAME} \
 		${OUT_RICHIE_GEN}
 
 richie_gen_platform_design_knobs:
@@ -62,10 +63,49 @@ richie_gen_out_static:
 
 richie_gen_init:
 	@bash ${SCRIPTS_RICHIE_GEN}/$@.sh \
-		${PY_VENV}
+		${PY_VENV_NAME}
 
 richie_gen_clean: check_richie_env
 	@bash ${SCRIPTS_RICHIE_GEN}/$@.sh \
 		${DEV_DIR}/platform_dev \
 		${PY_VENV_DIR} \
 		${OUT_RICHIE_GEN}
+
+# Acceleration generation
+acc_gen:
+	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
+		${RICHIE_TOOLCHAIN_ROOT} \
+		${DEV_DIR} \
+		${PY_VENV_DIR} \
+		${SRC_ACC} \
+		${OUT_ACC_GEN} \
+		${RICHIE_HW_ACCEL}
+
+acc_gen_run:
+	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
+		${TARGET_ACC} \
+		${PY_VENV_NAME} \
+		${OUT_ACC_GEN}
+
+acc_gen_out_env:
+	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
+		${TARGET_ACC} \
+		${DEV_DIR}/accelerator_dev \
+		${OUT_ACC_GEN} \
+		${STATIC}
+
+acc_gen_init:
+	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
+		${PY_VENV_NAME}
+
+acc_gen_datapaths_list:
+	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
+		${DEV_DIR}/accelerator_dev \
+		${TARGET_ACC}
+
+acc_gen_clean: check_richie_env
+	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
+		${DEV_DIR}/accelerator_dev \
+		${PY_VENV_DIR} \
+		${TEMPL_ACC} \
+		${OUT_ACC_GEN}

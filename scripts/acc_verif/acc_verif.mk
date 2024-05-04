@@ -18,9 +18,9 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 				Environment setup
+# Name: 				Accelerator verification
 #
-# Description: 	Recipes to set up Python Venv.
+# Description: 	Recipes to guide the verification of the accelerator interface.
 #
 # Date:        	23.11.2021
 #
@@ -28,16 +28,13 @@
 #
 # =====================================================================
 
-py_env: py_env_init
+acc_verif: acc_verif_clean acc_verif_setup_standalone acc_verif_gen_standalone
 
-py_env_update_reqs: common_sh
-	@bash ${SCRIPTS_PY_ENV}/$@.sh ${PY_VENV_DIR}
+acc_verif_gen_standalone:
+	@bash ${SCRIPTS_ACC_VERIF}/$@.sh ${TARGET_ACC_VERIF} ${OUT_ACC_GEN} ${VERIF_ACC_DIR}
 
-py_env_init: common_sh
-	@bash ${SCRIPTS_PY_ENV}/$@.sh ${PY_VENV}
+acc_verif_setup_standalone:
+	@bash ${SCRIPTS_ACC_VERIF}/$@.sh ${OUT_ACC_GEN} ${VERIF_ACC_DIR}
 
-py_env_test: common_sh
-	@bash ${SCRIPTS_PY_ENV}/$@.sh ${PY_VENV_DIR}
-
-py_env_clean: py_env_test
-	@rm -rf ${PY_VENV}
+acc_verif_clean:
+	@bash ${SCRIPTS_ACC_VERIF}/$@.sh ${OUT_ACC_GEN} ${VERIF_ACC_DIR}

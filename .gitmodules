@@ -1,3 +1,3 @@
-[submodule "richie-toolchain/verif/hwpe-tb"]
-	path = richie-toolchain/verif/hwpe-tb
+[submodule "verif/hwpe-tb"]
+	path = verif/hwpe-tb
 	url = git@github.com:gbellocchi/hwpe-tb.git

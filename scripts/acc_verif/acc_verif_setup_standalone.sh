@@ -1,6 +1,6 @@
 # =====================================================================
 #
-# Copyright (C) 2024 University of Modena and Reggio Emilia
+# Copyright (C) 2021 University of Modena and Reggio Emilia
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,29 +18,23 @@
 #
 # Project:      Richie Toolchain
 #
-# Name:         Check SystemVerilog style guidelines (from lowRISC).
+# Name: 		Set up accelerator test
 #
-# Description:  Launch Verible formatting tool.
+# Description:  Set up standalone verification environment.
 #
-# Date:        	29.4.2024
+# Date:        	23.11.2021
 #
-# Author: 	    Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
 #!/bin/bash
 
 THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-source $THIS_DIR/../common.sh
+source $THIS_DIR/../common/common.sh
 
-# Read Makefile arguments
-readonly dir_root=$1
-readonly dir_tools=$2
-readonly dir_out_richie=$3
-readonly dir_verible_install=$4
+readonly dir_out=$1
+readonly dir_verif=$2
 
-# Add Verible executable path
-export PATH=$dir_verible_install:$PATH
-
-# Run Verible
-find $dir_out_richie -type f -name "*.sv" -exec $dir_tools/verible-format.py --inplace --files "{}" \;
+echo -e "[sh] >> VSIM path -> $dir_verif/hw/sim"
+export VSIM_PATH=$dir_verif/hw/sim

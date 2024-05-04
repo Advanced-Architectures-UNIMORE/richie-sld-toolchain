@@ -1,6 +1,6 @@
 # =====================================================================
 #
-# Copyright (C) 2021 University of Modena and Reggio Emilia
+# Copyright (C) 2024 University of Modena and Reggio Emilia
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,26 +18,24 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		    Generate accelerator test
+# Name:         Check shell script
 #
-# Description:  Generate standalone verification environment.
+# Description:  Launch ShellCheck formatting tool.
 #
-# Date:        	23.11.2021
+# Date:        	2.5.2024
 #
-# Author: 		  Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 	    Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
 #!/bin/bash
 
-readonly dir_out=$1
-readonly dir_verif=$2
+THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+source $THIS_DIR/../common/common.sh
 
-# Get source components
-echo -e "[sh] >> Retrieving test components to validate the target accelerator with the generated HW/SW interface"
+# Read Makefile arguments
+readonly dir_root=$1
+readonly dir_tools=$2
 
-# update hardware test components
-cp -rf $dir_out/hw/hwpe_standalone_tb/tb_hwpe.sv $dir_verif/hw/rtl/
-
-# update software test components
-cp -rf $dir_out/sw/hwpe_standalone_tb/* $dir_verif/sw/
+# Run Verible
+find $dir_root -type f -name "*.sh" -exec $dir_tools/shellcheck-stable/shellcheck "{}" \;

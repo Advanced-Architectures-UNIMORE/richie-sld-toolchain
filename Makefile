@@ -37,9 +37,11 @@ REPO := richie-toolchain
 
 TARGET_PLATFORM := richie_example
 
--include tools/common_mk/*.mk
+MODULES := common acc_verif check_code py_env richie_export
+$(foreach leaf,$(MODULES),$(eval include $(RICHIE_TOOLCHAIN_ROOT)/scripts/$(leaf)/$(leaf).mk))
+-include richie-toolchain/bash/generation.mk
 
-.PHONY: all clean
+.PHONY: all clean export
 
 all: richie_gen
 

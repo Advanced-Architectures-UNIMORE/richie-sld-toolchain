@@ -1,6 +1,6 @@
 # =====================================================================
 #
-# Copyright (C) 2024 University of Modena and Reggio Emilia
+# Copyright (C) 2021 University of Modena and Reggio Emilia
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,31 +18,31 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 	    Check Python PEP8 style guidelines.
+# Name: 		    Generate accelerator test
 #
-# Description:  Launch Python linter and search for bugs and style errors.
+# Description:  Generate standalone verification environment.
 #
-# Date:        	26.4.2024
+# Date:        	23.11.2021
 #
-# Author: 	    Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 		  Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
 #!/bin/bash
 
-THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-source $THIS_DIR/../common.sh
+readonly target_acc_verif=$1
+readonly dir_out=$2
+readonly dir_verif=$3
 
-# Read Makefile arguments
-readonly dir_root=$1
-readonly dir_py_venv=$2
-readonly dir_richie_src=$3
+# Get source components
+echo -e "[sh] >> Retrieving test components to verify the DUT <$target_acc_verif> with the generated HW/SW interface"
 
-# Activate environment
-source $dir_py_venv/bin/activate
+# update DUT
+cp -rf $dir_out/$target_acc_verif $dir_verif/hw/ips
 
-# Analyze generate scripts
-pylint $dir_root/richie-toolchain
+# update hardware test components
+cp -rf $dir_out/$target_acc_verif/test/hw/tb_hwpe.sv $dir_verif/hw/rtl/
+cp -rf $dir_out/$target_acc_verif/test/hw/Bender.yml $dir_verif/hw/
 
-# Deactivate environment
-deactivate
+# update software test components
+cp -rf $dir_out/$target_acc_verif/test/sw/* $dir_verif/sw/

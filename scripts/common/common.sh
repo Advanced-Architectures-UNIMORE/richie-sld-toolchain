@@ -18,9 +18,10 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 				Accelerator verification
+# Name: 				Python Venv requirements
 #
-# Description: 	Recipes to guide the verification of the accelerator interface.
+# Description: 	Definition of shell variables and functions which are
+#               shared by other scripts.
 #
 # Date:        	23.11.2021
 #
@@ -28,13 +29,45 @@
 #
 # =====================================================================
 
-acc_verif: acc_verif_clean acc_verif_setup_standalone acc_verif_gen_standalone
+#!/bin/bash
 
-acc_verif_gen_standalone:
-	@bash ${SCRIPTS_ACC_VERIF}/$@.sh ${OUT_ACC_GEN} ${VERIF_ACC}
+: '
+  Shell variables
+'
 
-acc_verif_setup_standalone:
-	@bash ${SCRIPTS_ACC_VERIF}/$@.sh ${OUT_ACC_GEN} ${VERIF_ACC}
+hwpe_target=$1
 
-acc_verif_clean:
-	@bash ${SCRIPTS_ACC_VERIF}/$@.sh ${OUT_ACC_GEN} ${VERIF_ACC}
+: '
+  Shell functions
+'
+
+error_exit()
+{
+  echo -e "\n$1\n" 1>&2
+  exit 1
+}
+
+q_correctness()
+{
+    remote_info=$1
+
+    # echo -e "\n>> Are these information correct?"
+    # select yn in "yes" "no"; do
+    #   case $yn in
+    #     yes ) 	break;;
+    #     no ) 	  error_exit "[sh] >> Environment error!";;
+    #   esac
+    # done
+}
+
+check_env_var()
+{
+    variable_name=$1
+    variable_value=$2
+
+    if [[ -z "$variable_value" ]]; then
+      error_exit "[sh] >> $variable_name is not defined yet. Please correct this!\n"
+    else
+      echo "[sh] >> $variable_name defined at $variable_value"
+    fi
+}

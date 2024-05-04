@@ -1,6 +1,6 @@
 # =====================================================================
 #
-# Copyright (C) 2021 University of Modena and Reggio Emilia
+# Copyright (C) 2024 University of Modena and Reggio Emilia
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,20 +18,31 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 				Platform export to Richie HW subsytem
+# Name: 	      Check Python PEP8 style guidelines.
 #
-# Description: 	Recipes to guide the export of the generated Accelerator-Rich HeSoC.
+# Description:  Launch Python linter and search for bugs and style errors.
 #
-# Date:        	23.11.2021
+# Date:        	26.4.2024
 #
-# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 	    Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
-richie_export: richie_export_cfg
+#!/bin/bash
 
-richie_export_cfg:
-	@bash ${SCRIPTS_RICHIE_EXPORT}/$@.sh ${OUT_RICHIE_GEN} ${RICHIE_HW_SRC} ${TARGET_PLATFORM}
+THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+source $THIS_DIR/../common/common.sh
 
-richie_export_test: common_sh
-	@bash ${SCRIPTS_RICHIE_EXPORT}/$@.sh ${RICHIE_HW_SRC} ${RICHIE_HW_DEPS} ${RICHIE_HW_TEST}
+# Read Makefile arguments
+readonly dir_root=$1
+readonly dir_py_venv=$2
+readonly dir_richie_src=$3
+
+# Activate environment
+source $dir_py_venv/bin/activate
+
+# Analyze generate scripts
+pylint $dir_root/richie-toolchain
+
+# Deactivate environment
+deactivate

@@ -35,7 +35,7 @@ all: lib_info
 	@cp -rf ${TARGET_PLATFORM} ${DEV_DIR}/platform_dev
 
 lib_info:
-	@echo -e "[sh] >> Runtime platforms device environment:\n"
+	@echo -e "[sh] >> Runtime platform device environment:\n"
 	@echo -e "\t- Location -> ${DEV_DIR}/platform_dev\n"
 
 clean:

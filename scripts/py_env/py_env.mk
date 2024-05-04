@@ -18,9 +18,9 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 				Common shell components
+# Name: 				Environment setup
 #
-# Description: 	Recipes to invoke shell functions or scripts.
+# Description: 	Recipes to set up Python Venv.
 #
 # Date:        	23.11.2021
 #
@@ -28,5 +28,16 @@
 #
 # =====================================================================
 
-common_sh:
-	@bash ${SCRIPTS_DIR}/common.sh ${HWPE_TARGET}
+py_env: py_env_init
+
+py_env_update_reqs: common_sh
+	@bash ${SCRIPTS_PY_ENV}/$@.sh ${PY_VENV_DIR}
+
+py_env_init: common_sh
+	@bash ${SCRIPTS_PY_ENV}/$@.sh ${PY_VENV_NAME}
+
+py_env_test: common_sh
+	@bash ${SCRIPTS_PY_ENV}/$@.sh ${PY_VENV_DIR}
+
+py_env_clean: py_env_test
+	@rm -rf ${PY_VENV_NAME}

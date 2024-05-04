@@ -18,50 +18,28 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 				Accelerator generation
+# Name: 		    Clean accelerator test
 #
-# Description: 	Recipes to guide the generation of the accelerator interface.
+# Description:  Clean standalone verification environment.
 #
 # Date:        	23.11.2021
 #
-# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 		  Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
-acc_gen:
-	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
-		${RICHIE_TOOLCHAIN_ROOT} \
-		${DEV_DIR} \
-		${PY_VENV_DIR} \
-		${SRC_ACC} \
-		${OUT_ACC_GEN} \
-		${RICHIE_HW_ACCEL}
+#!/bin/bash
 
-acc_gen_run:
-	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
-		${TARGET_ACC} \
-		${PY_VENV} \
-		${OUT_ACC_GEN}
+THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+source $THIS_DIR/../common/common.sh
 
-acc_gen_out_env:
-	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
-		${TARGET_ACC} \
-		${DEV_DIR}/accelerator_dev \
-		${OUT_ACC_GEN} \
-		${STATIC}
+readonly dir_out=$1
+readonly dir_verif=$2
 
-acc_gen_init:
-	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
-		${PY_VENV}
+echo -e "[sh] >> Cleaning standalone verification environment"
 
-acc_gen_datapaths_list:
-	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
-		${DEV_DIR}/accelerator_dev \
-		${TARGET_ACC}
+# clean hw tb
+rm -f $dir_verif/hw/rtl/tb_hwpe.sv
 
-acc_gen_clean: check_richie_env
-	@bash ${SCRIPTS_ACC_GEN}/$@.sh \
-		${DEV_DIR}/accelerator_dev \
-		${PY_VENV_DIR} \
-		${TEMPL_ACC} \
-		${OUT_ACC_GEN}
+# clean sw tb
+rm -rf $dir_verif/sw/*

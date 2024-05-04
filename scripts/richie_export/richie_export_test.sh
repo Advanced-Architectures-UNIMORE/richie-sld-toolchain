@@ -33,7 +33,7 @@
 echo -e "[sh] >> Checking the Richie environment.\n"
 
 THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-source $THIS_DIR/../common.sh
+source $THIS_DIR/../common/common.sh
 
 readonly RICHIE_HW_SRC=$1
 readonly RICHIE_HW_DEPS=$2

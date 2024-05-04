@@ -18,23 +18,20 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 		Set up accelerator test
+# Name: 				Platform export to Richie HW subsytem
 #
-# Description:  Set up standalone verification environment.
+# Description: 	Recipes to guide the export of the generated Accelerator-Rich HeSoC.
 #
 # Date:        	23.11.2021
 #
-# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
-#!/bin/bash
+richie_export: richie_export_cfg
 
-THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-source $THIS_DIR/../common.sh
+richie_export_src:
+	@bash ${SCRIPTS_RICHIE_EXPORT}/$@.sh ${OUT_RICHIE_GEN} ${RICHIE_HW_SRC} ${TARGET_PLATFORM}
 
-readonly dir_out=$1
-readonly dir_verif=$2
-
-echo -e "[sh] >> VSIM path -> $dir_verif/hw/sim"
-export VSIM_PATH=$dir_verif/hw/sim
+richie_export_test: common_sh
+	@bash ${SCRIPTS_RICHIE_EXPORT}/$@.sh ${RICHIE_HW_SRC} ${RICHIE_HW_DEPS} ${RICHIE_HW_TEST}

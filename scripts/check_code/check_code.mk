@@ -18,9 +18,9 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 				Environment testing
+# Name: 				Environment setup
 #
-# Description: 	Recipes to test the environment.
+# Description: 	Recipes to run code check scripts.
 #
 # Date:        	23.11.2021
 #
@@ -28,12 +28,19 @@
 #
 # =====================================================================
 
-test_richie_env: check_richie_env
-ifndef ENV_IS_CHECKED
-	@bash ${SCRIPTS_RICHIE_EXPORT}/secure_paths.sh ${OVERLAY_SRC} ${RICHIE_HW_DEPS} ${RICHIE_HW_TEST}
-endif
+check_python: common_sh
+	@bash ${SCRIPTS_CHECK_CODE}/$@.sh \
+		${RICHIE_TOOLCHAIN_ROOT} \
+		${PY_VENV_DIR} \
+		${SRC_PLAT}
 
-check_richie_env:
-ifndef RICHIE_HW
-	$(error RICHIE_HW is undefined)
-endif
+check_systemverilog:
+	@bash ${SCRIPTS_CHECK_CODE}/$@.sh \
+		${RICHIE_TOOLCHAIN_ROOT} \
+		${TOOLS_DIR} \
+		${OUT_RICHIE_GEN}
+
+check_shell: common_sh
+	@bash ${SCRIPTS_CHECK_CODE}/$@.sh \
+		${RICHIE_TOOLCHAIN_ROOT} \
+		${TOOLS_DIR}

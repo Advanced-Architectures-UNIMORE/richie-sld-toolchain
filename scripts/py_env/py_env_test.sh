@@ -35,7 +35,7 @@ echo -e "[sh] >> Checking python virtual environment."
 readonly dir_py_venv=$1
 
 THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-source $THIS_DIR/../common.sh
+source $THIS_DIR/../common/common.sh
 
 # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ #
 
