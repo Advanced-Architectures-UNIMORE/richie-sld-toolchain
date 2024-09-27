@@ -50,8 +50,8 @@
     n_acc_cl = len(cl_lic_acc_names)
   %>
 
-  logic [NB_HWPE-1:0] hwpe_evt;
-  logic [NB_HWPE-1:0] hwpe_busy;
+  logic [NB_CORES-1:0][1:0] hwpe_evt [NB_HWPE-1:0];
+  logic hwpe_busy [NB_HWPE-1:0];
 
   % for i in range(n_acc_cl):
     % if cl_lic_acc_protocols[i] == "hwpe":

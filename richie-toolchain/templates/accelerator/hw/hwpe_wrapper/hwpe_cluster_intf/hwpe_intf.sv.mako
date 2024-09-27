@@ -118,7 +118,7 @@ module ${acc_wr_target}_cluster_intf
     .periph_r_data  ( hwpe_slv.r_rdata              ),
     .periph_r_valid ( hwpe_slv.r_valid              ),
     .periph_r_id    ( hwpe_slv.r_id                 ),
-    .evt_o          ( evt_o[0]                      )
+    .evt_o          ( evt_o                         )
   );
 
   /* Local control. */
