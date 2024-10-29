@@ -58,6 +58,7 @@ if [ ! -d "$dir_out_richie" ]; then
     mkdir -p $dir_out_richie/hesoc/rtl/out-of-context
 
     mkdir -p $dir_out_richie/cluster
+    mkdir -p $dir_out_richie/cluster/include/cluster
     mkdir -p $dir_out_richie/cluster/packages
     mkdir -p $dir_out_richie/cluster/rtl
 

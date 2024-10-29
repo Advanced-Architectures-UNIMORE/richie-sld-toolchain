@@ -91,7 +91,7 @@ dependencies:
 % endfor
 
 export_include_dirs:
-  - packages
+  - include
 
 sources:
 % for i in range(n_clusters):

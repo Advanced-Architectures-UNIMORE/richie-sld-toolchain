@@ -3,5 +3,6 @@ richie-py-env/
 **/__pycache__/
 
 # generated files
+output/
 **/*.log
 **/dev

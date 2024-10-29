@@ -177,8 +177,8 @@ for cl_offset in range(platform_design_knobs.n_clusters):
         platform_design_knobs,
         None,
         emitter,
-        ['cl', str(cl_offset) + '_defines', ['hw', 'sv']],
-        emitter.out_platform_cl_pkg,
+        ['cl', str(cl_offset) + '_defines', ['hw', 'svh']],
+        emitter.out_platform_cl_inc,
         cl_offset
     )
 

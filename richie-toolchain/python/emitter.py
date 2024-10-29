@@ -92,6 +92,7 @@ class Emitter:
 
             # Cluster
             self.out_platform_cl                            = self.out_platform + '/cluster'
+            self.out_platform_cl_inc                        = self.out_platform_cl + '/include/cluster'
             self.out_platform_cl_pkg                        = self.out_platform_cl + '/packages'
             self.out_platform_cl_rtl                        = self.out_platform_cl + '/rtl'
 
@@ -285,7 +286,7 @@ class Emitter:
     '''
     def get_dict_file_ext(self):
         dict_file_ext = {
-            'hw'                : { "sv": ".sv", "v": ".v" } ,
+            'hw'                : { "sv": ".sv", "svh": ".svh", "v": ".v" } ,
             'integr_support'    : { "yml": ".yml", "lock": ".lock", "vsim_wave": ".tcl", "mk": "" } ,
             'sw'                : { "archi": ".h", "hal": ".h", "tb": ".c", "app": ".c", "API": ".c", "header": ".h" }
         }
