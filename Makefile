@@ -33,7 +33,6 @@
 # =====================================================================
 
 RICHIE_TOOLCHAIN_ROOT := $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
-REPO := richie-toolchain
 
 TARGET_PLATFORM := richie_example
 

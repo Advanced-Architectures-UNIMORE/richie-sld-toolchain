@@ -85,7 +85,7 @@ class AcceleratorSpecs:
     '''
 
     def datapath(self):
-        self.target                             = 'color_detect'
+        self.target                             = 'color_detect_cv'
         self.design_type                        = 'hls'
         self.intf_protocol                      = 'hls_stream'
         return self

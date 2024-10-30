@@ -85,6 +85,6 @@ class PlatformSpecs:
         self.core                               = [ 'riscy', 8 ]
         self.dma                                = [ 4, 512, 8, 1, 2048]
         self.l1                                 = [ 16 , 128*1024]
-        self.lic                                = [ [ 'color_detect' , 'hwpe']]
+        self.lic                                = [ [ 'color_detect_cv' , 'hwpe']]
         self.hci                                = [ ]
         return self

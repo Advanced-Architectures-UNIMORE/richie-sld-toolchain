@@ -357,6 +357,18 @@ generator.render(
 )
 
 '''
+    Generate design components ~ Bender lock
+'''
+generator.render(
+    hwpe_standalone_test.BenderLock(),
+    None,
+    accelerator_design_knobs,
+    emitter,
+    ['integr_support', 'Bender', ['integr_support', 'lock']],
+    emitter.out_accelerator_standalone_test_hw
+)
+
+'''
     =====================================================================
     Component:      Standalone Test for the Accelerator interface (HWPE-based)
 

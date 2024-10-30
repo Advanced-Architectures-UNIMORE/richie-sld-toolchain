@@ -28,7 +28,7 @@
 #
 # =====================================================================
 
-richie_export: richie_export_cfg
+richie_export: richie_export_src
 
 richie_export_src:
 	@bash ${SCRIPTS_RICHIE_EXPORT}/$@.sh ${OUT_RICHIE_GEN} ${RICHIE_HW_SRC} ${TARGET_PLATFORM}

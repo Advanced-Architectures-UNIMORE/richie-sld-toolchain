@@ -78,7 +78,7 @@ VERIF_ACC_DIR 								:= ${RICHIE_TOOLCHAIN_ROOT}/verif/hwpe-tb
 RICHIE_HW_SRC									:= ${RICHIE_HW}/src
 RICHIE_HW_DEPS								:= ${RICHIE_HW}/deps
 RICHIE_HW_TEST								:= ${RICHIE_HW}/vsim
-RICHIE_HW_ACCEL								:= ${RICHIE_HW}/accelerators
+RICHIE_HW_ACCEL								:= ${RICHIE_HW}/accelerators/src
 
 common_sh:
 	@bash ${SCRIPTS_DIR}/common/common.sh ${HWPE_TARGET}
