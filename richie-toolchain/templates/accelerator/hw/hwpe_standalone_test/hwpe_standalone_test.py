@@ -48,6 +48,7 @@
 #!/usr/bin/env python3
 
 from templates.accelerator.hw.hwpe_standalone_test.bender.bender import Bender
+from templates.accelerator.hw.hwpe_standalone_test.bender_lock.bender_lock import BenderLock
 from templates.accelerator.hw.hwpe_standalone_test.hwpe_tb_hw.hwpe_tb_hw import HwpeTbHw
 from templates.accelerator.hw.hwpe_standalone_test.vsim_wave.vsim_wave import VsimWave
 
@@ -60,6 +61,15 @@ class HwpeStandaloneTest:
         return Bender(
             temp_type = 'templates/accelerator/hw/hwpe_standalone_test/bender/',
             temp_top = 'bender.yml.mako',
+            temp_modules = [],
+            path_common = self.path_common
+        ).top()
+
+    def BenderLock(self):
+        print("\n[py] >> HWPE standalone test ~ HW testbench")
+        return BenderLock(
+            temp_type = 'templates/accelerator/hw/hwpe_standalone_test/bender_lock/',
+            temp_top = 'bender_lock.yml.mako',
             temp_modules = [],
             path_common = self.path_common
         ).top()

@@ -43,6 +43,7 @@ cp -rf $dir_out/$target_acc_verif $dir_verif/hw/ips
 # update hardware test components
 cp -rf $dir_out/$target_acc_verif/test/hw/tb_hwpe.sv $dir_verif/hw/rtl/
 cp -rf $dir_out/$target_acc_verif/test/hw/Bender.yml $dir_verif/hw/
+cp -rf $dir_out/$target_acc_verif/test/hw/Bender.lock $dir_verif/hw/
 
 # update software test components
 cp -rf $dir_out/$target_acc_verif/test/sw/* $dir_verif/sw/
