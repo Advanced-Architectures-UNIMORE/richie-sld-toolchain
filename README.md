@@ -9,9 +9,9 @@
 </figure>
 
 ## About the project
-This <span style="font-variant:small-caps;">**SLD toolchain**</span> automates and facilitates the hardware-software co-design of *Heterogeneous Systems-on-Chip (HeSoCs)*, based on the accelerator-rich and many-core compute paradigms.
-The [**SLD flow**](https://richie-docs.readthedocs.io/en/latest/richie-sld-toolchain/index.html#system-level-design) is totally *automated* and goes through the *design and integration* of application-specific accelerators into an HeSoC platform.
-The HW and SW components of the HeSoC platform are *specialized*—on top of the application requirements—and *generated*, including the scripts to build and deploy it on commercially off-the-shelf FPGA fabrics.
+This <span style="font-variant:small-caps;">**SLD toolchain**</span> automates and facilitates the hardware-software co-design of HeSoCs, based on the accelerator-rich and many-core compute paradigms.
+The [**SLD flow**](https://richie-docs.readthedocs.io/en/latest/richie-sld-toolchain/index.html#system-level-design) is totally automated and goes through the *design and integration* of application-specific accelerators into an HeSoC platform.
+The hardware and software components of the HeSoC platform are *specialized*, on top of the application requirements, and finally *generated*, including the scripts to build and deploy it on commercially off-the-shelf FPGA fabrics.
 
 <a href="https://pulp-platform.org">
 <img src="https://richie-docs.readthedocs.io/en/latest/_images/pulp_logo_icon.svg" alt="Logo" width="100" align="right">
@@ -20,7 +20,7 @@ The HW and SW components of the HeSoC platform are *specialized*—on top of the
 This <span style="font-variant:small-caps;">SLD toolchain</span> is part of the [<span style="font-variant:small-caps;">Richie framework</span>](https://github.com/Advanced-Architectures-UNIMORE/richie), an open-source research project developed by the University of Modena and Reggio Emilia (UNIMORE) and the [PULP (Parallel Ultra-Low Power) Platform group](https://pulp-platform.org/index.html), from ETH Zürich and the University of Bologna.
 
 ## About this repository
-This repository comprises hardware, software and support utilities to support the generation of a full-fledged HeSoC platform. 
+This repository comprises hardware, software and support utilities to support the generation of a full-fledged HeSoC platform.
 It is usually employed as a submodule of the <span style="font-variant:small-caps;">Richie framework</span>, but the toolchain components are totally independent of it, hence it can also be leveraged for other projects and HeSoC architectures.
 
 The repository is organized as follows:
@@ -34,7 +34,7 @@ The repository is organized as follows:
 - <span style="font-variant:small-caps;">[build]</span> `output`: Build directory of the *generated HeSoCs*.
 
 ## Documentation
-The project includes comprehensive documentation that can be accessed [online at Read the Docs](https://richie-docs.readthedocs.io/en/latest/).
+The project includes comprehensive documentation that can be accessed [online at Read the Docs](https://richie-docs.readthedocs.io/en/latest/richie-sld-toolchain/index.html).
 
 ## How to contribute
 We are always enthusiastic about potential collaborations and contributions to our work!
