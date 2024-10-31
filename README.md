@@ -14,10 +14,10 @@ The [**SLD flow**](https://richie-docs.readthedocs.io/en/latest/richie-sld-toolc
 The HW and SW components of the HeSoC platform are *specialized*—on top of the application requirements—and *generated*, including the scripts to build and deploy it on commercially off-the-shelf FPGA fabrics.
 
 <a href="https://pulp-platform.org">
-<img src="img/pulp_logo_icon.svg" alt="Logo" width="100" align="right">
+<img src="https://richie-docs.readthedocs.io/en/latest/_images/pulp_logo_icon.svg" alt="Logo" width="100" align="right">
 </a>
 
-This <span style="font-variant:small-caps;">SLD toolchain</span> is part of the [<span style="font-variant:small-caps;">Richie framework</span>](https://github.com/Advanced-Architectures-UNIMORE/richie), an open-source research project developed by the University of Modena and Reggio Emilia (UNIMORE) and and the [PULP (Parallel Ultra-Low Power) Platform group](https://pulp-platform.org/index.html), from ETH Zürich and the University of Bologna.
+This <span style="font-variant:small-caps;">SLD toolchain</span> is part of the [<span style="font-variant:small-caps;">Richie framework</span>](https://github.com/Advanced-Architectures-UNIMORE/richie), an open-source research project developed by the University of Modena and Reggio Emilia (UNIMORE) and the [PULP (Parallel Ultra-Low Power) Platform group](https://pulp-platform.org/index.html), from ETH Zürich and the University of Bologna.
 
 ## About this repository
 This repository comprises hardware, software and support utilities to support the generation of a full-fledged HeSoC platform. 
