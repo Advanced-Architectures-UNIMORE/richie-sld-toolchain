@@ -1,21 +1,37 @@
-# <span style="font-variant:small-caps;">The Richie toolchain</span>
+# <span style="font-variant:small-caps;">Richie SLD Toolchain</span>
 
 <figure>
   <p align="center">
   <img
-  src="https://richie-docs.readthedocs.io/en/latest/_images/richie_toolchain.png"
+  src="https://richie-docs.readthedocs.io/en/latest/_images/richie_sld_toolchain.png"
   width="750px"
   </p>
 </figure>
 
 ## About the project
-The <span style="font-variant:small-caps;">**Richie toolchain**</span> is a System-Level Design (SLD) toolchain, aimed to automate and facilitate the hardware-software co-design of *Heterogeneous Systems-on-Chip (HeSoCs)*, based on the accelerator-rich and many-core compute paradigms.
-The SLD process goes from the design and integration of application-specific accelerators, platform optimization, generation and FPGA deployment.
-The toolchain is part of the [<span style="font-variant:small-caps;">Richie framework</span>](https://github.com/Advanced-Architectures-UNIMORE/richie), an open-source research project developed by the University of Modena and Reggio Emilia (UNIMORE) and based on the [PULP project](https://pulp-platform.org/index.html), a joint effort between ETH Zurich and the University of Bologna.
+This <span style="font-variant:small-caps;">**SLD toolchain**</span> automates and facilitates the hardware-software co-design of *Heterogeneous Systems-on-Chip (HeSoCs)*, based on the accelerator-rich and many-core compute paradigms.
+The [**SLD flow**](https://richie-docs.readthedocs.io/en/latest/richie-sld-toolchain/index.html#system-level-design) is totally *automated* and goes through the *design and integration* of application-specific accelerators into an HeSoC platform.
+The HW and SW components of the HeSoC platform are *specialized*—on top of the application requirements—and *generated*, including the scripts to build and deploy it on commercially off-the-shelf FPGA fabrics.
+
+<a href="https://pulp-platform.org">
+<img src="img/pulp_logo_icon.svg" alt="Logo" width="100" align="right">
+</a>
+
+This <span style="font-variant:small-caps;">SLD toolchain</span> is part of the [<span style="font-variant:small-caps;">Richie framework</span>](https://github.com/Advanced-Architectures-UNIMORE/richie), an open-source research project developed by the University of Modena and Reggio Emilia (UNIMORE) and and the [PULP (Parallel Ultra-Low Power) Platform group](https://pulp-platform.org/index.html), from ETH Zürich and the University of Bologna.
 
 ## About this repository
-This repository contains hardware, software and utilities to support the generation of a full-fledged HeSoC platform.
-It is usually leveraged as a sub-repository of the [<span style="font-variant:small-caps;">Richie framework</span>](https://github.com/Advanced-Architectures-UNIMORE/richie).
+This repository comprises hardware, software and support utilities to support the generation of a full-fledged HeSoC platform. 
+It is usually employed as a submodule of the <span style="font-variant:small-caps;">Richie framework</span>, but the toolchain components are totally independent of it, hence it can also be leveraged for other projects and HeSoC architectures.
+
+The repository is organized as follows:
+
+- `src`: *Specification sources*, i.e., sets of design-time knobs, which are collected in distinct platform and accelerator specification libraries;
+- `sld-toolchain`: *SLD toolchain implementation*. It also comprises the `templates` (hardware, software, utilities, etc.), divided into platform and accelerator template libraries;
+- `tools`: Collection of various *tools*, e.g., for code checking;
+- `scripts`: *Scripts* for Python virtual environment, HWPE standalone verification, code checks and the export of generated artefacts.
+- `verif`: *Verification environment and tools*, including the HWPE standalone verification from the PULP platform;
+- <span style="font-variant:small-caps;">[build]</span> `richie-py-env`: Build directory of the *Python virtual environment*;
+- <span style="font-variant:small-caps;">[build]</span> `output`: Build directory of the *generated HeSoCs*.
 
 ## Documentation
 The project includes comprehensive documentation that can be accessed [online at Read the Docs](https://richie-docs.readthedocs.io/en/latest/).

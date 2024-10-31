@@ -1,6 +1,6 @@
 # =====================================================================
 #
-# Copyright (C) 2024 University of Modena and Reggio Emilia
+# Copyright (C) 2021 University of Modena and Reggio Emilia
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,31 +18,28 @@
 #
 # Project:      Richie Toolchain
 #
-# Name: 	      Check Python PEP8 style guidelines.
+# Name: 		Launch accelerator interface generation
 #
-# Description:  Launch Python linter and search for bugs and style errors.
+# Description: 	Launch Python scripts which renders accelerator interface components.
 #
-# Date:        	26.4.2024
+# Date:        	23.11.2021
 #
-# Author: 	    Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
 #!/bin/bash
 
-THIS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-source $THIS_DIR/../common/common.sh
-
-# Read Makefile arguments
-readonly dir_root=$1
+readonly target_acc=$1
 readonly dir_py_venv=$2
-readonly dir_richie_src=$3
+readonly dir_out_acc=$3
 
 # Activate environment
 source $dir_py_venv/bin/activate
 
-# Analyze generate scripts
-pylint $dir_root/sld-toolchain
+# Launch python generator
+cd sld-toolchain
+python generate_hwpe_accelerator.py $dir_out_acc
 
 # Deactivate environment
 deactivate

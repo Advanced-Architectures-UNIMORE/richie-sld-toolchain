@@ -38,7 +38,7 @@ TARGET_PLATFORM := richie_example
 
 MODULES := common acc_verif check_code py_env richie_export
 $(foreach leaf,$(MODULES),$(eval include $(RICHIE_TOOLCHAIN_ROOT)/scripts/$(leaf)/$(leaf).mk))
--include richie-toolchain/bash/generation.mk
+-include sld-toolchain/bash/generation.mk
 
 .PHONY: all clean export
 

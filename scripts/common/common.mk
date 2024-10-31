@@ -34,7 +34,7 @@ SRC_ACC 											:= ${SRC_DIR}/accelerators
 SRC_PLAT 											:= ${SRC_DIR}/platforms
 
 # Generation flow
-RICHIE_GEN_DIR								:= ${RICHIE_TOOLCHAIN_ROOT}/richie-toolchain
+RICHIE_GEN_DIR								:= ${RICHIE_TOOLCHAIN_ROOT}/sld-toolchain
 SCRIPTS_ACC_GEN								:= ${RICHIE_GEN_DIR}/bash/acc_gen
 SCRIPTS_RICHIE_GEN						:= ${RICHIE_GEN_DIR}/bash/richie_gen
 
