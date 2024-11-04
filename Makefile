@@ -16,33 +16,36 @@
 #
 # =====================================================================
 #
-# Project:     	GenOv
+# Project:     	Richie Toolchain
 #
-# Name: 		Makefile
+# Name: 				Makefile
 #
 # Description: 	Recipes are defined under tools/common_mk, so as to accomplish:
 #
-#					>> Set up of the tool environment;
-#					>> Generation of the accelerator interfaces;
-#					>> Specialization and generation of the accelerator-rich SoC.
+#									>> Set up of the tool environment;
+#									>> Generation of the accelerator interfaces;
+#									>> Specialization and generation of the Accelerator-Rich HeSoC.
 #
 # Date:        	23.11.2021
 #
-# Author: 		Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
+# Author: 			Gianluca Bellocchi <gianluca.bellocchi@unimore.it>
 #
 # =====================================================================
 
-ROOT := $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
-REPO := genov
+RICHIE_TOOLCHAIN_ROOT := $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
-TARGET_OV := agile_1cl_16tg
+TARGET_PLATFORM := richie_example
 
--include tools/common_mk/*.mk
+MODULES := common acc_verif check_code py_env richie_export
+$(foreach leaf,$(MODULES),$(eval include $(RICHIE_TOOLCHAIN_ROOT)/scripts/$(leaf)/$(leaf).mk))
+-include sld-toolchain/bash/generation.mk
 
-.PHONY: all clean
+.PHONY: all clean export
 
-all: ov_gen
+all: richie_gen
 
-init: ov_gen_init
+export: richie_export
 
-clean: ov_gen_clean acc_gen_clean
+init: richie_gen_init
+
+clean: richie_gen_clean acc_gen_clean
