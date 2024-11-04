@@ -21,14 +21,14 @@ This <span style="font-variant:small-caps;">SLD toolchain</span> is part of the 
 
 ## About this repository
 This repository comprises hardware, software and support utilities to support the generation of a full-fledged HeSoC platform.
-It is usually employed as a submodule of the <span style="font-variant:small-caps;">Richie framework</span>, but the toolchain components are totally independent of it, hence it can also be leveraged for other projects and HeSoC architectures.
+The toolchain components are leveraged as part of the <span style="font-variant:small-caps;">Richie framework</span>, but are easily reusable for other projects and HeSoC architectures.
 
 The repository is organized as follows:
 
 - `src`: *Specification sources*, i.e., sets of design-time knobs, which are collected in distinct platform and accelerator specification libraries;
 - `sld-toolchain`: *SLD toolchain implementation*. It also comprises the `templates` (hardware, software, utilities, etc.), divided into platform and accelerator template libraries;
 - `tools`: Collection of various *tools*, e.g., for code checking;
-- `scripts`: *Scripts* for Python virtual environment, HWPE standalone verification, code checks and the export of generated artefacts.
+- `scripts`: *Scripts* for Python virtual environment, HWPE standalone verification, code checks and the export of generated artefacts;
 - `verif`: *Verification environment and tools*, including the HWPE standalone verification from the PULP platform;
 - <span style="font-variant:small-caps;">[build]</span> `richie-py-env`: Build directory of the *Python virtual environment*;
 - <span style="font-variant:small-caps;">[build]</span> `output`: Build directory of the *generated HeSoCs*.
