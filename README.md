@@ -8,7 +8,7 @@
   </p>
 </figure>
 
-## About the project
+## About this project
 This <span style="font-variant:small-caps;">**SLD toolchain**</span> automates and facilitates the hardware-software co-design of HeSoCs, based on the accelerator-rich and many-core compute paradigms.
 The [**SLD flow**](https://richie-docs.readthedocs.io/en/latest/richie-sld-toolchain/index.html#system-level-design) is totally automated and goes through the *design and integration* of application-specific accelerators into an HeSoC platform.
 The hardware and software components of the HeSoC platform are *specialized*, on top of the application requirements, and finally *generated*, including the scripts to build and deploy it on commercially off-the-shelf FPGA fabrics.
@@ -38,9 +38,9 @@ The project includes comprehensive documentation that can be accessed [online at
 
 ## How to contribute
 We are always enthusiastic about potential collaborations and contributions to our work!
-Have a look at [CONTRIBUTING](CONTRIBUTING.md) for guidelines on how to contribute code to this repository.
+Have a look at our [contribution guide](https://richie-docs.readthedocs.io/en/latest/general/contributing.html) in order to learn how to contribute code to this repository.
 
-## Licensing
+## License
 [Have a look at our guidelines for licensing](https://richie-docs.readthedocs.io/en/latest/general/license.html), or take a look at the full text:
 - see [LICENSE-SHL](LICENSE-SHL) for the Solderpad Hardware License, Version 0.51;
 - see [LICENSE-APACHE](LICENSE-APACHE) for the Apache License, Version 2.0.

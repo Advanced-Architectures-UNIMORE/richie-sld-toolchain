@@ -65,7 +65,7 @@ if [ -d "$dir_hw_src" ]; then
 	done
 else
 	# Take action if it does not exist. #
-	error_exit "[sh] >> No destination path has been found. Be sure to properly setup your environment."
+	error_exit "[sh] >> No destination path has been found. Be sure to properly set up your environment."
 fi
 
 # Add generated platform configuration to platform design environment
